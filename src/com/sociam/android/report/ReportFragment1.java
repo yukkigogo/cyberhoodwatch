@@ -42,6 +42,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+// This class for first report page
 public class ReportFragment1 extends Fragment implements LocationListener{
 
 	static final int REQUEST_CAPTURE_IMAGE = 100;
@@ -92,9 +93,10 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 			@Override
 			public void onClick(View v) {
 				
-				getLocation();
-				// take picture
+				
+				// take picture get location 
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				getLocation();
 				startActivityForResult(intent,REQUEST_CAPTURE_IMAGE);
 			}
 		});
@@ -107,8 +109,8 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 		// obtain location
 
 		locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-		Log.v("odebaki", "GPS "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-		Log.v("odebaki", "NETWORK "+locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+		Log.v("sociam", "GPS "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+		Log.v("sociam", "NETWORK "+locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
 
 		
 		List<String> allProvider =  locationManager.getAllProviders();
@@ -120,6 +122,7 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(REQUEST_CAPTURE_IMAGE == requestCode && resultCode == Activity.RESULT_OK ){
+			
 			capturedImage = (Bitmap) data.getExtras().get("data");
 			imageView1.setImageBitmap(capturedImage);
 			
@@ -127,7 +130,7 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 				saveBitmap(capturedImage);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				Log.v("odebaki","fail saving to the folder");
+				Log.v("sociam","fail saving to the folder");
 				e.printStackTrace();
 			}
 			
@@ -160,13 +163,12 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 				
 	            // get current location
 				if(latitude==null || longitude==null){
-				Log.v("odebaki", "NULL DESHO!");	
+				
 				
 				
 				}else{
-					Log.v("odebaki", "lat "+latitude.toString());
-					Log.v("odebaki", "Lon"+longitude.toString());
-				
+					Log.v("sociam", "lat "+latitude.toString());
+					Log.v("sociam", "Lon"+longitude.toString());				
 					UploadAsyncTask upload = (UploadAsyncTask) new UploadAsyncTask(
 						getActivity()).execute(Environment.getExternalStorageDirectory().getPath()+SAVE_DIR+fileName
 								,latitude.toString(),longitude.toString());
@@ -225,12 +227,10 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-		latitude = location.getLatitude();
-		longitude = location.getLongitude();
+			latitude = location.getLatitude();
+			longitude = location.getLongitude();
 		
-		Log.v("odebaki", "Lat "+latitude + "   Lon "+longitude);
-		
+			Log.v("sociam", "Lat "+latitude + "   Lon "+longitude);
 	}
 	
 
