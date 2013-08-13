@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
+import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
@@ -37,9 +39,13 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 // this class for the start page. 
-public class MainActivity extends FragmentActivity implements LocationListener{
+public class MainActivity extends FragmentActivity implements LocationListener,
+												OnInfoWindowClickListener{
   
 	private GoogleMap mMap;
 	private ArrayList<Crime> crimes;
@@ -119,7 +125,10 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	  // set up the map. 
 	  getCrimesData();
 	  plotCrime();
-			  
+	
+	  //setup inforwindow
+	  mMap.setOnInfoWindowClickListener(this);
+	  mMap.setInfoWindowAdapter(new CustomInfoAdapter());
 		  
   }
  
@@ -146,7 +155,8 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	for(Crime crime : crimes){
 		amaker = mMap.addMarker(new MarkerOptions()
 		.position(new LatLng(crime.getLat(), crime.getLon()))
-		.title(crime.getDate()));		
+		.title(crime.getDate())
+		.snippet(crime.getFilepath()));		
 	
 	
 		markers.add(amaker);
@@ -255,8 +265,11 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 		    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 		}
 
-
-
+	 
+	/*
+	 * 
+	 * @see android.location.LocationListener#onLocationChanged(android.location.Location)
+	 */
 	@Override
 	public void onLocationChanged(Location location) {
 		// obtain the current position and move to the place
@@ -274,6 +287,52 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	public void onStatusChanged(String provider, int status, Bundle extras) {}
 
 
+	/*
+	 * InfoWindow Customise
+	 */
+	private class CustomInfoAdapter implements InfoWindowAdapter{
+		
+		private final View mWindow;
+		
+		public CustomInfoAdapter() {
+			mWindow = getLayoutInflater().inflate(R.layout.info_window, null);
+		}
+		
+		@Override
+		public View getInfoContents(Marker arg0) {
+			return null;
+		}
+
+		@Override
+		public View getInfoWindow(Marker maker) {
+			render(maker,mWindow);
+			return mWindow;
+		}
+		
+		
+		private void render(Marker maker, View view) {
+			TextView date = (TextView) view.findViewById(R.id.date);
+			ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
+			
+			date.setText(maker.getTitle());
+			imageView.setImageBitmap(Downloader.getImageFromURL(maker.getSnippet()));
+			
+			
+		}
+		
+		
+	}
+	
+	
+	@Override
+	public void onInfoWindowClick(Marker marker) {
+		// 
+		marker.hideInfoWindow();
+			
+	}
+
+	
+	
 
   
 }
