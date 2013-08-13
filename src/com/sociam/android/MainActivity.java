@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap;
@@ -47,7 +48,7 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	protected LocationManager locationManager;
 	protected LocationListener locationListener;
 	protected Context context;
-	protected Double lat,lng; 
+
 	
 	
   @Override
@@ -110,31 +111,21 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	  mMap.setMyLocationEnabled(true);
 	  UiSettings settings = mMap.getUiSettings();
 	  settings.setCompassEnabled(true);
+	
+	  //set up current location using LocationManager
+		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
+		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 	  
-	  
-		  
 	  // set up the map. 
 	  getCrimesData();
 	  plotCrime();
-	
-	// get current location
-		  if(isLocationAvaiable()){
-			  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15));	
-		  }else{
-			  Log.e("sociam","Fail isLocationAvaiable");
-		  }
-	  
-		  
+			  
 		  
   }
  
 	 @Override
 	protected void onStart() {
-		super.onStart();
-		
-		
-		
-	
+		super.onStart();	
 	}
 
 	public void onStop() {
@@ -143,24 +134,12 @@ public class MainActivity extends FragmentActivity implements LocationListener{
 	}
 	 
   
-  private boolean isLocationAvaiable() {
-	// get location from network only	
-	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
-	LocationProvider provider = locationManager.getProvider(LocationManager.NETWORK_PROVIDER);
-	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
-	
-	if(lat==null || lng==null){
-		Log.w("sociam", "fail obtaing location");
-		return false;
-	}else{
-		return true;
-	}
-	
-}
 
 
 
-private void plotCrime() {
+
+
+  private void plotCrime() {
 	// 
 	markers = new ArrayList<Marker>();
 	Marker amaker = null;
@@ -280,10 +259,12 @@ private void plotCrime() {
 
 	@Override
 	public void onLocationChanged(Location location) {
-		// TODO Auto-generated method stub
-		lat = location.getLatitude();
-		lng = location.getLongitude();
-		Log.v("sociam", "Lat map "+lat + "   Lon map "+lng);
+		// obtain the current position and move to the place
+		LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
+		mMap.animateCamera(cameraUpdate);
+		locationManager.removeUpdates(this);
+		
 	}
 	@Override
 	public void onProviderDisabled(String provider) {}
