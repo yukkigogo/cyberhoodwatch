@@ -52,7 +52,8 @@ int drawable common_signin_btn_text_normal_light 0x7f020016
 int drawable common_signin_btn_text_pressed_dark 0x7f020017
 int drawable common_signin_btn_text_pressed_light 0x7f020018
 int drawable ic_launcher 0x7f020019
-int drawable uploadicon 0x7f02001a
+int drawable info_window_transparent2 0x7f02001a
+int drawable uploadicon 0x7f02001b
 int id action_settings 0x7f05000a
 int id button1 0x7f050008
 int id fragment1 0x7f050009
