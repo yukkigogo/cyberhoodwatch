@@ -106,8 +106,8 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 	}
 
 	public void getLocation(){
+		
 		// obtain location
-
 		locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 		Log.v("sociam", "GPS "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 		Log.v("sociam", "NETWORK "+locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
@@ -163,8 +163,7 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 				
 	            // get current location
 				if(latitude==null || longitude==null){
-				
-				
+
 				
 				}else{
 					Log.v("sociam", "lat "+latitude.toString());
@@ -224,7 +223,8 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 	    contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 	    
 	}
-
+	
+	// for location manager
 	@Override
 	public void onLocationChanged(Location location) {
 			latitude = location.getLatitude();
@@ -233,23 +233,17 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 			Log.v("sociam", "Lat "+latitude + "   Lon "+longitude);
 	}
 	
-
 	@Override
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-
 	@Override
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
-
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	

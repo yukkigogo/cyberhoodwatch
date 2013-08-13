@@ -2,24 +2,30 @@ package com.sociam.android;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.MarkerOptionsCreator;
+import com.google.android.gms.maps.UiSettings;
 import com.sociam.android.report.ReportActivity;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Criteria;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.location.LocationProvider;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -32,11 +38,16 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 // this class for the start page. 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements LocationListener{
   
 	private GoogleMap mMap;
 	private ArrayList<Crime> crimes;
 	private ArrayList<Marker> markers;
+
+	protected LocationManager locationManager;
+	protected LocationListener locationListener;
+	protected Context context;
+	protected Double lat,lng; 
 	
 	
   @Override
@@ -77,6 +88,7 @@ public class MainActivity extends FragmentActivity {
 	  	return super.onOptionsItemSelected(item);
 	}
   
+
   
   private void setUpMapIfNeeded() {
       // Do a null check to confirm that we have not already instantiated the map.  
@@ -94,13 +106,61 @@ public class MainActivity extends FragmentActivity {
 
   
   private void setUpMap() {
+	  
+	  mMap.setMyLocationEnabled(true);
+	  UiSettings settings = mMap.getUiSettings();
+	  settings.setCompassEnabled(true);
+	  
+	  
+		  
 	  // set up the map. 
 	  getCrimesData();
 	  plotCrime();
 	
+	// get current location
+		  if(isLocationAvaiable()){
+			  mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 15));	
+		  }else{
+			  Log.e("sociam","Fail isLocationAvaiable");
+		  }
+	  
+		  
+		  
   }
+ 
+	 @Override
+	protected void onStart() {
+		super.onStart();
+		
+		
+		
+	
+	}
+
+	public void onStop() {
+		super.onStop();
+		locationManager.removeUpdates(this);
+	}
+	 
   
-  private void plotCrime() {
+  private boolean isLocationAvaiable() {
+	// get location from network only	
+	locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
+	LocationProvider provider = locationManager.getProvider(LocationManager.NETWORK_PROVIDER);
+	locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+	
+	if(lat==null || lng==null){
+		Log.w("sociam", "fail obtaing location");
+		return false;
+	}else{
+		return true;
+	}
+	
+}
+
+
+
+private void plotCrime() {
 	// 
 	markers = new ArrayList<Marker>();
 	Marker amaker = null;
@@ -215,6 +275,24 @@ public class MainActivity extends FragmentActivity {
 		    NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
 		    return activeNetworkInfo != null && activeNetworkInfo.isConnected();
 		}
-  
+
+
+
+	@Override
+	public void onLocationChanged(Location location) {
+		// TODO Auto-generated method stub
+		lat = location.getLatitude();
+		lng = location.getLongitude();
+		Log.v("sociam", "Lat map "+lat + "   Lon map "+lng);
+	}
+	@Override
+	public void onProviderDisabled(String provider) {}
+	@Override
+	public void onProviderEnabled(String provider) {}
+	@Override
+	public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+
+
   
 }
