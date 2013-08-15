@@ -268,7 +268,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	 
 	/*
 	 * 
-	 * @see android.location.LocationListener#onLocationChanged(android.location.Location)
+	 * android.location.LocationListener#onLocationChanged(android.location.Location)
 	 */
 	@Override
 	public void onLocationChanged(Location location) {

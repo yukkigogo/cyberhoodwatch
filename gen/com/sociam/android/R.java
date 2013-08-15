@@ -129,6 +129,7 @@ containing a value of this type.
         public static final int zOrderOnTop=0x7f01000d;
     }
     public static final class color {
+        public static final int black=0x7f04000c;
         public static final int common_action_bar_splitter=0x7f040009;
         /**  Sign-in Button Colors 
          */
@@ -141,12 +142,13 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f040006;
         public static final int common_signin_btn_light_text_focused=0x7f040007;
         public static final int common_signin_btn_light_text_pressed=0x7f040005;
-        public static final int common_signin_btn_text_dark=0x7f04000e;
-        public static final int common_signin_btn_text_light=0x7f04000f;
-        public static final int d_blue=0x7f04000d;
+        public static final int common_signin_btn_text_dark=0x7f040010;
+        public static final int common_signin_btn_text_light=0x7f040011;
+        public static final int d_blue=0x7f04000f;
+        public static final int d_gray=0x7f04000b;
         public static final int gray=0x7f04000a;
-        public static final int l_blue=0x7f04000c;
-        public static final int white=0x7f04000b;
+        public static final int l_blue=0x7f04000e;
+        public static final int white=0x7f04000d;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -190,26 +192,29 @@ containing a value of this type.
         public static final int uploadicon=0x7f02001c;
     }
     public static final class id {
-        public static final int action_settings=0x7f05000b;
-        public static final int button1=0x7f050009;
-        public static final int date=0x7f050006;
-        public static final int fragment1=0x7f05000a;
-        public static final int framelayout=0x7f050008;
-        public static final int go_new=0x7f05000c;
+        public static final int action_settings=0x7f05000d;
+        public static final int btn1=0x7f050006;
+        public static final int btn2=0x7f050007;
+        public static final int button1=0x7f05000b;
+        public static final int date=0x7f050008;
+        public static final int framelayout=0x7f05000a;
+        public static final int go_new=0x7f05000e;
         public static final int hybrid=0x7f050004;
-        public static final int imageView1=0x7f050007;
+        public static final int imageView1=0x7f050009;
         public static final int map=0x7f050005;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
+        public static final int pager=0x7f05000c;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int info_window=0x7f030001;
-        public static final int report_fragment1=0x7f030002;
-        public static final int report_fragment2=0x7f030003;
-        public static final int report_main=0x7f030004;
+        public static final int footer=0x7f030001;
+        public static final int info_window=0x7f030002;
+        public static final int report_fragment1=0x7f030003;
+        public static final int report_fragment2=0x7f030004;
+        public static final int report_main=0x7f030005;
     }
     public static final class menu {
         public static final int main=0x7f090000;
@@ -325,6 +330,16 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f080001;
+        /**  for footer style 
+         */
+        public static final int Theme=0x7f080002;
+        public static final int h_line=0x7f080008;
+        public static final int indicator_style=0x7f080009;
+        public static final int layout_f_w=0x7f080007;
+        public static final int layout_fill=0x7f080006;
+        public static final int layout_wrap=0x7f080005;
+        public static final int text_option=0x7f080004;
+        public static final int text_title=0x7f080003;
     }
     public static final class styleable {
         /** Attributes that can be used with a MapAttrs.

@@ -134,52 +134,52 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 			}
 			
 			// create button
-			button2 = new ImageButton(getActivity());
-			button2.setImageResource(R.drawable.uploadicon);
+			//button2 = new ImageButton(getActivity());
+			//button2.setImageResource(R.drawable.uploadicon);
 			// add button to layout
-			FrameLayout layout =(FrameLayout) getActivity().findViewById(R.id.framelayout);
-			layout.addView(button2, new FrameLayout.LayoutParams(
-					FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT
-					,Gravity.BOTTOM | Gravity.CENTER));
-			
-			setListeners2();	
+			//FrameLayout layout =(FrameLayout) getActivity().findViewById(R.id.framelayout);
+//			layout.addView(button2, new FrameLayout.LayoutParams(
+//					FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT
+//					,Gravity.BOTTOM | Gravity.CENTER));
+//			
+			//setListeners2();	
 		}
 	}
 
 	
 	
 	
-	protected void setListeners2(){		
-		button2.setOnClickListener(new OnClickListener(){
-			
-			@Override
-			public void onClick(View v) {
-				
-				File file = null;
-
-				file = Environment.getExternalStorageDirectory();
-				Log.v("datas", file.getPath());    
-				
-	            // get current location
-				if(latitude==null || longitude==null){
-
-				
-				}else{
-					Log.v("sociam", "lat "+latitude.toString());
-					Log.v("sociam", "Lon"+longitude.toString());				
-					UploadAsyncTask upload = (UploadAsyncTask) new UploadAsyncTask(
-						getActivity()).execute(Environment.getExternalStorageDirectory().getPath()+SAVE_DIR+fileName
-								,latitude.toString(),longitude.toString());
-				
-				}
-				
-				
-	            
-				
-			}
-		});		
-		
-	}
+//	protected void setListeners2(){		
+//		button2.setOnClickListener(new OnClickListener(){
+//			
+//			@Override
+//			public void onClick(View v) {
+//				
+//				File file = null;
+//
+//				file = Environment.getExternalStorageDirectory();
+//				Log.v("datas", file.getPath());    
+//				
+//	            // get current location
+//				if(latitude==null || longitude==null){
+//
+//				
+//				}else{
+//					Log.v("sociam", "lat "+latitude.toString());
+//					Log.v("sociam", "Lon"+longitude.toString());				
+//					UploadAsyncTask upload = (UploadAsyncTask) new UploadAsyncTask(
+//						getActivity()).execute(Environment.getExternalStorageDirectory().getPath()+SAVE_DIR+fileName
+//								,latitude.toString(),longitude.toString());
+//				
+//				}
+//				
+//				
+//	            
+//				
+//			}
+//		});		
+//		
+//	}
 
 	
 	public void saveBitmap(Bitmap saveImage) throws IOException{
