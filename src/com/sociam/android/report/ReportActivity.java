@@ -39,11 +39,11 @@ public class ReportActivity extends FragmentActivity {
 			@Override
 			public void onPageSelected(int position) {
 				switch(position){
-				case 0: setBtn(btn1,"1",80,80,true);
+				case 0: setBtn(btn1,"1",60,60,true);
 						setBtn(btn2, "", 20, 20,false);
 						break;
 				case 1:	setBtn(btn1,"",20,20,false);
-						setBtn(btn2, "2", 80, 80,true);
+						setBtn(btn2, "2", 60, 60,true);
 						break;	
 				}
 				
@@ -67,15 +67,17 @@ public class ReportActivity extends FragmentActivity {
 		Resources res = getResources();
 		Drawable main = res.getDrawable(R.drawable.rounded_cell);
 		Drawable mini = res.getDrawable(R.drawable.rounded_mini);
-		btn.setText(text);
 		if(select) btn.setBackground(main);
 		else btn.setBackground(mini);
+		btn.setText(text);
+		btn.setHeight(h);
+		btn.setWidth(w);
 	}
 	
 	private void initButton() {
 		btn1 = (Button) findViewById(R.id.btn1);
 		btn2 = (Button) findViewById(R.id.btn2);
-		setBtn(btn1, "1", 80, 80,true);
+		setBtn(btn1, "1", 60, 60,true);
 		setBtn(btn2,"",20,20,false);
 		
 	}

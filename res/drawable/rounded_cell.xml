@@ -6,6 +6,8 @@
         >
         
 
+        <solid
+        android:color="@color/white" />
        
 <!--         android:innerRadius="10dp"
         android:innerRadiusRatio="1.75"
@@ -23,7 +25,7 @@
             android:height="40dp" />
 
         <solid android:color="@color/white" />
- -->        <stroke android:color="@color/l_blue" android:width="5dp" />
+ -->        <stroke android:color="@color/l_blue" android:width="1dp" />
     </shape>
 
 
