@@ -22,9 +22,12 @@ int color common_signin_btn_light_text_default 0x7f040004
 int color common_signin_btn_light_text_disabled 0x7f040006
 int color common_signin_btn_light_text_focused 0x7f040007
 int color common_signin_btn_light_text_pressed 0x7f040005
-int color common_signin_btn_text_dark 0x7f04000b
-int color common_signin_btn_text_light 0x7f04000c
+int color common_signin_btn_text_dark 0x7f04000e
+int color common_signin_btn_text_light 0x7f04000f
+int color d_blue 0x7f04000d
 int color gray 0x7f04000a
+int color l_blue 0x7f04000c
+int color white 0x7f04000b
 int dimen activity_horizontal_margin 0x7f070000
 int dimen activity_vertical_margin 0x7f070001
 int drawable camera 0x7f020000
@@ -54,7 +57,8 @@ int drawable common_signin_btn_text_pressed_dark 0x7f020017
 int drawable common_signin_btn_text_pressed_light 0x7f020018
 int drawable ic_launcher 0x7f020019
 int drawable info_window_transparent2 0x7f02001a
-int drawable uploadicon 0x7f02001b
+int drawable rounded_cell 0x7f02001b
+int drawable uploadicon 0x7f02001c
 int id action_settings 0x7f05000b
 int id button1 0x7f050009
 int id date 0x7f050006

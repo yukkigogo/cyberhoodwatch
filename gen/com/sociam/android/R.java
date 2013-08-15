@@ -141,9 +141,12 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f040006;
         public static final int common_signin_btn_light_text_focused=0x7f040007;
         public static final int common_signin_btn_light_text_pressed=0x7f040005;
-        public static final int common_signin_btn_text_dark=0x7f04000b;
-        public static final int common_signin_btn_text_light=0x7f04000c;
+        public static final int common_signin_btn_text_dark=0x7f04000e;
+        public static final int common_signin_btn_text_light=0x7f04000f;
+        public static final int d_blue=0x7f04000d;
         public static final int gray=0x7f04000a;
+        public static final int l_blue=0x7f04000c;
+        public static final int white=0x7f04000b;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -183,7 +186,8 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_light=0x7f020018;
         public static final int ic_launcher=0x7f020019;
         public static final int info_window_transparent2=0x7f02001a;
-        public static final int uploadicon=0x7f02001b;
+        public static final int rounded_cell=0x7f02001b;
+        public static final int uploadicon=0x7f02001c;
     }
     public static final class id {
         public static final int action_settings=0x7f05000b;

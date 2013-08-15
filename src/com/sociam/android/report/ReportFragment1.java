@@ -22,8 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import android.annotation.SuppressLint;
-import android.app.Fragment;
-
+import android.support.v4.app.Fragment;
 
 import android.app.Activity;
 import android.content.ContentResolver;
