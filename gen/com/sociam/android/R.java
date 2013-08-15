@@ -189,7 +189,8 @@ containing a value of this type.
         public static final int ic_launcher=0x7f020019;
         public static final int info_window_transparent2=0x7f02001a;
         public static final int rounded_cell=0x7f02001b;
-        public static final int uploadicon=0x7f02001c;
+        public static final int rounded_mini=0x7f02001c;
+        public static final int uploadicon=0x7f02001d;
     }
     public static final class id {
         public static final int action_settings=0x7f05000d;

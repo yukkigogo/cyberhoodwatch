@@ -318,6 +318,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 			imageView.setImageBitmap(Downloader.getImageFromURL(maker.getSnippet()));
 			
 			
+
 		}
 		
 		

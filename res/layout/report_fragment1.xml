@@ -26,6 +26,8 @@
             android:layout_gravity="center_horizontal"
             android:background="@null"
             android:src="@drawable/camera" />
+        
+        
     </FrameLayout>
 
 
