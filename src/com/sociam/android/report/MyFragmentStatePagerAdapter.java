@@ -22,6 +22,10 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 		case 1: 
 			ReportFragment2 rp2 = new ReportFragment2();
 			return rp2;
+		case 2: 
+			ReportFragment7 rp7 = new ReportFragment7();
+			return rp7;
+
 		default:
 			return new ReportFragment1();
 		}
@@ -30,7 +34,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public int getCount() {
-		return 2;
+		return 3;
 	}
 	
 

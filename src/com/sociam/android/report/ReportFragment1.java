@@ -78,7 +78,7 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 	public void onStop() {
 		// TODO Auto-generated method stub
 		super.onStop();
-		locationManager.removeUpdates(this);
+		//locationManager.removeUpdates(this);
 	}
 
 	

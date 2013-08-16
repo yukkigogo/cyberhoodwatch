@@ -4,11 +4,91 @@
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
-	android:background="#0000ff">
-	<TextView 
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:textSize="30sp"
-		android:textColor="#000000"
-		android:text="World!"/>
+	android:background="@color/d_gray">
+	
+	<RelativeLayout
+	    android:id="@+id/framelayout"
+	    android:layout_width="fill_parent"
+	    android:layout_height="fill_parent"
+	    android:layout_margin="30dip"
+	    android:background="@color/black" >
+
+		<TextView
+		    android:id="@+id/textView1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentTop="true"
+		    android:layout_centerHorizontal="true"
+		    android:textColor="@color/white"
+		    android:textSize="20sp"
+		    android:layout_margin="10dip"
+		    android:text="Category" />
+
+		<Button
+		    android:id="@+id/frag2midBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_centerHorizontal="true"
+		    android:layout_centerVertical="true"
+		    android:text="Button" 
+		    android:background="@drawable/easy_botton"/>
+
+		<Button
+		    android:id="@+id/frag2LeftBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignBaseline="@+id/frag2midBtn"
+		    android:layout_alignBottom="@+id/frag2midBtn"
+		    android:layout_toLeftOf="@+id/frag2TopBtn"
+		    android:text="Button" 
+		    android:background="@drawable/easy_botton"/>
+
+		<Button
+		    android:id="@+id/frag2TopBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_above="@+id/frag2midBtn"
+		    android:layout_centerHorizontal="true"
+		    android:layout_margin="5dip"
+		    android:text="Button" 
+		    android:background="@drawable/easy_botton"/>
+
+		<Button
+		    android:id="@+id/frag2RightBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_centerVertical="true"
+		    android:layout_toRightOf="@+id/frag2TopBtn"
+		    android:text="Button" 
+		    android:background="@drawable/easy_botton"/>
+
+		<Button
+		    android:id="@+id/frag2bottomBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/frag2midBtn"
+		    android:layout_toLeftOf="@+id/frag2RightBtn"
+		    android:layout_margin="5dip"
+		    android:text="Button" 
+		    android:background="@drawable/easy_botton"/>
+
+		<Button
+		    android:id="@+id/frag2description"
+		    android:layout_width="120dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignTop="@+id/frag2goSummary"
+		    android:text="Add Description" />
+
+		<Button
+		    android:id="@+id/frag2goSummary"
+		    android:layout_width="120dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentRight="true"
+		    android:text="Go Summary" />
+
+	</RelativeLayout>
+	
 </LinearLayout>

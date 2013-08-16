@@ -14,7 +14,7 @@ import com.sociam.android.R;
 public class ReportActivity extends FragmentActivity {
 
 	ViewPager pager;
-	Button btn1, btn2;
+	Button btn1,btn2,btn3;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -41,10 +41,16 @@ public class ReportActivity extends FragmentActivity {
 				switch(position){
 				case 0: setBtn(btn1,"1",60,60,true);
 						setBtn(btn2, "", 20, 20,false);
+						setBtn(btn3,"",20,20,false);
 						break;
 				case 1:	setBtn(btn1,"",20,20,false);
 						setBtn(btn2, "2", 60, 60,true);
+						setBtn(btn3,"",20,20,false);
 						break;	
+				case 2:	setBtn(btn1,"",20,20,false);
+						setBtn(btn2,"",20,20,false);
+						setBtn(btn3, "3", 60, 60,true);
+				break;			
 				}
 				
 			}
@@ -77,9 +83,11 @@ public class ReportActivity extends FragmentActivity {
 	private void initButton() {
 		btn1 = (Button) findViewById(R.id.btn1);
 		btn2 = (Button) findViewById(R.id.btn2);
+		btn3 = (Button) findViewById(R.id.btn3);
 		setBtn(btn1, "1", 60, 60,true);
 		setBtn(btn2,"",20,20,false);
-		
+		setBtn(btn3,"",20,20,false);
+			
 	}
 	
 	

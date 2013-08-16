@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/black"
     android:orientation="vertical" >
 
     <FrameLayout
@@ -10,14 +10,14 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_margin="30dip"
-        android:background="#ffffff" >
+        android:background="@color/black" >
 
         <ImageView
             android:id="@+id/imageView1"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="#d7d8cc" />
+            android:background="@color/black" />
 
         <ImageButton
             android:id="@+id/button1"
@@ -25,11 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:background="@null"
-            android:src="@drawable/camera" />
-        
-         
-        
+            android:src="@drawable/camera_while" />        
     </FrameLayout>
-
 
 </LinearLayout>
