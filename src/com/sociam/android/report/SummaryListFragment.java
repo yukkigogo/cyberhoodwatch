@@ -12,7 +12,8 @@ public class SummaryListFragment extends ListFragment {
 		String[] details = { "Picture : YES", "Category : ASB", 
 			"Place : Here", "number of Suspects : 1",
             "Suspects gender : male", "Age of suspects : 20-25", 
-            "Ethics : white", "Dress colour : blue" };
+            "Ethics : white", "Dress colour : blue" ,"test test",
+            "test test test"};
 		
 		
 		   ArrayAdapter<String> adapter = new ArrayAdapter<String>(
