@@ -7,8 +7,9 @@
     android:orientation="vertical" >
  
 
+    
     <Button
-        android:id="@+id/btn2"
+        android:id="@+id/btn1"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginLeft="2.5dip"
@@ -18,25 +19,35 @@
  	
    />
  
-   <Button
-         android:id="@+id/btn1"
+       <Button
+         android:id="@+id/btn0"
          android:layout_width="40dp"
          android:layout_height="40dp"
          android:layout_centerHorizontal="true"
          android:layout_centerVertical="true"
          android:layout_marginLeft="2.5dip"
          android:layout_marginRight="2.5dip"
-         android:layout_toLeftOf="@id/btn2"
+         android:layout_toLeftOf="@id/btn1"
          />
     
+     
        <Button
+         android:id="@+id/btn2"
+         android:layout_width="40dp"
+         android:layout_height="40dp"
+         android:layout_centerHorizontal="true"
+         android:layout_centerVertical="true"
+         android:layout_marginLeft="2.5dip"
+         android:layout_toRightOf="@id/btn1"
+         />
+       
+      <Button
          android:id="@+id/btn3"
          android:layout_width="40dp"
          android:layout_height="40dp"
          android:layout_centerHorizontal="true"
          android:layout_centerVertical="true"
-        android:layout_marginLeft="2.5dip"
-        android:layout_marginRight="2.5dip"
+         android:layout_marginLeft="2.5dip"
          android:layout_toRightOf="@id/btn2"
          />
           

@@ -8,10 +8,13 @@ public class Crime {
 	private String text;
 	private String userID;
 	private boolean id_code;
-	private double lat;
-	private double lon;
 	private String date;
 	private String filepath;
+
+	private boolean location_latlon;
+	private double lat;
+	private double lon;
+	private String address;
 	
 	public void setCrimeID(int id){	
 		crimeID=id;

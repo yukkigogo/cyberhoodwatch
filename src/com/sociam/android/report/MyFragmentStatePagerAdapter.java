@@ -8,6 +8,8 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
+	final int PAGE_COUNT = 4;
+	
 	public MyFragmentStatePagerAdapter(FragmentManager fm) {
 		super(fm);
 	}
@@ -23,9 +25,14 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 			ReportFragment2 rp2 = new ReportFragment2();
 			return rp2;
 		case 2: 
+			ReportFragment3 rp3 = new ReportFragment3();
+			return rp3;
+
+		case 3: 
 			ReportFragment7 rp7 = new ReportFragment7();
 			return rp7;
 
+		
 		default:
 			return new ReportFragment1();
 		}
@@ -34,7 +41,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public int getCount() {
-		return 3;
+		return PAGE_COUNT;
 	}
 	
 

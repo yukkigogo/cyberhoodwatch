@@ -9,7 +9,7 @@ public class SummaryListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		String[] details = { "Picture : YES", "Category : ASB", 
+		String[] details = { "Picture : "+((ReportActivity) getActivity()).getCrime().getFilepath(), "Category : ASB", 
 			"Place : Here", "number of Suspects : 1",
             "Suspects gender : male", "Age of suspects : 20-25", 
             "Ethics : white", "Dress colour : blue" ,"test test",

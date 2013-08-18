@@ -46,6 +46,8 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 
 	static final int REQUEST_CAPTURE_IMAGE = 100;
 	
+	
+	
 	ImageButton button1;
 	ImageButton button2;
 	ImageView imageView1;
@@ -59,6 +61,7 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 	protected LocationListener locationListener;
 	protected Context context;
 	protected Double latitude,longitude; 
+	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
@@ -90,8 +93,7 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 	protected void setListeners(){		
 		button1.setOnClickListener(new OnClickListener(){
 			@Override
-			public void onClick(View v) {
-				
+			public void onClick(View v) {				
 				
 				// take picture get location 
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -201,6 +203,8 @@ public class ReportFragment1 extends Fragment implements LocationListener{
 	    SimpleDateFormat fileNameDate = new SimpleDateFormat("yyyyMMdd_HHmmss");
 	    fileName = fileNameDate.format(mDate) + ".jpg";
 	    String AttachName = file.getAbsolutePath() + "/" + fileName;
+		Log.e("sociam", AttachName);
+		((ReportActivity) getActivity()).getCrime().setFilepath(AttachName);
 		
 	    //convert Bitmap to jpg and store the folder
 	    try {
