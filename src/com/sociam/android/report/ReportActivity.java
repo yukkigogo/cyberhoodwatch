@@ -31,9 +31,11 @@ public class ReportActivity extends FragmentActivity {
 	
 	// store crime data
 	private Crime crime;
+	private int cat1; // 0:other 1:violent 2:theft 3:ASB
 	private MyFragmentStatePagerAdapter myAdapter;
 	ViewPager pager;
 	Button btn0,btn1,btn2,btn3;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -57,8 +59,7 @@ public class ReportActivity extends FragmentActivity {
 	}
 
 	private void setFooter() {
-		pager.setOnPageChangeListener(new OnPageChangeListener() {
-			
+		pager.setOnPageChangeListener(new OnPageChangeListener() {			
 			@Override
 			public void onPageSelected(int position) {
 				switch(position){
@@ -86,6 +87,8 @@ public class ReportActivity extends FragmentActivity {
 				
 			}
 			
+			// get currentItem de page no zokusei wo set suru
+			//http://stackoverflow.com/questions/8117523/how-can-i-get-page-number-in-view-pager-for-android
 
 	
 
@@ -94,6 +97,7 @@ public class ReportActivity extends FragmentActivity {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
+		
 		
 
 		
@@ -131,6 +135,12 @@ public class ReportActivity extends FragmentActivity {
 		return this.myAdapter;
 	}
 	
+	public void setCat1(int i){
+		this.cat1=i;
+	}
+	public int getCat1(){
+		return this.cat1;
+	}
 	
 	
 }

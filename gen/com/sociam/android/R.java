@@ -189,11 +189,12 @@ containing a value of this type.
         public static final int common_signin_btn_text_pressed_dark=0x7f020018;
         public static final int common_signin_btn_text_pressed_light=0x7f020019;
         public static final int easy_botton=0x7f02001a;
-        public static final int ic_launcher=0x7f02001b;
-        public static final int info_window_transparent2=0x7f02001c;
-        public static final int rounded_cell=0x7f02001d;
-        public static final int rounded_mini=0x7f02001e;
-        public static final int uploadicon=0x7f02001f;
+        public static final int easy_toggle_botton=0x7f02001b;
+        public static final int ic_launcher=0x7f02001c;
+        public static final int info_window_transparent2=0x7f02001d;
+        public static final int rounded_cell=0x7f02001e;
+        public static final int rounded_mini=0x7f02001f;
+        public static final int uploadicon=0x7f020020;
     }
     public static final class id {
         public static final int action_settings=0x7f05001d;
@@ -201,15 +202,15 @@ containing a value of this type.
         public static final int btn1=0x7f050006;
         public static final int btn2=0x7f050008;
         public static final int btn3=0x7f050009;
-        public static final int button1=0x7f05000d;
+        public static final int button1=0x7f050015;
         public static final int date=0x7f05000a;
-        public static final int frag2LeftBtn=0x7f050010;
-        public static final int frag2RightBtn=0x7f050012;
-        public static final int frag2TopBtn=0x7f050011;
-        public static final int frag2bottomBtn=0x7f050013;
-        public static final int frag2description=0x7f050014;
-        public static final int frag2goSummary=0x7f050015;
-        public static final int frag2midBtn=0x7f05000f;
+        public static final int frag2LeftBtn=0x7f05000f;
+        public static final int frag2RightBtn=0x7f050011;
+        public static final int frag2TopBtn=0x7f050010;
+        public static final int frag2bottomBtn=0x7f050012;
+        public static final int frag2description=0x7f050013;
+        public static final int frag2goSummary=0x7f050014;
+        public static final int frag2midBtn=0x7f05000e;
         public static final int frag3TopBtn=0x7f050017;
         public static final int frag3bottomBtn=0x7f050018;
         public static final int frag3description=0x7f050019;
@@ -226,17 +227,18 @@ containing a value of this type.
         public static final int satellite=0x7f050002;
         public static final int smy=0x7f05001c;
         public static final int terrain=0x7f050003;
-        public static final int textView1=0x7f05000e;
+        public static final int textView1=0x7f05000d;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int footer=0x7f030001;
         public static final int info_window=0x7f030002;
-        public static final int report_fragment1=0x7f030003;
-        public static final int report_fragment2=0x7f030004;
-        public static final int report_fragment3=0x7f030005;
-        public static final int report_main=0x7f030006;
-        public static final int report_summary=0x7f030007;
+        public static final int report_category2=0x7f030003;
+        public static final int report_fragment1=0x7f030004;
+        public static final int report_fragment2=0x7f030005;
+        public static final int report_fragment3=0x7f030006;
+        public static final int report_main=0x7f030007;
+        public static final int report_summary=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f090000;

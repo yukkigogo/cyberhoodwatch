@@ -4,6 +4,7 @@ import com.sociam.android.Crime;
 import com.sociam.android.R;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -20,24 +21,24 @@ import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
 
 
-public class ReportFragment2 extends Fragment {
+public class Category2 extends Fragment {
 	
 	ViewPager pager;
 	boolean sbtn5, sbtn2, sbtn3, sbtn4;
 	Button btn1, btnS, btnD;
 	ToggleButton btn2,btn3,btn4, btn5;
-	Crime currentCrime;
+	ReportActivity currentCrime;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.report_fragment2, container, false);
+		return inflater.inflate(R.layout.report_category2, container, false);
 	}
 
 	public void onStart() {
 		super.onStart();
 		setBtns();
 		initBtns();
-		currentCrime = ((ReportActivity) getActivity()).getCrime();
+		currentCrime = ((ReportActivity) getActivity());
 	}
 	
 	private void initBtns() {
@@ -134,28 +135,28 @@ public class ReportFragment2 extends Fragment {
 								btn3.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
-								currentCrime.setCategory("Violent");
+								currentCrime.setCat1(1);
 								break;
 							case 3:
 								
 								btn2.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
-								currentCrime.setCategory("Other");
+								currentCrime.setCat1(0);
 								break;
 							case 4:
 								
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn5.setChecked(false);
-								currentCrime.setCategory("ASB");
+								currentCrime.setCat1(3);
 								break;
 							case 5:
 								
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn4.setChecked(false);
-								currentCrime.setCategory("Theft");
+								currentCrime.setCat1(2);
 								break;
 							default:
 								break;
@@ -163,7 +164,7 @@ public class ReportFragment2 extends Fragment {
 							
 							
 						}else if(!isChecked){
-							currentCrime.setCategory("");
+							currentCrime.setCat1(0);
 						}
 						
 					}
