@@ -42,7 +42,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 // This class for first report page
-public class ReportFragment1 extends Fragment implements LocationListener{
+public class Evidence extends Fragment implements LocationListener{
 
 	static final int REQUEST_CAPTURE_IMAGE = 100;
 	

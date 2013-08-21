@@ -19,7 +19,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 		// TODO Auto-generated method stub
 		switch(i){	
 		case 0: 
-			ReportFragment1 rp1 = new ReportFragment1();
+			Evidence rp1 = new Evidence();
 			return rp1;
 		case 1: 
 			ReportFragment2 rp2 = new ReportFragment2();
@@ -34,7 +34,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
 		
 		default:
-			return new ReportFragment1();
+			return new Evidence();
 		}
 		
 	}
