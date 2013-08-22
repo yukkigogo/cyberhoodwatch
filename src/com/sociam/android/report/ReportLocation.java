@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 
-public class ReportFragment3 extends Fragment {
+public class ReportLocation extends Fragment {
 	
 	// location can be implemented by google map.
 	

@@ -3,12 +3,13 @@ package com.sociam.android.report;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.View;
 
 
 
 public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
-	final int PAGE_COUNT = 4;
+	final int PAGE_COUNT = 11;
 	
 	public MyFragmentStatePagerAdapter(FragmentManager fm) {
 		super(fm);
@@ -19,25 +20,28 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 		// TODO Auto-generated method stub
 		switch(i){	
 		case 0: 
-			Evidence rp1 = new Evidence();
+			ReportEvidence rp1 = new ReportEvidence();
 			return rp1;
 		case 1: 
-			ReportFragment2 rp2 = new ReportFragment2();
+			ReportCategory rp2 = new ReportCategory();
 			return rp2;
 		case 2: 
-			ReportFragment3 rp3 = new ReportFragment3();
+			ReportCategory2 rp3 = new ReportCategory2();
 			return rp3;
+			
 
-		case 3: 
-			ReportFragment7 rp7 = new ReportFragment7();
+		case 10: 
+			ReportSummary rp7 = new ReportSummary();
 			return rp7;
 
 		
 		default:
-			return new Evidence();
+			return new ReportCategory2();
 		}
 		
 	}
+
+	
 
 	@Override
 	public int getCount() {

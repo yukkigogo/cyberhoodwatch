@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class ReportFragment7 extends Fragment {
+public class ReportSummary extends Fragment {
 	
 	ListView lv;
 	@Override

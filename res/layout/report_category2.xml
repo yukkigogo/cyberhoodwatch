@@ -22,10 +22,10 @@
 		    android:textColor="@color/white"
 		    android:textSize="20sp"
 		    android:layout_margin="10dip"
-		    android:text="Category" />
+		    android:text="Category in Detail" />
 
 		<Button
-		    android:id="@+id/frag2midBtn"
+		    android:id="@+id/frag3midBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
@@ -34,59 +34,51 @@
 		    android:background="@drawable/easy_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag2LeftBtn"
+		    android:id="@+id/frag3LeftBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_alignBaseline="@+id/frag2midBtn"
-		    android:layout_alignBottom="@+id/frag2midBtn"
-		    android:layout_toLeftOf="@+id/frag2TopBtn"
-		    android:textOff="" 
-		    android:textOn="" 
+		    android:layout_alignBaseline="@+id/frag3midBtn"
+		    android:layout_alignBottom="@+id/frag3midBtn"
+		    android:layout_toLeftOf="@+id/frag3TopBtn"
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag2TopBtn"
+		    android:id="@+id/frag3TopBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_above="@+id/frag2midBtn"
+		    android:layout_above="@+id/frag3midBtn"
 		    android:layout_centerHorizontal="true"
 		    android:layout_margin="5dip"
-		    android:textOff="" 
-		    android:textOn="" 
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag2RightBtn"
+		    android:id="@+id/frag3RightBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/frag2TopBtn"
-		    android:textOff="Theft" 
-		    android:textOn="Theft" 
+		    android:layout_toRightOf="@+id/frag3TopBtn"
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag2bottomBtn"
+		    android:id="@+id/frag3bottomBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_below="@+id/frag2midBtn"
-		    android:layout_toLeftOf="@+id/frag2RightBtn"
+		    android:layout_below="@+id/frag3midBtn"
+		    android:layout_toLeftOf="@+id/frag3RightBtn"
 		    android:layout_margin="5dip"
-		    android:textOff="" 
-		    android:textOn="" 
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<Button
-		    android:id="@+id/frag2description"
+		    android:id="@+id/frag3description"
 		    android:layout_width="120dp"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentLeft="true"
-		    android:layout_alignTop="@+id/frag2goSummary"
+		    android:layout_alignTop="@+id/frag3goSummary"
 		    android:text="Add Description" />
 
 		<Button
-		    android:id="@+id/frag2goSummary"
+		    android:id="@+id/frag3goSummary"
 		    android:layout_width="120dp"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"

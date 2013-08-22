@@ -20,13 +20,14 @@ import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
 
 
-public class ReportFragment2 extends Fragment {
+public class ReportCategory extends Fragment {
 	
 	ViewPager pager;
 	boolean sbtn5, sbtn2, sbtn3, sbtn4;
 	Button btn1, btnS, btnD;
 	ToggleButton btn2,btn3,btn4, btn5;
 	Crime currentCrime;
+	boolean isChanged = false;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
@@ -84,7 +85,7 @@ public class ReportFragment2 extends Fragment {
 				case 0:
 					Log.e("sociam","push the button");
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
-					pager.setCurrentItem(2);
+					pager.setCurrentItem(pager.getCurrentItem()+1);
 					break;
 				case 99:
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
@@ -105,7 +106,8 @@ public class ReportFragment2 extends Fragment {
 							Toast.makeText(getActivity(), eText.getText().toString()
 									, Toast.LENGTH_LONG).show();
 						}
-					}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {						
+					}).setNegativeButton("Cancel", 
+							new DialogInterface.OnClickListener() {						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							// Do nothing
@@ -130,32 +132,58 @@ public class ReportFragment2 extends Fragment {
 						if(isChecked){
 							switch (num) {
 							case 2:
+								Log.e("sociam", "In 2 :"+Integer.toString(currentCrime.getCategoryCode()));
+								if((currentCrime.getCategoryCode() != 99) 
+								&& (currentCrime.getCategoryCode() !=1))
+									currentCrime.setCat2Def(true);
 								
 								btn3.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
 								currentCrime.setCategory("Violent");
+								currentCrime.setCategoryCode(1);
 								break;
 							case 3:
+								Log.e("sociam", "in 3 "+Integer.toString(currentCrime.getCategoryCode()));
+								if((currentCrime.getCategoryCode() != 99)
+								&& (currentCrime.getCategoryCode() !=0))
+									currentCrime.setCat2Def(true);
 								
 								btn2.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
 								currentCrime.setCategory("Other");
+								currentCrime.setCategoryCode(0);
+
 								break;
 							case 4:
+								Log.w("sociam", "in 4 "+Integer.toString(currentCrime.getCategoryCode()));
+
+								if((currentCrime.getCategoryCode() != 99)
+										&& (currentCrime.getCategoryCode() !=3))
+									currentCrime.setCat2Def(true);
 								
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn5.setChecked(false);
 								currentCrime.setCategory("ASB");
+								currentCrime.setCategoryCode(3);
+
 								break;
+
 							case 5:
+								Log.w("sociam", "in 5 "+Integer.toString(currentCrime.getCategoryCode()));
+
+								if((currentCrime.getCategoryCode() != 99)
+										&& (currentCrime.getCategoryCode() !=2))
+									currentCrime.setCat2Def(true);
 								
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn4.setChecked(false);
 								currentCrime.setCategory("Theft");
+								currentCrime.setCategoryCode(2);
+
 								break;
 							default:
 								break;
@@ -164,6 +192,8 @@ public class ReportFragment2 extends Fragment {
 							
 						}else if(!isChecked){
 							currentCrime.setCategory("");
+							currentCrime.setCategoryCode(99);
+							// all the 2 become off
 						}
 						
 					}

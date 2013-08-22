@@ -13,8 +13,10 @@ public class Crime {
 	
 	// category
 	private String category="";
+	private int c_code=99; // 0:other, 1:violent 2:Theft, 3: ASB 99:null
 	private boolean is_category_text=false;
 	private String category_text;
+	private boolean cat1def;
 	
 	// suspects
 	private boolean uSeeSuspects;
@@ -71,7 +73,12 @@ public class Crime {
 	public void setCategoryText(String text){
 		this.category_text=text;
 	}
-
+	public void setCategoryCode(int i){
+		this.c_code=i;
+	}
+	public void setCat2Def(boolean val){
+		this.cat1def=val;
+	}
 	
 	// suspects
 	public void setSuspects(Persons sus){
@@ -157,12 +164,18 @@ public class Crime {
 		return this.category_text;
 	}
 	
-	public boolean getisCategory(){
+	public boolean getisCategoryText(){
 		return this.is_category_text;
 	}
 	
 	public String getCategory(){
 		return this.category;
+	}
+	public int getCategoryCode(){
+		return this.c_code;
+	}
+	public boolean getCat2Def(){
+		return this.cat1def;
 	}
 	
 	// suspects
