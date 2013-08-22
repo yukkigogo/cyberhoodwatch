@@ -82,6 +82,8 @@ public class ReportActivity extends FragmentActivity {
 						if(crime.getCat2Def()){
 							allFrag3Off();
 							crime.setCat2Def(false);
+							crime.setisCategoryText(false);
+							crime.setCategoryText("");
 						}						
 						break;						
 				case 3:	setBtnInFooter(2);
@@ -107,8 +109,6 @@ public class ReportActivity extends FragmentActivity {
 			
 			// get currentItem de page no zokusei wo set suru
 			//http://stackoverflow.com/questions/8117523/how-can-i-get-page-number-in-view-pager-for-android
-
-	
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {}

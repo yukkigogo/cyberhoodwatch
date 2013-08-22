@@ -31,7 +31,7 @@ public class ReportCategory extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.report_fragment2, container, false);
+		return inflater.inflate(R.layout.report_category, container, false);
 	}
 
 	public void onStart() {
@@ -132,7 +132,7 @@ public class ReportCategory extends Fragment {
 						if(isChecked){
 							switch (num) {
 							case 2:
-								Log.e("sociam", "In 2 :"+Integer.toString(currentCrime.getCategoryCode()));
+								//Log.e("sociam", "In 2 :"+Integer.toString(currentCrime.getCategoryCode()));
 								if((currentCrime.getCategoryCode() != 99) 
 								&& (currentCrime.getCategoryCode() !=1))
 									currentCrime.setCat2Def(true);
@@ -144,7 +144,7 @@ public class ReportCategory extends Fragment {
 								currentCrime.setCategoryCode(1);
 								break;
 							case 3:
-								Log.e("sociam", "in 3 "+Integer.toString(currentCrime.getCategoryCode()));
+								//Log.e("sociam", "in 3 "+Integer.toString(currentCrime.getCategoryCode()));
 								if((currentCrime.getCategoryCode() != 99)
 								&& (currentCrime.getCategoryCode() !=0))
 									currentCrime.setCat2Def(true);
@@ -157,7 +157,7 @@ public class ReportCategory extends Fragment {
 
 								break;
 							case 4:
-								Log.w("sociam", "in 4 "+Integer.toString(currentCrime.getCategoryCode()));
+								//Log.w("sociam", "in 4 "+Integer.toString(currentCrime.getCategoryCode()));
 
 								if((currentCrime.getCategoryCode() != 99)
 										&& (currentCrime.getCategoryCode() !=3))
@@ -172,7 +172,6 @@ public class ReportCategory extends Fragment {
 								break;
 
 							case 5:
-								Log.w("sociam", "in 5 "+Integer.toString(currentCrime.getCategoryCode()));
 
 								if((currentCrime.getCategoryCode() != 99)
 										&& (currentCrime.getCategoryCode() !=2))

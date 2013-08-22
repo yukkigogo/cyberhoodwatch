@@ -1,11 +1,9 @@
 package com.sociam.android.report;
 
-import com.google.android.gms.internal.cu;
 import com.sociam.android.Crime;
 import com.sociam.android.R;
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -46,23 +44,13 @@ public class ReportCategory2 extends Fragment {
 		Log.e("sociam","cat1");
 		
 		setBtns();
-		initBtns();
-		//setTexts();			
 	}
 	
 	public void setall(){
 		setBtns();
-		initBtns();
-		//setTexts();
 	}
 	
-	private void initBtns() {
-		sbtn2 = false;
-		sbtn3 = false;
-		sbtn4 = false;
-		sbtn5 = false;
-		
-	}
+
 
 	private void setBtns() {
 	  btn1 = (Button) getActivity().findViewById(R.id.frag3midBtn);
@@ -92,55 +80,6 @@ public class ReportCategory2 extends Fragment {
 	  
 	
 	}
-	
-	
-	private void setTexts(){
-		
-		  // the text of button set dynamically
-		  if(cat1=="Violent"){
-			  btn2.setTextOn("Damage");
-			  btn2.setTextOff("Damage");
-			  btn3.setTextOn("Attack");
-			  btn3.setTextOff("Attack");
-			  btn4.setTextOn("Other");
-			  btn4.setTextOff("Other");
-			  btn5.setTextOn("Rape");
-			  btn5.setTextOff("Rape");
-			  Log.e("sociam","why cant read?");
-			  
-			}else if(cat1=="Theft"){
-			  btn2.setTextOn("Robbery");
-			  btn2.setTextOff("Robbery");
-			  btn3.setTextOn("Bike");
-			  btn3.setTextOff("Bike");
-			  btn4.setTextOn("Other");
-			  btn4.setTextOff("Other");
-			  btn5.setTextOn("Shop");
-			  btn5.setTextOff("Shop");
-			  
-		  }else if(cat1=="ASB"){
-			  btn2.setTextOn("Noise");
-			  btn2.setTextOff("Noise");
-			  btn3.setTextOn("Street Drinking");
-			  btn3.setTextOff("Street Drinking");
-			  btn4.setTextOn("Other");
-			  btn4.setTextOff("Other");
-			  btn5.setTextOn("Drugs");
-			  btn5.setTextOff("Drugs");
-
-		  }else{
-			  btn2.setTextOn("");
-			  btn2.setTextOff("");
-			  btn3.setTextOn("");
-			  btn3.setTextOff("");
-			  btn4.setTextOn("");
-			  btn4.setTextOff("");
-			  btn5.setTextOn("");
-			  btn5.setTextOff("");
-
-		  }
-	}
-	
 	
 	
 	
@@ -214,6 +153,14 @@ public class ReportCategory2 extends Fragment {
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn5.setChecked(false);
+								addText();
+								currentCrime.setCategory(cat1 + "-other");
+								break;
+							case 5:
+								Log.w("sociam", "in 4 "+Integer.toString(currentCrime.getCategoryCode()));
+								btn2.setChecked(false);
+								btn3.setChecked(false);
+								btn4.setChecked(false);
 								if(cat1=="Violent"){
 									currentCrime.setCategory("Rape");
 								}else if(cat1=="Theft"){
@@ -221,13 +168,7 @@ public class ReportCategory2 extends Fragment {
 								}else if(cat1=="ASB"){
 									currentCrime.setCategory("Drugs");
 								}
-								break;
-							case 5:
 								
-								btn2.setChecked(false);
-								btn3.setChecked(false);
-								btn4.setChecked(false);
-								addText();
 								break;
 							default:
 								break;

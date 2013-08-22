@@ -1,5 +1,7 @@
 package com.sociam.android.report;
 
+import java.util.ArrayList;
+
 import com.sociam.android.Crime;
 
 import android.os.Bundle;
@@ -12,20 +14,23 @@ public class SummaryListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 
 		Crime currentCrime = ((ReportActivity) getActivity()).getCrime();
-		String[] details = { "Picture : "+ currentCrime.getFilepath(), 
-				"Category : "+currentCrime.getCategory(), 
-			"Place : Here", "number of Suspects : 1",
-            "Suspects gender : male", "Age of suspects : 20-25", 
-            "Ethics : white", "Dress colour : blue" ,"test test",
-            "test test test"};
+		 
+
+		ArrayList<String> details = new ArrayList<String>();
+					details.add("Picture : "+ currentCrime.getFilepath());
+					details.add("Category : "+currentCrime.getCategory());
+					
+		if(currentCrime.getisCategoryText()) 
+			details.add(currentCrime.getCategoryText());			
+					
+					
 		
-		
-		   ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+	   ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				        getActivity(),
 				        android.R.layout.simple_list_item_1,
 				        details);
 
-		   setListAdapter(adapter);
+	   setListAdapter(adapter);
 	
 	}
 

@@ -65,7 +65,7 @@ public class ReportEvidence extends Fragment implements LocationListener{
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-		return inflater.inflate(R.layout.report_fragment1, container, false);
+		return inflater.inflate(R.layout.report_evidence, container, false);
 	}
 
 	@SuppressLint("NewApi")
