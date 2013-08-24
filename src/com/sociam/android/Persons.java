@@ -9,7 +9,7 @@ public class Persons {
 	private String ethics;
 	private String dresscolour;
 	private String Text;
-	
+	private boolean isText;
 	
 	
 	public void setNum(int id){	
@@ -34,6 +34,9 @@ public class Persons {
 	
 	public void setText(String tex){
 		this.Text=tex;
+	}
+	public void setisText(boolean s){
+		this.isText=s;
 	}
 
 
@@ -61,7 +64,9 @@ public class Persons {
 	public String getText(){
 		return this.Text;
 	}
-
+	public boolean getisText(){
+		return this.isText;
+	}
 	
 	
 }

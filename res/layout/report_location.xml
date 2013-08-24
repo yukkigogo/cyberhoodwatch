@@ -11,7 +11,7 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:layout_margin="30dip"
-	    android:background="@color/black" >
+	    android:background="@color/half_black" >
 
 		<TextView
 		    android:id="@+id/textView1"
@@ -88,6 +88,14 @@
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentRight="true"
 		    android:text="Go Summary" />
+
+		<ImageButton
+		    android:id="@+id/imageButton1"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignLeft="@+id/frag3bottomBtn"
+		    android:layout_below="@+id/frag3bottomBtn"
+		    />
 
 	</RelativeLayout>
 	

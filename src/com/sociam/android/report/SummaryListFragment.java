@@ -19,7 +19,6 @@ public class SummaryListFragment extends ListFragment {
 		ArrayList<String> details = new ArrayList<String>();
 					details.add("Picture : "+ currentCrime.getFilepath());
 					details.add("Category : "+currentCrime.getCategory());
-					
 		if(currentCrime.getisCategoryText()) 
 			details.add(currentCrime.getCategoryText());			
 					

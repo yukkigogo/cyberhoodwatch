@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 
 
+import com.sociam.android.Crime;
 import com.sociam.android.R;
 
 import android.location.Location;
@@ -56,6 +57,8 @@ public class ReportEvidence extends Fragment implements LocationListener{
 	private String fileName;
 	Location myCurrentLocation;
 	
+	Crime currentCrime;
+	
 	//for obtaining location
 	protected LocationManager locationManager;
 	protected LocationListener locationListener;
@@ -73,7 +76,16 @@ public class ReportEvidence extends Fragment implements LocationListener{
 	public void onStart() {
 		// TODO Auto-generated method stub
 		super.onStart();
+		currentCrime = ((ReportActivity) getActivity()).getCrime();
 		findViews();
+		
+		//set up background
+		if(currentCrime.getPicON()==1){
+			  LinearLayout layout = (LinearLayout) 
+					  getActivity().findViewById(R.id.layoutevidence);		  
+			  layout.setBackground(currentCrime.getBitmapdrawable());
+		}		
+		
 		setListeners();		
 	}
 
@@ -204,7 +216,9 @@ public class ReportEvidence extends Fragment implements LocationListener{
 	    fileName = fileNameDate.format(mDate) + ".jpg";
 	    String AttachName = file.getAbsolutePath() + "/" + fileName;
 		Log.e("sociam", AttachName);
-		((ReportActivity) getActivity()).getCrime().setFilepath(AttachName);
+		currentCrime.setFilepath(AttachName);
+		currentCrime.setPicOn(1);
+		currentCrime.setBitmap(saveImage);
 		
 	    //convert Bitmap to jpg and store the folder
 	    try {

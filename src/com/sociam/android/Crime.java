@@ -1,5 +1,8 @@
 package com.sociam.android;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+
 public class Crime {
 	
 	// IDs
@@ -10,6 +13,7 @@ public class Crime {
 	//picture or video
 	private int picOn=0; // 0 null, 1 picture, 2 video
 	private String filepath;
+	private BitmapDrawable pic;
 	
 	// category
 	private String category="";
@@ -60,6 +64,12 @@ public class Crime {
 	public void setFilepath(String path){
 		this.filepath=path;
 	}
+	public void setBitmap(Bitmap map){
+		BitmapDrawable bm = new BitmapDrawable(map);
+		this.pic=bm;
+	}
+
+	
 	
 	
 	public void setCategory(String cat){
@@ -157,6 +167,10 @@ public class Crime {
 	public String getFilepath(){
 		return this.filepath;
 	}
+	public BitmapDrawable getBitmapdrawable(){
+		return this.pic;
+	}
+	
 	
 	
 	// category

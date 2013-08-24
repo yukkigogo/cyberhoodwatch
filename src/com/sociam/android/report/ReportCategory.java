@@ -5,6 +5,7 @@ import com.sociam.android.R;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
@@ -34,11 +36,18 @@ public class ReportCategory extends Fragment {
 		return inflater.inflate(R.layout.report_category, container, false);
 	}
 
+	@SuppressLint("NewApi")
 	public void onStart() {
 		super.onStart();
 		setBtns();
 		initBtns();
 		currentCrime = ((ReportActivity) getActivity()).getCrime();
+		//set up background
+		if(currentCrime.getPicON()==1){
+			  LinearLayout layout = (LinearLayout) 
+					  getActivity().findViewById(R.id.layoutcategory);		  
+			layout.setBackground(currentCrime.getBitmapdrawable());
+		}
 	}
 	
 	private void initBtns() {

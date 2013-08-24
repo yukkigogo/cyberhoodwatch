@@ -27,8 +27,12 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 			return rp2;
 		case 2: 
 			ReportCategory2 rp3 = new ReportCategory2();
-			return rp3;
-			
+			return rp3;		
+		case 3:
+			ReportSuspect reportSuspect = new ReportSuspect();
+			return reportSuspect;
+		case 4:
+			return new ReportLocation();
 
 		case 10: 
 			ReportSummary rp7 = new ReportSummary();
@@ -36,7 +40,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
 		
 		default:
-			return new ReportCategory2();
+			return new ReportCategory();
 		}
 		
 	}

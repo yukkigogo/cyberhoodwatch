@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import com.sociam.android.Crime;
+import com.sociam.android.Persons;
 import com.sociam.android.R;
 
 
@@ -36,6 +37,7 @@ public class ReportActivity extends FragmentActivity {
 	
 	// store crime data
 	private Crime crime;
+	private Persons suspects,victims;
 	private MyFragmentStatePagerAdapter myAdapter;
 	ViewPager pager;
 	Button[] btns = new Button[8];
@@ -50,7 +52,11 @@ public class ReportActivity extends FragmentActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.report_main);
 		
+		suspects = new Persons();
+		victims = new Persons();
 		crime = new Crime();
+		crime.setSuspects(suspects);
+		crime.setVictim(victims);
 		
 		setUpView();
 		setFooter();
@@ -102,13 +108,13 @@ public class ReportActivity extends FragmentActivity {
 						break;		
 				case 10:setBtnInFooter(7);
 						break;		
-
 				}
 				
 			}
 			
 			// get currentItem de page no zokusei wo set suru
-			//http://stackoverflow.com/questions/8117523/how-can-i-get-page-number-in-view-pager-for-android
+			//http://stackoverflow.com/questions/8117523/how-can-i-
+			//get-page-number-in-view-pager-for-android
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {}
@@ -249,5 +255,7 @@ public class ReportActivity extends FragmentActivity {
 		frag3btn4.setChecked(false);
 		frag3btn5.setChecked(false);
 	}
+	
+	
 	
 }

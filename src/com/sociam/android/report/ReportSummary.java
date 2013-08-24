@@ -30,13 +30,9 @@ public class ReportSummary extends Fragment {
 	}
 
 	private void summarySetup(View view) {
-		String[] details = { "Picture : YES", "Category : ASB", 
-				"Place : Here", "number of Suspects : 1",
-                "Suspects gender : male", "Age of suspects : 20-25", 
-                "Ethics : white", "Dress colour : blue" };
+		
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 				getActivity(), android.R.layout.simple_list_item_1);
-		Log.e("sociam", "read my message");
 		
 	//	lv = (ListView) view.findViewById(R.id.ListSummary);
 		lv.setAdapter(adapter);

@@ -3,6 +3,10 @@ package com.sociam.android.report;
 import com.sociam.android.R;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.annotation.SuppressLint;
+import android.graphics.Color;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.ArcShape;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 public class ReportLocation extends Fragment {
 	
@@ -23,71 +29,79 @@ public class ReportLocation extends Fragment {
 		ViewGroup container, 
 		Bundle savedInstanceState) {
 		return inflater.inflate(
-			R.layout.report_fragment3, container, false);
+			R.layout.report_location, container, false);
 	}
 	
+	@SuppressLint("NewApi")
 	public void onStart() {
 		super.onStart();
-		setBtns();
+		//setBtns();
+        ShapeDrawable arcShape = new ShapeDrawable(new ArcShape(45, -270));
+        arcShape.setBounds(250, 0, 45 + 250, 50);
+        arcShape.getPaint().setColor(Color.WHITE);
+        
+        ImageButton iv = (ImageButton) getActivity().findViewById(R.id.imageButton1);
+        iv.setBackground(arcShape);        
+
 	}
 	
-	private void setBtns() {
-		  Button btn1 = (Button) getActivity().findViewById(R.id.frag3midBtn);
-		  Button btnS = (Button) getActivity().findViewById(R.id.frag3goSummary);
-		  Button btnD = (Button) getActivity().findViewById(R.id.frag3description);
-		  
-		  Button btn2 = (Button) getActivity().findViewById(R.id.frag3TopBtn);
-		  Button btn3 = (Button) getActivity().findViewById(R.id.frag3bottomBtn);
-		  //Button btn4 = (Button) getActivity().findViewById(R.id.frag3LeftBtn);
-		  //Button btn5 = (Button) getActivity().findViewById(R.id.frag3RightBtn);
-		  
-		  
-		  btn1.setText("Skip");
-		  btn2.setText("Here");
-		  btn3.setText("Put Adress");
-		 
-		  
-		  setListeners(btn1, 0);
-		  setListeners(btnS, 99);
-		  setListeners(btnD, 999);
-		  
-		  setListeners(btn2, 1);
-		  setListeners(btn3, 2);
-		}
-		
-		private void setListeners(Button btn, final int type){
-			btn.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					// 0 = mid, 99= summary, 999 = description
-					switch (type) {
-					case 0:
-						Log.e("sociam","push the button");
-						pager =(ViewPager) getActivity().findViewById(R.id.pager);
-						//set next fregment - same number of fragment
-						pager.setCurrentItem(3);
-						break;
-					
-					case 1: // here
-						
-						break;
-					case 2: //input address 
-						
-						break;						
-					case 99:
-						pager =(ViewPager) getActivity().findViewById(R.id.pager);
-						pager.setCurrentItem(ReportActivity.SUMMARY_FRAG_NUM);
-						break;
-					
-					case 999:
-						break;
-						
-					default:
-						break;
-					} 
-				}
-			});
-		}
+//	private void setBtns() {
+//		  Button btn1 = (Button) getActivity().findViewById(R.id.frag3midBtn);
+//		  Button btnS = (Button) getActivity().findViewById(R.id.frag3goSummary);
+//		  Button btnD = (Button) getActivity().findViewById(R.id.frag3description);
+//		  
+//		  Button btn2 = (Button) getActivity().findViewById(R.id.frag3TopBtn);
+//		  Button btn3 = (Button) getActivity().findViewById(R.id.frag3bottomBtn);
+//		  //Button btn4 = (Button) getActivity().findViewById(R.id.frag3LeftBtn);
+//		  //Button btn5 = (Button) getActivity().findViewById(R.id.frag3RightBtn);
+//		  
+//		  
+//		  btn1.setText("Skip");
+//		  btn2.setText("Here");
+//		  btn3.setText("Put Adress");
+//		 
+//		  
+//		  setListeners(btn1, 0);
+//		  setListeners(btnS, 99);
+//		  setListeners(btnD, 999);
+//		  
+//		  setListeners(btn2, 1);
+//		  setListeners(btn3, 2);
+//		}
+//		
+//		private void setListeners(Button btn, final int type){
+//			btn.setOnClickListener(new OnClickListener() {
+//				@Override
+//				public void onClick(View v) {
+//					// 0 = mid, 99= summary, 999 = description
+//					switch (type) {
+//					case 0:
+//						Log.e("sociam","push the button");
+//						pager =(ViewPager) getActivity().findViewById(R.id.pager);
+//						//set next fregment - same number of fragment
+//						pager.setCurrentItem(3);
+//						break;
+//					
+//					case 1: // here
+//						
+//						break;
+//					case 2: //input address 
+//						
+//						break;						
+//					case 99:
+//						pager =(ViewPager) getActivity().findViewById(R.id.pager);
+//						pager.setCurrentItem(ReportActivity.SUMMARY_FRAG_NUM);
+//						break;
+//					
+//					case 999:
+//						break;
+//						
+//					default:
+//						break;
+//					} 
+//				}
+//			});
+//		}
 	
 	
 }

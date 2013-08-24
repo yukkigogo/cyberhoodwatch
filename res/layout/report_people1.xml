@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/layoutcategory2"
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -12,10 +11,10 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:layout_margin="30dip"
-	    android:background="@color/half_black" >
+	    android:background="@color/black" >
 
 		<TextView
-		    android:id="@+id/textView1"
+		    android:id="@+id/textview_people1"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentTop="true"
@@ -23,10 +22,10 @@
 		    android:textColor="@color/white"
 		    android:textSize="20sp"
 		    android:layout_margin="10dip"
-		    android:text="Category in Detail" />
+ />
 
 		<Button
-		    android:id="@+id/frag3midBtn"
+		    android:id="@+id/people_midBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
@@ -35,51 +34,51 @@
 		    android:background="@drawable/easy_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag3LeftBtn"
+		    android:id="@+id/people_LeftBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_alignBaseline="@+id/frag3midBtn"
-		    android:layout_alignBottom="@+id/frag3midBtn"
-		    android:layout_toLeftOf="@+id/frag3TopBtn"
+		    android:layout_alignBaseline="@+id/people_midBtn"
+		    android:layout_alignBottom="@+id/people_midBtn"
+		    android:layout_toLeftOf="@+id/people_TopBtn"
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag3TopBtn"
+		    android:id="@+id/people_TopBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_above="@+id/frag3midBtn"
+		    android:layout_above="@+id/people_midBtn"
 		    android:layout_centerHorizontal="true"
 		    android:layout_margin="5dip"
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag3RightBtn"
+		    android:id="@+id/people_RightBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/frag3TopBtn"
+		    android:layout_toRightOf="@+id/people_TopBtn"
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<ToggleButton
-		    android:id="@+id/frag3bottomBtn"
+		    android:id="@+id/people_bottomBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
-		    android:layout_below="@+id/frag3midBtn"
-		    android:layout_toLeftOf="@+id/frag3RightBtn"
+		    android:layout_below="@+id/people_midBtn"
+		    android:layout_toLeftOf="@+id/people_RightBtn"
 		    android:layout_margin="5dip"
 		    android:background="@drawable/easy_toggle_botton"/>
 
 		<Button
-		    android:id="@+id/frag3description"
+		    android:id="@+id/people_description"
 		    android:layout_width="120dp"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentLeft="true"
-		    android:layout_alignTop="@+id/frag3goSummary"
+		    android:layout_alignTop="@+id/people_goSummary"
 		    android:text="Add Description" />
 
 		<Button
-		    android:id="@+id/frag3goSummary"
+		    android:id="@+id/people_goSummary"
 		    android:layout_width="120dp"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
