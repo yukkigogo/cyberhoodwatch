@@ -23,7 +23,7 @@
 		    android:textSize="20sp"
 		    android:layout_margin="10dip"
 		    android:text="Location" />
-
+<!-- 
 		<Button
 		    android:id="@+id/frag3midBtn"
 		    android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
 		    android:layout_centerHorizontal="true"
 		    android:layout_centerVertical="true"
 		    android:text="Button" 
-		    android:background="@drawable/easy_botton"/>
+		    android:background="@drawable/easy_botton"/> -->
 
 <!-- 		<Button
 		    android:id="@+id/frag3LeftBtn"
@@ -43,7 +43,7 @@
 		    android:text="Button" 
 		    android:background="@drawable/easy_botton"/>
  -->
-		<Button
+<!-- 		<Button
 		    android:id="@+id/frag3TopBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
 		    android:layout_margin="5dip"
 		    android:text="Button" 
 		    android:background="@drawable/easy_botton"/>
-
+ -->
 <!-- 		<Button
 		    android:id="@+id/frag3RightBtn"
 		    android:layout_width="wrap_content"
@@ -62,7 +62,7 @@
 		    android:text="Button" 
 		    android:background="@drawable/easy_botton"/>
  -->
-		<Button
+<!-- 		<Button
 		    android:id="@+id/frag3bottomBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
@@ -70,7 +70,7 @@
 		    android:layout_centerHorizontal="true"
 		    android:layout_margin="5dip"
 		    android:text="Button" 
-		    android:background="@drawable/easy_botton"/>
+		    android:background="@drawable/easy_botton"/> -->
 
 		<Button
 		    android:id="@+id/frag3description"
@@ -91,10 +91,10 @@
 
 		<ImageButton
 		    android:id="@+id/imageButton1"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignLeft="@+id/frag3bottomBtn"
-		    android:layout_below="@+id/frag3bottomBtn"
+		    android:layout_width="100dp"
+		    android:layout_height="100dp"
+			android:layout_centerHorizontal="true"
+			android:layout_centerVertical="true"
 		    />
 
 	</RelativeLayout>

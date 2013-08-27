@@ -25,6 +25,71 @@
 		    android:layout_margin="10dip"
 		    android:text="Category in Detail" />
 
+		<ImageView
+            android:id="@+id/padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/padding" />
+
+		<ImageView
+            android:id="@+id/padding_hori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/padding_horizontal" />
+				
+		
+
+		<ToggleButton
+		    android:id="@+id/frag3LeftTopBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"		
+		    android:layout_alignTop="@+id/padding"
+            android:layout_toLeftOf="@+id/padding"	
+		    android:textOff="" 
+		    android:textOn="" 
+		    android:textColor="@color/white"
+		    android:background="@drawable/coner_left_top_btn"/>
+
+		<ToggleButton
+		    android:id="@+id/frag3RightTopBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:layout_alignTop="@+id/padding"
+            android:layout_toRightOf="@+id/padding"
+            android:textColor="@color/white"
+		    android:textOff="" 
+		    android:textOn="" 
+		    android:background="@drawable/coner_right_top_btn"/>
+
+	<ToggleButton
+		    android:id="@+id/frag3RightBtmBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignLeft="@+id/padding"
+		    android:layout_below="@+id/padding_hori"
+		    android:background="@drawable/coner_right_btm_btn"
+		    android:textColor="@color/white"
+		    android:textOff=""
+		    android:textOn="" />
+		
+		
+		<ToggleButton
+		    android:id="@+id/frag3LeftBtmBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/padding_hori"
+		    android:layout_toLeftOf="@+id/padding"
+		    android:textColor="@color/white"
+		    android:textOff="" 
+		    android:textOn="" 
+		    android:background="@drawable/coner_left_btm_btn"/>
+
+		
+		
 		<Button
 		    android:id="@+id/frag3midBtn"
 		    android:layout_width="wrap_content"
@@ -32,43 +97,18 @@
 		    android:layout_centerHorizontal="true"
 		    android:layout_centerVertical="true"
 		    android:text="NEXT" 
-		    android:background="@drawable/easy_botton"/>
+		    android:textColor="@color/white"
+		    android:background="@drawable/mid_btn"/>
+		
+		
+	<!-- center bottons till here -->			
+		
+		
 
-		<ToggleButton
-		    android:id="@+id/frag3LeftBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignBaseline="@+id/frag3midBtn"
-		    android:layout_alignBottom="@+id/frag3midBtn"
-		    android:layout_toLeftOf="@+id/frag3TopBtn"
-		    android:background="@drawable/easy_toggle_botton"/>
-
-		<ToggleButton
-		    android:id="@+id/frag3TopBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_above="@+id/frag3midBtn"
-		    android:layout_centerHorizontal="true"
-		    android:layout_margin="5dip"
-		    android:background="@drawable/easy_toggle_botton"/>
-
-		<ToggleButton
-		    android:id="@+id/frag3RightBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/frag3TopBtn"
-		    android:background="@drawable/easy_toggle_botton"/>
-
-		<ToggleButton
-		    android:id="@+id/frag3bottomBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_below="@+id/frag3midBtn"
-		    android:layout_toLeftOf="@+id/frag3RightBtn"
-		    android:layout_margin="5dip"
-		    android:background="@drawable/easy_toggle_botton"/>
-
+		
+		
+		
+		
 		<Button
 		    android:id="@+id/frag3description"
 		    android:layout_width="120dp"

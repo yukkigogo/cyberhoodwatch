@@ -172,10 +172,10 @@ public class ReportActivity extends FragmentActivity {
 	
 	private void initFrag3Button(){
 		// for category2
-		frag3btn2 = (ToggleButton) findViewById(R.id.frag3TopBtn);
-		frag3btn3 = (ToggleButton) findViewById(R.id.frag3RightBtn);
-		frag3btn4 = (ToggleButton) findViewById(R.id.frag3bottomBtn);
-		frag3btn5 = (ToggleButton) findViewById(R.id.frag3LeftBtn);	
+		frag3btn2 = (ToggleButton) findViewById(R.id.frag3RightTopBtn);
+		frag3btn3 = (ToggleButton) findViewById(R.id.frag3RightBtmBtn);
+		frag3btn4 = (ToggleButton) findViewById(R.id.frag3LeftBtmBtn);
+		frag3btn5 = (ToggleButton) findViewById(R.id.frag3LeftTopBtn);	
 	}
 	
 	public Crime getCrime(){

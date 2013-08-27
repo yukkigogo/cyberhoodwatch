@@ -25,6 +25,73 @@
 		    android:layout_margin="10dip"
 		    android:text="Category" />
 
+
+		<!-- center buttons -->>		
+		<ImageView
+            android:id="@+id/padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/padding" />
+
+		<ImageView
+            android:id="@+id/padding_hori"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/padding_horizontal" />
+				
+		
+
+		<ToggleButton
+		    android:id="@+id/frag2LeftTopBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"		
+		    android:layout_alignTop="@+id/padding"
+            android:layout_toLeftOf="@+id/padding"	
+		    android:textOff="ASB" 
+		    android:textOn="ASB" 
+		    android:textColor="@color/white"
+		    android:background="@drawable/coner_left_top_btn"/>
+
+		<ToggleButton
+		    android:id="@+id/frag2RightTopBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:layout_alignTop="@+id/padding"
+            android:layout_toRightOf="@+id/padding"
+            android:textColor="@color/white"
+		    android:textOff="Violent" 
+		    android:textOn="Violent" 
+		    android:background="@drawable/coner_right_top_btn"/>
+
+	<ToggleButton
+		    android:id="@+id/frag2RightBtmBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_alignLeft="@+id/padding"
+		    android:layout_below="@+id/padding_hori"
+		    android:background="@drawable/coner_right_btm_btn"
+		    android:textColor="@color/white"
+		    android:textOff="Theft"
+		    android:textOn="Theft" />
+		
+		
+		<ToggleButton
+		    android:id="@+id/frag2LeftBtmBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_below="@+id/padding_hori"
+		    android:layout_toLeftOf="@+id/padding"
+		    android:textColor="@color/white"
+		    android:textOff="Other" 
+		    android:textOn="Other" 
+		    android:background="@drawable/coner_left_btm_btn"/>
+
+		
+		
 		<Button
 		    android:id="@+id/frag2midBtn"
 		    android:layout_width="wrap_content"
@@ -32,51 +99,13 @@
 		    android:layout_centerHorizontal="true"
 		    android:layout_centerVertical="true"
 		    android:text="NEXT" 
-		    android:background="@drawable/easy_botton"/>
-
-		<ToggleButton
-		    android:id="@+id/frag2LeftBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_alignBaseline="@+id/frag2midBtn"
-		    android:layout_alignBottom="@+id/frag2midBtn"
-		    android:layout_toLeftOf="@+id/frag2TopBtn"
-		    android:textOff="ASB" 
-		    android:textOn="ASB" 
-		    android:background="@drawable/easy_toggle_botton"/>
-
-		<ToggleButton
-		    android:id="@+id/frag2TopBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_above="@+id/frag2midBtn"
-		    android:layout_centerHorizontal="true"
-		    android:layout_margin="5dip"
-		    android:textOff="Violent" 
-		    android:textOn="Violent" 
-		    android:background="@drawable/easy_toggle_botton"/>
-
-		<ToggleButton
-		    android:id="@+id/frag2RightBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_centerVertical="true"
-		    android:layout_toRightOf="@+id/frag2TopBtn"
-		    android:textOff="Theft" 
-		    android:textOn="Theft" 
-		    android:background="@drawable/easy_toggle_botton"/>
-
-		<ToggleButton
-		    android:id="@+id/frag2bottomBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_below="@+id/frag2midBtn"
-		    android:layout_toLeftOf="@+id/frag2RightBtn"
-		    android:layout_margin="5dip"
-		    android:textOff="Other" 
-		    android:textOn="Other" 
-		    android:background="@drawable/easy_toggle_botton"/>
-
+		    android:textColor="@color/white"
+		    android:background="@drawable/mid_btn"/>
+		
+		
+	<!-- center bottons till here -->	
+		
+		
 		<Button
 		    android:id="@+id/frag2description"
 		    android:layout_width="120dp"
@@ -84,6 +113,7 @@
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentLeft="true"
 		    android:layout_alignTop="@+id/frag2goSummary"
+		    android:textColor="@color/white"
 		    android:text="Add Description" />
 
 		<Button
@@ -92,7 +122,10 @@
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentRight="true"
+		    android:textColor="@color/white"
 		    android:text="Go Summary" />
+
+
 
 	</RelativeLayout>
 	

@@ -11,6 +11,15 @@
     
     <color name="black">#000000 </color>    
     <color name="half_black">#CC000000 </color>    
+    <color name="half_gray">#CC505050 </color>   
+    
+    <color name="half_blue_s">#CC34d7fb </color>
+    <color name="half_blue_e">#CC0097bb </color>
+    
+    <color name="gra_blue_s">#34d7fb </color>
+    <color name="gra_blue_e">#0097bb </color>
+    
+    
     
     <color name="white">#FFFFFF</color>
     <color name="l_blue">#ADD8E6</color>

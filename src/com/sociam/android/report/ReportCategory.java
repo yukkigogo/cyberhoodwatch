@@ -63,10 +63,10 @@ public class ReportCategory extends Fragment {
 	  btnS = (Button) getActivity().findViewById(R.id.frag2goSummary);
 	  btnD = (Button) getActivity().findViewById(R.id.frag2description);
 	  
-	  btn2 = (ToggleButton) getActivity().findViewById(R.id.frag2TopBtn);
-	  btn3 = (ToggleButton) getActivity().findViewById(R.id.frag2bottomBtn);
-	  btn4 = (ToggleButton) getActivity().findViewById(R.id.frag2LeftBtn);
-	  btn5 = (ToggleButton) getActivity().findViewById(R.id.frag2RightBtn);
+	  btn2 = (ToggleButton) getActivity().findViewById(R.id.frag2RightTopBtn);
+	  btn3 = (ToggleButton) getActivity().findViewById(R.id.frag2LeftBtmBtn);
+	  btn4 = (ToggleButton) getActivity().findViewById(R.id.frag2LeftTopBtn);
+	  btn5 = (ToggleButton) getActivity().findViewById(R.id.frag2RightBtmBtn);
 	  
 	  
 	  
