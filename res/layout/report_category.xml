@@ -63,8 +63,8 @@
 			android:layout_alignTop="@+id/padding"
             android:layout_toRightOf="@+id/padding"
             android:textColor="@color/white"
-		    android:textOff="Violent" 
-		    android:textOn="Violent" 
+		    android:textOff="Theft" 
+		    android:textOn="Theft" 
 		    android:background="@drawable/coner_right_top_btn"/>
 
 	<ToggleButton
@@ -75,8 +75,8 @@
 		    android:layout_below="@+id/padding_hori"
 		    android:background="@drawable/coner_right_btm_btn"
 		    android:textColor="@color/white"
-		    android:textOff="Theft"
-		    android:textOn="Theft" />
+		    android:textOff="Violent"
+		    android:textOn="Violent" />
 		
 		
 		<ToggleButton
@@ -98,7 +98,7 @@
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
 		    android:layout_centerVertical="true"
-		    android:text="NEXT" 
+		    android:text="BACK"
 		    android:textColor="@color/white"
 		    android:background="@drawable/mid_btn"/>
 		

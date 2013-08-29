@@ -15,6 +15,7 @@ public class Crime {
 	private String filepath;
 	private BitmapDrawable pic;
 	
+	
 	// category
 	private String category="";
 	private int c_code=99; // 0:other, 1:violent 2:Theft, 3: ASB 99:null
@@ -24,6 +25,7 @@ public class Crime {
 	
 	// suspects
 	private boolean uSeeSuspects;
+	
 	private Persons suspects;
 	
 	// victims 
@@ -40,9 +42,11 @@ public class Crime {
 
 	// date and time
 	private String date;
+	private boolean isDateText;
+	private String dateText;
 	
 	//severity
-	private int severity; // 1 to 7
+	private int severity; // 1 to 4
 	
 	
 	public void setCrimeID(int id){	
@@ -133,6 +137,12 @@ public class Crime {
 	// date
 	public void setDate(String date){
 		this.date=date;
+	}
+	public void setIsDateText(boolean date){
+		this.isDateText=date;
+	}
+	public void setDateText(String date){
+		this.dateText=date;
 	}
 	
 	//severity
@@ -235,6 +245,13 @@ public class Crime {
 	public String getDate(){
 		return this.date;
 	}
+	public boolean getIsDateText(){
+		return this.isDateText;
+	}
+	public String getDateText(){
+		return this.dateText;
+	}
+	
 	
 	// severity
 	public int getSeverity(){

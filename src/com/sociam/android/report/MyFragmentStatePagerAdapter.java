@@ -8,8 +8,8 @@ import android.view.View;
 
 
 public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
-
-	final int PAGE_COUNT = 11;
+	// don't forget to change report activity as well
+	final int PAGE_COUNT = 7;
 	
 	public MyFragmentStatePagerAdapter(FragmentManager fm) {
 		super(fm);
@@ -29,18 +29,27 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 			ReportCategory2 rp3 = new ReportCategory2();
 			return rp3;		
 		case 3:
-			ReportSuspect reportSuspect = new ReportSuspect();
-			return reportSuspect;
-		case 4:
 			return new ReportLocation();
+		case 4:
+			return new ReportDateTime();		
+		case 5:
+			return new ReportSeverity();
+		case 6:
+			return new ReportSummary();		
 
-		case 10: 
-			ReportSummary rp7 = new ReportSummary();
-			return rp7;
+//		case 7 : //
+//			return new ReportLocation();
+//		case 8 : // dress colour
+//			return new ReportDateTime();
+//		case 9 : // detail other page	
+//			return new ReportSeveriality();
+//		case 10: 
+//			ReportSummary rp7 = new ReportSummary();
+//			return rp7;
 
 		
 		default:
-			return new ReportCategory();
+			return null;
 		}
 		
 	}

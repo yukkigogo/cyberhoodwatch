@@ -1,6 +1,7 @@
 package com.sociam.android.report;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -10,8 +11,13 @@ import android.util.TypedValue;
 import android.widget.Button;
 import android.widget.ToggleButton;
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import com.sociam.android.Crime;
@@ -31,25 +37,38 @@ import com.sociam.android.R;
  * 
  */
 @SuppressLint("NewApi")
-public class ReportActivity extends FragmentActivity {
-
-	public static final int SUMMARY_FRAG_NUM = 11; 
+public class ReportActivity extends FragmentActivity implements LocationListener{
+	// PAGE_COUNT - 1
+	public static final int SUMMARY_FRAG_NUM = 6; 
 	
 	// store crime data
 	private Crime crime;
 	private Persons suspects,victims;
 	private MyFragmentStatePagerAdapter myAdapter;
 	ViewPager pager;
-	Button[] btns = new Button[8];
+	Button[] btns = new Button[7];
 	
 	// ToggleButton for Category2 and cat
 	ToggleButton frag3btn2,frag3btn3,frag3btn4,frag3btn5;
+	
+	
+	//for obtaining location
+	protected LocationManager locationManager;
+	protected LocationListener locationListener;
+	protected Context context;
+	protected Double latitude,longitude; 
+	
+	// store the state
+	private int loc=88;
+	private int dnt=88;
+	private int sev=88;
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.report_main);
 		
 		suspects = new Persons();
@@ -58,11 +77,20 @@ public class ReportActivity extends FragmentActivity {
 		crime.setSuspects(suspects);
 		crime.setVictim(victims);
 		
+		
+		getLocation();
 		setUpView();
 		setFooter();
 	}
 	
+	
+	public void onStop() {
+		super.onStop();
+		locationManager.removeUpdates(this);
+	}
 
+
+	
 	// implement pageChangeLitener
 	private void setUpView(){
 		pager = (ViewPager) findViewById(R.id.pager);
@@ -82,7 +110,7 @@ public class ReportActivity extends FragmentActivity {
 						break;
 				case 1:	setBtnInFooter(1);
 						break;	
-				case 2:	setBtnInFooter(1);
+				case 2:	setBtnInFooter(2);
 						initFrag3Button();
 						setTexts();
 						if(crime.getCat2Def()){
@@ -92,22 +120,40 @@ public class ReportActivity extends FragmentActivity {
 							crime.setCategoryText("");
 						}						
 						break;						
-				case 3:	setBtnInFooter(2);
+				case 3:	setBtnInFooter(3);
 						break;
-				case 4:	setBtnInFooter(2);
+				case 4:	setBtnInFooter(4);
 						break;		
-				case 5:	setBtnInFooter(3);
+				case 5:	setBtnInFooter(5);
 						break;		
-				case 6:	setBtnInFooter(3);
+				case 6:	setBtnInFooter(6);
 						break;		
-				case 7:	setBtnInFooter(4);
-						break;		
-				case 8:	setBtnInFooter(5);
-						break;		
-				case 9:	setBtnInFooter(6);
-						break;		
-				case 10:setBtnInFooter(7);
-						break;		
+//				case 7:	setBtnInFooter(2);
+//						break;		
+//				case 8:	setBtnInFooter(2);
+//						break;		
+//				case 9:	setBtnInFooter(3);
+//						break;		
+//				case 10:setBtnInFooter(3);
+//						break;		
+//				case 11:setBtnInFooter(3);
+//						break;
+//				case 12:setBtnInFooter(3);
+//					break;		
+//				case 13:setBtnInFooter(3);
+//						break;		
+//				case 14:setBtnInFooter(3);
+//						break;		
+//				case 15:setBtnInFooter(4);
+//						break;		
+//				case 16:setBtnInFooter(5);
+//						break;		
+//				case 17:setBtnInFooter(6);
+//						break;		
+//				case 18:setBtnInFooter(7);
+//						break;		
+
+						
 				}
 				
 			}
@@ -164,7 +210,7 @@ public class ReportActivity extends FragmentActivity {
 		btns[4] = (Button) findViewById(R.id.btn4);
 		btns[5] = (Button) findViewById(R.id.btn5);
 		btns[6] = (Button) findViewById(R.id.btn6);
-		btns[7] = (Button) findViewById(R.id.btn7);		
+//		btns[7] = (Button) findViewById(R.id.btn7);		
 		setBtnInFooter(0);
 		
 
@@ -185,6 +231,21 @@ public class ReportActivity extends FragmentActivity {
 	public MyFragmentStatePagerAdapter getMyfm(){
 		return this.myAdapter;
 	}
+	
+	public double getLat(){
+		return this.latitude;
+	}
+	public double getLng(){
+		return this.longitude;
+	}
+	
+	public int getLoc(){ return this.loc; }
+	public void setLoc(int i){ this.loc=i; }
+	public int getDnT(){ return this.dnt; }
+	public void setDnT(int i){ this.dnt=i; }	
+	public int getSev(){ return this.sev; }
+	public void setSev(int i){ this.sev=i; }
+	
 	
 	private void setTexts(){
 		
@@ -257,5 +318,38 @@ public class ReportActivity extends FragmentActivity {
 	}
 	
 	
+	public void getLocation(){
+		
+		// obtain location
+		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		Log.v("sociam", "GPS "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
+		Log.v("sociam", "NETWORK "+locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
+
+		
+		List<String> allProvider =  locationManager.getAllProviders();
+        for(int i = 0 ; i < allProvider.size() ; i++){
+            locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
+        }
+		
+	}
+	
+	// for location manager
+	public void onLocationChanged(Location location) {
+			latitude = location.getLatitude();
+			longitude = location.getLongitude();
+		
+			Log.v("sociam", "Lat "+latitude + "   Lon "+longitude);
+	}
+	
+	public void onProviderDisabled(String provider) {
+		// TODO Auto-generated method stub		
+	}
+	public void onProviderEnabled(String provider) {
+		// TODO Auto-generated method stub		
+	}
+	public void onStatusChanged(String provider, int status, Bundle extras) {
+		// TODO Auto-generated method stub		
+	}
+
 	
 }

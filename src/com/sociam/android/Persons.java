@@ -3,7 +3,7 @@ package com.sociam.android;
 public class Persons {
 
 	private int type; // 1:pects 2:victim
-	private int num;
+	private int num=99;
 	private String age;
 	private String gender;
 	private String ethics;

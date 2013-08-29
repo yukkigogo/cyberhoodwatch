@@ -96,6 +96,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	}
   
 
+
+  
+  
   
   private void setUpMapIfNeeded() {
       // Do a null check to confirm that we have not already instantiated the map.  

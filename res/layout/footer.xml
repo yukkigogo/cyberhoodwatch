@@ -28,11 +28,11 @@
           android:layout_height="20dp"
           android:layout_toLeftOf="@+id/btn2" />
 
-            <Button
+       <Button
           android:id="@+id/btn0"
           android:layout_width="20dp"
           android:layout_height="20dp"
-          android:layout_toLeftOf="@+id/btn1" />
+          android:layout_toLeftOf="@+id/btn1" /> 
 
             
             
@@ -49,7 +49,7 @@
           android:layout_height="20dp"
           android:layout_toRightOf="@+id/btn4" />
 
-      <Button
+    <Button
           android:id="@+id/btn6"
           android:layout_width="20dp"
           android:layout_height="20dp"
@@ -57,12 +57,12 @@
       
 
 
-      <Button
+<!--       <Button
           android:id="@+id/btn7"
           android:layout_width="20dp"
           android:layout_height="20dp"
-          android:layout_toRightOf="@+id/btn6" />
-
+          android:layout_toRightOf="@+id/btn6" /> 
+ -->
 
 
   

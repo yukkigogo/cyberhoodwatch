@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:id="@+id/layoutcategory2"
+	android:id="@+id/layoutseverity"	
 	android:orientation="vertical"
 	android:layout_width="match_parent"
 	android:layout_height="match_parent"
@@ -15,7 +15,7 @@
 	    android:background="@color/half_black" >
 
 		<TextView
-		    android:id="@+id/textView1"
+		    android:id="@+id/textview_severity"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentTop="true"
@@ -23,8 +23,10 @@
 		    android:textColor="@color/white"
 		    android:textSize="20sp"
 		    android:layout_margin="10dip"
-		    android:text="Category in Detail" />
+		  />
 
+
+		<!-- center buttons -->	
 		<ImageView
             android:id="@+id/padding"
             android:layout_width="wrap_content"
@@ -41,57 +43,52 @@
             android:layout_centerVertical="true"
             android:src="@drawable/padding_horizontal" />
 				
+
+
 		
-
 		<ToggleButton
-		    android:id="@+id/frag3LeftTopBtn"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"		
-		    android:layout_alignTop="@+id/padding"
-            android:layout_toLeftOf="@+id/padding"	
-		    android:textOff="" 
-		    android:textOn="" 
-		    android:textColor="@color/white"
-		    android:background="@drawable/coner_left_top_btn"/>
-
-		<ToggleButton
-		    android:id="@+id/frag3RightTopBtn"
+		    android:id="@+id/severity_RightTopBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 			android:layout_alignTop="@+id/padding"
             android:layout_toRightOf="@+id/padding"
             android:textColor="@color/white"
-		    android:textOff="" 
-		    android:textOn="" 
 		    android:background="@drawable/coner_right_top_btn"/>
+		
+			
+		<ToggleButton
+		    android:id="@+id/severity_LeftTopBtn"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+			android:layout_alignTop="@+id/padding"
+            android:layout_toLeftOf="@+id/padding"
+            android:textColor="@color/white"
+		    android:background="@drawable/coner_left_top_btn"/>	
 
 	<ToggleButton
-		    android:id="@+id/frag3RightBtmBtn"
+		    android:id="@+id/severity_RightBtmBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_alignLeft="@+id/padding"
 		    android:layout_below="@+id/padding_hori"
 		    android:background="@drawable/coner_right_btm_btn"
 		    android:textColor="@color/white"
-		    android:textOff=""
-		    android:textOn="" />
+			 />
 		
 		
 		<ToggleButton
-		    android:id="@+id/frag3LeftBtmBtn"
+		    android:id="@+id/severity_LeftBtmBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/padding_hori"
 		    android:layout_toLeftOf="@+id/padding"
 		    android:textColor="@color/white"
-		    android:textOff="" 
-		    android:textOn="" 
 		    android:background="@drawable/coner_left_btm_btn"/>
 
 		
 		
 		<Button
-		    android:id="@+id/frag3midBtn"
+		    android:id="@+id/severity_midBtn"
 		    android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
@@ -101,32 +98,21 @@
 		    android:background="@drawable/mid_btn"/>
 		
 		
-	<!-- center bottons till here -->			
+	<!-- center bottons till here -->	
 		
 		
 
-		
-		
-		
-		
-		<Button
-		    android:id="@+id/frag3description"
-		    android:layout_width="120dp"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:layout_alignParentLeft="true"
-		    android:layout_alignTop="@+id/frag3goSummary"
-		    android:textColor="@color/white"		    
-		    android:text="Add Description" />
 
 		<Button
-		    android:id="@+id/frag3goSummary"
+		    android:id="@+id/severity_goSummary"
 		    android:layout_width="120dp"
 		    android:layout_height="wrap_content"
 		    android:layout_alignParentBottom="true"
-		    android:layout_alignParentRight="true"		    
+		    android:layout_alignParentRight="true"
 		    android:textColor="@color/white"
 		    android:text="Go Summary" />
+
+
 
 	</RelativeLayout>
 	

@@ -105,7 +105,7 @@ public class ReportCategory2 extends Fragment {
 				case 0:
 					Log.e("sociam","push the button");
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
-					pager.setCurrentItem(pager.getCurrentItem()+1);
+					pager.setCurrentItem(pager.getCurrentItem()-1);
 					break;
 				case 99:
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
@@ -125,6 +125,8 @@ public class ReportCategory2 extends Fragment {
 	}
 	
 	private void setToggleListeners(final ToggleButton btn,final int num){
+		pager =(ViewPager) getActivity().findViewById(R.id.pager);
+
 		btn.setOnCheckedChangeListener(
 				new CompoundButton.OnCheckedChangeListener() {
 					@Override
@@ -144,6 +146,8 @@ public class ReportCategory2 extends Fragment {
 								}else if(cat1=="ASB"){
 									currentCrime.setCategory("Noise");
 								}
+								pager.setCurrentItem(pager.getCurrentItem()+1);
+
 								break;
 							case 3:
 								
@@ -157,14 +161,17 @@ public class ReportCategory2 extends Fragment {
 								}else if(cat1=="ASB"){
 									currentCrime.setCategory("StreetDrinking");
 								}
+								pager.setCurrentItem(pager.getCurrentItem()+1);
+
 								break;
 							case 4:
 								
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn5.setChecked(false);
-								addText();
 								currentCrime.setCategory(cat1 + "-other");
+								pager.setCurrentItem(pager.getCurrentItem()+1);
+
 								break;
 							case 5:
 								Log.w("sociam", "in 4 "+Integer.toString(currentCrime.getCategoryCode()));
@@ -178,7 +185,8 @@ public class ReportCategory2 extends Fragment {
 								}else if(cat1=="ASB"){
 									currentCrime.setCategory("Drugs");
 								}
-								
+								pager.setCurrentItem(pager.getCurrentItem()+1);
+
 								break;
 							default:
 								break;

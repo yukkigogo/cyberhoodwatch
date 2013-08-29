@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
@@ -63,10 +64,10 @@ public class ReportCategory extends Fragment {
 	  btnS = (Button) getActivity().findViewById(R.id.frag2goSummary);
 	  btnD = (Button) getActivity().findViewById(R.id.frag2description);
 	  
-	  btn2 = (ToggleButton) getActivity().findViewById(R.id.frag2RightTopBtn);
+	  btn2 = (ToggleButton) getActivity().findViewById(R.id.frag2RightBtmBtn);
 	  btn3 = (ToggleButton) getActivity().findViewById(R.id.frag2LeftBtmBtn);
 	  btn4 = (ToggleButton) getActivity().findViewById(R.id.frag2LeftTopBtn);
-	  btn5 = (ToggleButton) getActivity().findViewById(R.id.frag2RightBtmBtn);
+	  btn5 = (ToggleButton) getActivity().findViewById(R.id.frag2RightTopBtn);
 	  
 	  
 	  
@@ -94,7 +95,7 @@ public class ReportCategory extends Fragment {
 				case 0:
 					Log.e("sociam","push the button");
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
-					pager.setCurrentItem(pager.getCurrentItem()+1);
+					pager.setCurrentItem(pager.getCurrentItem()-1);
 					break;
 				case 99:
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
@@ -103,6 +104,13 @@ public class ReportCategory extends Fragment {
 				
 				case 999:
 					final EditText eText = new EditText(getActivity());
+					
+					if(currentCrime.getisCategoryText()){
+						String str = currentCrime.getCategoryText();
+						eText.setText(str, TextView.BufferType.EDITABLE);
+					}
+					
+					
 					new AlertDialog.Builder(getActivity())
 					.setIcon(android.R.drawable.ic_dialog_info)
 					.setTitle("Input Description")
@@ -111,9 +119,15 @@ public class ReportCategory extends Fragment {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// out the input to toast at the moment
-							Toast.makeText(getActivity(), eText.getText().toString()
-									, Toast.LENGTH_LONG).show();
+							if(eText.getText().toString().length()>0){
+								currentCrime.setisCategoryText(true);
+								currentCrime.setCategoryText(eText.getText().toString());
+							}else{
+								currentCrime.setisCategoryText(false);
+								currentCrime.setCategoryText("");					
+							}
+							
+							
 						}
 					}).setNegativeButton("Cancel", 
 							new DialogInterface.OnClickListener() {						
@@ -133,6 +147,8 @@ public class ReportCategory extends Fragment {
 	}
 	
 	private void setToggleListeners(final ToggleButton btn,final int num){
+		pager =(ViewPager) getActivity().findViewById(R.id.pager);
+
 		btn.setOnCheckedChangeListener(
 				new CompoundButton.OnCheckedChangeListener() {
 					@Override
@@ -151,6 +167,8 @@ public class ReportCategory extends Fragment {
 								btn5.setChecked(false);
 								currentCrime.setCategory("Violent");
 								currentCrime.setCategoryCode(1);
+								pager.setCurrentItem(pager.getCurrentItem()+1);
+
 								break;
 							case 3:
 								//Log.e("sociam", "in 3 "+Integer.toString(currentCrime.getCategoryCode()));
@@ -163,6 +181,7 @@ public class ReportCategory extends Fragment {
 								btn5.setChecked(false);
 								currentCrime.setCategory("Other");
 								currentCrime.setCategoryCode(0);
+								pager.setCurrentItem(pager.getCurrentItem()+2);
 
 								break;
 							case 4:
@@ -177,6 +196,7 @@ public class ReportCategory extends Fragment {
 								btn5.setChecked(false);
 								currentCrime.setCategory("ASB");
 								currentCrime.setCategoryCode(3);
+								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
 
@@ -191,6 +211,7 @@ public class ReportCategory extends Fragment {
 								btn4.setChecked(false);
 								currentCrime.setCategory("Theft");
 								currentCrime.setCategoryCode(2);
+								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
 							default:

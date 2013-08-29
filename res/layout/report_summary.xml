@@ -12,22 +12,21 @@
 	    android:layout_width="fill_parent"
 	    android:layout_height="fill_parent"
 	    android:layout_margin="30dip"
-	    android:background="@color/white" >
+	    android:background="@color/half_black" >
 	
 	    <fragment
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
-	        android:layout_above="@+id/button1"
 	        android:layout_alignParentRight="true"
 	        class="com.sociam.android.report.SummaryListFragment" />
 
 	    <Button
-	        android:id="@+id/button1"
+	        android:id="@+id/smybtn"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_centerHorizontal="true"
-	        android:background="@color/red"
+			android:textColor="@color/white"
 	        android:text="Submit" />
 	    
 	   </RelativeLayout> 

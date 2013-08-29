@@ -1,5 +1,7 @@
 package com.sociam.android.report;
 
+import java.util.Calendar;
+
 import com.sociam.android.Crime;
 import com.sociam.android.Persons;
 import com.sociam.android.R;
@@ -8,6 +10,8 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -19,30 +23,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
+import android.app.TimePickerDialog;
+import android.app.DatePickerDialog;
 
 
-public class ReportSuspect extends Fragment {
+
+@SuppressLint("ValidFragment")
+public class ReportDateTime extends Fragment {
 	
 	ViewPager pager;
 	boolean sbtn5, sbtn2, sbtn3, sbtn4;
 	Button btn1, btnS, btnD;
-	ToggleButton btn2,btn3,btn4, btn5;
+	ToggleButton btn2,btn3;
 	Crime currentCrime;
-	Persons suspects;
 	String cat1;
+	boolean reVisit=false;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
-		Log.e("sociam","cat2");
 		View view = inflater.inflate(R.layout.report_people1, container, false);
 		TextView tx = (TextView) view.findViewById(R.id.textview_people1); 
-		tx.setText("Do You Know Suspect(s)?");
+
+		tx.setText("Date and Time?");
 		setBtns(view);
 		return view;
 	}
@@ -51,17 +61,14 @@ public class ReportSuspect extends Fragment {
 	public void onStart() {
 		super.onStart();
 		currentCrime =  ((ReportActivity) getActivity()).getCrime();
-		suspects = currentCrime.getSuspects();
+
+		//set up background				
+		if(currentCrime.getPicON()==1){
+			LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.layoutpeople1);		  
+			  layout.setBackground(currentCrime.getBitmapdrawable());
+		}	
 		pager =(ViewPager) getActivity().findViewById(R.id.pager);
 
-
-		//set up background
-		if(currentCrime.getPicON()==1){
-			  LinearLayout layout = (LinearLayout) 
-					  getActivity().findViewById(R.id.layoutpeople1);		  
-			  layout.setBackground(currentCrime.getBitmapdrawable());
-		}
-		
 	}
 
 
@@ -76,6 +83,14 @@ public class ReportSuspect extends Fragment {
 	  btn2 = (ToggleButton) v.findViewById(R.id.people1_Right);
 	  btn3 = (ToggleButton) v.findViewById(R.id.people1_Left);
 	
+	  btn2.setTextOff("Now");
+	  btn2.setTextOn("Now");
+	  btn2.setText("Now");
+	  btn3.setTextOn("Other");
+	  btn3.setTextOff("Other");
+	  btn3.setText("Other");
+	  
+	  
 	
 	  setListeners(btn1, 0);
 	  setListeners(btnS, 99);
@@ -97,7 +112,8 @@ public class ReportSuspect extends Fragment {
 				// 0 = mid, 99=summary,  999=description
 				switch (type) {
 				case 0:
-					pager.setCurrentItem(pager.getCurrentItem()+1);
+					Log.e("sociam","push the button");
+					pager.setCurrentItem(pager.getCurrentItem()-1);
 					break;
 				case 99:
 					pager.setCurrentItem(ReportActivity.SUMMARY_FRAG_NUM);
@@ -116,36 +132,55 @@ public class ReportSuspect extends Fragment {
 	}
 	
 	private void setToggleListeners(final ToggleButton btn,final int num){
+		pager =(ViewPager) getActivity().findViewById(R.id.pager);
+
 		btn.setOnCheckedChangeListener(
 				new CompoundButton.OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView, 
 							boolean isChecked) {
-
 						
 						if(isChecked){
+							if( ((ReportActivity) getActivity()).getDnT() != num){	
+								((ReportActivity) getActivity()).setDnT(num);
+	
 							switch (num) {
 							case 2:	
-								currentCrime.setUseeSuspects(true);
 								btn3.setChecked(false);
-								// alert dialog wanna add detail or not?
-								//DetailDialogFragment ddf = new DetailDialogFragment();
-								//ddf.show(getActivity().getSupportFragmentManager(), "sociam");
+								
+								Time now = new Time();
+								now.setToNow();
+								currentCrime.setDateText(now.format2445());								
+								Log.e("sociam",now.format2445());
+							
 								pager.setCurrentItem(pager.getCurrentItem()+1);
-
 								break;
 							case 3:
-								currentCrime.setUseeSuspects(false);
 								btn2.setChecked(false);		
-								// jump to the victim page
-								pager.setCurrentItem(pager.getCurrentItem()+1);
+								// start time and date picker 
+								/*
+								 * http://developer.android.com/guide/topics/ui/controls/pickers.html
+								 */
+								
+								
+								
+								
+								
+								DatePickerFragment dp = new DatePickerFragment();
+								dp.show(getActivity().getSupportFragmentManager(), "sociam");
+								
+								TimePickerFragment df = new TimePickerFragment();
+								df.show(getActivity().getSupportFragmentManager(), "sociam");
+
+								
+							    pager.setCurrentItem(pager.getCurrentItem()+1);
 								
 								break;
 							
 							default:
 								break;
 							}
-							
+						}
 							
 						}else if(!isChecked){
 							
@@ -156,42 +191,18 @@ public class ReportSuspect extends Fragment {
 	}
 	
 
-	@SuppressLint("ValidFragment")
-	private class DetailDialogFragment extends DialogFragment{
-		//ViewPager pager =(ViewPager) getActivity().findViewById(R.id.pager);
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setTitle("Add Detail?")
-			.setMessage("Do you want to add detail of suspect(s)?")
-			.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// jump to next page
-					//pager.setCurrentItem(pager.getCurrentItem()+1);
-				}
-			})
-			.setNegativeButton("No", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// jump to victim
-					//pager.setCurrentItem(pager.getCurrentItem()+4);
-				}
-			});
-			
-			
-			return builder.create();
-		}
-		
-	}
 
+	
+	
+	
+	
  
 	
 	private void addText(){		
 		final EditText eText = new EditText(getActivity());
 		
-		if(suspects.getisText()){
-			String str = suspects.getText();
+		if(currentCrime.getIsDateText()){
+			String str = currentCrime.getDateText();
 			eText.setText(str, TextView.BufferType.EDITABLE);
 		}
 		
@@ -204,11 +215,11 @@ public class ReportSuspect extends Fragment {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 				if(eText.getText().toString().length()>0){
-					suspects.setisText(true);
-					suspects.setText(eText.getText().toString());
+					currentCrime.setIsDateText(true);
+					currentCrime.setDateText(eText.getText().toString());
 				}else{
-					suspects.setisText(false);
-					suspects.setText("");
+					currentCrime.setIsDateText(false);
+					currentCrime.setDateText("");
 				}
 				
 				// out the input to toast at the moment
@@ -223,4 +234,47 @@ public class ReportSuspect extends Fragment {
 		}).show();
 	}
 	
+	private static class TimePickerFragment extends DialogFragment
+							implements TimePickerDialog.OnTimeSetListener {
+		
+      @Override
+      public Dialog onCreateDialog(Bundle savedInstanceState) {
+          final Calendar c = Calendar.getInstance();
+          int hour = c.get(Calendar.HOUR_OF_DAY);
+          int minute = c.get(Calendar.MINUTE);
+    	  
+    	return new TimePickerDialog(getActivity(), this, hour, minute, 
+    			DateFormat.is24HourFormat(getActivity()));
+      }
+        @Override
+		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+			// save to the val
+			Log.e("sociam", hourOfDay+" : "+ minute);
+		}
+	}
+
+	private static class DatePickerFragment extends DialogFragment
+    							implements DatePickerDialog.OnDateSetListener {
+	  
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+	        final Calendar d = Calendar.getInstance();
+	        int year = d.get(Calendar.YEAR);
+	        int month = d.get(Calendar.MONTH);
+	        int day = d.get(Calendar.DAY_OF_MONTH);
+
+	        return new DatePickerDialog(getActivity(), this, year, month, day);
+	    }
+		
+		@Override
+		public void onDateSet(DatePicker view, int year, int monthOfYear,
+				int dayOfMonth) {
+			Log.e("sociam", year + " "+monthOfYear +" "+ dayOfMonth);
+			
+		}
+		
+	}
+
+	
 }
+
+
