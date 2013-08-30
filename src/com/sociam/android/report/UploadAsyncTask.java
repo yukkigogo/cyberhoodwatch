@@ -53,6 +53,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      multipartEntity.addPart("f1", fileBody);
 		      
 		      // other post
+		      
 		      multipartEntity.addPart("lat", new StringBody(lat));
 		      multipartEntity.addPart("lon", new StringBody(lon));
 		     

@@ -14,7 +14,9 @@ import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.Dialog;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,6 +48,9 @@ public class ReportDateTime extends Fragment {
 	Crime currentCrime;
 	String cat1;
 	boolean reVisit=false;
+	int ihour,imin,iyear,imonth,iday;
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
@@ -161,6 +166,7 @@ public class ReportDateTime extends Fragment {
 								btn2.setChecked(false);		
 								currentCrime.setIsNow(false);
 
+									
 								// start time and date picker 
 								/*
 								 * http://developer.android.com/guide/topics/ui/controls/pickers.html
@@ -173,24 +179,11 @@ public class ReportDateTime extends Fragment {
 						        final int year = calendar.get(Calendar.YEAR);
 						        final int monthOfYear = calendar.get(Calendar.MONTH);
 						        final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
-								new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-									
-									@Override
-									public void onDateSet(DatePicker view, int year, int monthOfYear,
-											int dayOfMonth) {
-										// TODO Auto-generated method stub
-										
-									}
-								}, year, monthOfYear, dayOfMonth).show(); 
+								new DatePickerDialog(getActivity(), setDateListener() , year, monthOfYear, dayOfMonth).show(); 
+			
 								
-								new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
-									
-									@Override
-									public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-										// TODO Auto-generated method stub
-										
-									}
-								}, hour, minute, true).show();
+								
+								new TimePickerDialog(getActivity(), setTimeListener(), hour, minute, true).show();
 								
 								/*
 								 * If I use DialogFragment, the exception with getCurrentItem which
@@ -218,12 +211,41 @@ public class ReportDateTime extends Fragment {
 						
 					}
 				});
+		
+		
+			
+		
+	
 	}
 	
 
 
+	private OnDateSetListener setDateListener(){
+		OnDateSetListener listner1 = new DatePickerDialog.OnDateSetListener() {			
+			@Override
+			public void onDateSet(DatePicker view, int year, 
+					int monthOfYear, int dayOfMonth) {
+				iyear=year;
+				imonth=monthOfYear;
+				iday=dayOfMonth;
+				
+			}
+		};
+		return listner1;
+	}
 	
-	
+	private OnTimeSetListener setTimeListener(){
+		OnTimeSetListener tmd = new TimePickerDialog.OnTimeSetListener() {		
+			@Override
+			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+					ihour = hourOfDay;
+					imin = minute;
+					
+			}
+		};
+		return tmd;
+	}
+
 	
 	
  
