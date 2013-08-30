@@ -24,6 +24,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -54,13 +56,27 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	protected LocationManager locationManager;
 	protected LocationListener locationListener;
 	protected Context context;
-
+	SharedPreferences sp; 
 	
 	
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
+	 sp = getPreferences(MODE_PRIVATE);
+	
+		 
+	if(sp.getBoolean("first_time", true)){
+		// first time
+		setUpOnlyOnce();
+	 }else{
+		 // secound time
+		  
+	 }
+	 
+	 
+	 
+
     checkInternet();
     
     setContentView(R.layout.activity_main); 
@@ -95,7 +111,16 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  	return super.onOptionsItemSelected(item);
 	}
   
-
+  private void setUpOnlyOnce(){
+	  Editor e = sp.edit();
+	  e.putBoolean("first_time", false);
+	  e.commit();
+	
+	  String android_id = android.provider.Settings.Secure.getString(
+			  getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+	
+	  Log.e("sociam","my ID!!  "+ android_id);
+  }
 
   
   

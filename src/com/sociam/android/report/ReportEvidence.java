@@ -45,6 +45,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 // This class for first report page
 public class ReportEvidence extends Fragment {
@@ -54,8 +55,8 @@ public class ReportEvidence extends Fragment {
 	
 	ViewPager pager;
 
-	Button btn1,btn2,btnM,btnS;
-	//ImageView imageView1;
+	Button btn2,btnM,btnS;
+	Button btn1;
 	Bitmap capturedImage;
 	final String SAVE_DIR = "/CrimeTips/";
 	private String fileName;
@@ -153,6 +154,12 @@ public class ReportEvidence extends Fragment {
 		
 	}
 
+	private void setToggleListeners(final ToggleButton btn, final int num){
+		
+	}
+	
+	
+	
 	private void setListenersInEvi(final Button btn, final int type){
 		
 		btn.setOnClickListener(new OnClickListener() {

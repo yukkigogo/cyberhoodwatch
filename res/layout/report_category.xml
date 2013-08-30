@@ -51,8 +51,8 @@
 		    android:layout_height="wrap_content"		
 		    android:layout_alignTop="@+id/padding"
             android:layout_toLeftOf="@+id/padding"	
-		    android:textOff="ASB" 
-		    android:textOn="ASB" 
+		    android:textOff="Anti-Social&#10;Behaviour" 
+		    android:textOn="Anti-Social&#10;Behaviour" 
 		    android:textColor="@color/white"
 		    android:background="@drawable/coner_left_top_btn"/>
 

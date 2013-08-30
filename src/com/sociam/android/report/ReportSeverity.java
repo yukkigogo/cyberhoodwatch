@@ -44,7 +44,7 @@ public class ReportSeverity extends Fragment {
 
 		View view = inflater.inflate(R.layout.report_severity, container, false);
 		TextView tx = (TextView) view.findViewById(R.id.textview_severity); 
-		tx.setText("Serious Incident?");
+		tx.setText("How Serious the Incident?");
 		setBtns(view);
 		return view;
 	}

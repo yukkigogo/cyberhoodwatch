@@ -34,7 +34,7 @@ public class Crime {
 	
 	
 	// location
-	private boolean location_latlon=true;
+	private boolean location_latlon=true;	
 	private boolean isAddress=false;
 	private double lat;
 	private double lon;
@@ -42,11 +42,12 @@ public class Crime {
 
 	// date and time
 	private String date;
+	private boolean isNow=true;
 	private boolean isDateText;
 	private String dateText;
 	
 	//severity
-	private int severity; // 1 to 4
+	private int severity=88; // 1 to 4
 	
 	
 	public void setCrimeID(int id){	
@@ -143,6 +144,9 @@ public class Crime {
 	}
 	public void setDateText(String date){
 		this.dateText=date;
+	}
+	public void setIsNow(boolean b){
+		this.isNow=b;
 	}
 	
 	//severity
@@ -251,7 +255,9 @@ public class Crime {
 	public String getDateText(){
 		return this.dateText;
 	}
-	
+	public boolean getIsNow(){
+		return this.isNow;
+	}
 	
 	// severity
 	public int getSeverity(){

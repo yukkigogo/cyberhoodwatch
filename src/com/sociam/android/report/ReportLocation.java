@@ -106,6 +106,16 @@ public class ReportLocation extends Fragment {
 	  
 	}
 	
+	private void setLocation(){
+		double lat = ((ReportActivity) getActivity()).getLat();
+		double lng = ((ReportActivity) getActivity()).getLng();
+		currentCrime.setLocationLatLon(true);
+		currentCrime.setLat(lat);
+		currentCrime.setLon(lng);
+		Log.w("sociam","Lat and Lng : "+ lat + " " + lng);
+		
+	}
+	
 	
 	private void setListeners(final Button btn, final int type){
 		
@@ -183,9 +193,8 @@ public class ReportLocation extends Fragment {
 								break;
 							case 5:
 								// set up the location from getActivity
-								double lat = ((ReportActivity) getActivity()).getLat();
-								double lng = ((ReportActivity) getActivity()).getLng();
-								Log.w("sociam","Lat and Lng : "+ lat + " " + lng);
+
+								setLocation();
 								
 								btn2.setChecked(false);
 								btn3.setChecked(false);

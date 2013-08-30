@@ -147,30 +147,60 @@ public class ReportDateTime extends Fragment {
 							switch (num) {
 							case 2:	
 								btn3.setChecked(false);
-								
+								currentCrime.setIsNow(true);
+
 								Time now = new Time();
 								now.setToNow();
 								currentCrime.setDateText(now.format2445());								
 								Log.e("sociam",now.format2445());
-							
+								
+								
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 								break;
 							case 3:
 								btn2.setChecked(false);		
+								currentCrime.setIsNow(false);
+
 								// start time and date picker 
 								/*
 								 * http://developer.android.com/guide/topics/ui/controls/pickers.html
 								 */
 								
 								
+						        final Calendar calendar = Calendar.getInstance();
+						        final int hour = calendar.get(Calendar.HOUR_OF_DAY);
+						        final int minute = calendar.get(Calendar.MINUTE);
+						        final int year = calendar.get(Calendar.YEAR);
+						        final int monthOfYear = calendar.get(Calendar.MONTH);
+						        final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
+								new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+									
+									@Override
+									public void onDateSet(DatePicker view, int year, int monthOfYear,
+											int dayOfMonth) {
+										// TODO Auto-generated method stub
+										
+									}
+								}, year, monthOfYear, dayOfMonth).show(); 
 								
+								new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+									
+									@Override
+									public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+										// TODO Auto-generated method stub
+										
+									}
+								}, hour, minute, true).show();
 								
-								
-								DatePickerFragment dp = new DatePickerFragment();
-								dp.show(getActivity().getSupportFragmentManager(), "sociam");
-								
-								TimePickerFragment df = new TimePickerFragment();
-								df.show(getActivity().getSupportFragmentManager(), "sociam");
+								/*
+								 * If I use DialogFragment, the exception with getCurrentItem which
+								 *  relates to layout error happens. 
+								 */
+//								DatePickerFragment dp = new DatePickerFragment();
+//								dp.show(getActivity().getSupportFragmentManager(), "sociam");
+//								
+//								TimePickerFragment df = new TimePickerFragment();
+//								df.show(getActivity().getSupportFragmentManager(), "sociam");
 
 								
 							    pager.setCurrentItem(pager.getCurrentItem()+1);
@@ -234,45 +264,45 @@ public class ReportDateTime extends Fragment {
 		}).show();
 	}
 	
-	private static class TimePickerFragment extends DialogFragment
-							implements TimePickerDialog.OnTimeSetListener {
-		
-      @Override
-      public Dialog onCreateDialog(Bundle savedInstanceState) {
-          final Calendar c = Calendar.getInstance();
-          int hour = c.get(Calendar.HOUR_OF_DAY);
-          int minute = c.get(Calendar.MINUTE);
-    	  
-    	return new TimePickerDialog(getActivity(), this, hour, minute, 
-    			DateFormat.is24HourFormat(getActivity()));
-      }
-        @Override
-		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-			// save to the val
-			Log.e("sociam", hourOfDay+" : "+ minute);
-		}
-	}
+//	private static class TimePickerFragment extends DialogFragment
+//							implements TimePickerDialog.OnTimeSetListener {
+//		
+//      @Override
+//      public Dialog onCreateDialog(Bundle savedInstanceState) {
+//          final Calendar c = Calendar.getInstance();
+//          int hour = c.get(Calendar.HOUR_OF_DAY);
+//          int minute = c.get(Calendar.MINUTE);
+//    	  
+//    	return new TimePickerDialog(getActivity(), this, hour, minute, 
+//    			DateFormat.is24HourFormat(getActivity()));
+//      }
+//        @Override
+//		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//			// save to the val
+//			Log.e("sociam", hourOfDay+" : "+ minute);
+//		}
+//	}
 
-	private static class DatePickerFragment extends DialogFragment
-    							implements DatePickerDialog.OnDateSetListener {
-	  
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-	        final Calendar d = Calendar.getInstance();
-	        int year = d.get(Calendar.YEAR);
-	        int month = d.get(Calendar.MONTH);
-	        int day = d.get(Calendar.DAY_OF_MONTH);
-
-	        return new DatePickerDialog(getActivity(), this, year, month, day);
-	    }
-		
-		@Override
-		public void onDateSet(DatePicker view, int year, int monthOfYear,
-				int dayOfMonth) {
-			Log.e("sociam", year + " "+monthOfYear +" "+ dayOfMonth);
-			
-		}
-		
-	}
+//	private static class DatePickerFragment extends DialogFragment
+//    							implements DatePickerDialog.OnDateSetListener {
+//	  
+//		public Dialog onCreateDialog(Bundle savedInstanceState) {
+//	        final Calendar d = Calendar.getInstance();
+//	        int year = d.get(Calendar.YEAR);
+//	        int month = d.get(Calendar.MONTH);
+//	        int day = d.get(Calendar.DAY_OF_MONTH);
+//
+//	        return new DatePickerDialog(getActivity(), this, year, month, day);
+//	    }
+//		
+//		@Override
+//		public void onDateSet(DatePicker view, int year, int monthOfYear,
+//				int dayOfMonth) {
+//			Log.e("sociam", year + " "+monthOfYear +" "+ dayOfMonth);
+//			
+//		}
+//		
+//	}
 
 	
 }
