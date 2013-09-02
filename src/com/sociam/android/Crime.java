@@ -2,13 +2,14 @@ package com.sociam.android;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.text.format.Time;
 
 public class Crime {
 	
 	// IDs
 	private int crimeID; //hash()
 	private String userID;
-	private boolean id_code=true; //true = anonymous 
+	private boolean id_code=true; //true/1 = anonymous 
 	
 	//picture or video
 	private int picOn=0; // 0 null, 1 picture, 2 video
@@ -41,7 +42,7 @@ public class Crime {
 	private String address;
 
 	// date and time
-	private String date;
+	private Time date;
 	private boolean isNow=true;
 	private boolean isDateText;
 	private String dateText;
@@ -136,7 +137,7 @@ public class Crime {
 	}
 	
 	// date
-	public void setDate(String date){
+	public void setDate(Time date){
 		this.date=date;
 	}
 	public void setIsDateText(boolean date){
@@ -246,7 +247,7 @@ public class Crime {
 	}
 	
 	// date and time
-	public String getDate(){
+	public Time getDate(){
 		return this.date;
 	}
 	public boolean getIsDateText(){

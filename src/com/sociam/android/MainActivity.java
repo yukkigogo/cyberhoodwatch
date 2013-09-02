@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.UUID;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -36,6 +37,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Process;
 import android.os.StrictMode;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -63,7 +65,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
-	 sp = getPreferences(MODE_PRIVATE);
+	 sp = PreferenceManager.getDefaultSharedPreferences(this);
 	
 		 
 	if(sp.getBoolean("first_time", true)){
@@ -71,7 +73,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 		setUpOnlyOnce();
 	 }else{
 		 // secound time
-		  
+		  Log.e("sociam","my currentID !!  "+ sp.getString("uuid", "something problem with uuid"));
+  
 	 }
 	 
 	 
@@ -82,6 +85,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     setContentView(R.layout.activity_main); 
     //map initialise
     setUpMapIfNeeded();
+    
   }
   
   
@@ -116,10 +120,10 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  e.putBoolean("first_time", false);
 	  e.commit();
 	
-	  String android_id = android.provider.Settings.Secure.getString(
-			  getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
-	
-	  Log.e("sociam","my ID!!  "+ android_id);
+	  UUID uuid = UUID.randomUUID();
+	  e.putString("uuid", uuid.toString());
+	  e.commit();
+	  Log.e("sociam","my ID!!  "+ uuid);
   }
 
   
@@ -183,7 +187,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	for(Crime crime : crimes){
 		amaker = mMap.addMarker(new MarkerOptions()
 		.position(new LatLng(crime.getLat(), crime.getLon()))
-		.title(crime.getDate())
+		//.title(crime.getDate())
 		.snippet(crime.getFilepath()));		
 	
 	
@@ -226,7 +230,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 				crime.setCrimeID(id);
 				crime.setLat(lat);
 				crime.setLon(lon);
-				crime.setDate(str[3]);
+				//crime.setDate(str[3]);
 				crime.setFilepath(str[4]);
 				
 				crimes.add(crime);

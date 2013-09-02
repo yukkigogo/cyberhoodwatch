@@ -1,5 +1,6 @@
 package com.sociam.android.report;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import com.google.android.gms.internal.cu;
@@ -8,6 +9,7 @@ import com.sociam.android.R;
 
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.text.format.Time;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 
@@ -47,9 +49,14 @@ public class SummaryListFragment extends ListFragment {
 
 		
 		
+		if(currentCrime.getIsNow() == true)
+			details.add("Time and Date : " +  "Now"); 
+		else { 
+			Time t = currentCrime.getDate();
+			String str =t.format("%d-%m-%Y %H:%M");
+			details.add("Time and Date : "+ str );
+		}
 		
-		details.add("Time and Date : " + 
-		(currentCrime.getIsNow() == true ? "Now" : currentCrime.getDate()));
 		if(currentCrime.getIsDateText())
 			details.add(currentCrime.getDateText());
 		

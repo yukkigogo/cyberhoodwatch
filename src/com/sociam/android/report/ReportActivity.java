@@ -6,12 +6,14 @@ import java.util.List;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.text.format.Time;
 import android.util.Log;
 import android.util.TypedValue;
 import android.widget.Button;
 import android.widget.ToggleButton;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -19,6 +21,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.sociam.android.Crime;
 import com.sociam.android.Persons;
@@ -48,6 +51,9 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	ViewPager pager;
 	Button[] btns = new Button[7];
 	
+	SharedPreferences sp;
+	Time now;
+	
 	// ToggleButton for Category2 and cat
 	ToggleButton frag3btn2,frag3btn3,frag3btn4,frag3btn5;
 	
@@ -66,7 +72,6 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.report_main);
@@ -77,13 +82,24 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		crime.setSuspects(suspects);
 		crime.setVictim(victims);
 		
-		
+		sp = PreferenceManager.getDefaultSharedPreferences(this);;
+		  Log.w("sociam"," coommmooonnn !!  "+ sp.getString("uuid", "something problem with uuid"));
+
+		initSet();
 		getLocation();
 		setUpView();
 		setFooter();
 	}
 	
 	
+	private void initSet() {
+		now = new Time();
+		now.setToNow();
+		crime.setDate(now);
+		
+	}
+
+
 	public void onStop() {
 		super.onStop();
 		locationManager.removeUpdates(this);
@@ -238,7 +254,12 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	public double getLng(){
 		return this.longitude;
 	}
-	
+	public SharedPreferences getSP(){
+		return this.sp;
+	}
+	public Time getNow(){
+		return this.now;
+	}
 	public int getLoc(){ return this.loc; }
 	public void setLoc(int i){ this.loc=i; }
 	public int getDnT(){ return this.dnt; }

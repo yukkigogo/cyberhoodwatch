@@ -17,6 +17,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -26,7 +27,6 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	Context context;
 	String lat,lon;
 	
-	
 	  public UploadAsyncTask(Context context){
 		    this.context = context;
 		}
@@ -35,9 +35,24 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	protected Integer doInBackground(String... params) {
 		// TODO Auto-generated method stub
 		try {
-		      String fileName = params[0];
-		      String lat = params[1];
-		      String lon = params[2];
+			
+		      String fileName = params[0];	      
+		      String user_id = params[1];
+		      String id_code = params[2];
+		      String pic_on = params[3];
+		      String category = params[4];
+		      String is_cat_text = params[5];
+		      String cat_text = params[6];
+		      String is_loc_latlon = params[7];
+		      String is_address = params[8];
+		      String lat = params[9];
+		      String lon = params[10];
+		      String address = params[11];
+		      String date_time = params[12];
+		      String is_date_text = params[13];
+		      String date_text  = params[14];
+		      String severity = params[15];
+ 
 		      
 		      Log.v("odebaki",lat);
 		      
@@ -52,15 +67,32 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      FileBody fileBody = new FileBody(file, "image/jpeg");
 		      multipartEntity.addPart("f1", fileBody);
 		      
-		      // other post
-		      
+		      // other post		      
+		      multipartEntity.addPart("user_id", new StringBody(user_id));
+		      multipartEntity.addPart("id_code", new StringBody(id_code));
+		      multipartEntity.addPart("pic_on", new StringBody(pic_on));
+		      multipartEntity.addPart("category", new StringBody(category));
+		      multipartEntity.addPart("is_cat_text", new StringBody(is_cat_text));
+		      multipartEntity.addPart("cat_text", new StringBody(cat_text));
+		      multipartEntity.addPart("is_loc_latlon", new StringBody(is_loc_latlon));
+		      multipartEntity.addPart("is_address", new StringBody(user_id));
+		      multipartEntity.addPart("user_id", new StringBody(is_address));
 		      multipartEntity.addPart("lat", new StringBody(lat));
-		      multipartEntity.addPart("lon", new StringBody(lon));
-		     
+		      multipartEntity.addPart("lon", new StringBody(lon));		     
+		      multipartEntity.addPart("address", new StringBody(address));
+		      multipartEntity.addPart("date", new StringBody(date_time));
+		      multipartEntity.addPart("is_date_text", new StringBody(is_date_text));
+		      multipartEntity.addPart("date_text", new StringBody(date_text));
+		      multipartEntity.addPart("severity", new StringBody(severity));
+
+		      
+		      
+
+		      
 		      
 		      httpPost.setEntity(multipartEntity);
 		      String response = httpClient.execute(httpPost, responseHandler);
-		      Log.e("odebaki", response);
+		      Log.e("odebaki", "Responce from server : "+response);
 		      
 		    
 		      
@@ -84,7 +116,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	  protected void onPreExecute() {
 	    dialog = new ProgressDialog(context);
 	    dialog.setTitle("Please wait");
-	    dialog.setMessage("Uploading...");
+	    dialog.setMessage("Uploading to the server...");
 	    dialog.show();
 	  }  
 	

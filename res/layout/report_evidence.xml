@@ -92,7 +92,7 @@
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentRight="true"
 		    android:textColor="@color/white"
-		    android:text="Go Summary" />
+		    android:text="@string/go2summary" />
         
         
     </RelativeLayout>

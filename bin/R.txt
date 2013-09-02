@@ -186,6 +186,7 @@ int layout report_severity 0x7f03000d
 int layout report_summary 0x7f03000e
 int menu main 0x7f090000
 int string action_settings 0x7f060016
+int string add_disc 0x7f06001a
 int string app_name 0x7f060015
 int string auth_client_needs_enabling_title 0x7f060010
 int string auth_client_needs_installation_title 0x7f060011
@@ -208,6 +209,7 @@ int string common_google_play_services_update_text 0x7f060008
 int string common_google_play_services_update_title 0x7f060007
 int string common_signin_button_text 0x7f06000d
 int string common_signin_button_text_long 0x7f06000e
+int string go2summary 0x7f060019
 int string go_new 0x7f060018
 int string hello_world 0x7f060017
 int style AppBaseTheme 0x7f080000

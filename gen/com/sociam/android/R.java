@@ -323,6 +323,7 @@ containing a value of this type.
     }
     public static final class string {
         public static final int action_settings=0x7f060016;
+        public static final int add_disc=0x7f06001a;
         public static final int app_name=0x7f060015;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -402,6 +403,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
+        public static final int go2summary=0x7f060019;
         public static final int go_new=0x7f060018;
         public static final int hello_world=0x7f060017;
     }

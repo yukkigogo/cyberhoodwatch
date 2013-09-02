@@ -156,8 +156,8 @@ public class ReportDateTime extends Fragment {
 
 								Time now = new Time();
 								now.setToNow();
-								currentCrime.setDateText(now.format2445());								
-								Log.e("sociam",now.format2445());
+								currentCrime.setDate(now);
+								//Log.e("sociam",now.format2445());
 								
 								
 								pager.setCurrentItem(pager.getCurrentItem()+1);
@@ -180,8 +180,6 @@ public class ReportDateTime extends Fragment {
 						        final int monthOfYear = calendar.get(Calendar.MONTH);
 						        final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 								new DatePickerDialog(getActivity(), setDateListener() , year, monthOfYear, dayOfMonth).show(); 
-			
-								
 								
 								new TimePickerDialog(getActivity(), setTimeListener(), hour, minute, true).show();
 								
@@ -194,6 +192,7 @@ public class ReportDateTime extends Fragment {
 //								
 //								TimePickerFragment df = new TimePickerFragment();
 //								df.show(getActivity().getSupportFragmentManager(), "sociam");
+								
 
 								
 							    pager.setCurrentItem(pager.getCurrentItem()+1);
@@ -229,6 +228,10 @@ public class ReportDateTime extends Fragment {
 				imonth=monthOfYear;
 				iday=dayOfMonth;
 				
+				Time t = new Time();
+				t.set(00,imin,ihour,iday,imonth,iyear);
+				currentCrime.setDate(t);			
+				
 			}
 		};
 		return listner1;
@@ -241,8 +244,12 @@ public class ReportDateTime extends Fragment {
 					ihour = hourOfDay;
 					imin = minute;
 					
+					
 			}
 		};
+		
+	
+		
 		return tmd;
 	}
 

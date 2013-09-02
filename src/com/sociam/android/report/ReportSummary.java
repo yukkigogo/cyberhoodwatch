@@ -1,15 +1,23 @@
 package com.sociam.android.report;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+
+import com.google.android.gms.internal.cu;
 import com.sociam.android.Crime;
 import com.sociam.android.R;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.text.format.Time;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ListFragment;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
+import android.preference.Preference;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +33,7 @@ public class ReportSummary extends Fragment {
 	ListView lv;
 	Crime currentCrime;
 	Button btnSubmit;
+	String user_id;
 	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(
@@ -36,20 +45,48 @@ public class ReportSummary extends Fragment {
 
 		
 		currentCrime = ((ReportActivity) getActivity()).getCrime();
-		
 		//set up background				
 		if(currentCrime.getPicON()==1){
 			LinearLayout layout = (LinearLayout) view.findViewById(R.id.smy);		  
 			  layout.setBackground(currentCrime.getBitmapdrawable());
 		}	
-		
 		setBtn(view);
-		
+		getID();
+
 		return view;
-		
+
 	}
 
 	
+
+
+	private void getID() {
+		// setup today's ID
+		Time t = ((ReportActivity) getActivity()).getNow();
+		user_id = ((ReportActivity) getActivity()).getSP().getString("uuid", "false")
+				+"-"+t.monthDay+"-"+t.month+"-"+t.year;
+		Log.w("sociam", "id before hash "+ user_id);
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(user_id.getBytes());
+			byte[] digest = md.digest();
+			StringBuffer sb = new StringBuffer();
+			for (byte b : digest) {
+				sb.append(Integer.toHexString((int) (b & 0xff)));
+			}
+			user_id = sb.toString();
+			Log.w("sociam", "id after hash "+ user_id);
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}
+
+
+
+
 	private void setBtn(View view){
 		
 		btnSubmit = (Button) view.findViewById(R.id.smybtn);
@@ -69,6 +106,26 @@ public class ReportSummary extends Fragment {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						// upload to the server 
+						
+						UploadAsyncTask upload = (UploadAsyncTask) new UploadAsyncTask(
+								getActivity()).execute(
+										Environment.getExternalStorageDirectory().getPath()+currentCrime.getFilepath(),
+										user_id,
+										currentCrime.getIdCode() ==true ? "1" : "0",
+										currentCrime.getFilepath() !=null ? "1" : "0",
+										currentCrime.getCategory(),
+										currentCrime.getisCategoryText()==true ? "1" : "0",
+										currentCrime.getisCategoryText()==true ? currentCrime.getCategoryText() : "",
+										currentCrime.getLocationLatLng()==true ? "1" : "0",
+										currentCrime.getIsAddress()==true ? "1":"0",
+										Double.toString(currentCrime.getLat()),
+										Double.toString(currentCrime.getLon()),
+										currentCrime.getIsAddress()==true ? currentCrime.getAddress():"",
+										currentCrime.getDate().format2445(),		
+										currentCrime.getIsDateText()==true ? "1" : "0",
+												currentCrime.getIsDateText()==true ? currentCrime.getDateText() : "",
+										Integer.toString(currentCrime.getSeverity())							
+										);
 						
 					}
 				})

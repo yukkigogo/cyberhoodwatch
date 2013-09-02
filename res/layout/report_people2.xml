@@ -109,7 +109,7 @@
 		    android:layout_alignParentLeft="true"
 		    android:layout_alignTop="@+id/people2goSummary"
 		    android:textColor="@color/white"
-		    android:text="Add Description" />
+		    android:text="@string/add_disc" />
 
 		<Button
 		    android:id="@+id/people2_goSummary"
@@ -118,7 +118,7 @@
 		    android:layout_alignParentBottom="true"
 		    android:layout_alignParentRight="true"
 		    android:textColor="@color/white"
-		    android:text="Go Summary" />
+		    android:text="@string/go2summary" />
 
 
 
