@@ -58,7 +58,7 @@ public class ReportEvidence extends Fragment {
 	Button btn2,btnM,btnS;
 	Button btn1;
 	Bitmap capturedImage;
-	final String SAVE_DIR = "/CrimeTips/";
+	public final String SAVE_DIR = "/CrimeTips/";
 	private String fileName;
 	Location myCurrentLocation;
 	
@@ -154,10 +154,10 @@ public class ReportEvidence extends Fragment {
 		
 	}
 
-	private void setToggleListeners(final ToggleButton btn, final int num){
-		
-	}
-	
+//	private void setToggleListeners(final ToggleButton btn, final int num){
+//		
+//	}
+//	
 	
 	
 	private void setListenersInEvi(final Button btn, final int type){
@@ -283,8 +283,10 @@ public class ReportEvidence extends Fragment {
 	    SimpleDateFormat fileNameDate = new SimpleDateFormat("yyyyMMdd_HHmmss");
 	    fileName = fileNameDate.format(mDate) + ".jpg";
 	    String AttachName = file.getAbsolutePath() + "/" + fileName;
-		Log.e("sociam", AttachName);
-		currentCrime.setFilepath(AttachName);
+	    //String AttachName = fileName;
+
+		Log.e("sociam", fileName);
+		currentCrime.setFilepath(fileName);
 		currentCrime.setPicOn(1);
 		currentCrime.setBitmap(saveImage);
 		

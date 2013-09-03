@@ -2,6 +2,8 @@ package com.sociam.android.report;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -18,7 +20,10 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
@@ -26,9 +31,11 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	ProgressDialog dialog;
 	Context context;
 	String lat,lon;
+	SharedPreferences sp;
 	
 	  public UploadAsyncTask(Context context){
 		    this.context = context;
+		    sp = PreferenceManager.getDefaultSharedPreferences(context);
 		}
 	  
 	@Override
@@ -54,7 +61,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      String severity = params[15];
  
 		     for(int i=0;i<params.length;i++)		
-		    	  Log.e("sociam",params[i]); 
+		    	  Log.e("sociam",i+" "+params[i]); 
 		      
 		      HttpClient httpClient = new DefaultHttpClient();
 		      HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/upandroid.php");
@@ -64,9 +71,11 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      
 		      // image post
 		      if(fileName!=""){
-		    	  File file = new File(fileName);
-		    	  FileBody fileBody = new FileBody(file, "image/jpeg");
+		    	 // File file = new File(fileName);
+		      	File file = new File(Environment.getExternalStorageDirectory().getPath()+"/CrimeTips/"+fileName);  
+		      	FileBody fileBody = new FileBody(file, "image/jpeg");
 		    	  multipartEntity.addPart("f1", fileBody);
+		    	  Log.e("sociam", fileBody.toString());
 		      }
 		      // other post		      
 		      multipartEntity.addPart("user_id", new StringBody(user_id));
@@ -91,10 +100,27 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      
 		      
 		      httpPost.setEntity(multipartEntity);
+		      //
 		      String response = httpClient.execute(httpPost, responseHandler);
-		      Log.e("odebaki", "Responce from server : "+response);
-		      
+		      Log.e("odebaki", response);
+		      String[] str = response.split("\n");
 		    
+		     String match = "crimeid";
+		     Pattern p = Pattern.compile(match);
+		     for(int i=0;i<str.length;i++){
+		    	 Log.e("sociam",str[i]);
+		    	 Matcher m = p.matcher(str[i]);
+		    	 if(m.find()){
+		    		 String[] str2 = str[i].split(",");
+		    		 Log.e("sociam", "crime num "+ str2[1]);
+		    		 String crime_ids = sp.getString("crime_id", "");
+		    		 Editor e = sp.edit();
+		    		 e.putString("crime_id", crime_ids+","+str2[1]);
+		    		 e.commit();
+		    	 }
+		     }
+		     
+		     Log.e("sociam","post crimes : "+sp.getString("crime_id", ""));
 		      
 		    } catch (ClientProtocolException e) {
 		      e.printStackTrace();

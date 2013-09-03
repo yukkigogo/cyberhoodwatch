@@ -64,8 +64,12 @@ public class ReportSummary extends Fragment {
 		// setup today's ID
 		Time t = ((ReportActivity) getActivity()).getNow();
 		user_id = ((ReportActivity) getActivity()).getSP().getString("uuid", "false")
-				+"-"+t.monthDay+"-"+t.month+"-"+t.year;
+				+"-"+Integer.toString(t.monthDay)+"-"+Integer.toString(t.month)+"-"
+				+Integer.toString(t.year);
+	
+	
 		Log.w("sociam", "id before hash "+ user_id);
+		
 		try {
 			MessageDigest md = MessageDigest.getInstance("MD5");
 			md.update(user_id.getBytes());

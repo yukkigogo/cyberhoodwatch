@@ -359,7 +359,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 			latitude = location.getLatitude();
 			longitude = location.getLongitude();
 			
-			if(crime.getLocationLatLng()){
+			if(!crime.getLocationLatLng()){
 				crime.setLocationLatLon(true);
 				crime.setLat(latitude);
 				crime.setLon(longitude);
