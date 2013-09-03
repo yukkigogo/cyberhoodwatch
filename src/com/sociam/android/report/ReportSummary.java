@@ -90,8 +90,7 @@ public class ReportSummary extends Fragment {
 	private void setBtn(View view){
 		
 		btnSubmit = (Button) view.findViewById(R.id.smybtn);
-		String android_id = android.provider.Settings.Secure.getString(
-				 getActivity().getContentResolver(), android.provider.Settings.Secure.ANDROID_ID);
+		
 
 		
 		btnSubmit.setOnClickListener(new OnClickListener() {
@@ -108,8 +107,10 @@ public class ReportSummary extends Fragment {
 						// upload to the server 
 						
 						UploadAsyncTask upload = (UploadAsyncTask) new UploadAsyncTask(
-								getActivity()).execute(
-										Environment.getExternalStorageDirectory().getPath()+currentCrime.getFilepath(),
+								getActivity());
+						
+						upload.execute(
+										currentCrime.getFilepath()==null ? "" : currentCrime.getFilepath(),
 										user_id,
 										currentCrime.getIdCode() ==true ? "1" : "0",
 										currentCrime.getFilepath() !=null ? "1" : "0",
@@ -123,9 +124,10 @@ public class ReportSummary extends Fragment {
 										currentCrime.getIsAddress()==true ? currentCrime.getAddress():"",
 										currentCrime.getDate().format2445(),		
 										currentCrime.getIsDateText()==true ? "1" : "0",
-												currentCrime.getIsDateText()==true ? currentCrime.getDateText() : "",
-										Integer.toString(currentCrime.getSeverity())							
+										currentCrime.getIsDateText()==true ? currentCrime.getDateText() : "",
+										currentCrime.getSeverity()==88 ? "1": Integer.toString(currentCrime.getSeverity())							
 										);
+					
 						
 					}
 				})

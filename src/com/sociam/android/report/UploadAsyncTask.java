@@ -53,8 +53,8 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      String date_text  = params[14];
 		      String severity = params[15];
  
-		      
-		      Log.v("odebaki",lat);
+		     for(int i=0;i<params.length;i++)		
+		    	  Log.e("sociam",params[i]); 
 		      
 		      HttpClient httpClient = new DefaultHttpClient();
 		      HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/upandroid.php");
@@ -63,10 +63,11 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 		      
 		      // image post
-		      File file = new File(fileName);
-		      FileBody fileBody = new FileBody(file, "image/jpeg");
-		      multipartEntity.addPart("f1", fileBody);
-		      
+		      if(fileName!=""){
+		    	  File file = new File(fileName);
+		    	  FileBody fileBody = new FileBody(file, "image/jpeg");
+		    	  multipartEntity.addPart("f1", fileBody);
+		      }
 		      // other post		      
 		      multipartEntity.addPart("user_id", new StringBody(user_id));
 		      multipartEntity.addPart("id_code", new StringBody(id_code));
@@ -75,8 +76,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      multipartEntity.addPart("is_cat_text", new StringBody(is_cat_text));
 		      multipartEntity.addPart("cat_text", new StringBody(cat_text));
 		      multipartEntity.addPart("is_loc_latlon", new StringBody(is_loc_latlon));
-		      multipartEntity.addPart("is_address", new StringBody(user_id));
-		      multipartEntity.addPart("user_id", new StringBody(is_address));
+		      multipartEntity.addPart("is_address", new StringBody(is_address));
 		      multipartEntity.addPart("lat", new StringBody(lat));
 		      multipartEntity.addPart("lon", new StringBody(lon));		     
 		      multipartEntity.addPart("address", new StringBody(address));

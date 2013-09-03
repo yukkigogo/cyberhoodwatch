@@ -358,8 +358,13 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	public void onLocationChanged(Location location) {
 			latitude = location.getLatitude();
 			longitude = location.getLongitude();
-		
-			Log.v("sociam", "Lat "+latitude + "   Lon "+longitude);
+			
+			if(crime.getLocationLatLng()){
+				crime.setLocationLatLon(true);
+				crime.setLat(latitude);
+				crime.setLon(longitude);
+			}
+			//Log.v("sociam", "Lat "+latitude + "   Lon "+longitude);
 	}
 	
 	public void onProviderDisabled(String provider) {

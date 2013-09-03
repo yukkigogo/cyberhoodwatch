@@ -18,7 +18,7 @@ public class Crime {
 	
 	
 	// category
-	private String category="";
+	private String category="Other";
 	private int c_code=99; // 0:other, 1:violent 2:Theft, 3: ASB 99:null
 	private boolean is_category_text=false;
 	private String category_text;
@@ -35,7 +35,7 @@ public class Crime {
 	
 	
 	// location
-	private boolean location_latlon=true;	
+	private boolean location_latlon=false;	
 	private boolean isAddress=false;
 	private double lat;
 	private double lon;
