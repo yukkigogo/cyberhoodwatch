@@ -17,6 +17,8 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.sociam.android.report.ReportSummary.FragmentCallBack;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -24,6 +26,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
 public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
@@ -32,12 +35,16 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	Context context;
 	String lat,lon;
 	SharedPreferences sp;
+	private FragmentCallBack fragmentcallback;
 	
-	  public UploadAsyncTask(Context context){
+	  public UploadAsyncTask(Context context, FragmentCallBack frag){
 		    this.context = context;
 		    sp = PreferenceManager.getDefaultSharedPreferences(context);
+		    this.fragmentcallback=frag;
 		}
 	  
+
+
 	@Override
 	protected Integer doInBackground(String... params) {
 		// TODO Auto-generated method stub
@@ -135,6 +142,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	  protected void onPostExecute(Integer result) {
 	    if(dialog != null){
 	      dialog.dismiss();
+	      fragmentcallback.onTaskDone();
 	    }
 	  }
 	  

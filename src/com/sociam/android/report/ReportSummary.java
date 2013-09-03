@@ -111,7 +111,14 @@ public class ReportSummary extends Fragment {
 						// upload to the server 
 						
 						UploadAsyncTask upload = (UploadAsyncTask) new UploadAsyncTask(
-								getActivity());
+								getActivity(),new FragmentCallBack() {
+									
+									@Override
+									public void onTaskDone() {
+										getActivity().finish();
+										
+									}
+								});
 						
 						upload.execute(
 										currentCrime.getFilepath()==null ? "" : currentCrime.getFilepath(),
@@ -147,6 +154,9 @@ public class ReportSummary extends Fragment {
 		});
 	}
 	
+	public interface FragmentCallBack{
+		public void onTaskDone();
+	}
 	
 	
 }
