@@ -1,5 +1,7 @@
 package com.sociam.android;
 
+import java.util.Calendar;
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.format.Time;
@@ -43,6 +45,7 @@ public class Crime {
 
 	// date and time
 	private Time date;
+	private Calendar cal;
 	private boolean isNow=true;
 	private boolean isDateText;
 	private String dateText;
@@ -50,12 +53,15 @@ public class Crime {
 	//severity
 	private int severity=88; // 1 to 4
 	
+	//up/down thumb
+	private int up_thumb=0;
+	private int down_thumb=0;
 	
 	public void setCrimeID(int id){	
 		crimeID=id;
 	}
 	
-	public void userID(String id){	
+	public void setUserID(String id){	
 		this.userID=id;
 	}
 	
@@ -149,12 +155,24 @@ public class Crime {
 	public void setIsNow(boolean b){
 		this.isNow=b;
 	}
+	public void setCal(Calendar cal){
+		this.cal=cal;
+	}
 	
 	//severity
 	public void setSeverity(int sev){
 		this.severity=sev;
 	}
+	
+	//thumbs
+	public void setUpThumb(int up){
+		this.up_thumb=up;
+	}
+	public void setDownThumb(int down){
+		this.down_thumb=down;
+	}
 
+	
 	/*
 	 * Get methods
 	 */
@@ -259,11 +277,22 @@ public class Crime {
 	public boolean getIsNow(){
 		return this.isNow;
 	}
+	public Calendar getCal(){
+		return this.cal;
+	}
+	
 	
 	// severity
 	public int getSeverity(){
 		return this.severity;
 	}
 	
+	//Thumbs
+	public int getUpThumbs(){
+		return this.up_thumb;
+	}
+	public int getDownThumb(){
+		return this.down_thumb;
+	}
 
 }

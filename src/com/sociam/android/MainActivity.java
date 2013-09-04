@@ -5,7 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.UUID;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -39,6 +42,7 @@ import android.os.Process;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.text.format.Time;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -184,14 +188,19 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	// 
 	markers = new ArrayList<Marker>();
 	Marker amaker = null;
-	for(Crime crime : crimes){
-		amaker = mMap.addMarker(new MarkerOptions()
-		.position(new LatLng(crime.getLat(), crime.getLon()))
-		//.title(crime.getDate())
-		.snippet(crime.getFilepath()));		
-	
-	
-		markers.add(amaker);
+	for(int i=0;i<crimes.size();i++){
+		
+		if(crimes.get(i).getLocationLatLng()){
+			amaker = mMap.addMarker(new MarkerOptions()
+			.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
+			.title(Integer.toString(i))
+			.snippet(crimes.get(i).getFilepath()));		
+		
+		
+			markers.add(amaker);
+		}else{
+			Log.v("sociam", "Crime "+i+"no location information");
+		}	
 	}
 	  
 	  
@@ -199,7 +208,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 
 
 
-  private ArrayList<Crime> getCrimesData() {
+  @SuppressLint("SimpleDateFormat")
+private ArrayList<Crime> getCrimesData() {
 		//getting crime data from the server
 		
 		crimes = new ArrayList<Crime>();
@@ -209,31 +219,106 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 			
 			String currentLine;
 			while((currentLine=br.readLine())!=null){
-				Log.w("sociam",currentLine);
+				//Log.w("sociam",currentLine);
 				String str[] = currentLine.split(",");
+				
+				int is_loc_latlon=0;
+				is_loc_latlon = Integer.parseInt(str[8]);
+
+				if(is_loc_latlon==1){
 				Crime crime = new Crime();
 				
-				int id = 0;
+				//for(int i=0;i<str.length;i++){
+				//	Log.e("sociam","line " + i +" : "+str[i]);
+				//}
+				
+				int crime_id = 0;
+				int id_code=0;
+				int pic_on=0;
+				int is_address=0;
 				double lat = 0;
 				double lon = 0;
+				int is_date_text=0;
+				int severity=0;
+				int up_thumb=0;
+				int down_thumb=0;
 				
 				try {
-					id = Integer.parseInt(str[0]);
-					lat = Double.parseDouble(str[1]);
-					lon = Double.parseDouble(str[2]);					
+					crime_id = Integer.parseInt(str[0]);
+					id_code = Integer.parseInt(str[2]);
+					pic_on = Integer.parseInt(str[3]);
+					is_address = Integer.parseInt(str[9]);
+					lat = Double.parseDouble(str[10]);
+					lon = Double.parseDouble(str[11]);	
+					is_date_text = Integer.parseInt(str[14]);
+					severity=Integer.parseInt(str[16]);
 				} catch (Exception e) {
 					// check the double can convert
-					Log.e("sociam","fail convert double/interger from csv");
+					Log.e("sociam","fail convert double/interger from csv" + e.getMessage());
+					
 				}
 				
 				//set up crime values
-				crime.setCrimeID(id);
-				crime.setLat(lat);
-				crime.setLon(lon);
-				//crime.setDate(str[3]);
+				crime.setCrimeID(crime_id);
+				crime.setUserID(str[1]);
+				if(str[2]=="1") crime.setidcode(true); else crime.setidcode(false); 
+				crime.setPicOn(pic_on);
 				crime.setFilepath(str[4]);
+				crime.setCategory(str[5]);
+				if(id_code==1) {
+					crime.setisCategoryText(true); 
+					crime.setCategoryText(str[7]);
+				}else{ 
+					crime.setisCategoryText(false);					
+				}
+				
+				if(is_loc_latlon==1){
+					crime.setLocationLatLon(true);
+					crime.setLat(lat);
+					crime.setLon(lon);
+				}else{
+					crime.setLocationLatLon(false);
+				}
+				
+				if(is_address==1){
+					crime.setisAddress(true);
+					crime.setAddress(str[12]);
+				}else{
+					crime.setisAddress(false);
+				}
+				
+				
+				SimpleDateFormat  format = new SimpleDateFormat("\"yyyy-MM-dd HH:mm:ss\"");
+				try {
+					Date date = format.parse(str[13]);
+					Calendar calender = Calendar.getInstance();
+					calender.setTimeInMillis(date.getTime());
+					crime.setCal(calender);
+
+					
+					//Log.v("sociam", crime.getDate().format2445());
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
+				
+				crime.setDate(new Time(str[13]));
+				
+				if(is_date_text==1){
+					crime.setIsDateText(true);
+					crime.setDateText(str[15]);
+				}else{
+					crime.setIsDateText(false);
+				}
+
+				crime.setSeverity(severity);
+				
+				crime.setUpThumb(up_thumb);
+				crime.setDownThumb(down_thumb);
+					
+				//Log.v("sociam","Lat Lon :"+crime.getLat()+" : "+crime.getLon() );
 				
 				crimes.add(crime);
+				}
 			}
 			
 			br.close();
@@ -343,11 +428,33 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 		
 		
 		private void render(Marker maker, View view) {
-			TextView date = (TextView) view.findViewById(R.id.date);
-			ImageView imageView = (ImageView) view.findViewById(R.id.imageView1);
 			
-			date.setText(maker.getTitle());
-			imageView.setImageBitmap(Downloader.getImageFromURL(maker.getSnippet()));
+			TextView category = (TextView) view.findViewById(R.id.view_category);
+			//TextView cate_text = (TextView) view.findViewById(R.id.view_cat_detail);
+			TextView date = (TextView) view.findViewById(R.id.view_date);
+			TextView time = (TextView) view.findViewById(R.id.view_time);
+			TextView trust = (TextView) view.findViewById(R.id.view_trust);
+			TextView distrust = (TextView) view.findViewById(R.id.view_distrust);
+			ImageView imageView = (ImageView) view.findViewById(R.id.view_picture);
+			
+			int i = Integer.parseInt(maker.getTitle());
+			Calendar cal = crimes.get(i).getCal();
+			SimpleDateFormat date_format = new SimpleDateFormat("d MMM yyyy");
+			SimpleDateFormat time_format = new SimpleDateFormat("HH:mm:ss");
+			
+			
+			
+			category.setText("Category : "+crimes.get(i).getCategory());
+			//cate_text.setText(crimes.get(i).getCategoryText());
+			date.setText("Date : "+date_format.format(cal.getTime()));
+			time.setText("Time : "+ time_format.format(cal.getTime()));
+			trust.setText("trust : "+crimes.get(i).getUpThumbs());
+			distrust.setText("distrust : "+crimes.get(i).getDownThumb());
+			
+			Log.v("sociam", "show the filepath "+ crimes.get(i).getFilepath());
+
+			
+			//imageView.setImageBitmap(Downloader.getImageFromURL(maker.getSnippet()));
 			
 			
 

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 public class MyLocationSender implements LocationListener{
 
-	
+// non-use class now	
 	
 	
 	

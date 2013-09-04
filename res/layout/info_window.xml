@@ -1,47 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:background="@color/gray" 
-    >
+    <LinearLayout 
+        xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	 	android:background="@drawable/info_window_transparent2"
+	   >
     
     <!-- android:background="@drawable/info_window_transparent2" -->
   
     
-   <LinearLayout
+
+    
+      
+      
+  
+     <TextView
+        android:id="@+id/view_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical" 
-        android:paddingRight="5dip"
-        android:paddingLeft="5dip"
-        android:paddingTop="1dip"
-        >
-    
-       
-       
+        android:textColor="@android:color/white"
+        android:paddingLeft="8dp"
+        android:textStyle="bold"
+        android:layout_gravity="left"/>  
      
-       
+<!--      <TextView
+        android:id="@+id/view_cat_detail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@android:style/TextAppearance.Small"
+		android:layout_gravity="left"
+		android:paddingLeft="8dp"        
+        android:textColor="@android:color/white"
+        />   -->
+     
+      
+     
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/view_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
         android:textColor="@android:color/white"
-        android:layout_gravity="center"/>
+        android:layout_gravity="left"/>
  
-    <ImageView 
-        android:id="@+id/imageView1"
+    <TextView
+        android:id="@+id/view_time"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"      
-        />
- 	
-    
-      </LinearLayout>
-     
-       
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="left"/>
 
+     <TextView
+        android:id="@+id/view_trust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="left"/>
     
-   
+     <TextView
+        android:id="@+id/view_distrust"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="8dp"
+        android:paddingBottom="30dp"
+        android:textColor="@android:color/white"
+        android:layout_gravity="left"/>
+     
+    
+     
+     
+    <ImageView 
+        android:id="@+id/view_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"  
+        android:layout_gravity="center"
+        />
+    
    
 </LinearLayout>
