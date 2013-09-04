@@ -34,7 +34,6 @@ public class SummaryListFragment extends ListFragment {
 		
 		
 		details.add("Picture : "+ (currentCrime.getFilepath() !=null ? "Yes" : "No"));
-
 		details.add("Category : "+currentCrime.getCategory());
 		if(currentCrime.getisCategoryText()) 
 			details.add(currentCrime.getCategoryText());			
