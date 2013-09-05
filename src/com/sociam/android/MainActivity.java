@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import com.sociam.android.report.ReportActivity;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,9 +45,11 @@ import android.os.Process;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.text.format.Time;
+import android.text.style.BulletSpan;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -58,6 +62,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 // this class for the start page. 
+@SuppressLint("ValidFragment")
 public class MainActivity extends FragmentActivity implements LocationListener,
 												OnInfoWindowClickListener{
   
@@ -89,9 +94,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 		  Log.e("sociam","my currentID !!  "+ sp.getString("uuid", "something problem with uuid"));
   
 	 }
-	 
-	 
-	 
 
     checkInternet();
     
@@ -293,6 +295,7 @@ private ArrayList<Crime> getCrimesData() {
 				int id_code=0;
 				int pic_on=0;
 				int is_address=0;
+				int is_cat_text=0;
 				double lat = 0;
 				double lon = 0;
 				int is_date_text=0;
@@ -304,6 +307,7 @@ private ArrayList<Crime> getCrimesData() {
 					crime_id = Integer.parseInt(str[0]);
 					id_code = Integer.parseInt(str[2]);
 					pic_on = Integer.parseInt(str[3]);
+					is_cat_text= Integer.parseInt(str[6]);
 					is_address = Integer.parseInt(str[9]);
 					lat = Double.parseDouble(str[10]);
 					lon = Double.parseDouble(str[11]);	
@@ -318,11 +322,11 @@ private ArrayList<Crime> getCrimesData() {
 				//set up crime values
 				crime.setCrimeID(crime_id);
 				crime.setUserID(str[1]);
-				if(str[2]=="1") crime.setidcode(true); else crime.setidcode(false); 
+				if(id_code==1) crime.setidcode(true); else crime.setidcode(false); 
 				crime.setPicOn(pic_on);
 				crime.setFilepath(str[4]);
 				crime.setCategory(str[5]);
-				if(id_code==1) {
+				if(is_cat_text==1) {
 					crime.setisCategoryText(true); 
 					crime.setCategoryText(str[7]);
 				}else{ 
@@ -492,7 +496,7 @@ private ArrayList<Crime> getCrimesData() {
 			TextView time = (TextView) view.findViewById(R.id.view_time);
 			TextView trust = (TextView) view.findViewById(R.id.view_trust);
 			TextView distrust = (TextView) view.findViewById(R.id.view_distrust);
-			ImageView imageView = (ImageView) view.findViewById(R.id.view_picture);
+			//ImageView imageView = (ImageView) view.findViewById(R.id.view_picture);
 			
 			int i = Integer.parseInt(maker.getTitle());
 			Calendar cal = crimes.get(i).getCal();
@@ -523,12 +527,122 @@ private ArrayList<Crime> getCrimesData() {
 	
 	@Override
 	public void onInfoWindowClick(Marker marker) {
-		// 
+		
+		int num = Integer.parseInt(marker.getTitle());
+		
+		InfoWindowDialogFragment iwdf = new InfoWindowDialogFragment(num);
+		iwdf.show(getSupportFragmentManager(), "sociam");
 		marker.hideInfoWindow();
 			
 	}
 
+	public class InfoWindowDialogFragment extends DialogFragment{
+		private int crimenum;
+		public InfoWindowDialogFragment(int num) {
+			this.crimenum=num;
+		}
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("Do you want to see more detail?")
+					.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							//open another dialog
+							DetailDialogFragment ddf = new DetailDialogFragment(crimenum);
+							ddf.show(getSupportFragmentManager(), "sociam");
+							InfoWindowDialogFragment.this.getDialog().dismiss();
+						}
+					})
+					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							//do nothing
+							InfoWindowDialogFragment.this.getDialog().dismiss();
+						}
+					});
+			
+			return builder.create();
+		}
+		
+		
+	}
 	
+	public class DetailDialogFragment extends DialogFragment{
+		private int crime_num;
+		private Crime crime;
+		public DetailDialogFragment(int num) {
+			this.crime_num=num;
+			crime = crimes.get(crime_num);
+		}
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			View view = getActivity().getLayoutInflater().inflate(R.layout.map_marker_detail_dialog, null);
+			ImageView imv = (ImageView) view.findViewById(R.id.map_marker_picture);
+			imv.setImageBitmap(Downloader.getImageFromURL(crime.getFilepath()));
+			
+			ArrayList<String> details = getDetails(crime);
+			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), 
+					android.R.layout.simple_expandable_list_item_1,details);
+			ListView listview = (ListView) view.findViewById(R.id.map_maker_detail_listview);
+			listview.setAdapter(adapter);
+			
+			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					DetailDialogFragment.this.getDialog().dismiss();
+					
+				}
+			});
+			builder.setView(view);
+			
+			return builder.create();
+		}
+
+		private ArrayList<String> getDetails(Crime crime) {
+			
+			ArrayList<String> str = new ArrayList<String>();
+			 str.add("Category : "+crime.getCategory());
+			 if(crime.getisCategoryText()) str.add(crime.getCategoryText());
+			 if(crime.getIsAddress()) str.add("Address : "+crime.getAddress());
+			 
+			 	Calendar cal = crime.getCal();
+				SimpleDateFormat date_format = new SimpleDateFormat("d MMM yyyy");
+				SimpleDateFormat time_format = new SimpleDateFormat("HH:mm:ss");
+			 
+			 str.add("Date : "+ date_format.format(cal.getTime()));
+			 str.add("Time : "+ time_format.format(cal.getTime()));
+			 if(crime.getIsAddress()) str.add(crime.getDateText());
+			 
+			 switch (crime.getSeverity()){
+			 case 1: 
+				 str.add("Not Serious");
+				 break;
+			 case 2:
+				 str.add("Serious");
+				 break;
+			 case 3:
+				 str.add("Very Serious");
+				 break;
+			 case 4:
+				 str.add("Extremely Serious");				 
+			default :
+				break;
+			 }
+			 
+			 str.add("Trust Level : "+crime.getUpThumbs());
+			 str.add("Distrust Level : "+crime.getDownThumb());
+			
+			return str;
+		}
+		
+		
+	}
 	
 
   
