@@ -143,6 +143,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 				case 5:	setBtnInFooter(5);
 						break;		
 				case 6:	setBtnInFooter(6);
+						
 						break;		
 //				case 7:	setBtnInFooter(2);
 //						break;		
@@ -260,6 +261,11 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	public Time getNow(){
 		return this.now;
 	}
+	
+	public MyFragmentStatePagerAdapter getMyfragmentStatePagerAdapter(){
+		return this.myAdapter;
+	}
+	
 	public int getLoc(){ return this.loc; }
 	public void setLoc(int i){ this.loc=i; }
 	public int getDnT(){ return this.dnt; }

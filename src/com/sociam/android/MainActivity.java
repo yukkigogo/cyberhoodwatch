@@ -103,6 +103,19 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     
   }
   
+  @Override
+	protected void onResume() {
+		super.onResume();
+	    setUpMapIfNeeded();
+
+  }
+  
+  @Override
+	protected void onRestart() {
+		super.onRestart();
+	    setUpMapIfNeeded();
+
+  }
   
   
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -171,7 +184,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  plotCrime();
 	
 	  //setup navigation drawer
-	  setNavigationDrawer();
+	 // setNavigationDrawer();
 	  
 	  //setup inforwindow
 	  mMap.setOnInfoWindowClickListener(this);
@@ -179,50 +192,50 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 		  
   }
  
-	 private void setNavigationDrawer() {
-		 drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		 listDrawer = (ListView) findViewById(R.id.left_drawer);
-		 //listDrawer.setAdapter(new ArrayAdapter<Crime>(this, R.id.left_drawer,crimes));
-		 mDrawerToggle = new ActionBarDrawerToggle(this, drawerlayout, 
-				 R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer){
-			
-		        public void onDrawerClosed(View drawerView) {
-		            Log.i("sociam", "onDrawerClosed");
-		        }
-		        
-		        public void onDrawerOpened(View drawerView) {
-		            Log.i("sociam", "onDrawerOpened");
-		        }
-		        
-		        public void onDrawerSlide(View drawerView, float slideOffset) {
-		            super.onDrawerSlide(drawerView, slideOffset);
-		            Log.i("sociam", "onDrawerSlide : " + slideOffset);
-		        }
-		        
-		        public void onDrawerStateChanged(int newState) {
-		            Log.i("sociam", "onDrawerStateChanged  new state : " + newState);
-		        }
-		        
-		 };
-		 
-		 drawerlayout.setDrawerListener(mDrawerToggle);
-		 getActionBar().setDisplayHomeAsUpEnabled(true);
-		 getActionBar().setHomeButtonEnabled(true);
-		 
-	 }
-
-	    @Override  
-	    protected void onPostCreate(Bundle savedInstanceState) {  
-	        super.onPostCreate(savedInstanceState);  
-	        // Sync the toggle state after onRestoreInstanceState has occurred.  
-	        mDrawerToggle.syncState();  
-	    }  
-	  
-	    @Override  
-	    public void onConfigurationChanged(Configuration newConfig) {  
-	        super.onConfigurationChanged(newConfig);  
-	        mDrawerToggle.onConfigurationChanged(newConfig);  
-	    }  
+//	 private void setNavigationDrawer() {
+//		 drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+//		 listDrawer = (ListView) findViewById(R.id.left_drawer);
+//		 //listDrawer.setAdapter(new ArrayAdapter<Crime>(this, R.id.left_drawer,crimes));
+//		 mDrawerToggle = new ActionBarDrawerToggle(this, drawerlayout, 
+//				 R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer){
+//			
+//		        public void onDrawerClosed(View drawerView) {
+//		            Log.i("sociam", "onDrawerClosed");
+//		        }
+//		        
+//		        public void onDrawerOpened(View drawerView) {
+//		            Log.i("sociam", "onDrawerOpened");
+//		        }
+//		        
+//		        public void onDrawerSlide(View drawerView, float slideOffset) {
+//		            super.onDrawerSlide(drawerView, slideOffset);
+//		            Log.i("sociam", "onDrawerSlide : " + slideOffset);
+//		        }
+//		        
+//		        public void onDrawerStateChanged(int newState) {
+//		            Log.i("sociam", "onDrawerStateChanged  new state : " + newState);
+//		        }
+//		        
+//		 };
+//		 
+//		 drawerlayout.setDrawerListener(mDrawerToggle);
+//		 getActionBar().setDisplayHomeAsUpEnabled(true);
+//		 getActionBar().setHomeButtonEnabled(true);
+//		 
+//	 }
+//
+//	    @Override  
+//	    protected void onPostCreate(Bundle savedInstanceState) {  
+//	        super.onPostCreate(savedInstanceState);  
+//	        // Sync the toggle state after onRestoreInstanceState has occurred.  
+//	        mDrawerToggle.syncState();  
+//	    }  
+//	  
+//	    @Override  
+//	    public void onConfigurationChanged(Configuration newConfig) {  
+//	        super.onConfigurationChanged(newConfig);  
+//	        mDrawerToggle.onConfigurationChanged(newConfig);  
+//	    }  
 	  
 
 	 

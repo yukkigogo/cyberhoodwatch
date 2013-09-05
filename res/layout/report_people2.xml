@@ -101,15 +101,6 @@
 	<!-- center bottons till here -->	
 		
 		
-		<Button
-		    android:id="@+id/people2_description"
-		    android:layout_width="120dp"
-		    android:layout_height="wrap_content"
-		    android:layout_alignParentBottom="true"
-		    android:layout_alignParentLeft="true"
-		    android:layout_alignTop="@+id/people2goSummary"
-		    android:textColor="@color/white"
-		    android:text="@string/add_disc" />
 
 		<Button
 		    android:id="@+id/people2_goSummary"
@@ -120,6 +111,16 @@
 		    android:textColor="@color/white"
 		    android:text="@string/go2summary" />
 
+				<Button
+		    android:id="@+id/people2_description"
+		    android:layout_width="120dp"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentBottom="true"
+		    android:layout_alignParentLeft="true"
+		    android:layout_alignTop="@+id/people2_goSummary"
+		    android:textColor="@color/white"
+		    android:text="@string/add_disc" />
+		
 
 
 	</RelativeLayout>

@@ -165,6 +165,7 @@ public class ReportSeverity extends Fragment {
 								btn2.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
+								
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;

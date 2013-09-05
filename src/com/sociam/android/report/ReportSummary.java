@@ -32,7 +32,7 @@ public class ReportSummary extends Fragment {
 	
 	ListView lv;
 	Crime currentCrime;
-	Button btnSubmit;
+	Button btnSubmit,btnCancel;
 	String user_id;
 	@SuppressLint("NewApi")
 	@Override
@@ -94,7 +94,7 @@ public class ReportSummary extends Fragment {
 	private void setBtn(View view){
 		
 		btnSubmit = (Button) view.findViewById(R.id.smybtn);
-		
+		btnCancel = (Button) view.findViewById(R.id.smy_cancel);
 
 		
 		btnSubmit.setOnClickListener(new OnClickListener() {
@@ -152,6 +152,17 @@ public class ReportSummary extends Fragment {
 				
 			}
 		});
+		
+		
+		btnCancel.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				getActivity().finish();
+				
+			}
+		});
+		
 	}
 	
 	public interface FragmentCallBack{
