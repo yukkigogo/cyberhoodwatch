@@ -28,14 +28,14 @@
         android:theme="@style/AppTheme" >
         
      <!-- for debagging -->
-      <meta-data
+       <meta-data
 	      android:name="com.google.android.maps.v2.API_KEY"
 	      android:value="AIzaSyB__Ke3pBU_eFW_lkp0d9PZwczuxOMWdJA"/>
-	 <!-- for public -->  
-	 <!--   <meta-data
+ 	 <!-- for public -->  
+<!-- 	    <meta-data
 	      android:name="com.google.android.maps.v2.API_KEY"
 	      android:value="AIzaSyCC_CX5RWSbMGyIAPCHQnJEmFFMHcroVic"/>
-	  -->    
+ -->	      
       <uses-library
      	 android:name="com.google.android.maps" />
       

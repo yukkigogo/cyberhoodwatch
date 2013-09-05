@@ -140,11 +140,11 @@ public class ReportCategory2 extends Fragment {
 								btn5.setChecked(false);
 								
 								if(cat1=="Violent"){
-									currentCrime.setCategory("Damage");
+									currentCrime.setCategory("Violent-Damage");
 								}else if(cat1=="Theft"){
-									currentCrime.setCategory("Robbery");
+									currentCrime.setCategory("Theft-Robbery");
 								}else if(cat1=="ASB"){
-									currentCrime.setCategory("Noise");
+									currentCrime.setCategory("ASB-Noise");
 								}
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
@@ -155,11 +155,11 @@ public class ReportCategory2 extends Fragment {
 								btn4.setChecked(false);
 								btn5.setChecked(false);
 								if(cat1=="Violent"){
-									currentCrime.setCategory("Attack");
+									currentCrime.setCategory("Violent-Attack");
 								}else if(cat1=="Theft"){
-									currentCrime.setCategory("Bike");
+									currentCrime.setCategory("Theft-Bike");
 								}else if(cat1=="ASB"){
-									currentCrime.setCategory("StreetDrinking");
+									currentCrime.setCategory("ASB-StreetDrinking");
 								}
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
@@ -179,11 +179,11 @@ public class ReportCategory2 extends Fragment {
 								btn3.setChecked(false);
 								btn4.setChecked(false);
 								if(cat1=="Violent"){
-									currentCrime.setCategory("Rape");
+									currentCrime.setCategory("Violent-Rape");
 								}else if(cat1=="Theft"){
-									currentCrime.setCategory("Shop");
+									currentCrime.setCategory("Theft-Shop");
 								}else if(cat1=="ASB"){
-									currentCrime.setCategory("Drugs");
+									currentCrime.setCategory("ASB-Drugs");
 								}
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 

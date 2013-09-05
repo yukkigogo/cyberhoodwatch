@@ -126,7 +126,6 @@ int id frag3description 0x7f05002e
 int id frag3goSummary 0x7f05002f
 int id frag3midBtn 0x7f05002d
 int id framelayout 0x7f05001e
-int id go_new 0x7f050058
 int id hybrid 0x7f050004
 int id imageView1 0x7f050031
 int id layoutcategory 0x7f05001d

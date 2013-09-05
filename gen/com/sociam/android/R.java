@@ -257,7 +257,6 @@ containing a value of this type.
         public static final int frag3goSummary=0x7f05002f;
         public static final int frag3midBtn=0x7f05002d;
         public static final int framelayout=0x7f05001e;
-        public static final int go_new=0x7f050058;
         public static final int hybrid=0x7f050004;
         public static final int imageView1=0x7f050031;
         public static final int layoutcategory=0x7f05001d;

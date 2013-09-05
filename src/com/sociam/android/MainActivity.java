@@ -55,8 +55,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -100,10 +102,25 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     setContentView(R.layout.activity_main); 
     //map initialise
     setUpMapIfNeeded();
+    setbtn();
+
     
   }
   
-  @Override
+  private void setbtn() {
+	  ImageButton ibtn = (ImageButton) findViewById(R.id.report_incident);
+	  ibtn.setOnClickListener(new OnClickListener() {	
+		@Override
+		public void onClick(View v) {
+			Intent intent = new Intent();
+			intent.setClassName("com.sociam.android", "com.sociam.android.report.ReportActivity");
+  			startActivity(intent);
+			
+		}
+	});
+}
+
+@Override
 	protected void onResume() {
 		super.onResume();
 	    setUpMapIfNeeded();
@@ -130,13 +147,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// TODO Auto-generated method stub
-	  	switch(item.getItemId()){
-	  		case R.id.go_new:
-	  			// start new activity of report
-	  			Intent intent = new Intent();
-	  			intent.setClass(this, ReportActivity.class);
-	  			startActivity(intent);  	
-	  	}
+//	  	switch(item.getItemId()){
+//	  		case R.id.go_new:
+//	  			// start new activity of report
+//	  			Intent intent = new Intent();
+//	  			intent.setClass(this, ReportActivity.class);
+//	  			startActivity(intent);  	
+//	  	}
 	  	return super.onOptionsItemSelected(item);
 	}
   
