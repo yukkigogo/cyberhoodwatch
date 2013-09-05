@@ -162,11 +162,14 @@ public class ReportLocation extends Fragment {
 							switch (num) {
 							case 2:	
 								// show map
+								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
-								pager.setCurrentItem(pager.getCurrentItem()+1);
-
+								
+								Toast.makeText(getActivity(), "Sorry - Haven't Implemented it yet!",
+										Toast.LENGTH_LONG).show();
+								
 								break;
 							case 3:
 								
@@ -184,12 +187,13 @@ public class ReportLocation extends Fragment {
 							case 4:
 								// set up location null	
 								currentCrime.setLocationLatLon(false);
-								currentCrime.setisAddress(false);								
+								currentCrime.setisAddress(true);
+								currentCrime.setAddress("Unknown");
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn5.setChecked(false);
 								pager.setCurrentItem(pager.getCurrentItem()+1);
-
+								
 								break;
 							case 5:
 								// set up the location from getActivity

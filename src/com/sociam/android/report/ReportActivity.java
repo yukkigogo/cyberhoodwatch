@@ -143,7 +143,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 				case 5:	setBtnInFooter(5);
 						break;		
 				case 6:	setBtnInFooter(6);
-						
+												
 						break;		
 //				case 7:	setBtnInFooter(2);
 //						break;		

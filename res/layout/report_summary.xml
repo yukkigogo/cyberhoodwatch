@@ -26,8 +26,8 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentRight="true"
-			android:paddingTop="30dp"
-			android:paddingBottom="30dp"
+			android:paddingTop="15dp"
+			android:paddingBottom="15dp"
 	        android:text="   Submit   "
 	        android:textColor="@color/white" />
 
@@ -38,8 +38,8 @@
 	        android:layout_alignParentBottom="true"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignTop="@+id/smybtn"
-			android:paddingTop="30dp"
-			android:paddingBottom="30dp"
+			android:paddingTop="15dp"
+			android:paddingBottom="15dp"
 	        android:text="   Cancel   "
 	        android:textColor="@color/white" />
 	    

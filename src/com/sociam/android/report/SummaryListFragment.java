@@ -10,6 +10,7 @@ import com.sociam.android.R;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -25,7 +26,9 @@ public class SummaryListFragment extends ListFragment {
 
 		currentCrime = ((ReportActivity) getActivity()).getCrime();
 		setAdapter(); 
-	
+		
+		//getActivity().getSupportFragmentManager().beginTransaction().add(this, "SummaryFrag").commit();
+
 	}
 
 
@@ -88,6 +91,10 @@ public class SummaryListFragment extends ListFragment {
 		setListAdapter(adapter);
 		
 	}
+
+
+
+
 	
 
 }

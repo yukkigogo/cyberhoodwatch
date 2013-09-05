@@ -140,7 +140,7 @@ public class ReportEvidence extends Fragment {
 					
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						Toast.makeText(getActivity(), "Calling Police......"
+						Toast.makeText(getActivity(), "not functioning in beta version "
 								, Toast.LENGTH_LONG).show();
 					}
 				}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {						
