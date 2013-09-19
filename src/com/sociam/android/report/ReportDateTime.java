@@ -206,6 +206,16 @@ public class ReportDateTime extends Fragment {
 							
 						}else if(!isChecked){
 							
+							switch(num){
+							case 2:
+								
+								break;
+							case 3:
+								currentCrime.setIsNow(true);
+								
+								break;
+								
+							}
 						}
 						
 					}
@@ -247,8 +257,6 @@ public class ReportDateTime extends Fragment {
 					
 			}
 		};
-		
-	
 		
 		return tmd;
 	}

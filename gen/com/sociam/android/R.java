@@ -226,7 +226,7 @@ containing a value of this type.
         public static final int white_phone=0x7f020037;
     }
     public static final class id {
-        public static final int action_settings=0x7f050057;
+        public static final int action_settings=0x7f050058;
         public static final int btn0=0x7f050010;
         public static final int btn1=0x7f05000f;
         public static final int btn2=0x7f05000e;
@@ -266,6 +266,7 @@ containing a value of this type.
         public static final int layoutpeople2=0x7f050043;
         public static final int layoutseverity=0x7f05004c;
         public static final int list1=0x7f05001a;
+        public static final int list_fragment=0x7f050055;
         public static final int map=0x7f050006;
         public static final int map_maker_detail_listview=0x7f05001c;
         public static final int map_marker_picture=0x7f05001b;
@@ -299,8 +300,8 @@ containing a value of this type.
         public static final int severity_goSummary=0x7f050053;
         public static final int severity_midBtn=0x7f050052;
         public static final int smy=0x7f050054;
-        public static final int smy_cancel=0x7f050056;
-        public static final int smybtn=0x7f050055;
+        public static final int smy_cancel=0x7f050057;
+        public static final int smybtn=0x7f050056;
         public static final int spinner1=0x7f050009;
         public static final int spinner2=0x7f05000b;
         public static final int terrain=0x7f050003;

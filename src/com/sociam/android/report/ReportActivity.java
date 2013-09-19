@@ -9,6 +9,7 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.Time;
 import android.util.Log;
 import android.util.TypedValue;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ToggleButton;
 import android.annotation.SuppressLint;
@@ -143,7 +144,6 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 				case 5:	setBtnInFooter(5);
 						break;		
 				case 6:	setBtnInFooter(6);
-												
 						break;		
 //				case 7:	setBtnInFooter(2);
 //						break;		
@@ -179,6 +179,8 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 			//http://stackoverflow.com/questions/8117523/how-can-i-
 			//get-page-number-in-view-pager-for-android
 
+
+
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {}
 			public void onPageScrollStateChanged(int arg0) {
@@ -189,6 +191,10 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 
 		
 	}
+
+	
+	
+
 
 	private void setBtnInFooter(int i){
 		for(int j=0;j<btns.length;j++){
@@ -358,8 +364,14 @@ public class ReportActivity extends FragmentActivity implements LocationListener
             locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
         }
 		
+       
+        
+        
+        
 	}
 	
+	
+
 	// for location manager
 	public void onLocationChanged(Location location) {
 			latitude = location.getLatitude();
@@ -383,5 +395,66 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		// TODO Auto-generated method stub		
 	}
 
+	
+//	public ArrayAdapter<String> setAdapter(){
+//		
+//		ArrayList<String> details = new ArrayList<String>();
+//		
+//		
+//		details.add("Picture : "+ (crime.getFilepath() !=null ? "Yes" : "No"));
+//		details.add("Category : "+crime.getCategory());
+//		if(crime.getisCategoryText()) 
+//			details.add(crime.getCategoryText());			
+//		
+//		
+//		
+//		if(crime.getLocationLatLng()){
+//			details.add("Location : Here");
+//		}else if(crime.getIsAddress()){
+//			details.add("Location : "+crime.getAddress());
+//		}
+//
+//		
+//		
+//		if(crime.getIsNow() == true)
+//			details.add("Time and Date : " +  "Now"); 
+//		else { 
+//			Time t = crime.getDate();
+//			String str =t.format("%d-%m-%Y %H:%M");
+//			details.add("Time and Date : "+ str );
+//		}
+//		
+//		if(crime.getIsDateText())
+//			details.add(crime.getDateText());
+//		
+//		
+//		String severity="Not Serious";
+//		switch (crime.getSeverity()){
+//		case 88 :
+//			break;
+//		case 1 :
+//			break;
+//		case 2:
+//			severity = "Serious";
+//			break;
+//		case 3 :
+//			severity = "Very Serious";
+//			break;
+//		case 4:
+//			severity = "Extremely Serious";
+//			break;
+//			
+//		}		
+//		details.add("How Serious? : " + severity);
+//		
+//				
+//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+//			        this,R.layout.list_row,R.id.list1,details);
+//		
+//		
+//		return adapter;
+//	}
+	
+	
 	
 }

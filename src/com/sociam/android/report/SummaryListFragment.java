@@ -25,7 +25,9 @@ public class SummaryListFragment extends ListFragment {
 		super.onActivityCreated(savedInstanceState);
 
 		currentCrime = ((ReportActivity) getActivity()).getCrime();
-		setAdapter(); 
+		
+		setAdapter();
+		//setListAdapter(((ReportActivity) getActivity()).setAdapter()); 
 		
 		//getActivity().getSupportFragmentManager().beginTransaction().add(this, "SummaryFrag").commit();
 

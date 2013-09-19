@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -38,12 +39,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.media.audiofx.BassBoost.Settings;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Process;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
+import android.provider.AlarmClock;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
@@ -85,9 +88,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
-	 sp = PreferenceManager.getDefaultSharedPreferences(this);
-	
-		 
+    // set for p
+	sp = PreferenceManager.getDefaultSharedPreferences(this);		 
 	if(sp.getBoolean("first_time", true)){
 		// first time
 		setUpOnlyOnce();
@@ -97,14 +99,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   
 	 }
 
-    checkInternet();
+    if(checkInternet()){
     
     setContentView(R.layout.activity_main); 
     //map initialise
     setUpMapIfNeeded();
     setbtn();
-
-    
+    }
   }
   
   private void setbtn() {
@@ -118,19 +119,21 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 			
 		}
 	});
-}
+  }
 
-@Override
+  	@Override
 	protected void onResume() {
 		super.onResume();
-	    setUpMapIfNeeded();
+	   
 
   }
   
+  	
+  	
   @Override
-	protected void onRestart() {
+  protected void onRestart() {
 		super.onRestart();
-	    setUpMapIfNeeded();
+	 
 
   }
   
@@ -194,7 +197,39 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	
 	  //set up current location using LocationManager
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
-		locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+        
+		List<String> allProvider =  locationManager.getAllProviders();
+		for(int i = 0 ; i < allProvider.size() ; i++){
+            locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
+        }
+		
+		//check either network/gps is abalialbe 
+        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && 
+        		!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        
+        	new AlertDialog.Builder(this)
+        	.setIcon(android.R.drawable.ic_dialog_info)
+        	.setTitle("Warning")
+        	.setMessage("Please enable location access")
+        	.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					startActivity(new Intent(
+					android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+				}
+			})
+			.setNegativeButton("No", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					finish();
+				}
+			}).show();
+        	
+        }
+		
+		//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 	  
 	  // set up the map. 
 	  getCrimesData();
@@ -437,7 +472,7 @@ private ArrayList<Crime> getCrimesData() {
 
 
 // make sure Internet is avaiable
-  private void checkInternet(){
+  private boolean checkInternet(){
 	  
 	  if(!isNetworkAvailable()){
 		Log.w("sociam", "Network not avaiable....");
@@ -454,14 +489,14 @@ private ArrayList<Crime> getCrimesData() {
 		alb.setCancelable(true);
 		AlertDialog alDialog = alb.create();
 		alDialog.show();	
-		  
+		return false;  
 	  }else{
 		Log.w("sociam","Internet OK");  	
 		// for http connection for 3.0 higher
 		StrictMode.ThreadPolicy policy = new StrictMode.
 		    		ThreadPolicy.Builder().permitAll().build();
 		StrictMode.setThreadPolicy(policy); 
-		  
+		 return true; 
 	  }
 	  
   }

@@ -25,7 +25,7 @@ public class Downloader {
 				bmp = BitmapFactory.decodeStream(httpResponse.getEntity().getContent());
 				hg.abort();
 			}else{
-				Log.e("sociam","fail - obtain image from server");
+				Log.e("sociam","fail - can't obtain image from server");
 			}
 			
 		} catch (Exception e) {

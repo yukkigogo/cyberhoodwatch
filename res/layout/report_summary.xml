@@ -15,6 +15,7 @@
 	    android:background="@color/half_black" >
 	
 	    <fragment
+	        android:id="@+id/list_fragment"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent"
 	        android:layout_alignParentRight="true"
