@@ -164,7 +164,7 @@ public class ReportDateTime extends Fragment {
 								break;
 							case 3:
 								btn2.setChecked(false);		
-								currentCrime.setIsNow(false);
+								
 
 									
 								// start time and date picker 
@@ -180,7 +180,6 @@ public class ReportDateTime extends Fragment {
 						        final int monthOfYear = calendar.get(Calendar.MONTH);
 						        final int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 								new DatePickerDialog(getActivity(), setDateListener() , year, monthOfYear, dayOfMonth).show(); 
-								
 								new TimePickerDialog(getActivity(), setTimeListener(), hour, minute, true).show();
 								
 								/*
@@ -194,9 +193,9 @@ public class ReportDateTime extends Fragment {
 //								df.show(getActivity().getSupportFragmentManager(), "sociam");
 								
 
-								
+								currentCrime.setIsNow(false);
 							    pager.setCurrentItem(pager.getCurrentItem()+1);
-								
+
 								break;
 							
 							default:
@@ -208,11 +207,17 @@ public class ReportDateTime extends Fragment {
 							
 							switch(num){
 							case 2:
-								
+								// do nothing
 								break;
 							case 3:
 								currentCrime.setIsNow(true);
+								Time now = new Time();
+								now.setToNow();
+								currentCrime.setDate(now);
 								
+								btn3.setChecked(false);
+								btn2.setChecked(false);
+
 								break;
 								
 							}
@@ -240,7 +245,9 @@ public class ReportDateTime extends Fragment {
 				
 				Time t = new Time();
 				t.set(00,imin,ihour,iday,imonth,iyear);
-				currentCrime.setDate(t);			
+				//Log.v("sociam", "time is "+t.format2445());
+				currentCrime.setDate(t);	
+
 				
 			}
 		};
@@ -301,7 +308,7 @@ public class ReportDateTime extends Fragment {
 		}).show();
 	}
 	
-//	private static class TimePickerFragment extends DialogFragment
+//	private class TimePickerFragment extends DialogFragment
 //							implements TimePickerDialog.OnTimeSetListener {
 //		
 //      @Override
@@ -317,10 +324,14 @@ public class ReportDateTime extends Fragment {
 //		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 //			// save to the val
 //			Log.e("sociam", hourOfDay+" : "+ minute);
+//			ihour = hourOfDay;
+//			imin = minute;
+//
+//			
 //		}
 //	}
-
-//	private static class DatePickerFragment extends DialogFragment
+//
+//	private class DatePickerFragment extends DialogFragment
 //    							implements DatePickerDialog.OnDateSetListener {
 //	  
 //		public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -336,7 +347,13 @@ public class ReportDateTime extends Fragment {
 //		public void onDateSet(DatePicker view, int year, int monthOfYear,
 //				int dayOfMonth) {
 //			Log.e("sociam", year + " "+monthOfYear +" "+ dayOfMonth);
+//			iyear=year;
+//			imonth=monthOfYear;
+//			iday=dayOfMonth;
 //			
+//			Time t = new Time();
+//			t.set(00,imin,ihour,iday,imonth,iyear);
+//			currentCrime.setDate(t);
 //		}
 //		
 //	}

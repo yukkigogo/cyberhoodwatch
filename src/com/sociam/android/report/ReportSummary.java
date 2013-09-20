@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,6 +35,7 @@ public class ReportSummary extends Fragment {
 	Crime currentCrime;
 	Button btnSubmit,btnCancel;
 	String user_id;
+	static View view;
 	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(
@@ -41,24 +43,45 @@ public class ReportSummary extends Fragment {
 		ViewGroup container, 
 		Bundle savedInstanceState) {
 		
-		View view = inflater.inflate(R.layout.report_summary, container, false);
+//		if(view != null){
+//			ViewGroup parGroup = (ViewGroup) view.getParent();
+//			if(parGroup !=null)
+//					parGroup.removeView(view);
+//		}
+//		
+//		try{
+		view = inflater.inflate(R.layout.report_summary, container, false);
+		
+			currentCrime = ((ReportActivity) getActivity()).getCrime();
+			//set up background				
+			if(currentCrime.getPicON()==1){
+				LinearLayout layout = (LinearLayout) view.findViewById(R.id.smy);		  
+				  layout.setBackground(currentCrime.getBitmapdrawable());
+			}	
+			setBtn(view);
+			getID();
+//		}catch (InflateException e){
+//			Log.e("sociam", "this is error from list!!! "+e.getMessage());
+//		}
 
 		
-		currentCrime = ((ReportActivity) getActivity()).getCrime();
-		//set up background				
-		if(currentCrime.getPicON()==1){
-			LinearLayout layout = (LinearLayout) view.findViewById(R.id.smy);		  
-			  layout.setBackground(currentCrime.getBitmapdrawable());
-		}	
-		setBtn(view);
-		getID();
-
+		
 		return view;
 
 	}
 
 	
-
+	@Override
+	public void onDestroyView() {
+		super.onDestroyView();
+		
+		SummaryListFragment slf = (SummaryListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
+		if(slf !=null){
+			getFragmentManager().beginTransaction().remove(slf).commit();
+		}
+		
+	}
+	
 
 	private void getID() {
 		// setup today's ID

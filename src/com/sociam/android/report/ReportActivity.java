@@ -94,6 +94,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	
 	
 	private void initSet() {
+		// setup time
 		now = new Time();
 		now.setToNow();
 		crime.setDate(now);
@@ -396,64 +397,64 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	}
 
 	
-//	public ArrayAdapter<String> setAdapter(){
-//		
-//		ArrayList<String> details = new ArrayList<String>();
-//		
-//		
-//		details.add("Picture : "+ (crime.getFilepath() !=null ? "Yes" : "No"));
-//		details.add("Category : "+crime.getCategory());
-//		if(crime.getisCategoryText()) 
-//			details.add(crime.getCategoryText());			
-//		
-//		
-//		
-//		if(crime.getLocationLatLng()){
-//			details.add("Location : Here");
-//		}else if(crime.getIsAddress()){
-//			details.add("Location : "+crime.getAddress());
-//		}
-//
-//		
-//		
-//		if(crime.getIsNow() == true)
-//			details.add("Time and Date : " +  "Now"); 
-//		else { 
-//			Time t = crime.getDate();
-//			String str =t.format("%d-%m-%Y %H:%M");
-//			details.add("Time and Date : "+ str );
-//		}
-//		
-//		if(crime.getIsDateText())
-//			details.add(crime.getDateText());
-//		
-//		
-//		String severity="Not Serious";
-//		switch (crime.getSeverity()){
-//		case 88 :
-//			break;
-//		case 1 :
-//			break;
-//		case 2:
-//			severity = "Serious";
-//			break;
-//		case 3 :
-//			severity = "Very Serious";
-//			break;
-//		case 4:
-//			severity = "Extremely Serious";
-//			break;
-//			
-//		}		
-//		details.add("How Serious? : " + severity);
-//		
-//				
-//		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-//			        this,R.layout.list_row,R.id.list1,details);
-//		
-//		
-//		return adapter;
-//	}
+	public ArrayAdapter<String> setAdapter(){
+		
+		ArrayList<String> details = new ArrayList<String>();
+		
+		
+		details.add("Picture : "+ (crime.getFilepath() !=null ? "Yes" : "No"));
+		details.add("Category : "+crime.getCategory());
+		if(crime.getisCategoryText()) 
+			details.add(crime.getCategoryText());			
+		
+		
+		
+		if(crime.getLocationLatLng()){
+			details.add("Location : Here");
+		}else if(crime.getIsAddress()){
+			details.add("Location : "+crime.getAddress());
+		}
+
+		
+		
+		if(crime.getIsNow() == true)
+			details.add("Time and Date : " +  "Now"); 
+		else { 
+			Time t = crime.getDate();
+			String str =t.format("%d-%m-%Y %H:%M");
+			details.add("Time and Date : "+ str );
+		}
+		
+		if(crime.getIsDateText())
+			details.add(crime.getDateText());
+		
+		
+		String severity="Not Serious";
+		switch (crime.getSeverity()){
+		case 88 :
+			break;
+		case 1 :
+			break;
+		case 2:
+			severity = "Serious";
+			break;
+		case 3 :
+			severity = "Very Serious";
+			break;
+		case 4:
+			severity = "Extremely Serious";
+			break;
+			
+		}		
+		details.add("How Serious? : " + severity);
+		
+				
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+			        this,R.layout.list_row,R.id.list1,details);
+		
+		
+		return adapter;
+	}
 	
 	
 	

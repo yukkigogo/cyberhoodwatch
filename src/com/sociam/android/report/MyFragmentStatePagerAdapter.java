@@ -35,6 +35,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 		case 5:
 			return new ReportSeverity();
 		case 6:
+			
 			return new ReportSummary();		
 
 //		case 7 : //
@@ -54,9 +55,9 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 		
 	}
 
-	public int getItemPosition(Object object) {
-	    return POSITION_NONE;
-	}
+//	public int getItemPosition(Object object) {
+//	    return POSITION_NONE;
+//	}
 	
 
 	@Override
