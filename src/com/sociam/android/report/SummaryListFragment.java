@@ -1,7 +1,6 @@
 package com.sociam.android.report;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 
 import com.google.android.gms.internal.cu;
 import com.sociam.android.Crime;
