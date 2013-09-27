@@ -149,14 +149,20 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   
   @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO Auto-generated method stub
-//	  	switch(item.getItemId()){
-//	  		case R.id.go_new:
-//	  			// start new activity of report
-//	  			Intent intent = new Intent();
-//	  			intent.setClass(this, ReportActivity.class);
-//	  			startActivity(intent);  	
-//	  	}
+
+	  	switch(item.getItemId()){
+	  		case R.id.action_settings :
+	  			// show the participant information 
+	  			new AlertDialog.Builder(this)
+	  			.setTitle("")
+	  			.setMessage("")
+	  			.show();
+	  			
+	  			
+	  		case R.id.action_consentform:
+	  			// show the consent form
+	  			
+	  	}
 	  	return super.onOptionsItemSelected(item);
 	}
   

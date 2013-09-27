@@ -6,6 +6,12 @@
         android:showAsAction="never"
         android:title="@string/action_settings"/>
 
+     <item
+        android:id="@+id/action_consentform"
+        android:orderInCategory="100"
+        android:showAsAction="never"
+        android:title="@string/action_consentform"/>
+    
 <!--     <item android:id="@+id/go_new"
         android:orderInCategory="100"
         android:showAsAction="always"

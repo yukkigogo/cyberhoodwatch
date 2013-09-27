@@ -117,10 +117,10 @@ public class ReportDateTime extends Fragment {
 				// 0 = mid, 99=summary,  999=description
 				switch (type) {
 				case 0:
-					Log.e("sociam","push the button");
 					pager.setCurrentItem(pager.getCurrentItem()-1);
 					break;
 				case 99:
+					((ReportActivity) getActivity()).setAdapter();
 					pager.setCurrentItem(ReportActivity.SUMMARY_FRAG_NUM);
 					break;
 				
@@ -159,7 +159,7 @@ public class ReportDateTime extends Fragment {
 								currentCrime.setDate(now);
 								//Log.e("sociam",now.format2445());
 								
-								
+								((ReportActivity) getActivity()).setAdapter();
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 								break;
 							case 3:
@@ -194,6 +194,7 @@ public class ReportDateTime extends Fragment {
 								
 
 								currentCrime.setIsNow(false);
+								((ReportActivity) getActivity()).setAdapter();
 							    pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;

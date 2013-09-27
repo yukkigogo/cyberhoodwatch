@@ -108,6 +108,8 @@ public class ReportCategory2 extends Fragment {
 					pager.setCurrentItem(pager.getCurrentItem()-1);
 					break;
 				case 99:
+					((ReportActivity) getActivity()).setAdapter();
+
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
 					pager.setCurrentItem(ReportActivity.SUMMARY_FRAG_NUM);
 					break;
@@ -139,13 +141,14 @@ public class ReportCategory2 extends Fragment {
 								btn4.setChecked(false);
 								btn5.setChecked(false);
 								
-								if(cat1=="Violent"){
+								if(currentCrime.getCategoryCode()==1){
 									currentCrime.setCategory("Violent-Damage");
-								}else if(cat1=="Theft"){
+								}else if(currentCrime.getCategoryCode()==2){
 									currentCrime.setCategory("Theft-Robbery");
-								}else if(cat1=="ASB"){
+								}else if(currentCrime.getCategoryCode()==3){
 									currentCrime.setCategory("ASB-Noise");
 								}
+
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
@@ -154,35 +157,47 @@ public class ReportCategory2 extends Fragment {
 								btn2.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
-								if(cat1=="Violent"){
+								
+								if(currentCrime.getCategoryCode()==1){
 									currentCrime.setCategory("Violent-Attack");
-								}else if(cat1=="Theft"){
+								}else if(currentCrime.getCategoryCode()==2){
 									currentCrime.setCategory("Theft-Bike");
-								}else if(cat1=="ASB"){
+								}else if(currentCrime.getCategoryCode()==3){
 									currentCrime.setCategory("ASB-StreetDrinking");
 								}
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
+							
+							
 							case 4:
 								
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn5.setChecked(false);
-								currentCrime.setCategory(cat1 + "-other");
+								
+								String catcode = null;
+								if(currentCrime.getCategoryCode()==1) catcode="Violent";
+								else if(currentCrime.getCategoryCode()==2) catcode = "Theft";
+								else if(currentCrime.getCategoryCode()==3) catcode = "ASB";
+								else catcode="Other";
+								
+								currentCrime.setCategory(catcode + "-other");
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
+							
+							
 							case 5:
 								Log.w("sociam", "in 4 "+Integer.toString(currentCrime.getCategoryCode()));
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn4.setChecked(false);
-								if(cat1=="Violent"){
+								if(currentCrime.getCategoryCode()==1){
 									currentCrime.setCategory("Violent-Rape");
-								}else if(cat1=="Theft"){
+								}else if(currentCrime.getCategoryCode()==2){
 									currentCrime.setCategory("Theft-Shop");
-								}else if(cat1=="ASB"){
+								}else if(currentCrime.getCategoryCode()==3){
 									currentCrime.setCategory("ASB-Drugs");
 								}
 								pager.setCurrentItem(pager.getCurrentItem()+1);

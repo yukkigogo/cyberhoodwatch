@@ -34,8 +34,7 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 			return new ReportDateTime();		
 		case 5:
 			return new ReportSeverity();
-		case 6:
-			
+		case 6:			
 			return new ReportSummary();		
 
 //		case 7 : //
@@ -47,7 +46,6 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 //		case 10: 
 //			ReportSummary rp7 = new ReportSummary();
 //			return rp7;
-
 		
 		default:
 			return null;

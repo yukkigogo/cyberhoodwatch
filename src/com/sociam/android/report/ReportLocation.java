@@ -130,6 +130,8 @@ public class ReportLocation extends Fragment {
 					pager.setCurrentItem(pager.getCurrentItem()-1);
 					break;
 				case 99:
+					((ReportActivity) getActivity()).setAdapter();
+
 					pager.setCurrentItem(ReportActivity.SUMMARY_FRAG_NUM);
 					break;
 				
@@ -180,6 +182,7 @@ public class ReportLocation extends Fragment {
 								// add address
 								
 								addText();
+								((ReportActivity) getActivity()).setAdapter();
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
@@ -192,6 +195,8 @@ public class ReportLocation extends Fragment {
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn5.setChecked(false);
+								((ReportActivity) getActivity()).setAdapter();
+
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 								
 								break;
@@ -203,6 +208,8 @@ public class ReportLocation extends Fragment {
 								btn2.setChecked(false);
 								btn3.setChecked(false);
 								btn4.setChecked(false);
+								((ReportActivity) getActivity()).setAdapter();
+
 								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;

@@ -226,7 +226,8 @@ containing a value of this type.
         public static final int white_phone=0x7f020037;
     }
     public static final class id {
-        public static final int action_settings=0x7f050058;
+        public static final int action_consentform=0x7f050058;
+        public static final int action_settings=0x7f050057;
         public static final int btn0=0x7f050010;
         public static final int btn1=0x7f05000f;
         public static final int btn2=0x7f05000e;
@@ -266,7 +267,6 @@ containing a value of this type.
         public static final int layoutpeople2=0x7f050043;
         public static final int layoutseverity=0x7f05004c;
         public static final int list1=0x7f05001a;
-        public static final int list_fragment=0x7f050055;
         public static final int map=0x7f050006;
         public static final int map_maker_detail_listview=0x7f05001c;
         public static final int map_marker_picture=0x7f05001b;
@@ -300,8 +300,8 @@ containing a value of this type.
         public static final int severity_goSummary=0x7f050053;
         public static final int severity_midBtn=0x7f050052;
         public static final int smy=0x7f050054;
-        public static final int smy_cancel=0x7f050057;
-        public static final int smybtn=0x7f050056;
+        public static final int smy_cancel=0x7f050056;
+        public static final int smybtn=0x7f050055;
         public static final int spinner1=0x7f050009;
         public static final int spinner2=0x7f05000b;
         public static final int terrain=0x7f050003;
@@ -338,8 +338,9 @@ containing a value of this type.
         public static final int main=0x7f090000;
     }
     public static final class string {
+        public static final int action_consentform=0x7f060017;
         public static final int action_settings=0x7f060016;
-        public static final int add_disc=0x7f06001a;
+        public static final int add_disc=0x7f06001b;
         public static final int app_name=0x7f060015;
         /**   Title for notification shown when GooglePlayServices needs to be
         enabled for a application to work. [CHAR LIMIT=70] 
@@ -364,7 +365,7 @@ containing a value of this type.
         [CHAR LIMIT=70] 
          */
         public static final int auth_client_using_bad_version_title=0x7f06000f;
-        public static final int close_drawer=0x7f06001c;
+        public static final int close_drawer=0x7f06001d;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -420,10 +421,10 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f06000e;
-        public static final int go2summary=0x7f060019;
-        public static final int go_new=0x7f060018;
-        public static final int hello_world=0x7f060017;
-        public static final int open_drawer=0x7f06001b;
+        public static final int go2summary=0x7f06001a;
+        public static final int go_new=0x7f060019;
+        public static final int hello_world=0x7f060018;
+        public static final int open_drawer=0x7f06001c;
     }
     public static final class style {
         /** 

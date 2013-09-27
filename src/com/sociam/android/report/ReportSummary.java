@@ -50,7 +50,8 @@ public class ReportSummary extends Fragment {
 //		}
 //		
 //		try{
-		view = inflater.inflate(R.layout.report_summary, container, false);
+		view = inflater.inflate(R.layout.report_summary, null);
+		//view = inflater.inflate(R.layout.report_summary, container, false);
 		
 			currentCrime = ((ReportActivity) getActivity()).getCrime();
 			//set up background				
@@ -60,6 +61,7 @@ public class ReportSummary extends Fragment {
 			}	
 			setBtn(view);
 			getID();
+			Log.v("sociam", "creating report summary");
 //		}catch (InflateException e){
 //			Log.e("sociam", "this is error from list!!! "+e.getMessage());
 //		}
@@ -72,14 +74,19 @@ public class ReportSummary extends Fragment {
 
 	
 	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		// TODO Auto-generated method stub
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
 	public void onDestroyView() {
 		super.onDestroyView();
 		
-		SummaryListFragment slf = (SummaryListFragment) getFragmentManager().findFragmentById(R.id.list_fragment);
+		SummaryListFragment slf = (SummaryListFragment) getFragmentManager().findFragmentById(R.id.smy);
 		if(slf !=null){
 			getFragmentManager().beginTransaction().remove(slf).commit();
-		}
-		
+		}		
 	}
 	
 

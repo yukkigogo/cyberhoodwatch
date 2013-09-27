@@ -93,6 +93,8 @@ public class ReportEvidence extends Fragment {
 		}		
 		
 		pager =(ViewPager) getActivity().findViewById(R.id.pager);
+		((ReportActivity) getActivity()).setAdapter();
+
 	}
 
 	@Override
@@ -170,9 +172,11 @@ public class ReportEvidence extends Fragment {
 				case 0:
 					Log.e("sociam","push the button");
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
+					
 					pager.setCurrentItem(pager.getCurrentItem()+1);
 					break;
 				case 99:
+					((ReportActivity) getActivity()).setAdapter();
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
 					pager.setCurrentItem(ReportActivity.SUMMARY_FRAG_NUM);
 					break;

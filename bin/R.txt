@@ -95,7 +95,8 @@ int drawable shape_button_beer_mask 0x7f020034
 int drawable sociam_icon 0x7f020035
 int drawable uploadicon 0x7f020036
 int drawable white_phone 0x7f020037
-int id action_settings 0x7f050058
+int id action_consentform 0x7f050058
+int id action_settings 0x7f050057
 int id btn0 0x7f050010
 int id btn1 0x7f05000f
 int id btn2 0x7f05000e
@@ -135,7 +136,6 @@ int id layoutpeople1 0x7f050037
 int id layoutpeople2 0x7f050043
 int id layoutseverity 0x7f05004c
 int id list1 0x7f05001a
-int id list_fragment 0x7f050055
 int id map 0x7f050006
 int id map_maker_detail_listview 0x7f05001c
 int id map_marker_picture 0x7f05001b
@@ -169,8 +169,8 @@ int id severity_RightTopBtn 0x7f05004e
 int id severity_goSummary 0x7f050053
 int id severity_midBtn 0x7f050052
 int id smy 0x7f050054
-int id smy_cancel 0x7f050057
-int id smybtn 0x7f050056
+int id smy_cancel 0x7f050056
+int id smybtn 0x7f050055
 int id spinner1 0x7f050009
 int id spinner2 0x7f05000b
 int id terrain 0x7f050003
@@ -201,8 +201,9 @@ int layout report_people2 0x7f03000d
 int layout report_severity 0x7f03000e
 int layout report_summary 0x7f03000f
 int menu main 0x7f090000
+int string action_consentform 0x7f060017
 int string action_settings 0x7f060016
-int string add_disc 0x7f06001a
+int string add_disc 0x7f06001b
 int string app_name 0x7f060015
 int string auth_client_needs_enabling_title 0x7f060010
 int string auth_client_needs_installation_title 0x7f060011
@@ -210,7 +211,7 @@ int string auth_client_needs_update_title 0x7f060012
 int string auth_client_play_services_err_notification_msg 0x7f060013
 int string auth_client_requested_by_msg 0x7f060014
 int string auth_client_using_bad_version_title 0x7f06000f
-int string close_drawer 0x7f06001c
+int string close_drawer 0x7f06001d
 int string common_google_play_services_enable_button 0x7f060006
 int string common_google_play_services_enable_text 0x7f060005
 int string common_google_play_services_enable_title 0x7f060004
@@ -226,10 +227,10 @@ int string common_google_play_services_update_text 0x7f060008
 int string common_google_play_services_update_title 0x7f060007
 int string common_signin_button_text 0x7f06000d
 int string common_signin_button_text_long 0x7f06000e
-int string go2summary 0x7f060019
-int string go_new 0x7f060018
-int string hello_world 0x7f060017
-int string open_drawer 0x7f06001b
+int string go2summary 0x7f06001a
+int string go_new 0x7f060019
+int string hello_world 0x7f060018
+int string open_drawer 0x7f06001c
 int style AppBaseTheme 0x7f080000
 int style AppTheme 0x7f080001
 int style Theme 0x7f080002

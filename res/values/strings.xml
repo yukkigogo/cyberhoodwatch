@@ -2,7 +2,10 @@
 <resources>
 
     <string name="app_name">CyberHoodWatch</string>
-    <string name="action_settings">Settings</string>
+    
+    <string name="action_settings">Participant Information</string>
+    <string name="action_consentform">Consent Form</string>
+    
     <string name="hello_world">Hello world!</string>
     <string name="go_new">new report</string>
     <string name="go2summary">Go To Summary</string>

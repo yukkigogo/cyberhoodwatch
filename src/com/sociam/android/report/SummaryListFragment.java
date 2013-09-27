@@ -12,12 +12,13 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 
 public class SummaryListFragment extends ListFragment {
 	
 	Crime currentCrime;
-	ArrayAdapter<String> adapter;
+	//ArrayAdapter<String> adapter;
 	
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
@@ -26,8 +27,8 @@ public class SummaryListFragment extends ListFragment {
 		currentCrime = ((ReportActivity) getActivity()).getCrime();
 		
 		//setAdapter();
-		setListAdapter(((ReportActivity) getActivity()).setAdapter()); 
 		
+		setListAdapter(((ReportActivity) getActivity()).getArrayAdapter());
 		//getActivity().getSupportFragmentManager().beginTransaction().add(this, "SummaryFrag").commit();
 
 	}

@@ -70,6 +70,10 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	private int dnt=88;
 	private int sev=88;
 	
+	//
+	ArrayAdapter<String> adapter; 
+	
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -98,7 +102,9 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		now = new Time();
 		now.setToNow();
 		crime.setDate(now);
-		
+
+		adapter = new  ArrayAdapter<String>(this,R.layout.list_row,R.id.list1);
+	
 	}
 
 
@@ -272,7 +278,6 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	public MyFragmentStatePagerAdapter getMyfragmentStatePagerAdapter(){
 		return this.myAdapter;
 	}
-	
 	public int getLoc(){ return this.loc; }
 	public void setLoc(int i){ this.loc=i; }
 	public int getDnT(){ return this.dnt; }
@@ -280,6 +285,10 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	public int getSev(){ return this.sev; }
 	public void setSev(int i){ this.sev=i; }
 	
+	public ArrayAdapter<String> getArrayAdapter(){
+		return this.adapter;
+	}
+
 	
 	private void setTexts(){
 		
@@ -397,9 +406,13 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	}
 
 	
-	public ArrayAdapter<String> setAdapter(){
+	public void setAdapter(){
+		
+		
 		
 		ArrayList<String> details = new ArrayList<String>();
+		
+		
 		
 		
 		details.add("Picture : "+ (crime.getFilepath() !=null ? "Yes" : "No"));
@@ -448,13 +461,13 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		}		
 		details.add("How Serious? : " + severity);
 		
-				
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-			        this,R.layout.list_row,R.id.list1,details);
+		
+		adapter.clear();
+		adapter.addAll(details);
 		
 		
-		return adapter;
 	}
+	
 	
 	
 	
