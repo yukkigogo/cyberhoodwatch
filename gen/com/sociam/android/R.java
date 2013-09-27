@@ -318,21 +318,23 @@ containing a value of this type.
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
-        public static final int ethics_gender_dialog=0x7f030001;
-        public static final int footer=0x7f030002;
-        public static final int footer2=0x7f030003;
-        public static final int info_window=0x7f030004;
-        public static final int list_row=0x7f030005;
-        public static final int map_marker_detail_dialog=0x7f030006;
-        public static final int report_category=0x7f030007;
-        public static final int report_category2=0x7f030008;
-        public static final int report_evidence=0x7f030009;
-        public static final int report_main=0x7f03000a;
-        public static final int report_people1=0x7f03000b;
-        public static final int report_people1_test=0x7f03000c;
-        public static final int report_people2=0x7f03000d;
-        public static final int report_severity=0x7f03000e;
-        public static final int report_summary=0x7f03000f;
+        public static final int consent_form=0x7f030001;
+        public static final int ethics_gender_dialog=0x7f030002;
+        public static final int footer=0x7f030003;
+        public static final int footer2=0x7f030004;
+        public static final int info_window=0x7f030005;
+        public static final int list_row=0x7f030006;
+        public static final int map_marker_detail_dialog=0x7f030007;
+        public static final int participent_information=0x7f030008;
+        public static final int report_category=0x7f030009;
+        public static final int report_category2=0x7f03000a;
+        public static final int report_evidence=0x7f03000b;
+        public static final int report_main=0x7f03000c;
+        public static final int report_people1=0x7f03000d;
+        public static final int report_people1_test=0x7f03000e;
+        public static final int report_people2=0x7f03000f;
+        public static final int report_severity=0x7f030010;
+        public static final int report_summary=0x7f030011;
     }
     public static final class menu {
         public static final int main=0x7f090000;

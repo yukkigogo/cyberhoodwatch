@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URL;
+import java.nio.channels.AlreadyConnectedException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -51,9 +52,11 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.text.Layout;
 import android.text.format.Time;
 import android.text.style.BulletSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -153,11 +156,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  	switch(item.getItemId()){
 	  		case R.id.action_settings :
 	  			// show the participant information 
-	  			new AlertDialog.Builder(this)
-	  			.setTitle("")
-	  			.setMessage("")
-	  			.show();
-	  			
+	  			ConsentFormDialog consentFormDialog = new ConsentFormDialog();
+	  			consentFormDialog.show(getSupportFragmentManager(), "sociam");
+	 
 	  			
 	  		case R.id.action_consentform:
 	  			// show the consent form
@@ -716,5 +717,27 @@ private ArrayList<Crime> getCrimesData() {
 	}
 	
 
-  
+	public class ConsentFormDialog extends DialogFragment{
+		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			LayoutInflater inflater = getActivity().getLayoutInflater();
+			View view = inflater.inflate(R.layout.participent_information, null);
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			
+			builder.setTitle("PARTICIPANT INFORMATION");
+			builder.setView(view);
+			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ConsentFormDialog.this.getDialog().dismiss();
+					
+				}
+			});
+			
+			return builder.create();
+		}
+	}
+	
+	
 }
