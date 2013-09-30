@@ -96,8 +96,20 @@ public class SummaryListFragment extends ListFragment {
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
+		
+		Log.w("sociam","list clickkkkkk  "+position);
+		switch (position) {
+		case 0:
+			
+			break;
+			
+		default:
+			break;
+		}
+		
+		
+		
 	}
 
 

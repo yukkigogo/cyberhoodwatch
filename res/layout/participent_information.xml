@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:gravity="center"
+        style="@android:style/TextAppearance.Large"
+        android:text="Reporting Incidents of Crimes" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Welcome!"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="This is a usability study of a crime-reporting app. By participating, you will be helping us identify what works and what needs improvement in our interface and functionality.  Our goal is to evaluate the system and to draw conclusions about its design; we are not, in any sense, evaluating you or your ability to perform tasks. 
+        &#10;If you agree to perform the study, you will be provided with a help file to show you how to use the app.  Then, you will be asked to try the app out for 1 week which will include inputting two incidents/events, to fully explore the system. Finally, at the end of the study, you will be asked to fill in a short survey." />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Time"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="The total time to complete the study should be around 20 minutes over the course of 1 week."/>
+    
+  	 <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Data collection and handling"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+  
+    
+  	 <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="In addition to a survey, we will record the inputted incident reports. After the data is analyzed or 1st May 2014 (whichever is earlier), all survey data will be destroyed."/>
+  	 
+  	 
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Risks"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="Since the experiment involves short-term use of a mobile phone, we do not anticipate that the experiment will pose subjects any physical or psychological risks."/>
+        
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Withdrawing from the study"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="You can withdraw from the study at any time without any penalty.  All of your data except anonymous submission will be removed if you choose to withdraw. "/>
+  	
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Questions and Comments"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="If at any point during or after the study you have any questions, comments or concerns, please do not hesitate to ask us in person or contact us by the below contact information. 
+        &#10;&#10;Investigators:
+		&#10;Dr. Max Van Kleek (e-mail: mvk@ecs.soton.ac.uk, Tel: +44 (0)23 8059 8347)
+		&#10;Yuki Ikuno (e-mail: yi1g13@ecs.soton.ac.uk)
+		&#10;Anna Weston (e-mail: aw2u12@ecs.soton.ac.uk)
+        &#10;If you prefer, you can also contact instead:
+        &#10;University of Southampton Research Governance Office
+		&#10;Dr Martina Prude, Head of Research Governance
+		&#10;telephone: +44 (0)23 8059 5058
+		&#10;email: mad4@soton.ac.uk"/>
+  	
+</LinearLayout>
+</ScrollView>

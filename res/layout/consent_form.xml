@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:gravity="center"
+        style="@android:style/TextAppearance.Large"
+        android:text="Reporting Incidents of Crimes" />
+    
+	
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Study title"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="Reporting Incidents of Crimes"/>
+    
+    
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Ethics reference number"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:text="ERGO/FoPSE/7475"/>    
+        
+  	
+  	<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="italic"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="Please read the statements before you will join the experiment. If you agree with them, please carry on the experiment."/>
+
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="I agree to take part in this research project and agree for my data to be used for the purpose of this study."/> 
+ 
+  	
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"         
+        android:layout_marginTop="10dp"
+        android:text="I understand my participation is voluntary and I may withdraw at any time without my legal rights being affected."/> 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="10dp"
+        android:text="I am happy to be contacted regarding other unspecified research projects. I therefore consent to the University retaining my personal details on a database, kept separately from the research data detailed above. The ‘validity’ of my consent is conditional upon the University complying with the Data Protection Act and I understand that I can request my details be removed from this database at any time."/> 
+    	
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Data Protection"
+        android:textAppearance="?android:attr/textAppearanceMedium" />  	
+        
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"   
+    	android:text="I understand that information collected about me during my participation in this study will be stored on a password protected computer and that this information will only be used for the purpose of this study. All files containing any personal data will be made anonymous."/>
+
+
+</LinearLayout>
+</ScrollView>

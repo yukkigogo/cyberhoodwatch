@@ -158,11 +158,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  			// show the participant information 
 	  			ConsentFormDialog consentFormDialog = new ConsentFormDialog();
 	  			consentFormDialog.show(getSupportFragmentManager(), "sociam");
-	 
+	  			break;
 	  			
 	  		case R.id.action_consentform:
 	  			// show the consent form
-	  			
+	  			ConsentFormDialog2 consentFormDialog2 = new ConsentFormDialog2();
+	  			consentFormDialog2.show(getSupportFragmentManager(), "sociam");
+	  			break;
 	  	}
 	  	return super.onOptionsItemSelected(item);
 	}
@@ -717,8 +719,7 @@ private ArrayList<Crime> getCrimesData() {
 	}
 	
 
-	public class ConsentFormDialog extends DialogFragment{
-		
+	public class ConsentFormDialog extends DialogFragment{		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -738,6 +739,30 @@ private ArrayList<Crime> getCrimesData() {
 			return builder.create();
 		}
 	}
+	
+
+	public class ConsentFormDialog2 extends DialogFragment{		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			LayoutInflater inflater = getActivity().getLayoutInflater();
+			View view = inflater.inflate(R.layout.consent_form, null);
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			
+			builder.setTitle("CONSENT FORM");
+			builder.setView(view);
+			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					ConsentFormDialog2.this.getDialog().dismiss();
+					
+				}
+			});
+			
+			return builder.create();
+		}
+	}
+
+	
 	
 	
 }
