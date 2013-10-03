@@ -334,6 +334,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 			
 				int diff = now.get(Calendar.HOUR_OF_DAY)-ctime.get(Calendar.HOUR_OF_DAY);
 				if(diff<5){
+					Log.e("sociam", Integer.toString(diff));
 					amaker = mMap.addMarker(new MarkerOptions()
 					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 					.title(Integer.toString(i))
@@ -342,7 +343,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 					amaker = mMap.addMarker(new MarkerOptions()
 					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 					.title(Integer.toString(i))
-					.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+					.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
 					.snippet(crimes.get(i).getFilepath()));		
 				}	
 				
@@ -773,7 +774,7 @@ private ArrayList<Crime> getCrimesData() {
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			builder.setTitle("Evaluate the Incident");
-			builder.setNegativeButton("Trust", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton("TRUST", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -786,7 +787,7 @@ private ArrayList<Crime> getCrimesData() {
 				}
 			});
 			
-			builder.setNeutralButton("DisTrust", new DialogInterface.OnClickListener() {
+			builder.setNeutralButton("DISTRUST", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
