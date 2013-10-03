@@ -414,6 +414,8 @@ private ArrayList<Crime> getCrimesData() {
 					lon = Double.parseDouble(str[11]);	
 					is_date_text = Integer.parseInt(str[14]);
 					severity=Integer.parseInt(str[16]);
+					up_thumb = Integer.parseInt(str[17]);
+					down_thumb = Integer.parseInt(str[18]);
 				} catch (Exception e) {
 					// check the double can convert
 					Log.e("sociam","fail convert double/interger from csv" + e.getMessage());
@@ -705,6 +707,18 @@ private ArrayList<Crime> getCrimesData() {
 					
 				}
 			});
+			
+			builder.setPositiveButton("Evaluate", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					DetailDialogFragment.this.getDialog().dismiss();
+					// open evaluate dialog
+					EvaluateDialog ed = new EvaluateDialog(Integer.toString(crime.getCrimeID()));
+					ed.show(getSupportFragmentManager(),"sociam");
+				}
+			});
+			
 			builder.setView(view);
 			
 			return builder.create();
@@ -742,9 +756,61 @@ private ArrayList<Crime> getCrimesData() {
 			 }
 			 
 			 str.add("Trust Level : "+crime.getUpThumbs());
-			 str.add("Distrust Level : "+crime.getDownThumb());
+			 str.add("DisTrust Level : "+crime.getDownThumb());
 			
 			return str;
+		}
+		
+		
+	}
+	
+	public class EvaluateDialog extends DialogFragment{
+		private String crime_id;
+		public EvaluateDialog(String id) {
+			this.crime_id=id;
+		}
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			builder.setTitle("Evaluate the Incident");
+			builder.setNegativeButton("Trust", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// connect server to evaluate and closed and reload
+					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
+					evaluate.execute(crime_id,"1","0");
+					((MainActivity) getActivity()).reloadData();
+
+					EvaluateDialog.this.getDialog().dismiss();
+				}
+			});
+			
+			builder.setNeutralButton("DisTrust", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
+					evaluate.execute(crime_id,"0","1");
+					((MainActivity) getActivity()).reloadData();
+
+					EvaluateDialog.this.getDialog().dismiss();
+
+				}
+			});
+			
+			builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					// do nothing
+					EvaluateDialog.this.getDialog().dismiss();
+					
+				}
+			});
+			
+			
+			return builder.create();
 		}
 		
 		
