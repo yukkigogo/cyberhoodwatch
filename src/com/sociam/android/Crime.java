@@ -17,6 +17,7 @@ public class Crime {
 	private int picOn=0; // 0 null, 1 picture, 2 video
 	private String filepath;
 	private BitmapDrawable pic;
+	private Bitmap bitpic;
 	
 	
 	// category
@@ -77,6 +78,7 @@ public class Crime {
 		this.filepath=path;
 	}
 	public void setBitmap(Bitmap map){
+		bitpic=map;
 		BitmapDrawable bm = new BitmapDrawable(map);
 		this.pic=bm;
 	}
@@ -203,7 +205,9 @@ public class Crime {
 	public BitmapDrawable getBitmapdrawable(){
 		return this.pic;
 	}
-	
+	public Bitmap getBitmap(){
+		return this.bitpic;
+	}
 	
 	
 	// category

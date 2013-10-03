@@ -20,6 +20,7 @@ import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -35,6 +36,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -136,8 +138,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   @Override
   protected void onRestart() {
 		super.onRestart();
-	 
-
+		reloadData();
   }
   
   
@@ -312,7 +313,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	}
 	 
   
-
+	
 
 
 
@@ -323,12 +324,38 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	Marker amaker = null;
 	for(int i=0;i<crimes.size();i++){
 		
-		if(crimes.get(i).getLocationLatLng()){
-			amaker = mMap.addMarker(new MarkerOptions()
-			.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
-			.title(Integer.toString(i))
-			.snippet(crimes.get(i).getFilepath()));		
+		Calendar now = Calendar.getInstance();
+		Calendar ctime = crimes.get(i).getCal();
 		
+		if(crimes.get(i).getLocationLatLng()){					
+			if(now.get(Calendar.YEAR)==ctime.get(Calendar.YEAR) && 
+			now.get(Calendar.MONTH)==ctime.get(Calendar.MONTH) &&
+			now.get(Calendar.DATE)==ctime.get(Calendar.DATE) ){
+			
+				int diff = now.get(Calendar.HOUR_OF_DAY)-ctime.get(Calendar.HOUR_OF_DAY);
+				if(diff<5){
+					amaker = mMap.addMarker(new MarkerOptions()
+					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
+					.title(Integer.toString(i))
+					.snippet(crimes.get(i).getFilepath()));		
+				}else{
+					amaker = mMap.addMarker(new MarkerOptions()
+					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
+					.title(Integer.toString(i))
+					.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_YELLOW))
+					.snippet(crimes.get(i).getFilepath()));		
+				}	
+				
+			}else{
+				amaker = mMap.addMarker(new MarkerOptions()
+				.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
+				.title(Integer.toString(i))
+				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+				.snippet(crimes.get(i).getFilepath()));		
+				
+			}
+			
+			
 		
 			markers.add(amaker);
 		}else{
@@ -604,8 +631,12 @@ private ArrayList<Crime> getCrimesData() {
 		
 		int num = Integer.parseInt(marker.getTitle());
 		
-		InfoWindowDialogFragment iwdf = new InfoWindowDialogFragment(num);
-		iwdf.show(getSupportFragmentManager(), "sociam");
+//		InfoWindowDialogFragment iwdf = new InfoWindowDialogFragment(num);
+//		iwdf.show(getSupportFragmentManager(), "sociam");
+		DetailDialogFragment ddf = new DetailDialogFragment(num);
+		ddf.show(getSupportFragmentManager(), "sociam");
+		
+		
 		marker.hideInfoWindow();
 			
 	}
@@ -669,6 +700,7 @@ private ArrayList<Crime> getCrimesData() {
 			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+
 					DetailDialogFragment.this.getDialog().dismiss();
 					
 				}
@@ -762,6 +794,11 @@ private ArrayList<Crime> getCrimesData() {
 		}
 	}
 
+	
+	public void reloadData(){
+		  getCrimesData();
+		  plotCrime();
+	}
 	
 	
 	
