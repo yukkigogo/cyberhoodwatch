@@ -257,7 +257,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 //	 private void setNavigationDrawer() {
 //		 drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 //		 listDrawer = (ListView) findViewById(R.id.left_drawer);
-//		 //listDrawer.setAdapter(new ArrayAdapter<Crime>(this, R.id.left_drawer,crimes));
+//		 listDrawer.setAdapter(new ArrayAdapter<Crime>(this, R.id.left_drawer,crimes));
 //		 mDrawerToggle = new ActionBarDrawerToggle(this, drawerlayout, 
 //				 R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer){
 //			
