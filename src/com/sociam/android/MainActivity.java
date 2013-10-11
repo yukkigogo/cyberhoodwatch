@@ -28,6 +28,7 @@ import com.google.android.gms.maps.UiSettings;
 import com.sociam.android.report.ReportActivity;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -54,6 +55,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v4.widget.SlidingPaneLayout;
 import android.text.Layout;
 import android.text.format.Time;
 import android.text.style.BulletSpan;
@@ -70,6 +72,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 // this class for the start page. 
 @SuppressLint("ValidFragment")
@@ -85,9 +88,11 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	protected Context context;
 	SharedPreferences sp; 
 	
-	private ListView listDrawer;
-	private DrawerLayout drawerlayout;
+	//drawer
+	private DrawerLayout mDrawerLayout;
+	private ListView mListView;
 	private ActionBarDrawerToggle mDrawerToggle;
+	
 	
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -107,13 +112,86 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     if(checkInternet()){
     
     setContentView(R.layout.activity_main); 
+    // obtain map data from the server
+    getCrimesData();
+    
+    //drawer instanceate
+    setDrawer();
+    
     //map initialise
     setUpMapIfNeeded();
     setbtn();
+    
+    
     }
   }
   
-  private void setbtn() {
+
+
+  private void setDrawer() {
+	  
+	  mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+	  mListView = (ListView) findViewById(R.id.list_drawer);
+	  
+	  String[] listdesho = {"a","b","c","d"};
+	  
+	  mListView.setAdapter(new ArrayAdapter<String>(
+			  this, android.R.layout.simple_expandable_list_item_1,listdesho));
+  
+	  mListView.setOnItemClickListener(new DrawerItemClickListener());
+	  
+   
+  
+      mDrawerToggle = new ActionBarDrawerToggle(this, 
+    		  									mDrawerLayout, 
+    		  									R.drawable.ic_drawer, 
+    		  									R.string.open_drawer,
+    		  									R.string.close_drawer){
+    	  
+    	  @Override
+    	public void onDrawerClosed(View drawerView) {
+    		  
+    		  //super.onDrawerClosed(drawerView);
+    	}
+    	  
+    	@Override
+    	public void onDrawerOpened(View drawerView) {
+    										
+   			//super.onDrawerOpened(drawerView);
+    												}
+    	  
+    	  
+      };
+  
+      
+      mDrawerLayout.setDrawerListener(mDrawerToggle);
+  
+      getActionBar().setDisplayHomeAsUpEnabled(true);
+      getActionBar().setHomeButtonEnabled(true);
+  }
+
+
+  /*
+   * Helper function for nativation drawer
+   */
+  @Override
+  protected void onPostCreate(Bundle savedInstanceState) {
+      super.onPostCreate(savedInstanceState);
+      // Sync the toggle state after onRestoreInstanceState has occurred.
+      mDrawerToggle.syncState();
+   }
+  
+  
+  @Override
+  public void onConfigurationChanged(Configuration newConfig) {
+      super.onConfigurationChanged(newConfig);
+      // Pass any configuration change to the drawer toggls
+      mDrawerToggle.onConfigurationChanged(newConfig);
+  }
+  
+  
+  
+private void setbtn() {
 	  ImageButton ibtn = (ImageButton) findViewById(R.id.report_incident);
 	  ibtn.setOnClickListener(new OnClickListener() {	
 		@Override
@@ -154,7 +232,14 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-	  	switch(item.getItemId()){
+	  	
+	  if (mDrawerToggle.onOptionsItemSelected(item)) {
+         
+		  return true;
+        }
+	  
+	  
+	  switch(item.getItemId()){
 	  		case R.id.action_settings :
 	  			// show the participant information 
 	  			ConsentFormDialog consentFormDialog = new ConsentFormDialog();
@@ -167,6 +252,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  			consentFormDialog2.show(getSupportFragmentManager(), "sociam");
 	  			break;
 	  	}
+	  	
+	
+	  	
 	  	return super.onOptionsItemSelected(item);
 	}
   
@@ -242,11 +330,10 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 		//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
 	  
 	  // set up the map. 
-	  getCrimesData();
+	 
 	  plotCrime();
 	
-	  //setup navigation drawer
-	 // setNavigationDrawer();
+
 	  
 	  //setup inforwindow
 	  mMap.setOnInfoWindowClickListener(this);
@@ -254,50 +341,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 		  
   }
  
-//	 private void setNavigationDrawer() {
-//		 drawerlayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-//		 listDrawer = (ListView) findViewById(R.id.left_drawer);
-//		 listDrawer.setAdapter(new ArrayAdapter<Crime>(this, R.id.left_drawer,crimes));
-//		 mDrawerToggle = new ActionBarDrawerToggle(this, drawerlayout, 
-//				 R.drawable.ic_drawer, R.string.open_drawer, R.string.close_drawer){
-//			
-//		        public void onDrawerClosed(View drawerView) {
-//		            Log.i("sociam", "onDrawerClosed");
-//		        }
-//		        
-//		        public void onDrawerOpened(View drawerView) {
-//		            Log.i("sociam", "onDrawerOpened");
-//		        }
-//		        
-//		        public void onDrawerSlide(View drawerView, float slideOffset) {
-//		            super.onDrawerSlide(drawerView, slideOffset);
-//		            Log.i("sociam", "onDrawerSlide : " + slideOffset);
-//		        }
-//		        
-//		        public void onDrawerStateChanged(int newState) {
-//		            Log.i("sociam", "onDrawerStateChanged  new state : " + newState);
-//		        }
-//		        
-//		 };
-//		 
-//		 drawerlayout.setDrawerListener(mDrawerToggle);
-//		 getActionBar().setDisplayHomeAsUpEnabled(true);
-//		 getActionBar().setHomeButtonEnabled(true);
-//		 
-//	 }
-//
-//	    @Override  
-//	    protected void onPostCreate(Bundle savedInstanceState) {  
-//	        super.onPostCreate(savedInstanceState);  
-//	        // Sync the toggle state after onRestoreInstanceState has occurred.  
-//	        mDrawerToggle.syncState();  
-//	    }  
-//	  
-//	    @Override  
-//	    public void onConfigurationChanged(Configuration newConfig) {  
-//	        super.onConfigurationChanged(newConfig);  
-//	        mDrawerToggle.onConfigurationChanged(newConfig);  
-//	    }  
 	  
 
 	 
@@ -765,6 +808,17 @@ private ArrayList<Crime> getCrimesData() {
 		
 	}
 	
+	/*
+	 * helper function to reload the data from the server
+	 */
+	public void reloadData(){
+		  getCrimesData();
+		  plotCrime();
+	}
+	
+	/*
+	 * helper class to show evaluate dialog
+	 */
 	public class EvaluateDialog extends DialogFragment{
 		private String crime_id;
 		public EvaluateDialog(String id) {
@@ -817,7 +871,9 @@ private ArrayList<Crime> getCrimesData() {
 		
 	}
 	
-
+	/*
+	 * helper class to show the perticepent information
+	 */
 	public class ConsentFormDialog extends DialogFragment{		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -839,7 +895,9 @@ private ArrayList<Crime> getCrimesData() {
 		}
 	}
 	
-
+	/*
+	 * helper class to show consent form
+	 */
 	public class ConsentFormDialog2 extends DialogFragment{		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -862,10 +920,22 @@ private ArrayList<Crime> getCrimesData() {
 	}
 
 	
-	public void reloadData(){
-		  getCrimesData();
-		  plotCrime();
+	/*
+	 * helper class to contral Navigation Drawer
+	 */
+
+	private class DrawerItemClickListener implements ListView.OnItemClickListener{
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+				long arg3) {
+			Log.v("sociam","clicked"+ arg2);
+		}
+		
+		
+		
 	}
+
 	
 	
 	

@@ -266,9 +266,9 @@ containing a value of this type.
         public static final int layoutpeople1=0x7f050039;
         public static final int layoutpeople2=0x7f050045;
         public static final int layoutseverity=0x7f05004e;
-        public static final int left_drawer=0x7f050006;
         public static final int list1=0x7f05001b;
-        public static final int map=0x7f050007;
+        public static final int list_drawer=0x7f050008;
+        public static final int map=0x7f050006;
         public static final int map_maker_detail_listview=0x7f05001d;
         public static final int map_marker_picture=0x7f05001c;
         public static final int none=0x7f050000;
@@ -293,7 +293,7 @@ containing a value of this type.
         public static final int people_goSummary=0x7f050040;
         public static final int picture_image_indialog=0x7f05001e;
         public static final int relativeLayout1=0x7f050042;
-        public static final int report_incident=0x7f050008;
+        public static final int report_incident=0x7f050007;
         public static final int satellite=0x7f050002;
         public static final int severity_LeftBtmBtn=0x7f050053;
         public static final int severity_LeftTopBtn=0x7f050051;

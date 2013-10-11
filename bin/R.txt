@@ -135,9 +135,9 @@ int id layoutevidence 0x7f050032
 int id layoutpeople1 0x7f050039
 int id layoutpeople2 0x7f050045
 int id layoutseverity 0x7f05004e
-int id left_drawer 0x7f050006
 int id list1 0x7f05001b
-int id map 0x7f050007
+int id list_drawer 0x7f050008
+int id map 0x7f050006
 int id map_maker_detail_listview 0x7f05001d
 int id map_marker_picture 0x7f05001c
 int id none 0x7f050000
@@ -162,7 +162,7 @@ int id people_description 0x7f050043
 int id people_goSummary 0x7f050040
 int id picture_image_indialog 0x7f05001e
 int id relativeLayout1 0x7f050042
-int id report_incident 0x7f050008
+int id report_incident 0x7f050007
 int id satellite 0x7f050002
 int id severity_LeftBtmBtn 0x7f050053
 int id severity_LeftTopBtn 0x7f050051
