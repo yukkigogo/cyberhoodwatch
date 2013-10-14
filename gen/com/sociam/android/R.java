@@ -216,18 +216,19 @@ containing a value of this type.
         public static final int report2=0x7f02002d;
         public static final int report_mid=0x7f02002e;
         public static final int right_half_btn=0x7f02002f;
-        public static final int rotate_btm=0x7f020030;
-        public static final int rounded_cell=0x7f020031;
-        public static final int rounded_mini=0x7f020032;
-        public static final int shape_button_beer=0x7f020033;
-        public static final int shape_button_beer_mask=0x7f020034;
-        public static final int sociam_icon=0x7f020035;
-        public static final int uploadicon=0x7f020036;
-        public static final int white_phone=0x7f020037;
+        public static final int robbery=0x7f020030;
+        public static final int rotate_btm=0x7f020031;
+        public static final int rounded_cell=0x7f020032;
+        public static final int rounded_mini=0x7f020033;
+        public static final int shape_button_beer=0x7f020034;
+        public static final int shape_button_beer_mask=0x7f020035;
+        public static final int sociam_icon=0x7f020036;
+        public static final int uploadicon=0x7f020037;
+        public static final int white_phone=0x7f020038;
     }
     public static final class id {
-        public static final int action_consentform=0x7f05005a;
-        public static final int action_settings=0x7f050059;
+        public static final int action_consentform=0x7f05005e;
+        public static final int action_settings=0x7f05005d;
         public static final int btn0=0x7f050011;
         public static final int btn1=0x7f050010;
         public static final int btn2=0x7f05000f;
@@ -237,7 +238,11 @@ containing a value of this type.
         public static final int btn6=0x7f050014;
         public static final int btn7=0x7f050015;
         public static final int custom_buttom=0x7f050044;
+        public static final int drawer_category=0x7f05005a;
+        public static final int drawer_crime_pic=0x7f050059;
+        public static final int drawer_date=0x7f05005c;
         public static final int drawer_layout=0x7f050005;
+        public static final int drawer_time=0x7f05005b;
         public static final int ethics_button1=0x7f05000d;
         public static final int evi_left=0x7f050034;
         public static final int evi_right=0x7f050035;
@@ -338,6 +343,7 @@ containing a value of this type.
         public static final int report_people2=0x7f030010;
         public static final int report_severity=0x7f030011;
         public static final int report_summary=0x7f030012;
+        public static final int row_dawer_list=0x7f030013;
     }
     public static final class menu {
         public static final int main=0x7f090000;
