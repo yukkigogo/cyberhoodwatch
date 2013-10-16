@@ -6,7 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.format.Time;
 
-public class Crime {
+public class Crime implements Comparable{
 	
 	// IDs
 	private int crimeID; //hash()
@@ -44,6 +44,9 @@ public class Crime {
 	private double lon;
 	private String address;
 
+	//distance from users' position
+	private Double distancefromhere;
+	
 	// date and time
 	private Time date;
 	private Calendar cal;
@@ -142,6 +145,11 @@ public class Crime {
 	
 	public void setAddress(String str){
 		this.address=str;
+	}
+	
+	//distance
+	public void setDistance(double distance){
+		this.distancefromhere = distance;
 	}
 	
 	// date
@@ -268,6 +276,12 @@ public class Crime {
 		return this.address;
 	}
 	
+	//get distance
+	public Double getDistance(){
+		return this.distancefromhere;
+	}
+	
+	
 	// date and time
 	public Time getDate(){
 		return this.date;
@@ -297,6 +311,13 @@ public class Crime {
 	}
 	public int getDownThumb(){
 		return this.down_thumb;
+	}
+
+	
+	@Override
+	public int compareTo(Object obj) {
+		// sorted by distance
+		return this.distancefromhere.compareTo(((Crime) obj).getDistance());
 	}
 
 }

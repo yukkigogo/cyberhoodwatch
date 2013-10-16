@@ -10,6 +10,8 @@ import java.nio.channels.AlreadyConnectedException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -81,8 +83,11 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   
 	private GoogleMap mMap;
 	private ArrayList<Crime> crimes;
+	private ArrayList<Crime> sortedCrimesDis;
 	private ArrayList<Marker> markers;
 
+	private Location location;
+	
 	protected LocationManager locationManager;
 	protected LocationListener locationListener;
 	protected Context context;
@@ -93,6 +98,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	private ListView mListView;
 	private ActionBarDrawerToggle mDrawerToggle;
 	
+	// right now
+	public static final Calendar rightNow = Calendar.getInstance();
 	
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -112,16 +119,21 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     if(checkInternet()){
     
     setContentView(R.layout.activity_main); 
+    // start location manager
+    setMyLocationManager();
     // obtain map data from the server
     getCrimesData();
     
-    //drawer instanceate
-    setDrawer();
+    // compute distance userpoistion and crimes
+    getDistanceFromHere(getLocation(), crimes);
     
     //map initialise
     setUpMapIfNeeded();
     setbtn();
     
+    
+    //drawer instanceate
+    setDrawer();
     
     }
   }
@@ -133,10 +145,17 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 	  mListView = (ListView) findViewById(R.id.list_drawer);
 	  
-	  String[] listdesho = {"a","b","c","d"};
+	 
+	  // sort by time
+	 // Collections.reverse(crimes);
+	  sortedCrimesDis = new ArrayList<Crime>(crimes);
+	  Collections.sort(sortedCrimesDis);
+	  DrawerAdapter mAdapter = new DrawerAdapter(this,0, sortedCrimesDis);
 	  
-	  mListView.setAdapter(new ArrayAdapter<String>(
-			  this, android.R.layout.simple_expandable_list_item_1,listdesho));
+	 
+	  
+	  
+	  mListView.setAdapter(mAdapter);
   
 	  mListView.setOnItemClickListener(new DrawerItemClickListener());
 	  
@@ -286,13 +305,8 @@ private void setbtn() {
   }
 
 
-  
-  private void setUpMap() {
-	  
-	  mMap.setMyLocationEnabled(true);
-	  UiSettings settings = mMap.getUiSettings();
-	  settings.setCompassEnabled(true);
-	
+  private void setMyLocationManager(){
+	  Log.v("sociam","Loading Location Mangaer......");
 	  //set up current location using LocationManager
 		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
         
@@ -301,10 +315,13 @@ private void setbtn() {
             locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
         }
 		
+
+			 
 		//check either network/gps is abalialbe 
-        if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) && 
-        		!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)){
+        if((!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) && 
+        		(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))){
         
+         	
         	new AlertDialog.Builder(this)
         	.setIcon(android.R.drawable.ic_dialog_info)
         	.setTitle("Warning")
@@ -326,14 +343,23 @@ private void setbtn() {
 			}).show();
         	
         }
-		
-		//locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
+  }
+  
+  
+  private void setUpMap() {
 	  
-	  // set up the map. 
-	 
+	  mMap.setMyLocationEnabled(true);
+	  UiSettings settings = mMap.getUiSettings();
+	  settings.setCompassEnabled(true);
+	
+	  // load and move current location 
+      //setMyLocationManager();   
+
+	  
+	  // set up the map. 	 
 	  plotCrime();
 	
-
 	  
 	  //setup inforwindow
 	  mMap.setOnInfoWindowClickListener(this);
@@ -415,7 +441,6 @@ private void setbtn() {
   @SuppressLint("SimpleDateFormat")
 private ArrayList<Crime> getCrimesData() {
 		//getting crime data from the server
-		
 		crimes = new ArrayList<Crime>();
 		try {
 			BufferedReader br = new BufferedReader(
@@ -525,6 +550,9 @@ private ArrayList<Crime> getCrimesData() {
 					
 				//Log.v("sociam","Lat Lon :"+crime.getLat()+" : "+crime.getLon() );
 				
+
+				
+				
 				crimes.add(crime);
 				}
 			}
@@ -600,7 +628,9 @@ private ArrayList<Crime> getCrimesData() {
 		// obtain the current position and move to the place
 		LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
 		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
+		this.location = location;
 		mMap.animateCamera(cameraUpdate);
+		//Log.e("sociam","now we call onlocation changed");
 		locationManager.removeUpdates(this);
 		
 	}
@@ -812,8 +842,17 @@ private ArrayList<Crime> getCrimesData() {
 	 * helper function to reload the data from the server
 	 */
 	public void reloadData(){
-		  getCrimesData();
-		  plotCrime();
+	    // start location manager
+	    setMyLocationManager();
+	    // obtain map data from the server
+	    getCrimesData();
+	    // compute distance userpoistion and crimes
+	    getDistanceFromHere(getLocation(), crimes);
+	    //map initialise
+	    setUpMapIfNeeded();
+	    setbtn();
+	    //drawer instanceate
+	    setDrawer();
 	}
 	
 	/*
@@ -937,6 +976,37 @@ private ArrayList<Crime> getCrimesData() {
 	}
 
 	
+	public Location getLocation(){
+		if(location!=null){
+			Log.w("sociam","location is new");
+		}else{
+			Log.w("sociam","location is old");
+			location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		
+		}
+		return this.location;
+	}
 	
+	
+	public void getDistanceFromHere(Location userloc, ArrayList<Crime> crimelist){
+		
+		// add distance to each crime obj
+		
+		for(Crime crime:crimelist){
+		
+			Location crimeloc = new Location("crimepoint");
+			crimeloc.setLatitude(crime.getLat());
+			crimeloc.setLongitude(crime.getLon());
+
+			
+			float distance1  = userloc.distanceTo(crimeloc);
+			double distance = distance1;
+			double disInMile = distance *  0.00062137119;
+			
+			crime.setDistance(disInMile);
+		
+		}
+
+	}
 	
 }

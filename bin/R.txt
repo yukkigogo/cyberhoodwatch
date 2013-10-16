@@ -96,8 +96,8 @@ int drawable shape_button_beer_mask 0x7f020035
 int drawable sociam_icon 0x7f020036
 int drawable uploadicon 0x7f020037
 int drawable white_phone 0x7f020038
-int id action_consentform 0x7f05005e
-int id action_settings 0x7f05005d
+int id action_consentform 0x7f05005f
+int id action_settings 0x7f05005e
 int id btn0 0x7f050011
 int id btn1 0x7f050010
 int id btn2 0x7f05000f
@@ -109,9 +109,10 @@ int id btn7 0x7f050015
 int id custom_buttom 0x7f050044
 int id drawer_category 0x7f05005a
 int id drawer_crime_pic 0x7f050059
-int id drawer_date 0x7f05005c
+int id drawer_date 0x7f05005b
+int id drawer_distance 0x7f05005d
 int id drawer_layout 0x7f050005
-int id drawer_time 0x7f05005b
+int id drawer_time 0x7f05005c
 int id ethics_button1 0x7f05000d
 int id evi_left 0x7f050034
 int id evi_right 0x7f050035

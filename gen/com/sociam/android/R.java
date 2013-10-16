@@ -227,8 +227,8 @@ containing a value of this type.
         public static final int white_phone=0x7f020038;
     }
     public static final class id {
-        public static final int action_consentform=0x7f05005e;
-        public static final int action_settings=0x7f05005d;
+        public static final int action_consentform=0x7f05005f;
+        public static final int action_settings=0x7f05005e;
         public static final int btn0=0x7f050011;
         public static final int btn1=0x7f050010;
         public static final int btn2=0x7f05000f;
@@ -240,9 +240,10 @@ containing a value of this type.
         public static final int custom_buttom=0x7f050044;
         public static final int drawer_category=0x7f05005a;
         public static final int drawer_crime_pic=0x7f050059;
-        public static final int drawer_date=0x7f05005c;
+        public static final int drawer_date=0x7f05005b;
+        public static final int drawer_distance=0x7f05005d;
         public static final int drawer_layout=0x7f050005;
-        public static final int drawer_time=0x7f05005b;
+        public static final int drawer_time=0x7f05005c;
         public static final int ethics_button1=0x7f05000d;
         public static final int evi_left=0x7f050034;
         public static final int evi_right=0x7f050035;
