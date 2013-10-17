@@ -1,12 +1,17 @@
 package com.sociam.android.report;
 
+import com.google.android.gms.internal.m;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.sociam.android.Crime;
 import com.sociam.android.R;
 
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +27,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
+
+import android.support.v4.app.FragmentTransaction;
 
 
 public class ReportLocation extends Fragment {
@@ -173,7 +180,15 @@ public class ReportLocation extends Fragment {
 								//		Toast.LENGTH_LONG).show();
 								
 								//open the map with dialog and get lat lon
+								//MapDialogFragment mdf = new MapDialogFragment();
+								//mdf.show(getFragmentManager(), "sociam");
 								
+								View view = View.inflate(getActivity(), R.layout.report_location_map_select, null);
+								new AlertDialog.Builder(getActivity())
+								.setIcon(android.R.drawable.ic_dialog_info)
+								.setTitle("Input Address")
+								.setView(view)
+								.show();
 								
 								
 								break;
@@ -271,7 +286,51 @@ public class ReportLocation extends Fragment {
 		}).show();
 	}
 	
-	
+	/*
+	 * helper class to show map
+	 */
+	@SuppressLint("ValidFragment")
+	public class MapDialogFragment extends DialogFragment{
+//		@Override
+//		public Dialog onCreateDialog(Bundle savedInstanceState) {
+//			LayoutInflater mLayoutInflater = getActivity().getLayoutInflater();
+//			View view = mLayoutInflater.inflate(R.layout.report_location_map_select, null);
+//			
+//			SupportMapFragment fragment = new SupportMapFragment();
+//			FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+//			transaction.add(R.id.map2, fragment).commit();
+//			
+//			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//			
+//			builder.setTitle("Select the Plece from the map");
+//			builder.setView(view);
+//			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					MapDialogFragment.this.getDialog().dismiss();
+//				}
+//			});
+//		return builder.create();
+//	}	
+		
+		@Override
+		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+				Bundle savedInstanceState) {
+			
+			View view = inflater.inflate(R.layout.report_location_map_select, container,false);
+			SupportMapFragment fragment = new SupportMapFragment();
+			FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+			transaction.add(R.id.map2, fragment).commit();
+			
+			
+			return view;
+		}
+		
+		
+		
+		
+	}
 	
 	
 }
