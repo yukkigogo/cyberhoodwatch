@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -85,12 +86,16 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	private ArrayList<Crime> crimes;
 	private ArrayList<Crime> sortedCrimesDis;
 	private ArrayList<Marker> markers;
+	private HashMap<Integer,Marker> mapMarkers;
 
+	
 	private Location location;
 	
 	protected LocationManager locationManager;
 	protected LocationListener locationListener;
 	protected Context context;
+	private boolean oldlocation=false;
+	
 	SharedPreferences sp; 
 	
 	//drawer
@@ -168,14 +173,12 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     		  									R.string.close_drawer){
     	  
     	  @Override
-    	public void onDrawerClosed(View drawerView) {
-    		  
+    	public void onDrawerClosed(View drawerView) {    		  
     		  //super.onDrawerClosed(drawerView);
     	}
     	  
     	@Override
-    	public void onDrawerOpened(View drawerView) {
-    										
+    	public void onDrawerOpened(View drawerView) {   										
    			//super.onDrawerOpened(drawerView);
     												}
     	  
@@ -236,6 +239,7 @@ private void setbtn() {
   protected void onRestart() {
 		super.onRestart();
 		reloadData();
+		setUpMapIfNeeded();
   }
   
   
@@ -389,7 +393,8 @@ private void setbtn() {
 
   private void plotCrime() {
 	// 
-	markers = new ArrayList<Marker>();
+	//markers = new ArrayList<Marker>();
+	mapMarkers = new HashMap<Integer, Marker>();
 	Marker amaker = null;
 	for(int i=0;i<crimes.size();i++){
 		
@@ -426,8 +431,8 @@ private void setbtn() {
 			}
 			
 			
-		
-			markers.add(amaker);
+			mapMarkers.put(crimes.get(i).getCrimeID(), amaker);
+			//markers.add(amaker);
 		}else{
 			Log.v("sociam", "Crime "+i+"no location information");
 		}	
@@ -631,6 +636,13 @@ private ArrayList<Crime> getCrimesData() {
 		this.location = location;
 		mMap.animateCamera(cameraUpdate);
 		//Log.e("sociam","now we call onlocation changed");
+		if(oldlocation){
+			oldlocation=false;
+		    getDistanceFromHere(getLocation(), crimes);
+		    setDrawer();
+		    //Log.e("sociam","changed distance data");
+		}
+		
 		locationManager.removeUpdates(this);
 		
 	}
@@ -693,8 +705,6 @@ private ArrayList<Crime> getCrimesData() {
 
 			
 			//imageView.setImageBitmap(Downloader.getImageFromURL(maker.getSnippet()));
-			
-			
 
 		}
 		
@@ -966,9 +976,23 @@ private ArrayList<Crime> getCrimesData() {
 	private class DrawerItemClickListener implements ListView.OnItemClickListener{
 
 		@Override
-		public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
 				long arg3) {
-			Log.v("sociam","clicked"+ arg2);
+			Log.v("sociam","clicked"+ position);
+			
+			Crime crime = sortedCrimesDis.get(position);
+			
+			Marker m = mapMarkers.get(crime.getCrimeID());
+			m.showInfoWindow();
+			mDrawerLayout.closeDrawer(mListView);
+			// close drawer and focus on the maker
+			
+			LatLng latlng = new LatLng(crime.getLat(), crime.getLon());
+			CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
+			
+			
+			
+			mMap.animateCamera(cameraUpdate);
 		}
 		
 		
@@ -981,8 +1005,9 @@ private ArrayList<Crime> getCrimesData() {
 			Log.w("sociam","location is new");
 		}else{
 			Log.w("sociam","location is old");
+			
 			location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		
+			oldlocation=true;
 		}
 		return this.location;
 	}

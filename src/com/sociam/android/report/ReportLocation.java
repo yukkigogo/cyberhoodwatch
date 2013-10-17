@@ -169,8 +169,12 @@ public class ReportLocation extends Fragment {
 								btn4.setChecked(false);
 								btn5.setChecked(false);
 								
-								Toast.makeText(getActivity(), "Sorry - Haven't Implemented it yet!",
-										Toast.LENGTH_LONG).show();
+								//Toast.makeText(getActivity(), "Sorry - Haven't Implemented it yet!",
+								//		Toast.LENGTH_LONG).show();
+								
+								//open the map with dialog and get lat lon
+								
+								
 								
 								break;
 							case 3:
@@ -227,11 +231,7 @@ public class ReportLocation extends Fragment {
 
 			});
 	}
-	
-
-
-	
-	
+		
 	
 	
 	
@@ -270,5 +270,8 @@ public class ReportLocation extends Fragment {
 				}
 		}).show();
 	}
+	
+	
+	
 	
 }

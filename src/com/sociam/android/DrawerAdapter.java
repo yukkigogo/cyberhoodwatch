@@ -72,19 +72,7 @@ public class DrawerAdapter extends ArrayAdapter<Crime>{
 		dateV.setText(date);
 		
 		
-		// distance
-//		Location crimeloc = new Location("crimepoint");
-//		crimeloc.setLatitude(crime.getLat());
-//		crimeloc.setLongitude(crime.getLon());
-//		
-//		if(userposition==null)
-//		Log.w("sociam","Yes");
-//		
-//		float distance1  = userposition.distanceTo(crimeloc);
-//		double distance = distance1;
-//		double disInMile = distance *  0.00062137119;
-
-		
+		// distance		
 		String dis = new DecimalFormat("##0.00").format(crime.getDistance());
 		
 		TextView disV = (TextView) convertView.findViewById(R.id.drawer_distance);
