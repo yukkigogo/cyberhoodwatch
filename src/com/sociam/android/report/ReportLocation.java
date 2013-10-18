@@ -1,8 +1,15 @@
 package com.sociam.android.report;
 
 import com.google.android.gms.internal.m;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapLongClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.sociam.android.Crime;
 import com.sociam.android.R;
 
@@ -12,12 +19,14 @@ import android.support.v4.view.ViewPager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -28,7 +37,6 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
 
-import android.support.v4.app.FragmentTransaction;
 
 
 public class ReportLocation extends Fragment {
@@ -46,6 +54,9 @@ public class ReportLocation extends Fragment {
 	AlertDialog alertDialog;
 	int selectedItem=0;
 	ArrayAdapter<String> adapter;
+	private GoogleMap mMap;
+	private Marker m;
+	LatLng latlng;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
@@ -171,7 +182,7 @@ public class ReportLocation extends Fragment {
 							switch (num) {
 							case 2:	
 								// show map
-								btn2.setChecked(false);
+								//setChecked(false);
 								btn3.setChecked(false);
 								btn4.setChecked(false);
 								btn5.setChecked(false);
@@ -184,13 +195,56 @@ public class ReportLocation extends Fragment {
 								//mdf.show(getFragmentManager(), "sociam");
 								
 								View view = View.inflate(getActivity(), R.layout.report_location_map_select, null);
+								if(mMap==null){
+								 mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map2))
+						                  .getMap();	
+								 Log.e("sociam", "THIS IS MAP2 NULL");
+								}
+								
+								mMap.setMyLocationEnabled(true);
+								
+								latlng = new LatLng(((ReportActivity) getActivity()).getLat(), 
+										((ReportActivity) getActivity()).getLng());
+				                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
+				                mMap.animateCamera(cameraUpdate);
+								
+				                mMap.setOnMapLongClickListener(new OnMapLongClickListener() {
+				                	
+									public void onMapLongClick(LatLng point) {
+								        if(m!=null) m.remove();
+										//String text = "latitude=" + point.latitude + ", longitude=" + point.longitude;
+								        m = mMap.addMarker(new MarkerOptions()
+								        .position(point));
+								        
+								        
+									}
+								});
+				                
+								
 								new AlertDialog.Builder(getActivity())
 								.setIcon(android.R.drawable.ic_dialog_info)
-								.setTitle("Input Address")
+								.setTitle("Click and hold the place you want to choose")
 								.setView(view)
+								.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog, int which) {		
+										// do nothing
+										if(m!=null) m.remove();
+									}
+								})
+								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										currentCrime.setLat(latlng.latitude);
+										currentCrime.setLon(latlng.longitude);
+										
+										
+									}
+								})
 								.show();
 								
-								
+
 								break;
 							case 3:
 								
@@ -289,8 +343,8 @@ public class ReportLocation extends Fragment {
 	/*
 	 * helper class to show map
 	 */
-	@SuppressLint("ValidFragment")
-	public class MapDialogFragment extends DialogFragment{
+//	@SuppressLint("ValidFragment")
+//	public class MapDialogFragment extends DialogFragment{
 //		@Override
 //		public Dialog onCreateDialog(Bundle savedInstanceState) {
 //			LayoutInflater mLayoutInflater = getActivity().getLayoutInflater();
@@ -298,7 +352,7 @@ public class ReportLocation extends Fragment {
 //			
 //			SupportMapFragment fragment = new SupportMapFragment();
 //			FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//			transaction.add(R.id.map2, fragment).commit();
+//			transaction.add(R.layout.report_location_map_select, fragment).commit();
 //			
 //			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 //			
@@ -312,25 +366,21 @@ public class ReportLocation extends Fragment {
 //				}
 //			});
 //		return builder.create();
-//	}	
-		
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			
-			View view = inflater.inflate(R.layout.report_location_map_select, container,false);
-			SupportMapFragment fragment = new SupportMapFragment();
-			FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-			transaction.add(R.id.map2, fragment).commit();
-			
-			
-			return view;
-		}
-		
-		
-		
-		
-	}
+//	}			
+//		@Override
+//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//				Bundle savedInstanceState) {
+//			
+//			View view = inflater.inflate(R.layout.report_location_map_select, container,false);
+//
+//			SupportMapFragment fragment = new SupportMapFragment();
+//			FragmentTransaction transaction = getParentFragment().getFragmentManager().beginTransaction();
+//			transaction.add(R.id.map2, fragment).commit();
+//			
+//
+//			return view;
+//		}		
+//	}
 	
 	
 }
