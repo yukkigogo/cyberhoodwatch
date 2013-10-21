@@ -122,6 +122,9 @@ public class SummaryListFragment extends ListFragment {
 
 	
 	
+	
+	// testindesu 
+	
 
 	@SuppressLint("ValidFragment")
 	private class PictureAlertDialogFragment extends DialogFragment{
