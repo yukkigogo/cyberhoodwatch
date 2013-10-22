@@ -24,6 +24,7 @@ import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -630,11 +631,23 @@ private ArrayList<Crime> getCrimesData() {
 	 */
 	@Override
 	public void onLocationChanged(Location location) {
+		this.location = location;
+		
 		// obtain the current position and move to the place
 		LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
-		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
-		this.location = location;
-		mMap.animateCamera(cameraUpdate);
+		
+//		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
+//		mMap.animateCamera(cameraUpdate);
+		
+//		latlng = new LatLng(51.510016,-0.13516);
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+															.tilt(60)
+															.target(latlng)
+															.zoom(18)
+															.build();
+		mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+		
+		
 		//Log.e("sociam","now we call onlocation changed");
 		if(oldlocation){
 			oldlocation=false;

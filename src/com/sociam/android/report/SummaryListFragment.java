@@ -123,7 +123,7 @@ public class SummaryListFragment extends ListFragment {
 	
 	
 	
-	// testindesu 
+	
 	
 
 	@SuppressLint("ValidFragment")

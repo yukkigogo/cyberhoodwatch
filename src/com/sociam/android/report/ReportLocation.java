@@ -15,11 +15,11 @@ import com.sociam.android.R;
 
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -195,17 +195,24 @@ public class ReportLocation extends Fragment {
 								//mdf.show(getFragmentManager(), "sociam");
 								
 								View view = View.inflate(getActivity(), R.layout.report_location_map_select, null);
-								if(mMap==null){
-								 mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map2))
-						                  .getMap();	
-								 Log.e("sociam", "THIS IS MAP2 NULL");
-								}
+								
+								SupportMapFragment smf = new SupportMapFragment();
+								android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
+								FragmentTransaction ft = fm.beginTransaction();
+								ft.replace(R.id.map2, smf);
+								ft.commit();
+								
+								//if(mMap==null){
+								 //mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map2))
+						          //        .getMap();	
+								 //Log.e("sociam", "THIS IS MAP2 NULL");
+								//}
 								
 								mMap.setMyLocationEnabled(true);
 								
 								latlng = new LatLng(((ReportActivity) getActivity()).getLat(), 
 										((ReportActivity) getActivity()).getLng());
-				                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
+				                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 18);
 				                mMap.animateCamera(cameraUpdate);
 								
 				                mMap.setOnMapLongClickListener(new OnMapLongClickListener() {
@@ -238,6 +245,7 @@ public class ReportLocation extends Fragment {
 									public void onClick(DialogInterface dialog, int which) {
 										currentCrime.setLat(latlng.latitude);
 										currentCrime.setLon(latlng.longitude);
+										
 										
 										
 									}
