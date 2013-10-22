@@ -1,5 +1,6 @@
 package com.sociam.android.report;
 
+import com.google.android.gms.internal.bn;
 import com.google.android.gms.internal.m;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -20,6 +21,7 @@ import android.support.v4.view.ViewPager;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -57,6 +59,7 @@ public class ReportLocation extends Fragment {
 	private GoogleMap mMap;
 	private Marker m;
 	LatLng latlng;
+	View viewformap;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
@@ -81,6 +84,7 @@ public class ReportLocation extends Fragment {
 			  layout.setBackground(currentCrime.getBitmapdrawable());
 		}		
 		pager =(ViewPager) getActivity().findViewById(R.id.pager);
+		setLocation();
 
 	}
 
@@ -194,19 +198,14 @@ public class ReportLocation extends Fragment {
 								//MapDialogFragment mdf = new MapDialogFragment();
 								//mdf.show(getFragmentManager(), "sociam");
 								
-								View view = View.inflate(getActivity(), R.layout.report_location_map_select, null);
+							
 								
-								SupportMapFragment smf = new SupportMapFragment();
-								android.support.v4.app.FragmentManager fm = getActivity().getSupportFragmentManager();
-								FragmentTransaction ft = fm.beginTransaction();
-								ft.replace(R.id.map2, smf);
-								ft.commit();
+								viewformap = View.inflate(getActivity(), R.layout.report_location_map_select, null);
+							
+								 mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map2))
+						                  .getMap();	
+								 Log.e("sociam", "THIS IS MAP2 NULL");
 								
-								//if(mMap==null){
-								 //mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map2))
-						          //        .getMap();	
-								 //Log.e("sociam", "THIS IS MAP2 NULL");
-								//}
 								
 								mMap.setMyLocationEnabled(true);
 								
@@ -228,29 +227,106 @@ public class ReportLocation extends Fragment {
 								});
 				                
 								
-								new AlertDialog.Builder(getActivity())
+								final AlertDialog d = new AlertDialog.Builder(getActivity())
 								.setIcon(android.R.drawable.ic_dialog_info)
 								.setTitle("Click and hold the place you want to choose")
-								.setView(view)
-								.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface dialog, int which) {		
-										// do nothing
-										if(m!=null) m.remove();
-									}
-								})
-								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+								.setView(viewformap)
+								.setPositiveButton("OK", null)
+								.setNegativeButton("Cancel", null)
+								.create();
+								
+								
+								d.setOnShowListener(new DialogInterface.OnShowListener() {
 									
 									@Override
-									public void onClick(DialogInterface dialog, int which) {
-										currentCrime.setLat(latlng.latitude);
-										currentCrime.setLon(latlng.longitude);
+									public void onShow(DialogInterface dialog) {
+										
+										Button bPos = d.getButton(AlertDialog.BUTTON_POSITIVE);
+										bPos.setOnClickListener(new View.OnClickListener() {
+											
+											@Override
+											public void onClick(View v) {
+
+											if(m==null){
+												Toast.makeText(getActivity(), "Please choose the location on the map Or cancel"
+														, Toast.LENGTH_LONG).show();	
+											}else{	
+												
+												currentCrime.setLat(latlng.latitude);
+												currentCrime.setLon(latlng.longitude);
+												
+												Fragment f = (Fragment) getFragmentManager().findFragmentById(R.id.map2);
+												if(f != null)
+														getFragmentManager().beginTransaction().remove(f).commit();
+												
+												pager.setCurrentItem(pager.getCurrentItem()+1);
+												d.dismiss();
+
+												
+											}
+											}
+										});
 										
 										
+										//negative botton
+										Button bNeg = d.getButton(AlertDialog.BUTTON_NEGATIVE);
+										bNeg.setOnClickListener(new View.OnClickListener() {
+											
+											@Override
+											public void onClick(View v) {
+												
+												
+												Fragment f = (Fragment) getFragmentManager().findFragmentById(R.id.map2);
+												if(f != null)
+														getFragmentManager().beginTransaction().remove(f).commit();
+												
+												btn2.setChecked(false);
+												btn3.setChecked(false);
+												btn4.setChecked(false);
+												btn5.setChecked(false);
+												
+												d.dismiss();
+
+													
+											}
+										});
 										
 									}
-								})
-								.show();
+								});
+								d.show();
+								
+								
+//								.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//									@Override
+//									public void onClick(DialogInterface dialog, int which) {		
+//										// do nothing
+//										if(m!=null) m.remove();
+//										
+//										Fragment f = (Fragment) getFragmentManager().findFragmentById(R.id.map2);
+//										if(f != null)
+//												getFragmentManager().beginTransaction().remove(f).commit();
+//										
+//									}
+//								})
+//								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//									
+//									@Override
+//									public void onClick(DialogInterface dialog, int which) {
+//										
+//										if(m!=null){
+//										
+//										
+//										currentCrime.setLat(latlng.latitude);
+//										currentCrime.setLon(latlng.longitude);
+//										
+//										Fragment f = (Fragment) getFragmentManager().findFragmentById(R.id.map2);
+//										if(f != null)
+//												getFragmentManager().beginTransaction().remove(f).commit();
+//										
+//										}
+//									}
+//								})
+//								.show();
 								
 
 								break;
@@ -301,15 +377,21 @@ public class ReportLocation extends Fragment {
 							}
 							
 						}else if(!isChecked){
+							setLocation();
 							
+							Log.v("sociam", "we are in isChecked!!!");
+							Log.v("sociam", "hwo is btn5??  " + btn5.isChecked());
 						}
 						
 					}
 
+
 			});
 	}
 		
+
 	
+
 	
 	
 	private void addText(){		
