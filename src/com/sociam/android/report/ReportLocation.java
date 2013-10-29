@@ -204,7 +204,6 @@ public class ReportLocation extends Fragment {
 							
 								 mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map2))
 						                  .getMap();	
-								 Log.e("sociam", "THIS IS MAP2 NULL");
 								
 								
 								mMap.setMyLocationEnabled(true);
@@ -327,7 +326,8 @@ public class ReportLocation extends Fragment {
 //									}
 //								})
 //								.show();
-								
+								((ReportActivity) getActivity()).setAdapter();
+
 
 								break;
 							case 3:
@@ -367,7 +367,8 @@ public class ReportLocation extends Fragment {
 								btn4.setChecked(false);
 								((ReportActivity) getActivity()).setAdapter();
 
-								pager.setCurrentItem(pager.getCurrentItem()+1);
+								Log.v("sociam", "BTN NOW");
+								//pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
 
@@ -379,8 +380,8 @@ public class ReportLocation extends Fragment {
 						}else if(!isChecked){
 							setLocation();
 							
-							Log.v("sociam", "we are in isChecked!!!");
-							Log.v("sociam", "hwo is btn5??  " + btn5.isChecked());
+							
+							//Log.v("sociam", "hwo is btn5??  " + btn5.isChecked());
 						}
 						
 					}

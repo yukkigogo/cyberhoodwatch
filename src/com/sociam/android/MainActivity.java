@@ -1,7 +1,9 @@
 package com.sociam.android;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
@@ -16,6 +18,17 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.StringBody;
+import org.apache.http.impl.client.BasicResponseHandler;
+import org.apache.http.impl.client.DefaultHttpClient;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -446,11 +459,50 @@ private void setbtn() {
 
   @SuppressLint("SimpleDateFormat")
 private ArrayList<Crime> getCrimesData() {
+	  
+	  	// here 
+	  	HttpClient httpClient = new DefaultHttpClient();
+	  	HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/androidcsv.php");
+	  	
+	    ResponseHandler<String> responseHandler =new BasicResponseHandler();
+	    MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+	    
+	    try {
+	    	
+	    	double lat1,lon1;
+	    	
+		    if(location!=null){	
+		    	lat1 = location.getLatitude();
+		    	lon1 = location.getLongitude();
+		    }else{
+		    	Location lastknown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		    	lat1 = lastknown.getLatitude();
+		    	lon1 = lastknown.getLongitude();
+		    }
+
+    		multipartEntity.addPart("lat",new StringBody(Double.toString(lat1)));
+	    	multipartEntity.addPart("lon",new StringBody(Double.toString(lon1)));
+
+		    httpPost.setEntity(multipartEntity);
+
+	    	
+			String response1 = httpClient.execute(httpPost, responseHandler);
+			Log.v("sociam", response1);
+			
+	    
+	      
+	
+	      
+	      // till here
+	      
+	      
 		//getting crime data from the server
 		crimes = new ArrayList<Crime>();
-		try {
-			BufferedReader br = new BufferedReader(
-					readStreamFromURL(new URL("http://sociamvm-yi1g09.ecs.soton.ac.uk/androidcsv.php")));
+		
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					new ByteArrayInputStream(response1.getBytes())));
+					//readStreamFromURL(new URL("http://sociamvm-yi1g09.ecs.soton.ac.uk/androidcsv.php")));
+			
 			
 			String currentLine;
 			while((currentLine=br.readLine())!=null){
