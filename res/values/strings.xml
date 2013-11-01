@@ -12,6 +12,8 @@
     <string name="add_disc">Add Discription</string>
     <string name="open_drawer">open drawer</string>
     <string name="close_drawer">close drawer</string>
+    <string name="personalisation">personalisation</string>
+    
     
     <color name="gray">#808080</color>
     <color name="d_gray">#505050 </color>

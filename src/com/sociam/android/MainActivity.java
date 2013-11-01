@@ -287,7 +287,13 @@ private void setbtn() {
 	  			ConsentFormDialog2 consentFormDialog2 = new ConsentFormDialog2();
 	  			consentFormDialog2.show(getSupportFragmentManager(), "sociam");
 	  			break;
-	  	}
+	  	
+	  		case R.id.action_personalisation:
+	  			// show the consent form
+	  			MyPreferenceShow myPreferenceShow = new MyPreferenceShow();
+	  			myPreferenceShow.show(getSupportFragmentManager(), "sociam");
+	  			break;	
+	  }
 	  	
 	
 	  	
@@ -1032,6 +1038,39 @@ private ArrayList<Crime> getCrimesData() {
 		}
 	}
 
+	
+	public class MyPreferenceShow extends DialogFragment{		
+		@Override
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			LayoutInflater inflater = getActivity().getLayoutInflater();
+			View view = inflater.inflate(R.layout.my_preference, null);
+			
+			TextView id = (TextView) view.findViewById(R.id.mypre_textView2);
+			id.setText(sp.getString("uuid", "something problem with uuid"));
+			
+			TextView crime_id = (TextView) view.findViewById(R.id.mypre_textView4);
+			crime_id.setText(sp.getString("crime_id", "something wrong with crime_id"));
+
+			
+			
+			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+			
+			builder.setTitle("My Preference");
+			builder.setView(view);
+			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					MyPreferenceShow.this.getDialog().dismiss();
+					
+				}
+			});
+			
+			return builder.create();
+		}
+	}
+
+	
+	
 	
 	/*
 	 * helper class to contral Navigation Drawer

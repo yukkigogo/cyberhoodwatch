@@ -127,7 +127,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		    	 }
 		     }
 		     
-		     Log.e("sociam","post crimes : "+sp.getString("crime_id", ""));
+		     Log.e("sociam","post crimes : ");
 		      
 		    } catch (ClientProtocolException e) {
 		      e.printStackTrace();
