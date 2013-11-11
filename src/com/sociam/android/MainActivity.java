@@ -62,6 +62,7 @@ import android.location.LocationProvider;
 import android.media.audiofx.BassBoost.Settings;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Process;
 import android.os.StrictMode;
@@ -108,6 +109,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	protected LocationListener locationListener;
 	protected Context context;
 	private boolean oldlocation=false;
+	private LatLng latlng;
+	private int mapmode=0;
+
 	
 	SharedPreferences sp; 
 	
@@ -298,6 +302,30 @@ private void setbtn() {
 	  			getFragmentManager().beginTransaction()
 	  			.replace(android.R.id.content,new SettingsFragment())
 	  			.commit();
+	  			break;
+	  			
+	  		case R.id.menu_3d:
+	  			if(mapmode==0 || mapmode==1){
+		  			if(mapmode==0){
+		  				location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		  				latlng = new LatLng(location.getLatitude(), location.getLongitude());
+		  			}
+	  				
+		  			LatLng latlngnow = mMap.getCameraPosition().target;
+	  				CameraPosition cameraPosition = new CameraPosition.Builder()
+					.zoom(15)
+					.target(latlngnow)
+					.build();
+		  			mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+		  			mapmode=2;
+	  			}else if(mapmode==2){
+	  				change3Dview(mMap.getCameraPosition().target);
+	  			}
+	  			break;
+	  			
+	  		case R.id.menu_reload:
+	  			reloadData();
+	  			break;
 	  }
 	  	
 	
@@ -373,6 +401,8 @@ private void setbtn() {
         }
 
   }
+  
+  
   
   
   private void setUpMap() {
@@ -696,19 +726,16 @@ private ArrayList<Crime> getCrimesData() {
 		this.location = location;
 		
 		// obtain the current position and move to the place
-		LatLng latlng = new LatLng(location.getLatitude(), location.getLongitude());
+		latlng = new LatLng(location.getLatitude(), location.getLongitude());
 		
 //		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
 //		mMap.animateCamera(cameraUpdate);
 		
 //		latlng = new LatLng(51.510016,-0.13516);
-		CameraPosition cameraPosition = new CameraPosition.Builder()
-															.tilt(60)
-															.target(latlng)
-															.zoom(18)
-															.build();
-		mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-		
+	
+		if(mapmode==0){ // initialisation - change view
+			change3Dview(latlng);
+		}
 		
 		//Log.e("sociam","now we call onlocation changed");
 		if(oldlocation){
@@ -728,6 +755,20 @@ private ArrayList<Crime> getCrimesData() {
 	@Override
 	public void onStatusChanged(String provider, int status, Bundle extras) {}
 
+	/*
+	 * change 3d view
+	 */
+	
+	public void change3Dview(LatLng latlngs){
+		CameraPosition cameraPosition = new CameraPosition.Builder()
+			.tilt(60)
+			.target(latlngs)
+			.zoom(18)
+			.build();
+		mMap.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+		mapmode=1;
+		
+	}
 
 	/*
 	 * InfoWindow Customise
@@ -1140,6 +1181,18 @@ private ArrayList<Crime> getCrimesData() {
 		
 		}
 
+	}
+	
+	private class ReloadDataTask extends AsyncTask<String, String, String>{
+
+		@Override
+		protected String doInBackground(String... params) {
+			
+			
+			
+			return null;
+		}
+		
 	}
 	
 }

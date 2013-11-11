@@ -25,5 +25,17 @@
         android:showAsAction="never"
         android:title="Setting"
         android:icon="@android:drawable/ic_menu_preferences"/>
-    
+
+      <!-- 3D menu button on the action bar  -->
+     <item
+        android:id="@+id/menu_3d"
+		android:showAsAction="always"
+		android:icon="@android:drawable/ic_menu_mapmode"/>	     
+     <!-- Reload button -->
+      <item
+          android:id="@+id/menu_reload"
+          android:showAsAction="always"
+          android:icon="@drawable/ic_menu_sync"
+          />
+          
 </menu>
