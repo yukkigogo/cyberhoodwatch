@@ -293,6 +293,11 @@ private void setbtn() {
 	  			MyPreferenceShow myPreferenceShow = new MyPreferenceShow();
 	  			myPreferenceShow.show(getSupportFragmentManager(), "sociam");
 	  			break;	
+	  			
+	  		case R.id.menu_settings:
+	  			getFragmentManager().beginTransaction()
+	  			.replace(android.R.id.content,new SettingsFragment())
+	  			.commit();
 	  }
 	  	
 	

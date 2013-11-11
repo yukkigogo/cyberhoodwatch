@@ -13,6 +13,7 @@
     <string name="open_drawer">open drawer</string>
     <string name="close_drawer">close drawer</string>
     <string name="personalisation">personalisation</string>
+    <string name ="user_setting">User Setting</string>
     
     
     <color name="gray">#808080</color>

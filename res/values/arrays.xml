@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="social_group">
+        <item name="student">Student</item>
+        <item name="self_employed">Self Employed</item>
+        <item name="employed">Employed</item>
+        <item name="retired">Retired</item>
+        <item name="housemaker">House Maker</item>
+        <item name="other">Other</item>       
+    </string-array>
+    
+    <string-array name="age">
+        <item name="18">18 - 24</item>
+		<item name="25">25 - 29</item>
+		<item name="30">30 - 30</item>
+		<item name="40">40 - 49</item>
+		<item name="50">50 - 59</item>
+		<item name="60">Over 60</item>
+	</string-array>
+</resources>

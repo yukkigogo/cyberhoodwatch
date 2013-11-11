@@ -1,5 +1,7 @@
 package com.sociam.android;
 
+// currently I don't use this class. 
+
 public class Persons {
 
 	private int type; // 1:pects 2:victim
