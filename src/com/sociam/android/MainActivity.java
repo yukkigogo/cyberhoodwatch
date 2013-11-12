@@ -47,6 +47,7 @@ import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -324,7 +325,7 @@ private void setbtn() {
 	  			break;
 	  			
 	  		case R.id.menu_reload:
-	  			reloadData();
+	  			reloadData();	
 	  			break;
 	  }
 	  	
@@ -410,6 +411,7 @@ private void setbtn() {
 	  mMap.setMyLocationEnabled(true);
 	  UiSettings settings = mMap.getUiSettings();
 	  settings.setCompassEnabled(true);
+	  settings.setZoomControlsEnabled(false);
 	
 	  // load and move current location 
       //setMyLocationManager();   
@@ -1183,16 +1185,48 @@ private ArrayList<Crime> getCrimesData() {
 
 	}
 	
-	private class ReloadDataTask extends AsyncTask<String, String, String>{
-
-		@Override
-		protected String doInBackground(String... params) {
-			
-			
-			
-			return null;
-		}
-		
-	}
+//	private class ReloadDataTask extends AsyncTask<Void, Integer, Integer>{
+//
+//		ProgressDialog dialog;
+//		Context context;
+//		
+//		  public ReloadDataTask(Context con) {
+//			  context=con;
+//		  }
+//			
+//		
+////		  @Override
+////		  protected void onPostExecute(Integer result) {
+////		    if(dialog != null){
+////		      dialog.dismiss();
+////		    }
+////		  }
+////		  
+////		  @Override
+////		  protected void onPreExecute() {
+////		    dialog = new ProgressDialog(context);
+////		    dialog.setTitle("Please wait");
+////		    dialog.setMessage("Uploading to the server...");
+////		    dialog.show();
+////		  }
+//
+//		@Override
+//		protected Integer doInBackground(Void... params) {
+//			
+//			
+//			getCrimesData();
+//		    // compute distance userpoistion and crimes
+//		    getDistanceFromHere(getLocation(), crimes);
+//		    //map initialise
+//		    setUpMapIfNeeded();
+//		    setbtn();
+//		    //drawer instanceate
+//		    setDrawer();
+//			
+//
+//			return 0;
+//		}  
+//		
+//	}
 	
 }
