@@ -249,12 +249,16 @@ private void setbtn() {
 		
 		@Override
 		public void onClick(View v) {
-			android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-  			FragmentTransaction tx = manager.beginTransaction();
-  			tx.addToBackStack("message")
-  			.replace(android.R.id.content, new MessageFragment())
-  			.commit();
+			Intent intent = new Intent();
+			intent.setClassName("com.sociam.android", "com.sociam.android.MessageFragmentActivity");
+			startActivity(intent);
 			
+//			android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+//  			FragmentTransaction tx = manager.beginTransaction();
+//  			tx.addToBackStack("message")
+//  			.replace(android.R.id.content, new MessageFragment())
+//  			.commit();
+//			
 		}
 	});
   }

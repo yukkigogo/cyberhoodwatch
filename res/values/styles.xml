@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -57,13 +57,16 @@
         <item name="android:background">@color/l_blue</item>
     </style>
      
-        <style name="indicator_style">
+    <style name="indicator_style">
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_height">4dip</item>
         <item name="android:background">@color/l_blue</item>
         <item name="android:orientation">vertical</item>
     </style>
     <!-- till here footer style -->
+    
+    
+
     
     
 </resources>
