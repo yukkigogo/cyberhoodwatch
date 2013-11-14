@@ -72,6 +72,7 @@ import android.provider.AlarmClock;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.text.Layout;
@@ -242,6 +243,20 @@ private void setbtn() {
 			
 		}
 	});
+	  
+	 ImageButton msgBtn = (ImageButton) findViewById(R.id.report_msg);
+	 msgBtn.setOnClickListener(new OnClickListener() {
+		
+		@Override
+		public void onClick(View v) {
+			android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
+  			FragmentTransaction tx = manager.beginTransaction();
+  			tx.addToBackStack("message")
+  			.replace(android.R.id.content, new MessageFragment())
+  			.commit();
+			
+		}
+	});
   }
 
   	@Override
@@ -327,6 +342,8 @@ private void setbtn() {
 	  		case R.id.menu_reload:
 	  			reloadData();	
 	  			break;
+	  		
+	  	
 	  }
 	  	
 	

@@ -1,28 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-
-
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" 
-        android:paddingTop="10dp">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
         
+        
+		    <TextView 
+		        android:id="@+id/msg_count"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="right"
+		        android:text="0/140"/>
+		    
+		     <EditText
+		        android:id="@+id/message_text"
+		        android:layout_width="match_parent"
+		        android:layout_height="match_parent"
+		        android:layout_alignParentLeft="true"
+		        android:layout_alignParentTop="true"
+		        android:layout_marginLeft="14dp"
+		        android:ems="10"
+		        android:lines="5"
+		        android:inputType="textMultiLine" />
+ 
+ </LinearLayout>
+     
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:paddingTop="10dp" >
+
         <ImageView
             android:id="@+id/usercard"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:src="@drawable/user_card_n" />
-        
+
         <ImageView
             android:id="@+id/tags"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:src="@drawable/tag_n" />
 
         <ImageView
@@ -30,9 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:scaleType="fitCenter"
             android:src="@drawable/map" />
-        
     </LinearLayout>
 
-
-</RelativeLayout>
+</LinearLayout>
