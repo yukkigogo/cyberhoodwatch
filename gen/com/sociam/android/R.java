@@ -220,30 +220,32 @@ containing a value of this type.
         public static final int mid_btn=0x7f02002d;
         public static final int msg_idcard=0x7f02002e;
         public static final int msg_map=0x7f02002f;
-        public static final int msg_tag=0x7f020030;
-        public static final int padding=0x7f020031;
-        public static final int padding_horizontal=0x7f020032;
-        public static final int phone2=0x7f020033;
-        public static final int phone3=0x7f020034;
-        public static final int report=0x7f020035;
-        public static final int report2=0x7f020036;
-        public static final int report_mid=0x7f020037;
-        public static final int right_half_btn=0x7f020038;
-        public static final int robbery=0x7f020039;
-        public static final int rotate_btm=0x7f02003a;
-        public static final int rounded_cell=0x7f02003b;
-        public static final int rounded_mini=0x7f02003c;
-        public static final int shape_button_beer=0x7f02003d;
-        public static final int shape_button_beer_mask=0x7f02003e;
-        public static final int sociam_icon=0x7f02003f;
-        public static final int tag_n=0x7f020040;
-        public static final int tag_p=0x7f020041;
-        public static final int tag_press=0x7f020042;
-        public static final int uploadicon=0x7f020043;
-        public static final int user_card_n=0x7f020044;
-        public static final int user_card_p=0x7f020045;
-        public static final int user_card_press=0x7f020046;
-        public static final int white_phone=0x7f020047;
+        public static final int msg_orange=0x7f020030;
+        public static final int msg_send=0x7f020031;
+        public static final int msg_tag=0x7f020032;
+        public static final int padding=0x7f020033;
+        public static final int padding_horizontal=0x7f020034;
+        public static final int phone2=0x7f020035;
+        public static final int phone3=0x7f020036;
+        public static final int report=0x7f020037;
+        public static final int report2=0x7f020038;
+        public static final int report_mid=0x7f020039;
+        public static final int right_half_btn=0x7f02003a;
+        public static final int robbery=0x7f02003b;
+        public static final int rotate_btm=0x7f02003c;
+        public static final int rounded_cell=0x7f02003d;
+        public static final int rounded_mini=0x7f02003e;
+        public static final int shape_button_beer=0x7f02003f;
+        public static final int shape_button_beer_mask=0x7f020040;
+        public static final int sociam_icon=0x7f020041;
+        public static final int tag_n=0x7f020042;
+        public static final int tag_p=0x7f020043;
+        public static final int tag_press=0x7f020044;
+        public static final int uploadicon=0x7f020045;
+        public static final int user_card_n=0x7f020046;
+        public static final int user_card_p=0x7f020047;
+        public static final int user_card_press=0x7f020048;
+        public static final int white_phone=0x7f020049;
     }
     public static final class id {
         public static final int action_consentform=0x7f06006b;
@@ -304,6 +306,7 @@ containing a value of this type.
         public static final int menu_settings=0x7f06006d;
         public static final int message_text=0x7f060024;
         public static final int msg_count=0x7f060023;
+        public static final int msg_send=0x7f060070;
         public static final int msgmap=0x7f060022;
         public static final int mypre_textView1=0x7f060025;
         public static final int mypre_textView2=0x7f060026;
@@ -386,6 +389,7 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
+        public static final int message=0x7f0b0001;
     }
     public static final class string {
         public static final int action_consentform=0x7f070017;
@@ -474,6 +478,7 @@ containing a value of this type.
         public static final int go2summary=0x7f07001a;
         public static final int go_new=0x7f070019;
         public static final int hello_world=0x7f070018;
+        public static final int msg_name=0x7f070020;
         public static final int open_drawer=0x7f07001c;
         public static final int personalisation=0x7f07001e;
         public static final int user_setting=0x7f07001f;
@@ -505,6 +510,10 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0a0001;
+        /**  till here footer style 
+ action bar 
+         */
+        public static final int LightThemeSelector=0x7f0a000a;
         /**  for footer style 
          */
         public static final int Theme=0x7f0a0002;

@@ -65,8 +65,9 @@
     </style>
     <!-- till here footer style -->
     
-    
-
-    
-    
+    <!-- action bar -->
+        <style name="LightThemeSelector" parent="android:Theme.Holo.Light">
+				  
+		</style>
+        
 </resources>
