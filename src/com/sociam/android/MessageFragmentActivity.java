@@ -2,29 +2,44 @@ package com.sociam.android;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 public class MessageFragmentActivity extends FragmentActivity{
 	
 	private int count=0; 
+	
+	ToggleButton idcard;
+	ToggleButton tags; 
+	ToggleButton msgmap; 
+	
+	SharedPreferences sp; 
+
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 
 		setContentView(R.layout.message_main);
-		
+				
+		sp = PreferenceManager.getDefaultSharedPreferences(this);		 
+
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -33,6 +48,8 @@ public class MessageFragmentActivity extends FragmentActivity{
 		final TextView tv = (TextView) findViewById(R.id.msg_count);
 		tv.setTypeface(robotocoud);
 		
+		
+		toggleSetup();
 		
 		
 		EditText message = (EditText) findViewById(R.id.message_text);
@@ -85,8 +102,51 @@ public class MessageFragmentActivity extends FragmentActivity{
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	
+		switch (item.getItemId()){
+		case android.R.id.home:
+			finish();			
+			break;
+			
+		case R.id.msg_send:
+		
+			break;
+		
+		}	
 		
 		return super.onOptionsItemSelected(item);
 	}
+	
+	
+	private void toggleSetup(){
+		
+		idcard = (ToggleButton) findViewById(R.id.user_card);
+		tags = (ToggleButton) findViewById(R.id.tags);
+		msgmap = (ToggleButton) findViewById(R.id.msgmap);
+		
+	
+		
+		idcard.setOnCheckedChangeListener(
+				new CompoundButton.OnCheckedChangeListener() {
+					
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+						
+						String str = sp.getString("username", null);
+						if(str==null){
+								
+						}else{
+								
+								
+						}
+							
+					
+					}
+				});
+		
+		
+	}
+	
+	
+	
 	
 }

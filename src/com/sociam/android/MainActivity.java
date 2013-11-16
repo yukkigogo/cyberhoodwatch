@@ -319,9 +319,9 @@ private void setbtn() {
 	  			break;	
 	  			
 	  		case R.id.menu_settings:
-	  			getFragmentManager().beginTransaction()
-	  			.replace(android.R.id.content,new SettingsFragment())
-	  			.commit();
+//	  			getFragmentManager().beginTransaction()
+//	  			.replace(android.R.id.content,new SettingsFragment())
+//	  			.commit();
 	  			break;
 	  			
 	  		case R.id.menu_3d:

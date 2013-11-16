@@ -1,21 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen 
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
 	<PreferenceCategory 
         android:title="@string/user_setting"
         android:key="user_setting">
-    
-    	  <EditTextPreference
-    	        android:key="username"
-                android:title="USERNAME"
-                android:summary="EditTextPreference"
-                android:dialogTitle="username" />
-    	<ListPreference    	 
-    	    android:key="age"
-			android:entries="@array/age"
-			android:entryValues="@array/age"
-			android:title="Your Age?"
-    	    /> 
     
     	
     
