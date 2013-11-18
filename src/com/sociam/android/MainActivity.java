@@ -913,6 +913,7 @@ private ArrayList<Crime> getCrimesData() {
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			View view = getActivity().getLayoutInflater().inflate(R.layout.map_marker_detail_dialog, null);
+			
 			ImageView imv = (ImageView) view.findViewById(R.id.map_marker_picture);
 			imv.setImageBitmap(Downloader.getImageFromURL(crime.getFilepath()));
 			

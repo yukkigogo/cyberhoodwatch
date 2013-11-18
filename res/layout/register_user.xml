@@ -5,13 +5,14 @@
     android:orientation="vertical" >
 
     <TextView        
+        android:id="@+id/reg_text1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Choose your username"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/reg_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10" >
@@ -20,14 +21,14 @@
     </EditText>
 
     <TextView
-        android:id="@+id/register_avaiability"
+        android:id="@+id/reg_avaiablity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-       
+       	android:id="@+id/reg_text2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Create a password"
@@ -41,6 +42,7 @@
         android:inputType="textPassword" />
 
     <TextView
+        android:id="@+id/reg_text3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm your password"
@@ -61,7 +63,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/reg_text4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email address"
