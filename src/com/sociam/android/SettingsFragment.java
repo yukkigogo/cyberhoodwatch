@@ -1,15 +1,16 @@
 package com.sociam.android;
 
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.preference.PreferenceFragment;
 
 // a class deals with personal 
-public class SettingsFragment extends FragmentActivity{
-	
+public class SettingsFragment extends PreferenceFragment{
 	@Override
-	protected void onCreate(Bundle arg0) {
+	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
-		super.onCreate(arg0);
+		super.onCreate(savedInstanceState);
+		
+		addPreferencesFromResource(R.xml.preferences);
 	}
 	
 }

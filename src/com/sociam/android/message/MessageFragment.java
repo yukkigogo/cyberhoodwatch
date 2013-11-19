@@ -1,4 +1,8 @@
-package com.sociam.android;
+package com.sociam.android.message;
+
+import com.sociam.android.R;
+import com.sociam.android.R.id;
+import com.sociam.android.R.layout;
 
 import android.content.Context;
 import android.graphics.Color;

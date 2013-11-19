@@ -1,4 +1,9 @@
-package com.sociam.android;
+package com.sociam.android.message;
+
+import com.sociam.android.R;
+import com.sociam.android.R.id;
+import com.sociam.android.R.layout;
+import com.sociam.android.R.menu;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -8,6 +13,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -21,6 +28,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+
+// main activity for message
 public class MessageFragmentActivity extends FragmentActivity{
 	
 	private int count=0; 
@@ -132,10 +141,12 @@ public class MessageFragmentActivity extends FragmentActivity{
 					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 						
 						String str = sp.getString("username", null);
-						if(str==null){
-								
+						if(str!=null){
+							
+							
+							
 						}else{
-								
+							//open another activity to register users	
 								
 						}
 							

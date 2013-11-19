@@ -73,6 +73,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SlidingPaneLayout;
 import android.text.Layout;
@@ -250,7 +251,7 @@ private void setbtn() {
 		@Override
 		public void onClick(View v) {
 			Intent intent = new Intent();
-			intent.setClassName("com.sociam.android", "com.sociam.android.MessageFragmentActivity");
+			intent.setClassName("com.sociam.android", "com.sociam.android.message.MessageFragmentActivity");
 			startActivity(intent);
 			
 //			android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
@@ -319,9 +320,11 @@ private void setbtn() {
 	  			break;	
 	  			
 	  		case R.id.menu_settings:
-//	  			getFragmentManager().beginTransaction()
-//	  			.replace(android.R.id.content,new SettingsFragment())
-//	  			.commit();
+	  			
+	  			getFragmentManager().beginTransaction()
+	  			.replace(R.id.main_map_fragment,new SettingsFragment())
+	  			.commit();
+	  			
 	  			break;
 	  			
 	  		case R.id.menu_3d:

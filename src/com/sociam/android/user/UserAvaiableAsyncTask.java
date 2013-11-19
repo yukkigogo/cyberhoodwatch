@@ -1,4 +1,4 @@
-package com.sociam.android;
+package com.sociam.android.user;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
@@ -9,16 +9,16 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.sociam.android.UserSetupFragmentDialog.FragmentUserSetupCallBack;
+import com.sociam.android.user.UserSetupFragment.UserSetupFragmentCallBack;
 
 import android.os.AsyncTask;
 
 public class UserAvaiableAsyncTask extends AsyncTask<String, Integer, Integer>{
 
-	private FragmentUserSetupCallBack fuscbk;
+	private UserSetupFragmentCallBack fuscbk;
 	private int avaiable=2;
 	
-	public UserAvaiableAsyncTask(FragmentUserSetupCallBack fc) {
+	public UserAvaiableAsyncTask(UserSetupFragmentCallBack fc) {
 		fuscbk = fc;
 	}
 	

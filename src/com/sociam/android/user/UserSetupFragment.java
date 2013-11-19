@@ -1,32 +1,34 @@
-package com.sociam.android;
+package com.sociam.android.user;
 
 
-import android.app.AlertDialog;
-import android.app.Dialog;
+import com.sociam.android.R;
+import com.sociam.android.R.id;
+import com.sociam.android.R.layout;
+
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class UserSetupFragmentDialog extends DialogFragment{
+public class UserSetupFragment extends Fragment{
 	
 	SharedPreferences sp;
+	
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		
 		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
-		
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		View view = getActivity().getLayoutInflater().inflate(R.layout.register_user, null);
+		
 		
 		Typeface robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
 		
@@ -59,44 +61,46 @@ public class UserSetupFragmentDialog extends DialogFragment{
 			public void afterTextChanged(Editable s) {
 				
 				if(s.length()>0){
-				UserAvaiableAsyncTask asyncTask = new UserAvaiableAsyncTask(new FragmentUserSetupCallBack() {
-					
-					@Override
-					public void onTaskDone(int avaiable) {
-						if(avaiable==1){
-							// okay
-							tx_reg_ave.setTextColor(Color.GREEN);
-							tx_reg_ave.setText("Avaiable Username");
+					UserAvaiableAsyncTask asyncTask = new UserAvaiableAsyncTask(new UserSetupFragmentCallBack() {
+						
+						@Override
+						public void onTaskDone(int avaiable) {
+
+							if(avaiable==1){
+								// okay
+								tx_reg_ave.setTextColor(Color.GREEN);
+								tx_reg_ave.setText("Avaiable Username");
+								
+							}else if(avaiable==0){
+								tx_reg_ave.setTextColor(Color.RED);
+								tx_reg_ave.setText("This username is already taken");
+							}else{
+								tx_reg_ave.setText("");
+							}
+
 							
-						}else if(avaiable==0){
-							tx_reg_ave.setTextColor(Color.RED);
-							tx_reg_ave.setText("This username is already taken");
-						}else{
-							tx_reg_ave.setText("");
 						}
-					}
-				});
-			
-				asyncTask.execute(username.getText().toString());
+					});
+					
+					asyncTask.execute(username.getText().toString());
 				
-				
-			}else{
-				tx_reg_ave.setText("");
+				}
+		
+
+	
 			}
 			
-				
-			}	
 		});
+				
 		
+		return view;
+	}
 		
 	
-		
-		return super.onCreateDialog(savedInstanceState);
-	}
 	
 	
 
-	public interface FragmentUserSetupCallBack{
+	public interface UserSetupFragmentCallBack{
 		public void onTaskDone(int avaiable);
 	}
 

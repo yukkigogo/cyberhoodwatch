@@ -53,7 +53,7 @@
         <activity android:name=".report.ReportActivity">
         </activity>
          
-        <activity android:name=".MessageFragmentActivity"
+        <activity android:name="com.sociam.android.message.MessageFragmentActivity"
             android:theme="@style/LightThemeSelector"
             android:icon="@drawable/msg_orange"
             android:label="@string/msg_name"
