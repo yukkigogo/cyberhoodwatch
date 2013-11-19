@@ -74,7 +74,7 @@ public class ReportLocation extends Fragment {
 		if(currentCrime.getPicON()==1){
 			LinearLayout layout = (LinearLayout) getActivity().
 					findViewById(R.id.layoutpeople2);		  
-			  layout.setBackground(currentCrime.getBitmapdrawable());
+			  layout.setBackgroundDrawable(currentCrime.getBitmapdrawable());
 		}		
 		pager =(ViewPager) getActivity().findViewById(R.id.pager);
 		setLocation();

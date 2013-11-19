@@ -59,7 +59,7 @@ public class ReportSuspect extends Fragment {
 		if(currentCrime.getPicON()==1){
 			  LinearLayout layout = (LinearLayout) 
 					  getActivity().findViewById(R.id.layoutpeople1);		  
-			  layout.setBackground(currentCrime.getBitmapdrawable());
+			  layout.setBackgroundDrawable(currentCrime.getBitmapdrawable());
 		}
 		
 	}

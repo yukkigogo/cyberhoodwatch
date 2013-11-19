@@ -223,8 +223,8 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		Resources res = getResources();
 		Drawable main = res.getDrawable(R.drawable.rounded_cell);
 		Drawable mini = res.getDrawable(R.drawable.rounded_mini);
-		if(select) btn.setBackground(main);
-		else btn.setBackground(mini);
+		if(select) btn.setBackgroundDrawable(main);
+		else btn.setBackgroundDrawable(mini);
 		btn.setText(text);
 		btn.setTextSize(TypedValue.COMPLEX_UNIT_DIP, 15);
 		btn.setHeight(h);

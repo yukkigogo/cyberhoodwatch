@@ -57,7 +57,7 @@ public class ReportSummary extends Fragment {
 			//set up background				
 			if(currentCrime.getPicON()==1){
 				LinearLayout layout = (LinearLayout) view.findViewById(R.id.smy);		  
-				  layout.setBackground(currentCrime.getBitmapdrawable());
+				  layout.setBackgroundDrawable(currentCrime.getBitmapdrawable());
 			}	
 			setBtn(view);
 			getID();

@@ -50,7 +50,7 @@ public class ReportCategory2 extends Fragment {
 		if(currentCrime.getPicON()==1){
 			  LinearLayout layout = (LinearLayout) 
 					  getActivity().findViewById(R.id.layoutcategory2);		  
-			  layout.setBackground(currentCrime.getBitmapdrawable());
+			  layout.setBackgroundDrawable(currentCrime.getBitmapdrawable());
 		 }
 
 		setBtns();

@@ -59,7 +59,7 @@ public class ReportSeverity extends Fragment {
 		if(currentCrime.getPicON()==1){
 			LinearLayout layout = (LinearLayout) getActivity().
 					findViewById(R.id.layoutseverity);		  
-			  layout.setBackground(currentCrime.getBitmapdrawable());
+			  layout.setBackgroundDrawable(currentCrime.getBitmapdrawable());
 		}		
 		pager =(ViewPager) getActivity().findViewById(R.id.pager);
 

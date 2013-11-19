@@ -70,7 +70,7 @@ public class ReportDateTime extends Fragment {
 		//set up background				
 		if(currentCrime.getPicON()==1){
 			LinearLayout layout = (LinearLayout) getActivity().findViewById(R.id.layoutpeople1);		  
-			  layout.setBackground(currentCrime.getBitmapdrawable());
+			  layout.setBackgroundDrawable(currentCrime.getBitmapdrawable());
 		}	
 		pager =(ViewPager) getActivity().findViewById(R.id.pager);
 
