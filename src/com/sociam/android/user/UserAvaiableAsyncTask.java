@@ -9,7 +9,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.sociam.android.user.UserSetupFragment.UserSetupFragmentCallBack;
+import com.sociam.android.user.UserRegisterFragment.UserSetupFragmentCallBack;
 
 import android.os.AsyncTask;
 

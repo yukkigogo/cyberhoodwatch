@@ -1,100 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:orientation="horizontal" >
-
-     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="8dp"   
-     	 android:paddingTop="10dp" >
-
-      
-       <LinearLayout 
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           >  
-
-         <ToggleButton
-             android:id="@+id/user_card"
-             android:layout_width="32dp"
-             android:layout_height="32dp"
-             android:layout_gravity="center"
-             android:background="@drawable/msg_idcard"
-             android:textOff=""
-             android:textOn="" />
-   
-         </LinearLayout>
-       
-       <LinearLayout 
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           >  
-        <ToggleButton
-            android:id="@+id/tags"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:textOn=""
-            android:textOff=""
-            android:layout_gravity="center"           
-            android:background="@drawable/msg_tag" />
-
-        </LinearLayout>
-        
-       <LinearLayout 
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           >  
-       
-        <ToggleButton
-            android:id="@+id/msgmap"
-            android:layout_width="32dp"
-            android:layout_height="32dp"        
-            android:textOn=""
-            android:textOff=""
-             android:layout_gravity="center"
-            android:background="@drawable/msg_map" />
-        </LinearLayout>
-        
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp">
-        
-        
-		    <TextView 
-		        android:id="@+id/msg_count"
-		        android:layout_width="match_parent"
-		        android:layout_height="40dp"
-		        android:gravity="right"
-		        android:layout_gravity="center_vertical"
-		        android:layout_marginRight="10dp"
-				android:textAppearance="?android:attr/textAppearanceLarge"
-		        android:text="140"/>
-		    
-		     <EditText
-		        android:id="@+id/message_text"
-		        android:layout_width="match_parent"
-		        android:layout_height="match_parent"
-		        android:layout_marginLeft="14dp"
-		        android:layout_marginRight="14dp"
-		        android:ems="10"
-		        android:background="@color/white"
-				android:inputType="textMultiLine"
-		         />
- 
- </LinearLayout>
-     
-
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+	<fragment android:name="com.sociam.android.message.MessageFragment"
+              android:id="@+id/main_message_fragment"
+              android:layout_weight="1"
+              android:layout_width="match_parent"
+              android:layout_height="0dip" />
+    
+    
 </LinearLayout>

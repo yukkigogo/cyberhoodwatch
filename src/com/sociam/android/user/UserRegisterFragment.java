@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class UserSetupFragment extends Fragment{
+public class UserRegisterFragment extends Fragment{
 	
 	SharedPreferences sp;
 	

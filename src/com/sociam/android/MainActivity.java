@@ -160,12 +160,21 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     //drawer instanceate
     setDrawer();
     
+    //update the tags
+    updateTags();
     }
   }
   
 
 
-  private void setDrawer() {
+  private void updateTags() {
+	
+	
+  }
+
+
+
+private void setDrawer() {
 	  
 	  mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 	  mListView = (ListView) findViewById(R.id.list_drawer);
@@ -367,6 +376,12 @@ private void setbtn() {
 	  e.putString("uuid", uuid.toString());
 	  e.commit();
 	  Log.e("sociam","my ID!!  "+ uuid);
+	  
+	  
+	  e.putInt("tagver", 1);
+	  e.commit();
+	  
+	  
   }
 
   
