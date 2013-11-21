@@ -168,7 +168,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 
 
   private void updateTags() {
-	
+	  UpdateTagAsyncTask task = new UpdateTagAsyncTask(this);
+	  task.execute("sociam");
 	
   }
 

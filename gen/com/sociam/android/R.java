@@ -238,19 +238,20 @@ containing a value of this type.
         public static final int shape_button_beer=0x7f02003f;
         public static final int shape_button_beer_mask=0x7f020040;
         public static final int sociam_icon=0x7f020041;
-        public static final int tag_n=0x7f020042;
-        public static final int tag_p=0x7f020043;
-        public static final int tag_press=0x7f020044;
-        public static final int uploadicon=0x7f020045;
-        public static final int user_card_n=0x7f020046;
-        public static final int user_card_p=0x7f020047;
-        public static final int user_card_press=0x7f020048;
-        public static final int white_phone=0x7f020049;
+        public static final int tag_btn=0x7f020042;
+        public static final int tag_n=0x7f020043;
+        public static final int tag_p=0x7f020044;
+        public static final int tag_press=0x7f020045;
+        public static final int uploadicon=0x7f020046;
+        public static final int user_card_n=0x7f020047;
+        public static final int user_card_p=0x7f020048;
+        public static final int user_card_press=0x7f020049;
+        public static final int white_phone=0x7f02004a;
     }
     public static final class id {
-        public static final int action_consentform=0x7f060078;
-        public static final int action_personalisation=0x7f060079;
-        public static final int action_settings=0x7f060077;
+        public static final int action_consentform=0x7f060079;
+        public static final int action_personalisation=0x7f06007a;
+        public static final int action_settings=0x7f060078;
         public static final int btn0=0x7f060010;
         public static final int btn1=0x7f06000f;
         public static final int btn2=0x7f06000e;
@@ -305,12 +306,12 @@ containing a value of this type.
         public static final int map2=0x7f060050;
         public static final int map_maker_detail_listview=0x7f060020;
         public static final int map_marker_picture=0x7f06001f;
-        public static final int menu_3d=0x7f06007b;
-        public static final int menu_reload=0x7f06007c;
-        public static final int menu_settings=0x7f06007a;
+        public static final int menu_3d=0x7f06007c;
+        public static final int menu_reload=0x7f06007d;
+        public static final int menu_settings=0x7f06007b;
         public static final int message_text=0x7f060026;
         public static final int msg_count=0x7f060025;
-        public static final int msg_send=0x7f06007d;
+        public static final int msg_send=0x7f06007e;
         public static final int msgmap=0x7f060024;
         public static final int mypre_textView1=0x7f060027;
         public static final int mypre_textView2=0x7f060028;
@@ -369,6 +370,7 @@ containing a value of this type.
         public static final int textview_people2=0x7f06005f;
         public static final int textview_severity=0x7f060068;
         public static final int user_card=0x7f060022;
+        public static final int user_tag_frag=0x7f060077;
         public static final int view_category=0x7f060015;
         public static final int view_date=0x7f060016;
         public static final int view_distrust=0x7f060019;
@@ -402,6 +404,7 @@ containing a value of this type.
         public static final int report_severity=0x7f030017;
         public static final int report_summary=0x7f030018;
         public static final int row_dawer_list=0x7f030019;
+        public static final int user_tags_frag=0x7f03001a;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
