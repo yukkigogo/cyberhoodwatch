@@ -28,7 +28,8 @@ public class TagRegisterFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 	
-		view = getActivity().getLayoutInflater().inflate(R.layout.user_tags_frag, null);		
+		
+		view = inflater.inflate(R.layout.user_tags_frag, null);		
 		robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
 
 		

@@ -4,6 +4,7 @@ import com.sociam.android.R;
 import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
 import com.sociam.android.user.TagRegisterFragment;
+import com.sociam.android.user.TagRegisterFragmentDialog;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -124,9 +125,11 @@ public class MessageFragment extends Fragment{
 						
 						Log.v("sociam", "Clicked!!!!");
 
-						FragmentTransaction ft = getFragmentManager().beginTransaction();
-						ft.replace(R.id.message_screen, new TagRegisterFragment());
-						ft.commit();
+						TagRegisterFragmentDialog dialog = new TagRegisterFragmentDialog();
+						dialog.show(getActivity().getSupportFragmentManager(), "sociam");
+						//FragmentTransaction ft = getFragmentManager().beginTransaction();
+						//ft.replace(R.id.message_screen, new TagRegisterFragment());
+						//ft.commit();
 						
 					}
 				});
