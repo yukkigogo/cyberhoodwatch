@@ -3,6 +3,7 @@ package com.sociam.android.message;
 import com.sociam.android.R;
 import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
+import com.sociam.android.user.TagRegisterFragment;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -11,6 +12,8 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -88,7 +91,7 @@ public class MessageFragment extends Fragment{
 		
 		idcard = (ToggleButton) view.findViewById(R.id.user_card);
 		tags = (ToggleButton) view.findViewById(R.id.tags);
-		msgmap = (ToggleButton) view.findViewById(R.id.msgmap);
+	//	msgmap = (ToggleButton) view.findViewById(R.id.msgmap);
 		
 	
 		
@@ -109,6 +112,22 @@ public class MessageFragment extends Fragment{
 						}
 							
 					
+					}
+				});
+		
+		
+		tags.setOnCheckedChangeListener(
+				new CompoundButton.OnCheckedChangeListener() {
+					
+					@Override
+					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+						
+						Log.v("sociam", "Clicked!!!!");
+
+						FragmentTransaction ft = getFragmentManager().beginTransaction();
+						ft.replace(R.id.message_screen, new TagRegisterFragment());
+						ft.commit();
+						
 					}
 				});
 		

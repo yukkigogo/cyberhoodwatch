@@ -2,6 +2,7 @@ package com.sociam.android;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -20,6 +21,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
+import android.util.Log;
 
 public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 
@@ -36,8 +38,9 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 	@Override
 	protected String doInBackground(String... params) {
 		// check the latest id and if it old update
-		
-		if(checkNeedUpdateTags(currentver)){
+		Log.e("sociam", "UpdateTagAsyncTask execute on!");
+
+	//	if(checkNeedUpdateTags(currentver)){
 			
 			HttpClient client = new DefaultHttpClient();
 		    HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/tagmanager.php");
@@ -58,19 +61,21 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 				FileOutputStream fos = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 				
 				while((currentLine=br.readLine())!=null){
-					fos.write(currentLine.getBytes());
+					String str = currentLine+"\n";
+					fos.write(str.getBytes());
+					
 				}
 				fos.close();
 			
 			} catch (Exception e) {
-				// TODO: handle exception
+				Log.e("sociam", e.getMessage());
 			}
 			
 	
-			
-			
-			
-		}
+
+		    
+		    // update version in source
+		//}
 		
 		return null;
 	}

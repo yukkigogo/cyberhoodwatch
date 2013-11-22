@@ -569,7 +569,7 @@ private ArrayList<Crime> getCrimesData() {
 
 	    	
 			String response1 = httpClient.execute(httpPost, responseHandler);
-			Log.v("sociam", response1);
+			//Log.v("sociam", response1);
 			
 	    
 	      

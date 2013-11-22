@@ -249,9 +249,9 @@ containing a value of this type.
         public static final int white_phone=0x7f02004a;
     }
     public static final class id {
-        public static final int action_consentform=0x7f060079;
-        public static final int action_personalisation=0x7f06007a;
-        public static final int action_settings=0x7f060078;
+        public static final int action_consentform=0x7f06007d;
+        public static final int action_personalisation=0x7f06007e;
+        public static final int action_settings=0x7f06007c;
         public static final int btn0=0x7f060010;
         public static final int btn1=0x7f06000f;
         public static final int btn2=0x7f06000e;
@@ -306,13 +306,13 @@ containing a value of this type.
         public static final int map2=0x7f060050;
         public static final int map_maker_detail_listview=0x7f060020;
         public static final int map_marker_picture=0x7f06001f;
-        public static final int menu_3d=0x7f06007c;
-        public static final int menu_reload=0x7f06007d;
-        public static final int menu_settings=0x7f06007b;
+        public static final int menu_3d=0x7f060080;
+        public static final int menu_reload=0x7f060081;
+        public static final int menu_settings=0x7f06007f;
+        public static final int message_screen=0x7f060022;
         public static final int message_text=0x7f060026;
         public static final int msg_count=0x7f060025;
-        public static final int msg_send=0x7f06007e;
-        public static final int msgmap=0x7f060024;
+        public static final int msg_send=0x7f060082;
         public static final int mypre_textView1=0x7f060027;
         public static final int mypre_textView2=0x7f060028;
         public static final int mypre_textView3=0x7f060029;
@@ -362,15 +362,19 @@ containing a value of this type.
         public static final int smybtn=0x7f060070;
         public static final int spinner1=0x7f060009;
         public static final int spinner2=0x7f06000b;
-        public static final int tags=0x7f060023;
+        public static final int tags=0x7f060024;
         public static final int terrain=0x7f060003;
         public static final int textView1=0x7f060008;
         public static final int textView2=0x7f06000a;
         public static final int textview_people1=0x7f060053;
         public static final int textview_people2=0x7f06005f;
         public static final int textview_severity=0x7f060068;
-        public static final int user_card=0x7f060022;
+        public static final int user_card=0x7f060023;
         public static final int user_tag_frag=0x7f060077;
+        public static final int user_tag_frag_general=0x7f060078;
+        public static final int user_tag_frag_general_title=0x7f060079;
+        public static final int user_tag_frag_southampton=0x7f06007a;
+        public static final int user_tag_frag_southampton_title=0x7f06007b;
         public static final int view_category=0x7f060015;
         public static final int view_date=0x7f060016;
         public static final int view_distrust=0x7f060019;

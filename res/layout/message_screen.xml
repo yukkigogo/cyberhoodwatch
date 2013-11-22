@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/message_screen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -52,7 +53,7 @@
            android:layout_weight="1"
            >  
        
-        <ToggleButton
+ <!--        <ToggleButton
             android:id="@+id/msgmap"
             android:layout_width="32dp"
             android:layout_height="32dp"        
@@ -60,6 +61,7 @@
             android:textOff=""
              android:layout_gravity="center"
             android:background="@drawable/msg_map" />
+ -->
         </LinearLayout>
         
     </LinearLayout>
