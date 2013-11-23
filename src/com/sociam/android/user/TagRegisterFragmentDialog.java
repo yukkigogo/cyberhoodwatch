@@ -38,8 +38,8 @@ public class TagRegisterFragmentDialog extends DialogFragment {
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		view = inflater.inflate(R.layout.user_tags_frag, null);		
 		
-		ScrollView scrollView = new ScrollView(getActivity());
-		scrollView.addView(view);
+		//ScrollView scrollView = new ScrollView(getActivity());
+		//scrollView.addView(view);
 		
 		robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");		
 		
@@ -47,7 +47,7 @@ public class TagRegisterFragmentDialog extends DialogFragment {
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		
-		builder.setView(scrollView);
+		builder.setView(view);
 		builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
 			
 			@Override
@@ -147,9 +147,15 @@ public class TagRegisterFragmentDialog extends DialogFragment {
 				
 				
 			}else{
+				
+				
 				count_s = count_s + text.length();
 				
+				Log.v("sociam", "soton " + text);
+
 				if(count_s>25 || count_row_s>2){
+					Log.e("sociam", "soton " + text);
+
 					l_soton.addView(row_s);
 					
 					row_s = new LinearLayout(getActivity());
@@ -157,14 +163,14 @@ public class TagRegisterFragmentDialog extends DialogFragment {
 					row_s.setGravity(Gravity.CENTER_HORIZONTAL);
 					
 				
-					//Log.e("sociam", entry.getKey() + "and "+ entry.getValue());
 					ToggleButton tb = setToggleButton(text);
 					
-					row_g.addView(tb);
+					row_s.addView(tb);
 					count_s=text.length();
 					count_row_s=0;
 				
 				}else{	
+					Log.e("sociam", "soton row " + text);
 
 					ToggleButton tb = setToggleButton(text);
 					row_s.addView(tb);
@@ -175,6 +181,10 @@ public class TagRegisterFragmentDialog extends DialogFragment {
 				
 			}		
 		}
+		
+		l_gene.addView(row_g);
+		l_soton.addView(row_s);
+
 	}
 	
 	

@@ -4,6 +4,7 @@ import com.sociam.android.R;
 import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
 import com.sociam.android.R.menu;
+import com.sociam.android.user.UserMessage;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -34,12 +35,19 @@ public class MessageFragmentActivity extends FragmentActivity{
 	
 	
 	SharedPreferences sp; 
-
+	
+	double lat,lon;
+	UserMessage um;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-
+		
+		um = new UserMessage();
+		lat = getIntent().getExtras().getDouble("lat");
+		lon = getIntent().getExtras().getDouble("lon");
+		um.setLatLon(lat, lon);
+		
 		setContentView(R.layout.message_main);
 				
 		sp = PreferenceManager.getDefaultSharedPreferences(this);		 
@@ -51,7 +59,16 @@ public class MessageFragmentActivity extends FragmentActivity{
 	
 	}
 	
+	public double getLat(){
+		return this.lat;
+	}
+	public double getLon(){
+		return this.lon;
+	}
 	
+	public UserMessage getUM(){
+		return this.um;
+	}
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 

@@ -114,6 +114,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	private boolean oldlocation=false;
 	private LatLng latlng;
 	private int mapmode=0;
+	private double lat1;
+	private double lon1;
 
 	
 	SharedPreferences sp; 
@@ -262,6 +264,8 @@ private void setbtn() {
 		public void onClick(View v) {
 			Intent intent = new Intent();
 			intent.setClassName("com.sociam.android", "com.sociam.android.message.MessageFragmentActivity");
+			intent.putExtra("lat", latlng.latitude);
+			intent.putExtra("lon", latlng.longitude);
 			startActivity(intent);
 			
 //			android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
@@ -538,6 +542,21 @@ private void setbtn() {
   }
 
 
+  private void setLatestLatLon(){
+		    	
+		    if(location!=null){	
+		    	lat1 = location.getLatitude();
+		    	lon1 = location.getLongitude();
+		    }else{
+		    	Location lastknown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		    	lat1 = lastknown.getLatitude();
+		    	lon1 = lastknown.getLongitude();
+		    }
+		   
+		    
+  }
+  
+  
 
   @SuppressLint("SimpleDateFormat")
 private ArrayList<Crime> getCrimesData() {
@@ -548,19 +567,10 @@ private ArrayList<Crime> getCrimesData() {
 	  	
 	    ResponseHandler<String> responseHandler =new BasicResponseHandler();
 	    MultipartEntity multipartEntity = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-	    
-	    try {
 	    	
-	    	double lat1,lon1;
+	    	setLatestLatLon();
 	    	
-		    if(location!=null){	
-		    	lat1 = location.getLatitude();
-		    	lon1 = location.getLongitude();
-		    }else{
-		    	Location lastknown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		    	lat1 = lastknown.getLatitude();
-		    	lon1 = lastknown.getLongitude();
-		    }
+	    try{
 
     		multipartEntity.addPart("lat",new StringBody(Double.toString(lat1)));
 	    	multipartEntity.addPart("lon",new StringBody(Double.toString(lon1)));
@@ -708,16 +718,7 @@ private ArrayList<Crime> getCrimesData() {
 	
 	
 	
-	private InputStreamReader readStreamFromURL(URL url) {
-		// create InputStremReader from URL
-		try{
-	    	HttpURLConnection con =(HttpURLConnection) url.openConnection();
-	    	return new InputStreamReader(con.getInputStream());
-		}catch (IOException e){
-			Log.e("sociam",e.getMessage());
-			return null;
-		}	
-	}
+
 
 
 

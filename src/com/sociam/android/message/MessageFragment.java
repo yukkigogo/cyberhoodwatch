@@ -1,15 +1,22 @@
 package com.sociam.android.message;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 import com.sociam.android.R;
 import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
 import com.sociam.android.user.TagRegisterFragment;
 import com.sociam.android.user.TagRegisterFragmentDialog;
+import com.sociam.android.user.UserMessage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -37,18 +44,42 @@ public class MessageFragment extends Fragment{
 	ToggleButton msgmap; 
 
 	SharedPreferences sp; 
-
+	View view;
+	Typeface robothin ;
+	TextView username;
+	TextView location;
+	
+	UserMessage um;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		View view =inflater.inflate(R.layout.message_screen, container, false);
+		view =inflater.inflate(R.layout.message_screen, container, false);
 		
 		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-
+		um = ((MessageFragmentActivity) getActivity()).getUM();
+		
 		toggleSetup(view);
 		
-		Typeface robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
+		robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
+		
+		// location
+		
+		
+		// username
+		username = (TextView) view.findViewById(R.id.msg_username);
+		username.setTypeface(robothin);
+
+		location = (TextView) view.findViewById(R.id.msg_location);
+		location.setTypeface(robothin);
+		
+		double lat = ((MessageFragmentActivity) getActivity()).getLat(); 
+		double lon = ((MessageFragmentActivity) getActivity()).getLon();
+		
+		String loc = getAddress(lat, lon);
+		location.setText("@"+loc);
+		
 		
 		final TextView tv = (TextView) view.findViewById(R.id.msg_count);
 		tv.setTypeface(robothin);
@@ -102,18 +133,27 @@ public class MessageFragment extends Fragment{
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 						
-						String str = sp.getString("username", null);
-						if(str!=null){
+						
+						 if(isChecked){
+							String str = sp.getString("username", "Yukki");
 							
-							
-							
-						}else{
-							//open another activity to register users	
-								Log.v("sociam", "OPEN NEW REGISTER PAGE");
-						}
-							
-					
-					}
+							if(str!=null){
+								username.setText(str+" says...");
+								
+								
+							}else{
+								//open another activity to register users	
+									Log.v("sociam", "OPEN NEW REGISTER PAGE");
+									
+							}
+								
+						
+						 }else{
+								username.setText("Anonymous says...");
+
+							 
+						 }
+					 }
 				});
 		
 		
@@ -137,5 +177,27 @@ public class MessageFragment extends Fragment{
 		
 	}
 
+	
+	public String getAddress(double lat, double lon){
+		String address=null;
+		
+		Geocoder geocorder;
+		List<Address> addresses = null;
+		geocorder = new Geocoder(getActivity(), Locale.getDefault());
+		try {
+			addresses = geocorder.getFromLocation(lat, lon, 1);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		if(addresses.get(0).getSubLocality()!=null)
+			address = addresses.get(0).getSubLocality() + addresses.get(0).getLocality();
+		else
+			address = addresses.get(0).getLocality();
+				
+		
+		return address;
+	}
+	
 	
 }
