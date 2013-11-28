@@ -20,6 +20,7 @@
     
     <color name="gray">#808080</color>
     <color name="d_gray">#505050 </color>
+    <color name="l_gray">#CACACA</color>
     
     <color name="black">#000000 </color>    
     <color name="half_black">#CC000000 </color>    

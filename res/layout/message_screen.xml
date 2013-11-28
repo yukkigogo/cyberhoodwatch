@@ -42,7 +42,7 @@
             android:layout_height="32dp"
             android:textOn=""
             android:textOff=""
-            android:layout_gravity="center"           
+            android:layout_gravity="center"         
             android:background="@drawable/msg_tag" />
 
         </LinearLayout>

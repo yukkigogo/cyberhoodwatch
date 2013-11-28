@@ -5,13 +5,13 @@ import java.util.List;
 import java.util.Locale;
 
 import com.sociam.android.R;
+import com.sociam.android.SendMessage;
 import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
 import com.sociam.android.user.TagRegisterFragment;
-import com.sociam.android.user.TagRegisterFragmentDialog;
-import com.sociam.android.user.UserMessage;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -27,6 +27,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -41,7 +42,6 @@ public class MessageFragment extends Fragment{
 	
 	ToggleButton idcard;
 	ToggleButton tags; 
-	ToggleButton msgmap; 
 
 	SharedPreferences sp; 
 	View view;
@@ -49,7 +49,7 @@ public class MessageFragment extends Fragment{
 	TextView username;
 	TextView location;
 	
-	UserMessage um;
+	SendMessage um;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -122,7 +122,7 @@ public class MessageFragment extends Fragment{
 	private void toggleSetup(View view){
 		
 		idcard = (ToggleButton) view.findViewById(R.id.user_card);
-		tags = (ToggleButton) view.findViewById(R.id.tags);
+	//	tags = (ToggleButton) view.findViewById(R.id.tags);
 	//	msgmap = (ToggleButton) view.findViewById(R.id.msgmap);
 		
 	
@@ -135,44 +135,61 @@ public class MessageFragment extends Fragment{
 						
 						
 						 if(isChecked){
-							String str = sp.getString("username", "Yukki");
+							String str = sp.getString("username","yukki");
 							
 							if(str!=null){
 								username.setText(str+" says...");
-								
+								um.setAnonymous(false);
+								um.setUserName(str);
 								
 							}else{
 								//open another activity to register users	
 									Log.v("sociam", "OPEN NEW REGISTER PAGE");
+									Intent intent = new Intent();
+									intent.setClassName("com.sociam.android", 
+											"com.sociam.android.user.UserRegisterFragmentActivity");
+									startActivity(intent);
 									
 							}
 								
 						
 						 }else{
 								username.setText("Anonymous says...");
+								um.setAnonymous(true);
+								um.setUserName("");
 
 							 
 						 }
 					 }
 				});
 		
-		
-		tags.setOnCheckedChangeListener(
-				new CompoundButton.OnCheckedChangeListener() {
-					
-					@Override
-					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-						
-						Log.v("sociam", "Clicked!!!!");
-
-						TagRegisterFragmentDialog dialog = new TagRegisterFragmentDialog();
-						dialog.show(getActivity().getSupportFragmentManager(), "sociam");
-						//FragmentTransaction ft = getFragmentManager().beginTransaction();
-						//ft.replace(R.id.message_screen, new TagRegisterFragment());
-						//ft.commit();
-						
-					}
-				});
+	
+//		tags.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {	
+//				
+//				MessageSettingTagFragmentDialog dialog = new MessageSettingTagFragmentDialog();
+//				dialog.show(getActivity().getSupportFragmentManager(), "sociam");
+//				
+//				tags.setChecked(((MessageFragmentActivity) getActivity()).isTagChanged);
+//			
+//			}
+//		});
+			
+//		tags.setOnCheckedChangeListener(
+//				new CompoundButton.OnCheckedChangeListener() {
+//					
+//					@Override
+//					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//						
+//						Log.v("sociam", "Clicked!!!!");
+//
+//						MessageSettingTagFragmentDialog dialog = new MessageSettingTagFragmentDialog();
+//						dialog.show(getActivity().getSupportFragmentManager(), "sociam");
+//											
+//					}
+//				});
 		
 		
 	}

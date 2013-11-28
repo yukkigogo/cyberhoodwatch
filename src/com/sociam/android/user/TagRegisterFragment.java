@@ -74,7 +74,6 @@ public class TagRegisterFragment extends Fragment {
 		
 		for(Map.Entry<String, String> entry: tags.entrySet() ){
 			
-			//Log.e("sociam", entry.getKey() + "and "+ entry.getValue());
 			String text = entry.getKey();
 			ToggleButton tb = new ToggleButton(getActivity());
 			tb.setTypeface(robothin);

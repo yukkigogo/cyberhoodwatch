@@ -40,6 +40,8 @@ public class UserRegisterFragment extends Fragment{
 		tx3.setTypeface(robothin);
 		TextView tx4 = (TextView) view.findViewById(R.id.reg_text4);
 		tx4.setTypeface(robothin);
+		TextView tx5 = (TextView) view.findViewById(R.id.reg_new_user_title);
+		tx5.setTypeface(robothin);
 		
 		final TextView tx_reg_ave = (TextView) view.findViewById(R.id.reg_avaiablity);
 		tx_reg_ave.setTypeface(robothin);
@@ -85,8 +87,6 @@ public class UserRegisterFragment extends Fragment{
 					asyncTask.execute(username.getText().toString());
 				
 				}
-		
-
 	
 			}
 			

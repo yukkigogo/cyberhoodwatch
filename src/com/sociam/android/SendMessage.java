@@ -1,11 +1,12 @@
-package com.sociam.android.user;
+package com.sociam.android;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+
 import android.text.format.Time;
 
-public class UserMessage {
+public class SendMessage {
 	
 	int id;
 	
@@ -21,7 +22,10 @@ public class UserMessage {
 	private int up_thumb=0;
 	private int down_thumb=0;
 	
-	public UserMessage() {
+
+	
+	
+	public SendMessage() {
 		tags = new ArrayList<Tag>();
 	}
 	
@@ -76,6 +80,9 @@ public class UserMessage {
 	public int getDonwThumb(){
 		return this.down_thumb;
 	}
+
+
+
 }
 
 
