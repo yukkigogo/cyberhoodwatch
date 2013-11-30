@@ -254,9 +254,9 @@ containing a value of this type.
         public static final int white_phone=0x7f02004e;
     }
     public static final class id {
-        public static final int action_consentform=0x7f060084;
-        public static final int action_personalisation=0x7f060085;
-        public static final int action_settings=0x7f060083;
+        public static final int action_consentform=0x7f060086;
+        public static final int action_personalisation=0x7f060087;
+        public static final int action_settings=0x7f060085;
         public static final int btn0=0x7f060010;
         public static final int btn1=0x7f06000f;
         public static final int btn2=0x7f06000e;
@@ -311,14 +311,14 @@ containing a value of this type.
         public static final int map2=0x7f060057;
         public static final int map_maker_detail_listview=0x7f060024;
         public static final int map_marker_picture=0x7f060023;
-        public static final int menu_3d=0x7f060087;
-        public static final int menu_reload=0x7f060088;
-        public static final int menu_settings=0x7f060086;
+        public static final int menu_3d=0x7f060089;
+        public static final int menu_reload=0x7f06008a;
+        public static final int menu_settings=0x7f060088;
         public static final int message_screen=0x7f06001f;
         public static final int message_text=0x7f06002a;
         public static final int msg_count=0x7f060029;
         public static final int msg_location=0x7f06002b;
-        public static final int msg_send=0x7f060089;
+        public static final int msg_send=0x7f06008b;
         public static final int msg_text=0x7f060020;
         public static final int msg_username=0x7f060028;
         public static final int mypre_textView1=0x7f06002c;
@@ -381,12 +381,14 @@ containing a value of this type.
         public static final int textview_people1=0x7f06005a;
         public static final int textview_people2=0x7f060066;
         public static final int textview_severity=0x7f06006f;
+        public static final int toast_4_msg_text=0x7f06007f;
+        public static final int toast_layout_root=0x7f06007e;
         public static final int user_card=0x7f060026;
-        public static final int user_tag_frag=0x7f06007e;
-        public static final int user_tag_frag_general=0x7f06007f;
-        public static final int user_tag_frag_general_title=0x7f060080;
-        public static final int user_tag_frag_southampton=0x7f060081;
-        public static final int user_tag_frag_southampton_title=0x7f060082;
+        public static final int user_tag_frag=0x7f060080;
+        public static final int user_tag_frag_general=0x7f060081;
+        public static final int user_tag_frag_general_title=0x7f060082;
+        public static final int user_tag_frag_southampton=0x7f060083;
+        public static final int user_tag_frag_southampton_title=0x7f060084;
         public static final int view_category=0x7f060017;
         public static final int view_date=0x7f060018;
         public static final int view_distrust=0x7f06001b;
@@ -422,7 +424,8 @@ containing a value of this type.
         public static final int report_severity=0x7f030019;
         public static final int report_summary=0x7f03001a;
         public static final int row_dawer_list=0x7f03001b;
-        public static final int user_tags_frag=0x7f03001c;
+        public static final int toast_4_msg=0x7f03001c;
+        public static final int user_tags_frag=0x7f03001d;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;

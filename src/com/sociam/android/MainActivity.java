@@ -80,12 +80,14 @@ import android.text.Layout;
 import android.text.format.Time;
 import android.text.style.BulletSpan;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -921,8 +923,19 @@ private ArrayList<Crime> getCrimesData() {
 				render(maker,mWindow);
 				return mWindow;
 			}else{
+				RecieveMessage rm = msg_maker_hash.get(maker);
 				
 				Log.e("sociam","koko de nanika suru");
+//				View v = getLayoutInflater().inflate(R.layout.toast_4_msg, 
+//						(ViewGroup) findViewById(R.id.toast_layout_root));
+//				TextView text = (TextView) v.findViewById(R.id.toast_4_msg_text);
+//				text.setText(rm.getMsg());
+//				
+//				Toast toast = new Toast(getApplicationContext());
+//				toast.setGravity(Gravity.TOP, 10, 10);
+//				toast.setDuration(Toast.LENGTH_LONG);
+//				toast.setView(v);
+//				toast.show();
 				
 				return null;
 			}
