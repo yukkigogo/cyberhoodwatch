@@ -67,13 +67,13 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 				
 				//check the tag changed or not
 				for(Tag tag:tags){
-					
-					
-					
 					if(tag.getMsgSetting()!=tag.getUserSetting()){
+						((MessageFragmentActivity) getActivity()).setIsTagChanged(true);
 						((MessageFragmentActivity) getActivity()).setTagchange(true);
+
 						break;
 					}
+					((MessageFragmentActivity) getActivity()).setIsTagChanged(false);
 				}
 				
 
@@ -84,7 +84,7 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 			}
 		});
 		
-		Log.e("sociam", "____________ how was? "+ ((MessageFragmentActivity) getActivity()).getIsTagChanged());
+		//Log.e("sociam", "____________ how was? "+ ((MessageFragmentActivity) getActivity()).getIsTagChanged());
 
 		
 		return builder.create();
@@ -256,14 +256,14 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 				
 			}else{
 				tb.setChecked(false);
-				tb.setTextColor(Color.WHITE);
+				tb.setTextColor(Color.BLACK);
 				tag.setMsgSetting(false);
 			}
 		}else{
 			if(tag.getUserSetting()){
 				tb.setChecked(true);
 				tb.setTextColor(Color.WHITE);
-				tag.setMsgSetting(true);
+				//tag.setMsgSetting(true);
 				
 			}		
 		}

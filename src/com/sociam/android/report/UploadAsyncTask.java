@@ -67,8 +67,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      String date_text  = params[14];
 		      String severity = params[15];
  
-		     for(int i=0;i<params.length;i++)		
-		    	  Log.e("sociam",i+" "+params[i]); 
+		
 		      
 		      HttpClient httpClient = new DefaultHttpClient();
 		      HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/upandroid.php");
@@ -82,7 +81,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      	File file = new File(Environment.getExternalStorageDirectory().getPath()+"/CrimeTips/"+fileName);  
 		      	FileBody fileBody = new FileBody(file, "image/jpeg");
 		    	  multipartEntity.addPart("f1", fileBody);
-		    	  Log.e("sociam", fileBody.toString());
+		    	 // Log.e("sociam", fileBody.toString());
 		      }
 		      // other post		      
 		      multipartEntity.addPart("user_id", new StringBody(user_id));
@@ -103,13 +102,10 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 		      
 		      
-
-		      
-		      
 		      httpPost.setEntity(multipartEntity);
 		      //
 		      String response = httpClient.execute(httpPost, responseHandler);
-		      Log.e("odebaki", response);
+		      //Log.e("odebaki", response);
 		      String[] str = response.split("\n");
 		    
 		     String match = "crimeid";

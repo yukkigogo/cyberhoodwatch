@@ -6,35 +6,26 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sociam.android.DataApplication;
 import com.sociam.android.R;
 import com.sociam.android.SendMessage;
 import com.sociam.android.Tag;
-import com.sociam.android.R.id;
-import com.sociam.android.R.layout;
-import com.sociam.android.R.menu;
+
 
 import android.app.ActionBar;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.text.Editable;
-import android.text.TextWatcher;
+import android.text.format.Time;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.TextView;
+
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -84,7 +75,7 @@ public class MessageFragmentActivity extends FragmentActivity{
 			
 			@Override
 			public void onClick(View v) {	
-				
+				toggle.setChecked(isTagChanged);
 				MessageSettingTagFragmentDialog dialog = new MessageSettingTagFragmentDialog();
 				dialog.show(getSupportFragmentManager(), "sociam");
 				
@@ -101,26 +92,29 @@ public class MessageFragmentActivity extends FragmentActivity{
 	private ArrayList<Tag> setTagsForUser(ArrayList<Tag> tags){
 		
 		//String usertags = sp.getString("tags",null);
-		String usertags = "female:general,student:general,susu:southampton";
-		tagMap = new HashMap<String, String>();
-		
-		if(usertags!=null){
-			String[] tagWcat = usertags.split(",");
-			for(String str:tagWcat){
-				String[] ary=str.split(":");
-				tagMap.put(ary[0], ary[1]);				
-			}
-			Log.e("sociam","num of "+tagMap.size());
+		//		String usertags = "female-general:student-general:susu-southampton";
+//		tagMap = new HashMap<String, String>();
+//		
+//		if(usertags!=null){
+//			String[] tagWcat = usertags.split(":");
+//			for(String str:tagWcat){
+//				String[] ary=str.split("-");
+//				tagMap.put(ary[0], ary[1]);				
+//			}
 			
+		DataApplication dapp = (DataApplication)this.getApplication();
+		tagMap = dapp.getTagMap4User();
+		
 		for(Tag tag : tags){
 			if(tagMap.containsKey(tag.getName())){				
 				if(tag.getCategory().equals(tagMap.get(tag.getName()))){
 					tag.setUserSetting(true);
+					tag.setMsgSetting(true);
 				}		
 			}
 		}
 		
-		}
+//		}
 		
 		
 		return tags;
@@ -173,7 +167,56 @@ public class MessageFragmentActivity extends FragmentActivity{
 			break;
 			
 		case R.id.msg_send:
-		
+			
+			if(um.getMsg().length()>0){
+				if(um.getMsg().length()<=140){
+					//	Log.e("sociam","show tag index num : "+ um.getTime().format2445());
+				
+				Time rightnow = new Time();
+				rightnow.setToNow();
+				MessageUpAsyncTask up = new MessageUpAsyncTask(this, 
+					new MessageFragmentCallBack() {
+				
+				@Override
+				public void onTaskDone() {
+					finish();
+					
+					
+				}
+			});
+			String username,id_code;
+			if(um.getAnonymous()){ 
+				username="anonymous";
+				id_code="0";
+			}else{ 
+				username = um.getUserName();
+				id_code="1";
+			}
+			
+			String tagString = getTagString(tags);
+
+			String lat = Double.toString(um.getLat());
+			String lon = Double.toString(um.getLon());
+
+
+			
+			up.execute(
+					username,
+					id_code,
+					lat,
+					lon,
+					rightnow.format2445(),
+					um.getMsg(),
+					tagString
+					);
+			
+				}else{
+					Toast.makeText(this, "your text is over limit..", Toast.LENGTH_LONG).show();
+				}
+			}else{
+				Toast.makeText(this, "Please add your message..", Toast.LENGTH_LONG).show();
+			}
+			
 			break;
 		
 		}	
@@ -182,6 +225,21 @@ public class MessageFragmentActivity extends FragmentActivity{
 	}
 	
 	
+	private String getTagString(ArrayList<Tag> tagList) {
+		String tagString="";
+		if(tagList.size()>0){
+			for(Tag tag:tagList){
+				if(tag.getMsgSetting()){
+					tagString = tagString+tag.getName()+"-"+tag.getCategory()+":";
+				}
+			}
+		}
+		
+		
+		return tagString;
+	}
+
+
 	// helper funtion to pass the objects
 	public double getLat(){
 		return this.lat;
@@ -206,4 +264,10 @@ public class MessageFragmentActivity extends FragmentActivity{
 		return this.isTagChanged;
 	}
 	
+	
+	public interface MessageFragmentCallBack{
+		public void onTaskDone();
+	}
+
+
 }

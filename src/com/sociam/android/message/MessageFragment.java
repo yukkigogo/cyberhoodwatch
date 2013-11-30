@@ -20,8 +20,6 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -64,8 +62,7 @@ public class MessageFragment extends Fragment{
 		
 		robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
 		
-		// location
-		
+		// location		
 		
 		// username
 		username = (TextView) view.findViewById(R.id.msg_username);
@@ -108,6 +105,8 @@ public class MessageFragment extends Fragment{
 					else tv.setTextColor(Color.BLACK);
 					tv.setText(Integer.toString(count));
 				}
+				um.setMsg(s.toString());
+				
 			}
 		});
 		
@@ -162,34 +161,6 @@ public class MessageFragment extends Fragment{
 						 }
 					 }
 				});
-		
-	
-//		tags.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {	
-//				
-//				MessageSettingTagFragmentDialog dialog = new MessageSettingTagFragmentDialog();
-//				dialog.show(getActivity().getSupportFragmentManager(), "sociam");
-//				
-//				tags.setChecked(((MessageFragmentActivity) getActivity()).isTagChanged);
-//			
-//			}
-//		});
-			
-//		tags.setOnCheckedChangeListener(
-//				new CompoundButton.OnCheckedChangeListener() {
-//					
-//					@Override
-//					public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-//						
-//						Log.v("sociam", "Clicked!!!!");
-//
-//						MessageSettingTagFragmentDialog dialog = new MessageSettingTagFragmentDialog();
-//						dialog.show(getActivity().getSupportFragmentManager(), "sociam");
-//											
-//					}
-//				});
 		
 		
 	}

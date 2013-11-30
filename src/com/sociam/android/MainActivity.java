@@ -105,6 +105,11 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	private ArrayList<Marker> markers;
 	private HashMap<Integer,Marker> mapMarkers;
 
+	// for messaging system
+	private ArrayList<Marker> msg_markers;
+	private ArrayList<RecieveMessage> msg;
+	private TextView messagebox;
+	private HashMap<Marker, RecieveMessage> msg_maker_hash;
 	
 	private Location location;
 	
@@ -128,12 +133,17 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	// right now
 	public static final Calendar rightNow = Calendar.getInstance();
 	
+	
+	DataApplication dapp;
+
+	
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
     // set for p
 	sp = PreferenceManager.getDefaultSharedPreferences(this);		 
+	dapp = (DataApplication)this.getApplication();
 	if(sp.getBoolean("first_time", true)){
 		// first time
 		setUpOnlyOnce();
@@ -151,12 +161,19 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     // obtain map data from the server
     getCrimesData();
     
+ 
+    
+    
+    
     // compute distance userpoistion and crimes
     getDistanceFromHere(getLocation(), crimes);
     
     //map initialise
     setUpMapIfNeeded();
     setbtn();
+    
+    // obtain message data
+    //msg = getMessages();
     
     
     //drawer instanceate
@@ -169,7 +186,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   
 
 
-  private void updateTags() {
+private void updateTags() {
 	  UpdateTagAsyncTask task = new UpdateTagAsyncTask(this);
 	  task.execute("sociam");
 	
@@ -457,13 +474,12 @@ private void setbtn() {
 	  settings.setCompassEnabled(true);
 	  settings.setZoomControlsEnabled(false);
 	
-	  // load and move current location 
-      //setMyLocationManager();   
 
-	  
 	  // set up the map. 	 
 	  plotCrime();
 	
+	  //setup message
+	  msg_maker_hash = getMessagesAndMarker();
 	  
 	  //setup inforwindow
 	  mMap.setOnInfoWindowClickListener(this);
@@ -552,16 +568,13 @@ private void setbtn() {
 		    	lat1 = lastknown.getLatitude();
 		    	lon1 = lastknown.getLongitude();
 		    }
-		   
-		    
+		  		    
   }
   
   
-
-  @SuppressLint("SimpleDateFormat")
-private ArrayList<Crime> getCrimesData() {
-	  
-	  	// here 
+  private String getData(int type){
+	  	
+	  	String response = null;
 	  	HttpClient httpClient = new DefaultHttpClient();
 	  	HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/androidcsv.php");
 	  	
@@ -571,34 +584,40 @@ private ArrayList<Crime> getCrimesData() {
 	    	setLatestLatLon();
 	    	
 	    try{
-
-    		multipartEntity.addPart("lat",new StringBody(Double.toString(lat1)));
+	    	multipartEntity.addPart("type",new StringBody(Integer.toString(type)));
+	    	
+	    	multipartEntity.addPart("lat",new StringBody(Double.toString(lat1)));
 	    	multipartEntity.addPart("lon",new StringBody(Double.toString(lon1)));
 
 		    httpPost.setEntity(multipartEntity);
+		    response=httpClient.execute(httpPost, responseHandler);
+		    
+	    }catch(Exception e){
+	    	Log.e("sociam",e.getMessage());
+	    }  
+	  Log.e("sociam", type+" "+response);
+	  return response;
+  }
+  
+  
+  
+  
 
-	    	
-			String response1 = httpClient.execute(httpPost, responseHandler);
-			//Log.v("sociam", response1);
-			
-	    
-	      
-	
-	      
-	      // till here
-	      
+  @SuppressLint("SimpleDateFormat")
+private ArrayList<Crime> getCrimesData() {
+	  	
+	  	String response1 = getData(0);
 	      
 		//getting crime data from the server
 		crimes = new ArrayList<Crime>();
 		
+		try{
 			BufferedReader br = new BufferedReader(new InputStreamReader(
 					new ByteArrayInputStream(response1.getBytes())));
-					//readStreamFromURL(new URL("http://sociamvm-yi1g09.ecs.soton.ac.uk/androidcsv.php")));
 			
 			
 			String currentLine;
 			while((currentLine=br.readLine())!=null){
-				//Log.w("sociam",currentLine);
 				String str[] = currentLine.split(",");
 				
 				int is_loc_latlon=0;
@@ -606,10 +625,6 @@ private ArrayList<Crime> getCrimesData() {
 
 				if(is_loc_latlon==1){
 				Crime crime = new Crime();
-				
-				//for(int i=0;i<str.length;i++){
-				//	Log.e("sociam","line " + i +" : "+str[i]);
-				//}
 				
 				int crime_id = 0;
 				int id_code=0;
@@ -670,6 +685,7 @@ private ArrayList<Crime> getCrimesData() {
 					crime.setisAddress(false);
 				}
 				
+				// need to be clean up here use Time object!
 				
 				SimpleDateFormat  format = new SimpleDateFormat("\"yyyy-MM-dd HH:mm:ss\"");
 				try {
@@ -679,12 +695,13 @@ private ArrayList<Crime> getCrimesData() {
 					crime.setCal(calender);
 
 					
-					//Log.v("sociam", crime.getDate().format2445());
 				} catch (Exception e) {
-					// TODO: handle exception
+					Log.e("sociam", e.getMessage());
 				}
 				
 				crime.setDate(new Time(str[13]));
+				
+				// till here
 				
 				if(is_date_text==1){
 					crime.setIsDateText(true);
@@ -698,10 +715,6 @@ private ArrayList<Crime> getCrimesData() {
 				crime.setUpThumb(up_thumb);
 				crime.setDownThumb(down_thumb);
 					
-				//Log.v("sociam","Lat Lon :"+crime.getLat()+" : "+crime.getLon() );
-				
-
-				
 				
 				crimes.add(crime);
 				}
@@ -717,12 +730,86 @@ private ArrayList<Crime> getCrimesData() {
   }
 	
 	
-	
+
+  private HashMap<Marker,RecieveMessage> getMessagesAndMarker() {
+		ArrayList<RecieveMessage> ary = new ArrayList<RecieveMessage>();
+		HashMap<Marker,RecieveMessage> msg_maker_hash = new HashMap<Marker, RecieveMessage>();
+		
+		String response = getData(1);
+		
+		HashMap<String,String> usertags = dapp.getTagMap4User();
+		
+		try{
+			
+			BufferedReader br = new BufferedReader(new InputStreamReader(
+					new ByteArrayInputStream(response.getBytes())));
+			
+			String currentLine;
+			while((currentLine=br.readLine())!=null){
+				Log.e("sociam","should be message line"+currentLine);
+				
+				RecieveMessage r_msg = new RecieveMessage();
+				String str[] = currentLine.split(",");
+				// tag can be empty 
+				
+				r_msg.setID(Integer.parseInt(str[0]));
+				r_msg.setUser(str[1]);
+				r_msg.setIdCode(Integer.parseInt(str[2]));
+				r_msg.setLat(Double.parseDouble(str[3]));
+				r_msg.setLng(Double.parseDouble(str[4]));
+				r_msg.setTime(new Time(str[5]));
+				r_msg.setMsg(str[6]);
+				r_msg.setUpThumb(Integer.parseInt(str[8]));
+				r_msg.setDownThumb(Integer.parseInt(str[9]));
+				
+				//tags 
+				String tagsString = str[7];
+				if(tagsString!=null){
+					String[] tags = tagsString.split(":");
+					for(String strs :tags){
+						String[] tagcate =strs.split("-");
+						Tag tag_m=null;
+						if(tagcate[1]==null){ 
+							tag_m	= new Tag(tagcate[0], "");
+							if(usertags.containsKey(tagcate[0]) &&
+									usertags.get(tagcate[0]).equals(""))
+								tag_m.setUserSetting(true);
+
+						}else{
+							tag_m = new Tag(tagcate[0],tagcate[1]);	
+							if(usertags.containsKey(tagcate[0]) &&
+									usertags.get(tagcate[0]).equals(tagcate[1]))
+								tag_m.setUserSetting(true);
+							
+						}							
+						r_msg.addTag(tag_m);
+						Marker marker = getMsgMarker(r_msg);
+						msg_maker_hash.put(marker, r_msg);
+					}
+				}
+				
+			}
+			
+			
+		}catch(Exception e){
+			Log.e("sociam", e.getMessage());
+		}
+		
+		return msg_maker_hash;
+	  }
+
+  private Marker getMsgMarker(RecieveMessage rm){
+	  	Marker marker = mMap.addMarker(new MarkerOptions()
+		.position(new LatLng(rm.getLat(), rm.getLng()))
+		.icon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n)));		
+	  	
+	  	return marker;
+  }
 
 
 
 
-// make sure Internet is avaiable
+  // make sure Internet is avaiable
   private boolean checkInternet(){
 	  
 	  if(!isNetworkAvailable()){
@@ -772,8 +859,7 @@ private ArrayList<Crime> getCrimesData() {
 		latlng = new LatLng(location.getLatitude(), location.getLongitude());
 		
 //		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
-//		mMap.animateCamera(cameraUpdate);
-		
+//		mMap.animateCamera(cameraUpdate);		
 //		latlng = new LatLng(51.510016,-0.13516);
 	
 		if(mapmode==0){ // initialisation - change view
@@ -818,7 +904,7 @@ private ArrayList<Crime> getCrimesData() {
 	 */
 	private class CustomInfoAdapter implements InfoWindowAdapter{
 		
-		private final View mWindow;
+		private  View mWindow;
 		
 		public CustomInfoAdapter() {
 			mWindow = getLayoutInflater().inflate(R.layout.info_window, null);
@@ -831,8 +917,15 @@ private ArrayList<Crime> getCrimesData() {
 
 		@Override
 		public View getInfoWindow(Marker maker) {
-			render(maker,mWindow);
-			return mWindow;
+			if(maker.getTitle()!=null){
+				render(maker,mWindow);
+				return mWindow;
+			}else{
+				
+				Log.e("sociam","koko de nanika suru");
+				
+				return null;
+			}
 		}
 		
 		
@@ -851,8 +944,7 @@ private ArrayList<Crime> getCrimesData() {
 			SimpleDateFormat date_format = new SimpleDateFormat("d MMM yyyy");
 			SimpleDateFormat time_format = new SimpleDateFormat("HH:mm:ss");
 			
-			
-			
+						
 			category.setText("Category : "+crimes.get(i).getCategory());
 			//cate_text.setText(crimes.get(i).getCategoryText());
 			date.setText("Date : "+date_format.format(cal.getTime()));
@@ -861,9 +953,7 @@ private ArrayList<Crime> getCrimesData() {
 			distrust.setText("distrust : "+crimes.get(i).getDownThumb());
 			
 			Log.v("sociam", "show the filepath "+ crimes.get(i).getFilepath());
-
 			
-			//imageView.setImageBitmap(Downloader.getImageFromURL(maker.getSnippet()));
 
 		}
 		
@@ -876,8 +966,7 @@ private ArrayList<Crime> getCrimesData() {
 		
 		int num = Integer.parseInt(marker.getTitle());
 		
-//		InfoWindowDialogFragment iwdf = new InfoWindowDialogFragment(num);
-//		iwdf.show(getSupportFragmentManager(), "sociam");
+
 		DetailDialogFragment ddf = new DetailDialogFragment(num);
 		ddf.show(getSupportFragmentManager(), "sociam");
 		
@@ -917,8 +1006,7 @@ private ArrayList<Crime> getCrimesData() {
 			
 			return builder.create();
 		}
-		
-		
+				
 	}
 	
 	public class DetailDialogFragment extends DialogFragment{
@@ -1005,7 +1093,6 @@ private ArrayList<Crime> getCrimesData() {
 			return str;
 		}
 		
-		
 	}
 	
 	/*
@@ -1072,11 +1159,9 @@ private ArrayList<Crime> getCrimesData() {
 					
 				}
 			});
-			
-			
+						
 			return builder.create();
 		}
-		
 		
 	}
 	
@@ -1142,7 +1227,6 @@ private ArrayList<Crime> getCrimesData() {
 			crime_id.setText(sp.getString("crime_id", "something wrong with crime_id"));
 
 			
-			
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			
 			builder.setTitle("My Preference");
@@ -1159,8 +1243,7 @@ private ArrayList<Crime> getCrimesData() {
 		}
 	}
 
-	
-	
+
 	
 	/*
 	 * helper class to contral Navigation Drawer
@@ -1215,7 +1298,6 @@ private ArrayList<Crime> getCrimesData() {
 			Location crimeloc = new Location("crimepoint");
 			crimeloc.setLatitude(crime.getLat());
 			crimeloc.setLongitude(crime.getLon());
-
 			
 			float distance1  = userloc.distanceTo(crimeloc);
 			double distance = distance1;
@@ -1227,48 +1309,6 @@ private ArrayList<Crime> getCrimesData() {
 
 	}
 	
-//	private class ReloadDataTask extends AsyncTask<Void, Integer, Integer>{
-//
-//		ProgressDialog dialog;
-//		Context context;
-//		
-//		  public ReloadDataTask(Context con) {
-//			  context=con;
-//		  }
-//			
-//		
-////		  @Override
-////		  protected void onPostExecute(Integer result) {
-////		    if(dialog != null){
-////		      dialog.dismiss();
-////		    }
-////		  }
-////		  
-////		  @Override
-////		  protected void onPreExecute() {
-////		    dialog = new ProgressDialog(context);
-////		    dialog.setTitle("Please wait");
-////		    dialog.setMessage("Uploading to the server...");
-////		    dialog.show();
-////		  }
-//
-//		@Override
-//		protected Integer doInBackground(Void... params) {
-//			
-//			
-//			getCrimesData();
-//		    // compute distance userpoistion and crimes
-//		    getDistanceFromHere(getLocation(), crimes);
-//		    //map initialise
-//		    setUpMapIfNeeded();
-//		    setbtn();
-//		    //drawer instanceate
-//		    setDrawer();
-//			
-//
-//			return 0;
-//		}  
-//		
-//	}
+
 	
 }

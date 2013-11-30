@@ -40,7 +40,7 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 		// check the latest id and if it old update
 		Log.e("sociam", "UpdateTagAsyncTask execute on!");
 
-	//	if(checkNeedUpdateTags(currentver)){
+		if(checkNeedUpdateTags(currentver)){
 			
 			HttpClient client = new DefaultHttpClient();
 		    HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/tagmanager.php");
@@ -75,7 +75,7 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 
 		    
 		    // update version in source
-		//}
+		}
 		
 		return null;
 	}

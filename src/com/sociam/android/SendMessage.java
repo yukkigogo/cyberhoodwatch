@@ -1,10 +1,6 @@
 package com.sociam.android;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-
-import android.text.format.Time;
 
 public class SendMessage {
 	
@@ -13,16 +9,11 @@ public class SendMessage {
 	String message;
 	
 	String username;
-	boolean pesudo=false;
+	boolean anonymous=true;
 	double lat,lon;
 	
 	ArrayList<Tag> tags;
-	private Time date;
 	
-	private int up_thumb=0;
-	private int down_thumb=0;
-	
-
 	
 	
 	public SendMessage() {
@@ -43,10 +34,10 @@ public class SendMessage {
 		return this.username;
 	}
 	public void setAnonymous(boolean b){
-		this.pesudo=b;
+		this.anonymous=b;
 	}
 	public boolean getAnonymous(){
-		return this.pesudo;
+		return this.anonymous;
 	}
 	public void setLatLon(double lat,double lon){
 		this.lat=lat;
@@ -62,26 +53,18 @@ public class SendMessage {
 	public ArrayList<Tag> getTagList(){
 		return this.tags;
 	}
-	public void setTime(Time t){
-		this.date=t;
-	}
-	public Time getTime(){
-		return this.date;
-	}
-	public void setUpThumb(int i){
-		this.up_thumb=i;
-	}
-	public int getUpThumb(){
-		return this.up_thumb;
-	}
-	public void setDownThumb(int i){
-		this.down_thumb=i;
-	}
-	public int getDonwThumb(){
-		return this.down_thumb;
+
+	
+
+	
+
+	public void setMsg(String str){
+		this.message=str;
 	}
 
-
+	public String getMsg(){
+		return this.message;
+	}
 
 }
 
