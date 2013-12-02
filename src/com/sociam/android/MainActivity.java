@@ -92,6 +92,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -182,7 +183,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     setDrawer();
     
     //update the tags
-    updateTags();
+     updateTags();
     }
   }
   
@@ -315,7 +316,6 @@ private void setbtn() {
   
   
   public boolean onCreateOptionsMenu(Menu menu) {
-  	// TODO Auto-generated method stub
   	MenuInflater inflater = getMenuInflater();
   	inflater.inflate(R.menu.main, menu);
   	
@@ -529,13 +529,14 @@ private void setbtn() {
 					Log.e("sociam", Integer.toString(diff));
 					amaker = mMap.addMarker(new MarkerOptions()
 					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.incident_red))
 					.title(Integer.toString(i))
 					.snippet(crimes.get(i).getFilepath()));		
 				}else{
 					amaker = mMap.addMarker(new MarkerOptions()
 					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 					.title(Integer.toString(i))
-					.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
+					.icon(BitmapDescriptorFactory.fromResource(R.drawable.incident_yellow))
 					.snippet(crimes.get(i).getFilepath()));		
 				}	
 				
@@ -543,7 +544,7 @@ private void setbtn() {
 				amaker = mMap.addMarker(new MarkerOptions()
 				.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 				.title(Integer.toString(i))
-				.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.incident_blue))
 				.snippet(crimes.get(i).getFilepath()));		
 				
 			}
@@ -734,7 +735,7 @@ private ArrayList<Crime> getCrimesData() {
 	
 
   private HashMap<Marker,RecieveMessage> getMessagesAndMarker() {
-		ArrayList<RecieveMessage> ary = new ArrayList<RecieveMessage>();
+		//ArrayList<RecieveMessage> ary = new ArrayList<RecieveMessage>();
 		HashMap<Marker,RecieveMessage> msg_maker_hash = new HashMap<Marker, RecieveMessage>();
 		
 		String response = getData(1);
@@ -760,7 +761,8 @@ private ArrayList<Crime> getCrimesData() {
 				r_msg.setLat(Double.parseDouble(str[3]));
 				r_msg.setLng(Double.parseDouble(str[4]));
 				r_msg.setTime(new Time(str[5]));
-				r_msg.setMsg(str[6]);
+				String msgtext = str[6].replaceAll("\"", "");
+				r_msg.setMsg(msgtext);
 				r_msg.setUpThumb(Integer.parseInt(str[8]));
 				r_msg.setDownThumb(Integer.parseInt(str[9]));
 				
@@ -775,13 +777,13 @@ private ArrayList<Crime> getCrimesData() {
 							tag_m	= new Tag(tagcate[0], "");
 							if(usertags.containsKey(tagcate[0]) &&
 									usertags.get(tagcate[0]).equals(""))
-								tag_m.setUserSetting(true);
+									tag_m.setUserSetting(true);
 
 						}else{
 							tag_m = new Tag(tagcate[0],tagcate[1]);	
 							if(usertags.containsKey(tagcate[0]) &&
 									usertags.get(tagcate[0]).equals(tagcate[1]))
-								tag_m.setUserSetting(true);
+									tag_m.setUserSetting(true);
 							
 						}							
 						r_msg.addTag(tag_m);
@@ -904,6 +906,7 @@ private ArrayList<Crime> getCrimesData() {
 	/*
 	 * InfoWindow Customise
 	 */
+	@SuppressLint("ResourceAsColor")
 	private class CustomInfoAdapter implements InfoWindowAdapter{
 		
 		private  View mWindow;
@@ -926,20 +929,48 @@ private ArrayList<Crime> getCrimesData() {
 				RecieveMessage rm = msg_maker_hash.get(maker);
 				
 				Log.e("sociam","koko de nanika suru");
+				
+			
+				
+				for(Marker marker : msg_maker_hash.keySet()){
+					if(marker!=maker)
+					marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n));
+				}
+				
+				maker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
+
+				LinearLayout layout = (LinearLayout) findViewById(R.id.message_screen);
+				layout.setBackgroundColor(R.color.half_black);
+				
+				TextView tx = (TextView) findViewById(R.id.msg_text);
+				tx.setTypeface(dapp.getTypefaceRobothin());
+				tx.setText(rm.getMsg());
+				
+				TextView tx_user = (TextView) findViewById(R.id.msg_username);
+				tx_user.setTypeface(dapp.getTypefaceRobothin());
+				tx_user.setText(rm.getUser()+ " says...");
+				
+				
+				
+				
+// wasn't good idea				
 //				View v = getLayoutInflater().inflate(R.layout.toast_4_msg, 
 //						(ViewGroup) findViewById(R.id.toast_layout_root));
 //				TextView text = (TextView) v.findViewById(R.id.toast_4_msg_text);
 //				text.setText(rm.getMsg());
 //				
 //				Toast toast = new Toast(getApplicationContext());
-//				toast.setGravity(Gravity.TOP, 10, 10);
+//				toast.setGravity(Gravity.TOP, 100, 100);
 //				toast.setDuration(Toast.LENGTH_LONG);
 //				toast.setView(v);
 //				toast.show();
-				
+//				
+
 				return null;
+
 			}
-		}
+
+			}
 		
 		
 		private void render(Marker maker, View view) {

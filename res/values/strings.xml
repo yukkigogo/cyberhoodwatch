@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CyberHoodWatch</string>
+    <string name="app_name">CyberHood Watch</string>
     
     <string name="action_settings">Participant Information</string>
     <string name="action_consentform">Consent Form</string>

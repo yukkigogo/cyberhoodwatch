@@ -3,6 +3,7 @@ package com.sociam.android;
 import java.util.HashMap;
 
 import android.app.Application;
+import android.graphics.Typeface;
 
 public class DataApplication extends Application {
 	
@@ -27,6 +28,12 @@ public class DataApplication extends Application {
 	
 	public HashMap<String,String> getTagMap4User(){
 		return this.tagMap;
+	}
+
+	public Typeface getTypefaceRobothin() {
+		Typeface robothin =  Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
+		
+		return robothin;
 	}
 	
 	

@@ -6,16 +6,16 @@ import android.text.format.Time;
 
 public class RecieveMessage {
 
-	int id;
-	String message;	
-	String username;
-	int id_code;
-	boolean anonymous;
-	double lat,lon;
-	Time datetime;
-	ArrayList<Tag> tags;
-	int up_thumb;
-	int down_thumb;
+	private int id;
+	private String message;	
+	private String username;
+	private int id_code;
+	//private boolean anonymous;
+	private double lat,lon;
+	private Time datetime;
+	private ArrayList<Tag> tags;
+	private int up_thumb;
+	private int down_thumb;
 
 	
 	
@@ -61,13 +61,13 @@ public class RecieveMessage {
 		return this.datetime;
 	}
 	
-	public void setAnonymity(boolean b){
-		this.anonymous=b;
-	}
-
-	public boolean getAnonymity(){
-		return this.anonymous;
-	}
+//	public void setAnonymity(boolean b){
+//		this.anonymous=b;
+//	}
+//
+//	public boolean getAnonymity(){
+//		return this.anonymous;
+//	}
 	
 	public void setLat(double l){
 		this.lat=l;

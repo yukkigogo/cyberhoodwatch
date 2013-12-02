@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class SendMessage {
 	
-	int id;
+	private int id;
 	
-	String message;
+	private String message;
 	
-	String username;
-	boolean anonymous=true;
-	double lat,lon;
+	private String username;
+	private boolean anonymous=true;
+	private double lat,lon;
 	
-	ArrayList<Tag> tags;
+	private ArrayList<Tag> tags;
 	
 	
 	
