@@ -130,8 +130,6 @@ public class SummaryListFragment extends ListFragment {
 	
 	
 	
-	
-	
 
 	@SuppressLint("ValidFragment")
 	private class PictureAlertDialogFragment extends DialogFragment{
