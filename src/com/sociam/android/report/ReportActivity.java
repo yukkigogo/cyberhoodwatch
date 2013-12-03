@@ -25,6 +25,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.sociam.android.Crime;
+import com.sociam.android.DataApplication;
 import com.sociam.android.Persons;
 import com.sociam.android.R;
 
@@ -43,14 +44,14 @@ import com.sociam.android.R;
 @SuppressLint("NewApi")
 public class ReportActivity extends FragmentActivity implements LocationListener{
 	// PAGE_COUNT - 1
-	public static final int SUMMARY_FRAG_NUM = 6; 
+	public static final int SUMMARY_FRAG_NUM = 8; 
 	
 	// store crime data
 	private Crime crime;
 	private Persons suspects,victims;
 	private MyFragmentStatePagerAdapter myAdapter;
 	ViewPager pager;
-	Button[] btns = new Button[7];
+	Button[] btns = new Button[9];
 	
 	SharedPreferences sp;
 	Time now;
@@ -73,6 +74,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	//
 	ArrayAdapter<String> adapter; 
 	
+	DataApplication dapp;
 	
 	
 	@Override
@@ -89,6 +91,8 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		
 		sp = PreferenceManager.getDefaultSharedPreferences(this);;
 		  Log.w("sociam"," coommmooonnn !!  "+ sp.getString("uuid", "something problem with uuid"));
+		
+		dapp = (DataApplication) this.getApplication();
 
 		initSet();
 		getLocation();
@@ -131,10 +135,15 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 			public void onPageSelected(int position) {
 				switch(position){
 				case 0: setBtnInFooter(0);
+				break;
+				case 1: setBtnInFooter(1);
+				break;
+		
+				case 2: setBtnInFooter(2);
 						break;
-				case 1:	setBtnInFooter(1);
+				case 3:	setBtnInFooter(3);
 						break;	
-				case 2:	setBtnInFooter(2);
+				case 4:	setBtnInFooter(4);
 						initFrag3Button();
 						setTexts();
 						if(crime.getCat2Def()){
@@ -144,38 +153,19 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 							crime.setCategoryText("");
 						}						
 						break;						
-				case 3:	setBtnInFooter(3);
-						break;
-				case 4:	setBtnInFooter(4);
-						break;		
 				case 5:	setBtnInFooter(5);
-						break;		
+						break;
 				case 6:	setBtnInFooter(6);
 						break;		
-//				case 7:	setBtnInFooter(2);
-//						break;		
-//				case 8:	setBtnInFooter(2);
-//						break;		
-//				case 9:	setBtnInFooter(3);
-//						break;		
-//				case 10:setBtnInFooter(3);
-//						break;		
-//				case 11:setBtnInFooter(3);
-//						break;
-//				case 12:setBtnInFooter(3);
-//					break;		
-//				case 13:setBtnInFooter(3);
-//						break;		
-//				case 14:setBtnInFooter(3);
-//						break;		
-//				case 15:setBtnInFooter(4);
-//						break;		
-//				case 16:setBtnInFooter(5);
-//						break;		
-//				case 17:setBtnInFooter(6);
-//						break;		
-//				case 18:setBtnInFooter(7);
-//						break;		
+				case 7:	setBtnInFooter(7);
+						break;		
+				case 8:	setBtnInFooter(8);
+						break;		
+						
+				default : 
+					setBtnInFooter(6);
+					break;
+					
 
 						
 				}
@@ -240,7 +230,9 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		btns[4] = (Button) findViewById(R.id.btn4);
 		btns[5] = (Button) findViewById(R.id.btn5);
 		btns[6] = (Button) findViewById(R.id.btn6);
-//		btns[7] = (Button) findViewById(R.id.btn7);		
+		btns[7] = (Button) findViewById(R.id.btn7);		
+		btns[8] = (Button) findViewById(R.id.btn8);		
+
 		setBtnInFooter(0);
 		
 
@@ -468,7 +460,9 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		
 	}
 	
-	
+	public DataApplication getDataApplication(){
+		return this.dapp;
+	}
 	
 	
 }

@@ -360,8 +360,7 @@ public class ReportLocation extends Fragment {
 								btn4.setChecked(false);
 								((ReportActivity) getActivity()).setAdapter();
 
-								Log.v("sociam", "BTN NOW");
-								//pager.setCurrentItem(pager.getCurrentItem()+1);
+								pager.setCurrentItem(pager.getCurrentItem()+1);
 
 								break;
 

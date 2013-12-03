@@ -107,11 +107,18 @@ public class SummaryListFragment extends ListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
-		Log.w("sociam","list clickkkkkk  "+position);
+		Log.w("sociam","list clickkkkkk  "+ getListAdapter().getItem(position));
+		
+		
+		
 		switch (position) {
 		case 0:
-			PictureAlertDialogFragment padf = new PictureAlertDialogFragment();
-			padf.show(getActivity().getSupportFragmentManager(), "sociam");
+			if(getListAdapter().getItem(position).equals("Picture : No")){
+				
+			}else{
+				PictureAlertDialogFragment padf = new PictureAlertDialogFragment();
+				padf.show(getActivity().getSupportFragmentManager(), "sociam");
+			}
 			break;
 			
 		default:

@@ -57,13 +57,17 @@
       
 
 
-<!--       <Button
+       <Button
           android:id="@+id/btn7"
           android:layout_width="20dp"
           android:layout_height="20dp"
           android:layout_toRightOf="@+id/btn6" /> 
- -->
-
+ 
+ 	<Button
+          android:id="@+id/btn8"
+          android:layout_width="20dp"
+          android:layout_height="20dp"
+          android:layout_toRightOf="@+id/btn7" /> 
 
   
       

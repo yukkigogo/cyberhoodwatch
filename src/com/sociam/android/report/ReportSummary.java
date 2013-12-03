@@ -62,9 +62,6 @@ public class ReportSummary extends Fragment {
 			setBtn(view);
 			getID();
 			Log.v("sociam", "creating report summary");
-//		}catch (InflateException e){
-//			Log.e("sociam", "this is error from list!!! "+e.getMessage());
-//		}
 
 		
 		

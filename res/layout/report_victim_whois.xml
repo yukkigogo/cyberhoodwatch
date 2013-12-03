@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/black">
+
+    <ToggleButton
+        android:id="@+id/report_victim_btn2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="I Saw Somthing" 
+        android:textOn="I Saw Somthing" 
+        android:textOff="I Saw Somthing" 
+        android:background="@drawable/toggle_btn_general_colour"
+        android:textColor="@color/white"/>
+
+    <ToggleButton
+        android:id="@+id/report_victim_btn1"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/report_victim_btn2"
+        android:layout_alignLeft="@+id/report_victim_btn2"
+        android:layout_marginBottom="44dp"
+        android:text="Somthing Happen to Me"
+        android:textOn="Somthing Happen to Me"
+        android:textOff="Somthing Happen to Me"
+        android:background="@drawable/toggle_btn_general_colour"
+
+        android:textColor="@color/white" />
+
+    <ToggleButton
+        android:id="@+id/report_victim_btn3"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/report_victim_btn2"
+        android:layout_below="@+id/report_victim_btn2"
+        android:layout_marginTop="44dp"
+        android:text="I Need Help" 
+        android:textOff="I Need Help" 
+        android:textOn="I Need Help" 
+
+        android:background="@drawable/toggle_btn_general_colour"        
+        android:textColor="@color/white"/>
+
+</RelativeLayout>

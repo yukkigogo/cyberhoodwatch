@@ -65,11 +65,7 @@ public class ReportEvidence extends Fragment {
 	
 	Crime currentCrime;
 	
-//	//for obtaining location
-//	protected LocationManager locationManager;
-//	protected LocationListener locationListener;
-//	protected Context context;
-//	protected Double latitude,longitude; 
+
 	
 	
 	@Override
@@ -135,31 +131,12 @@ public class ReportEvidence extends Fragment {
 		btn2.setOnClickListener(new OnClickListener() {			
 			@Override
 			public void onClick(View v) {
-				new AlertDialog.Builder(getActivity())
-				.setIcon(android.R.drawable.ic_dialog_info)
-				.setTitle("Call Police ?")
-				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-					
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Toast.makeText(getActivity(), "not functioning in beta version "
-								, Toast.LENGTH_LONG).show();
-					}
-				}).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {						
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						// Do nothing
-						}
-				}).show();
+				pager =(ViewPager) getActivity().findViewById(R.id.pager);
+				pager.setCurrentItem(pager.getCurrentItem()+1);
 			}
 		});
 		
 	}
-
-//	private void setToggleListeners(final ToggleButton btn, final int num){
-//		
-//	}
-//	
 	
 	
 	private void setListenersInEvi(final Button btn, final int type){
@@ -173,7 +150,7 @@ public class ReportEvidence extends Fragment {
 					Log.e("sociam","push the button");
 					pager =(ViewPager) getActivity().findViewById(R.id.pager);
 					
-					pager.setCurrentItem(pager.getCurrentItem()+1);
+					pager.setCurrentItem(pager.getCurrentItem()-1);
 					break;
 				case 99:
 					((ReportActivity) getActivity()).setAdapter();
