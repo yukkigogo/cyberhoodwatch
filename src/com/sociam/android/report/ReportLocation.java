@@ -244,8 +244,8 @@ public class ReportLocation extends Fragment {
 														, Toast.LENGTH_LONG).show();	
 											}else{	
 												
-												currentCrime.setLat(latlng.latitude);
-												currentCrime.setLon(latlng.longitude);
+												currentCrime.setLat(m.getPosition().latitude);
+												currentCrime.setLon(m.getPosition().longitude);
 												
 												Fragment f = (Fragment) getFragmentManager().findFragmentById(R.id.map2);
 												if(f != null)

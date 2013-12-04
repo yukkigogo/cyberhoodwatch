@@ -110,7 +110,6 @@ public class ReportEvidence extends Fragment {
 		
 		btn1 = (Button) getActivity().findViewById(R.id.evi_right);
 		btn2 = (Button) getActivity().findViewById(R.id.evi_left);
-		//imageView1 = (ImageView) getActivity().findViewById(R.id.imageView1);
 		setListeners();		
 
 		
@@ -123,8 +122,8 @@ public class ReportEvidence extends Fragment {
 				
 				// take picture get location 
 				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				//getLocation();
 				startActivityForResult(intent,REQUEST_CAPTURE_IMAGE);
+				
 			}
 		});
 		
@@ -167,20 +166,6 @@ public class ReportEvidence extends Fragment {
 	}
 	
 	
-//	public void getLocation(){
-//		
-//		// obtain location
-//		locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-//		Log.v("sociam", "GPS "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
-//		Log.v("sociam", "NETWORK "+locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
-//
-//		
-//		List<String> allProvider =  locationManager.getAllProviders();
-//        for(int i = 0 ; i < allProvider.size() ; i++){
-//            locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,this);
-//        }
-//		
-//	}
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(REQUEST_CAPTURE_IMAGE == requestCode && resultCode == Activity.RESULT_OK ){
@@ -196,53 +181,13 @@ public class ReportEvidence extends Fragment {
 				e.printStackTrace();
 			}
 			
-			// create button
-			//button2 = new ImageButton(getActivity());
-			//button2.setImageResource(R.drawable.uploadicon);
-			// add button to layout
-			//FrameLayout layout =(FrameLayout) getActivity().findViewById(R.id.framelayout);
-//			layout.addView(button2, new FrameLayout.LayoutParams(
-//					FrameLayout.LayoutParams.WRAP_CONTENT,FrameLayout.LayoutParams.WRAP_CONTENT
-//					,Gravity.BOTTOM | Gravity.CENTER));
-//			
-			//setListeners2();	
 		}
+		pager.setCurrentItem(pager.getCurrentItem()+1);
 	}
 
 	
 	
 	
-//	protected void setListeners2(){		
-//		button2.setOnClickListener(new OnClickListener(){
-//			
-//			@Override
-//			public void onClick(View v) {
-//				
-//				File file = null;
-//
-//				file = Environment.getExternalStorageDirectory();
-//				Log.v("datas", file.getPath());    
-//				
-//	            // get current location
-//				if(latitude==null || longitude==null){
-//
-//				
-//				}else{
-//					Log.v("sociam", "lat "+latitude.toString());
-//					Log.v("sociam", "Lon"+longitude.toString());				
-//					UploadAsyncTask upload = (UploadAsyncTask) new UploadAsyncTask(
-//						getActivity()).execute(Environment.getExternalStorageDirectory().getPath()+SAVE_DIR+fileName
-//								,latitude.toString(),longitude.toString());
-//				
-//				}
-//				
-//				
-//	            
-//				
-//			}
-//		});		
-//		
-//	}
 
 	
 	public void saveBitmap(Bitmap saveImage) throws IOException{
@@ -291,28 +236,6 @@ public class ReportEvidence extends Fragment {
 	    contentResolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
 	    
 	}
-	
-//	// for location manager
-//	@Override
-//	public void onLocationChanged(Location location) {
-//			latitude = location.getLatitude();
-//			longitude = location.getLongitude();
-//		
-//			Log.v("sociam", "Lat "+latitude + "   Lon "+longitude);
-//	}
-//	
-//	@Override
-//	public void onProviderDisabled(String provider) {
-//		// TODO Auto-generated method stub		
-//	}
-//	@Override
-//	public void onProviderEnabled(String provider) {
-//		// TODO Auto-generated method stub		
-//	}
-//	@Override
-//	public void onStatusChanged(String provider, int status, Bundle extras) {
-//		// TODO Auto-generated method stub		
-//	}
 
 	
 	

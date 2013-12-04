@@ -16,28 +16,19 @@
       
   
      <TextView
-        android:id="@+id/view_category"
+        android:id="@+id/view_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@android:color/white"
         android:paddingLeft="8dp"
-        android:textStyle="bold"
         android:layout_gravity="left"/>  
      
-<!--      <TextView
-        android:id="@+id/view_cat_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@android:style/TextAppearance.Small"
-		android:layout_gravity="left"
-		android:paddingLeft="8dp"        
-        android:textColor="@android:color/white"
-        />   -->
+
      
       
      
     <TextView
-        android:id="@+id/view_date"
+        android:id="@+id/view_datetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
@@ -47,33 +38,65 @@
         android:layout_gravity="left"/>
  
     <TextView
-        android:id="@+id/view_time"
+        android:id="@+id/view_category"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textStyle="bold"
         android:paddingLeft="8dp"
         android:textColor="@android:color/white"
+       android:textAppearance="?android:attr/textAppearanceMedium"  
         android:layout_gravity="left"/>
 
+      
+      <LinearLayout 
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="horizontal"
+	    android:layout_marginBottom="30dp"
+	   >
+	   
+     <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:paddingLeft="70dp"
+        /> 
+          
+         <ImageView 
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+             android:layout_weight="1"
+             android:adjustViewBounds="true"
+             android:paddingLeft="5dp"           
+             android:src="@drawable/thumb_up"/>   
+            
      <TextView
         android:id="@+id/view_trust"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
+        android:layout_weight="1"
+            android:paddingLeft="5dp"           
         android:textColor="@android:color/white"
-        android:layout_gravity="left"/>
-    
+        />
+
+           <ImageView 
+             android:layout_width="0dp"
+             android:layout_height="wrap_content"
+            android:layout_weight="1"         
+             android:adjustViewBounds="true"
+                         android:paddingLeft="5dp"           
+             android:src="@drawable/thumb_down"/>   
+     
      <TextView
         android:id="@+id/view_distrust"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="8dp"
-        android:paddingBottom="30dp"
+        android:layout_weight="1"
+                    android:paddingLeft="5dp"           
         android:textColor="@android:color/white"
-        android:layout_gravity="left"/>
+        />
      
     
-     
+     </LinearLayout>
      
   
     

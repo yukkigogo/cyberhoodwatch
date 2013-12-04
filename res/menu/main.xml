@@ -32,10 +32,10 @@
 		android:showAsAction="always"
 		android:icon="@android:drawable/ic_menu_mapmode"/>	     
      <!-- Reload button -->
-      <item
+       <item
           android:id="@+id/menu_reload"
           android:showAsAction="always"
           android:icon="@drawable/ic_menu_sync"
-          />
+          /> 
           
 </menu>

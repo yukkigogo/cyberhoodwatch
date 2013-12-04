@@ -71,9 +71,10 @@ public class ReportHappenWho extends Fragment {
 								if(i!=num) btns[i].setChecked(false);
 							}
 							
-							pager.setCurrentItem(pager.getCurrentItem()+1);
-
-							
+							if(num!=0)
+							   pager.setCurrentItem(pager.getCurrentItem()+1);
+							else
+								pager.setCurrentItem(pager.getCurrentItem()+2);
 						}else if(!isChecked){
 							
 						}

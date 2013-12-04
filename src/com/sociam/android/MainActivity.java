@@ -55,6 +55,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -207,7 +208,7 @@ private void setDrawer() {
 	 // Collections.reverse(crimes);
 	  sortedCrimesDis = new ArrayList<Crime>(crimes);
 	  Collections.sort(sortedCrimesDis);
-	  DrawerAdapter mAdapter = new DrawerAdapter(this,0, sortedCrimesDis);
+	  DrawerAdapter mAdapter = new DrawerAdapter(this,0, sortedCrimesDis,dapp);
 	  
 	 
 	  
@@ -248,6 +249,7 @@ private void setDrawer() {
   /*
    * Helper function for nativation drawer
    */
+
   @Override
   protected void onPostCreate(Bundle savedInstanceState) {
       super.onPostCreate(savedInstanceState);
@@ -378,10 +380,10 @@ private void setbtn() {
 	  				change3Dview(mMap.getCameraPosition().target);
 	  			}
 	  			break;
-	  			
-	  		case R.id.menu_reload:
-	  			reloadData();	
-	  			break;
+//	  			
+//	  		case R.id.menu_reload:
+//	  			reloadData();	
+//	  			break;
 	  		
 	  	
 	  }
@@ -911,6 +913,11 @@ private ArrayList<Crime> getCrimesData() {
 		
 		private  View mWindow;
 		
+		TextView tx_msg ;
+		TextView tx_user ;
+		LinearLayout layout;
+		
+		
 		public CustomInfoAdapter() {
 			mWindow = getLayoutInflater().inflate(R.layout.info_window, null);
 		}
@@ -923,8 +930,17 @@ private ArrayList<Crime> getCrimesData() {
 		@Override
 		public View getInfoWindow(Marker maker) {
 			if(maker.getTitle()!=null){
+				
+				if(tx_msg!=null){
+					tx_msg.setText("");
+					tx_user.setText("");
+					layout.setBackgroundColor(Color.TRANSPARENT);
+				}
+				
 				render(maker,mWindow);
+				
 				return mWindow;
+				
 			}else{
 				RecieveMessage rm = msg_maker_hash.get(maker);
 				
@@ -939,32 +955,18 @@ private ArrayList<Crime> getCrimesData() {
 				
 				maker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
 
-				LinearLayout layout = (LinearLayout) findViewById(R.id.message_screen);
+				layout = (LinearLayout) findViewById(R.id.message_screen);
 				layout.setBackgroundColor(R.color.half_black);
 				
-				TextView tx = (TextView) findViewById(R.id.msg_text);
-				tx.setTypeface(dapp.getTypefaceRobothin());
-				tx.setText(rm.getMsg());
+				tx_msg = (TextView) findViewById(R.id.msg_text);
+				tx_msg.setTypeface(dapp.getTypefaceRobothin());
+				tx_msg.setText(rm.getMsg());
 				
-				TextView tx_user = (TextView) findViewById(R.id.msg_username);
+				tx_user = (TextView) findViewById(R.id.msg_username);
 				tx_user.setTypeface(dapp.getTypefaceRobothin());
 				tx_user.setText(rm.getUser()+ " says...");
 				
 				
-				
-				
-// wasn't good idea				
-//				View v = getLayoutInflater().inflate(R.layout.toast_4_msg, 
-//						(ViewGroup) findViewById(R.id.toast_layout_root));
-//				TextView text = (TextView) v.findViewById(R.id.toast_4_msg_text);
-//				text.setText(rm.getMsg());
-//				
-//				Toast toast = new Toast(getApplicationContext());
-//				toast.setGravity(Gravity.TOP, 100, 100);
-//				toast.setDuration(Toast.LENGTH_LONG);
-//				toast.setView(v);
-//				toast.show();
-//				
 
 				return null;
 
@@ -975,26 +977,35 @@ private ArrayList<Crime> getCrimesData() {
 		
 		private void render(Marker maker, View view) {
 			
-			TextView category = (TextView) view.findViewById(R.id.view_category);
+			TextView category = (TextView) view.findViewById(R.id.view_name);
 			//TextView cate_text = (TextView) view.findViewById(R.id.view_cat_detail);
-			TextView date = (TextView) view.findViewById(R.id.view_date);
-			TextView time = (TextView) view.findViewById(R.id.view_time);
+			TextView date = (TextView) view.findViewById(R.id.view_datetime);
+			TextView time = (TextView) view.findViewById(R.id.view_category);
 			TextView trust = (TextView) view.findViewById(R.id.view_trust);
 			TextView distrust = (TextView) view.findViewById(R.id.view_distrust);
+			
+			
+			
 			//ImageView imageView = (ImageView) view.findViewById(R.id.view_picture);
 			
 			int i = Integer.parseInt(maker.getTitle());
 			Calendar cal = crimes.get(i).getCal();
-			SimpleDateFormat date_format = new SimpleDateFormat("d MMM yyyy");
-			SimpleDateFormat time_format = new SimpleDateFormat("HH:mm:ss");
+			SimpleDateFormat date_format = new SimpleDateFormat("d MMM ");
+			SimpleDateFormat time_format = new SimpleDateFormat("HH:mm");
 			
 						
-			category.setText("Category : "+crimes.get(i).getCategory());
+			category.setText("Anonymous reported...");
+			category.setTypeface(dapp.getTypefaceRobothin());
 			//cate_text.setText(crimes.get(i).getCategoryText());
-			date.setText("Date : "+date_format.format(cal.getTime()));
-			time.setText("Time : "+ time_format.format(cal.getTime()));
-			trust.setText("trust : "+crimes.get(i).getUpThumbs());
-			distrust.setText("distrust : "+crimes.get(i).getDownThumb());
+			
+			date.setText(date_format.format(cal.getTime())+" "+time_format.format(cal.getTime()));
+			date.setTypeface(dapp.getTypefaceRobothin());
+			
+			time.setText(crimes.get(i).getCategory());
+			time.setTypeface(dapp.getTypefaceRobothin());
+			
+			trust.setText(Integer.toString(crimes.get(i).getUpThumbs()));
+			distrust.setText(Integer.toString(crimes.get(i).getDownThumb()));
 			
 			Log.v("sociam", "show the filepath "+ crimes.get(i).getFilepath());
 			
@@ -1103,16 +1114,16 @@ private ArrayList<Crime> getCrimesData() {
 		private ArrayList<String> getDetails(Crime crime) {
 			
 			ArrayList<String> str = new ArrayList<String>();
-			 str.add("Category : "+crime.getCategory());
+			 str.add(crime.getCategory());
 			 if(crime.getisCategoryText()) str.add(crime.getCategoryText());
 			 if(crime.getIsAddress()) str.add("Address : "+crime.getAddress());
 			 
 			 	Calendar cal = crime.getCal();
-				SimpleDateFormat date_format = new SimpleDateFormat("d MMM yyyy");
-				SimpleDateFormat time_format = new SimpleDateFormat("HH:mm:ss");
+				SimpleDateFormat date_format = new SimpleDateFormat("d MMM");
+				SimpleDateFormat time_format = new SimpleDateFormat("HH:mm");
 			 
-			 str.add("Date : "+ date_format.format(cal.getTime()));
-			 str.add("Time : "+ time_format.format(cal.getTime()));
+			 str.add(date_format.format(cal.getTime()) +" "+ time_format.format(cal.getTime()));
+			 //str.add("Time : "+ time_format.format(cal.getTime()));
 			 if(crime.getIsAddress()) str.add(crime.getDateText());
 			 
 			 switch (crime.getSeverity()){
@@ -1131,8 +1142,9 @@ private ArrayList<Crime> getCrimesData() {
 				break;
 			 }
 			 
-			 str.add("Trust Level : "+crime.getUpThumbs());
-			 str.add("DisTrust Level : "+crime.getDownThumb());
+			 //TODO  change nice interface later
+			 str.add("Up votes: "+crime.getUpThumbs());
+			 str.add("Down votes : "+crime.getDownThumb());
 			
 			return str;
 		}
@@ -1168,7 +1180,7 @@ private ArrayList<Crime> getCrimesData() {
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 			builder.setTitle("Evaluate the Incident");
-			builder.setNegativeButton("TRUST", new DialogInterface.OnClickListener() {
+			builder.setNegativeButton("Up Vote", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
@@ -1181,7 +1193,7 @@ private ArrayList<Crime> getCrimesData() {
 				}
 			});
 			
-			builder.setNeutralButton("DISTRUST", new DialogInterface.OnClickListener() {
+			builder.setNeutralButton("Down Vote", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {

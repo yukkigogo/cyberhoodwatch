@@ -23,9 +23,11 @@ public class DrawerAdapter extends ArrayAdapter<Crime>{
 	private LayoutInflater mLayoutInflater;
 	private Location userposition;
 	private Context mContext;
+	private DataApplication dapp;
 	
-	public DrawerAdapter(Context context, int textViewResourceId, List<Crime> crime) {
+	public DrawerAdapter(Context context, int textViewResourceId, List<Crime> crime, DataApplication dap) {
 		super(context, textViewResourceId,crime);
+		dapp = dap;
 		mLayoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);		
 		mContext = context;
 	}
@@ -51,11 +53,13 @@ public class DrawerAdapter extends ArrayAdapter<Crime>{
 		Calendar cal = crime.getCal();
 		
 		String hourmin=null;
-		SimpleDateFormat time_format = new SimpleDateFormat("HH:mm:ss");
+		SimpleDateFormat time_format = new SimpleDateFormat("HH:mm");
 		hourmin= time_format.format(cal.getTime());
 		
 		TextView hourminV = (TextView) convertView.findViewById(R.id.drawer_time);
+		hourminV.setTypeface(dapp.getTypefaceRobothin());
 		hourminV.setText(hourmin);
+		
 		
 		String date=null;
 		if(cal.get(Calendar.YEAR)==MainActivity.rightNow.get(Calendar.YEAR) && 
@@ -63,13 +67,14 @@ public class DrawerAdapter extends ArrayAdapter<Crime>{
 				cal.get(Calendar.DATE)==MainActivity.rightNow.get(Calendar.DATE)){
 			date = "Today";
 		}else{			
-			SimpleDateFormat date_format = new SimpleDateFormat("d MMM yyyy");
+			SimpleDateFormat date_format = new SimpleDateFormat("d MMM ");
 			date = date_format.format(cal.getTime());
 		}
 					
 			
 		TextView dateV = (TextView) convertView.findViewById(R.id.drawer_date);
 		dateV.setText(date);
+		dateV.setTypeface(dapp.getTypefaceRobothin());
 		
 		
 		// distance		
@@ -77,6 +82,7 @@ public class DrawerAdapter extends ArrayAdapter<Crime>{
 		
 		TextView disV = (TextView) convertView.findViewById(R.id.drawer_distance);
 		disV.setText(dis+" miles from here");
+		disV.setTypeface(dapp.getTypefaceRobothin());
 		
 		
 		return convertView;
