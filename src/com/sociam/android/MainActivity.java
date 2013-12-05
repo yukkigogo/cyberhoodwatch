@@ -104,30 +104,31 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 												OnInfoWindowClickListener{
   
 	private GoogleMap mMap;
+	protected Context context;
+	private SharedPreferences sp; 
+	private DataApplication dapp;
+
+	
+	// Crime data
 	private ArrayList<Crime> crimes;
 	private ArrayList<Crime> sortedCrimesDis;
 	private ArrayList<Marker> markers;
 	private HashMap<Integer,Marker> mapMarkers;
 
 	// for messaging system
-	private ArrayList<Marker> msg_markers;
-	private ArrayList<RecieveMessage> msg;
-	private TextView messagebox;
 	private HashMap<Marker, RecieveMessage> msg_maker_hash;
 	
-	private Location location;
-	
+	//Location
+	private static final int ONE_MINUTES = 1000 * 60 * 1;
+	private Location currentBestlocation;
 	protected LocationManager locationManager;
-	protected LocationListener locationListener;
-	protected Context context;
+	//protected LocationListener locationListener;
 	private boolean oldlocation=false;
 	private LatLng latlng;
 	private int mapmode=0;
 	private double lat1;
 	private double lon1;
 
-	
-	SharedPreferences sp; 
 	
 	//drawer
 	private DrawerLayout mDrawerLayout;
@@ -138,7 +139,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	public static final Calendar rightNow = Calendar.getInstance();
 	
 	
-	DataApplication dapp;
 
 	
   @Override
@@ -164,9 +164,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     setMyLocationManager();
     // obtain map data from the server
     getCrimesData();
-    
- 
-    
     
     
     // compute distance userpoistion and crimes
@@ -290,12 +287,6 @@ private void setbtn() {
 			intent.putExtra("lon", latlng.longitude);
 			startActivity(intent);
 			
-//			android.support.v4.app.FragmentManager manager = getSupportFragmentManager();
-//  			FragmentTransaction tx = manager.beginTransaction();
-//  			tx.addToBackStack("message")
-//  			.replace(android.R.id.content, new MessageFragment())
-//  			.commit();
-//			
 		}
 	});
   }
@@ -365,8 +356,8 @@ private void setbtn() {
 	  		case R.id.menu_3d:
 	  			if(mapmode==0 || mapmode==1){
 		  			if(mapmode==0){
-		  				location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-		  				latlng = new LatLng(location.getLatitude(), location.getLongitude());
+		  				currentBestlocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		  				latlng = new LatLng(currentBestlocation.getLatitude(), currentBestlocation.getLongitude());
 		  			}
 	  				
 		  			LatLng latlngnow = mMap.getCameraPosition().target;
@@ -380,10 +371,6 @@ private void setbtn() {
 	  				change3Dview(mMap.getCameraPosition().target);
 	  			}
 	  			break;
-//	  			
-//	  		case R.id.menu_reload:
-//	  			reloadData();	
-//	  			break;
 	  		
 	  	
 	  }
@@ -565,9 +552,9 @@ private void setbtn() {
 
   private void setLatestLatLon(){
 		    	
-		    if(location!=null){	
-		    	lat1 = location.getLatitude();
-		    	lon1 = location.getLongitude();
+		    if(currentBestlocation!=null){	
+		    	lat1 = currentBestlocation.getLatitude();
+		    	lon1 = currentBestlocation.getLongitude();
 		    }else{
 		    	Location lastknown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 		    	lat1 = lastknown.getLatitude();
@@ -827,7 +814,7 @@ private ArrayList<Crime> getCrimesData() {
 			public void onClick(DialogInterface dialog, int which) {
 				Log.w("sociam", "Internet is not working");
 		        finish();
-		        Process.killProcess(Process.myPid());
+		        //Process.killProcess(Process.myPid());
 			}
 		});
 		alb.setCancelable(true);
@@ -854,19 +841,16 @@ private ArrayList<Crime> getCrimesData() {
 
 	 
 	/*
-	 * 
-	 * android.location.LocationListener#onLocationChanged(android.location.Location)
+	 * Location Listener implementations 
 	 */
 	@Override
 	public void onLocationChanged(Location location) {
-		this.location = location;
+		
+		currentBestlocation = location;
 		
 		// obtain the current position and move to the place
-		latlng = new LatLng(location.getLatitude(), location.getLongitude());
+		latlng = new LatLng(currentBestlocation.getLatitude(), currentBestlocation.getLongitude());
 		
-//		CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
-//		mMap.animateCamera(cameraUpdate);		
-//		latlng = new LatLng(51.510016,-0.13516);
 	
 		if(mapmode==0){ // initialisation - change view
 			change3Dview(latlng);
@@ -944,9 +928,6 @@ private ArrayList<Crime> getCrimesData() {
 			}else{
 				RecieveMessage rm = msg_maker_hash.get(maker);
 				
-				Log.e("sociam","koko de nanika suru");
-				
-			
 				
 				for(Marker marker : msg_maker_hash.keySet()){
 					if(marker!=maker)
@@ -1333,15 +1314,15 @@ private ArrayList<Crime> getCrimesData() {
 
 	
 	public Location getLocation(){
-		if(location!=null){
-			Log.w("sociam","location is new");
+		if(currentBestlocation!=null){
+//			Log.w("sociam","location is new");
 		}else{
-			Log.w("sociam","location is old");
+//			Log.w("sociam","location is old");
 			
-			location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+			currentBestlocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			oldlocation=true;
 		}
-		return this.location;
+		return this.currentBestlocation;
 	}
 	
 	
@@ -1365,6 +1346,60 @@ private ArrayList<Crime> getCrimesData() {
 
 	}
 	
+	/*
+	 * Location helper methods
+	 */
+	
+	  private boolean isBetterLocationisBetterLocation(Location mylocation, Location currentBestLocation) {
+		    if (currentBestLocation == null) {
+		        // A new location is always better than no location
+		        return true;
+		    }
 
+		    // Check whether the new location fix is newer or older
+		    long timeDelta = mylocation.getTime() - currentBestLocation.getTime();
+		    boolean isSignificantlyNewer = timeDelta > ONE_MINUTES;
+		    boolean isSignificantlyOlder = timeDelta < -ONE_MINUTES;
+		    boolean isNewer = timeDelta > 0;
+
+		    // If it's been more than two minutes since the current location, use the new location
+		    // because the user has likely moved
+		    if (isSignificantlyNewer) {
+		        return true;
+		    // If the new location is more than two minutes older, it must be worse
+		    } else if (isSignificantlyOlder) {
+		        return false;
+		    }
+
+		    // Check whether the new location fix is more or less accurate
+		    int accuracyDelta = (int) (mylocation.getAccuracy() - currentBestLocation.getAccuracy());
+		    boolean isLessAccurate = accuracyDelta > 0;
+		    boolean isMoreAccurate = accuracyDelta < 0;
+		    boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+		    // Check if the old and new location are from the same provider
+		    boolean isFromSameProvider = isSameProvider(mylocation.getProvider(),
+		            currentBestLocation.getProvider());
+
+		    // Determine location quality using a combination of timeliness and accuracy
+		    if (isMoreAccurate) {
+		        return true;
+		    } else if (isNewer && !isLessAccurate) {
+		        return true;
+		    } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+		        return true;
+		    }
+		    return false;
+		}
+
+		/** Checks whether two providers are the same */
+		private boolean isSameProvider(String provider1, String provider2) {
+		    if (provider1 == null) {
+		      return provider2 == null;
+		    }
+		    return provider1.equals(provider2);
+		}
+
+	
 	
 }
