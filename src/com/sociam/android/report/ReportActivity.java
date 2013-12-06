@@ -62,9 +62,12 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	
 	//for obtaining location
 	protected LocationManager locationManager;
-	protected LocationListener locationListener;
+	//protected LocationListener locationListener;
+	private Location currentBestLocation;
 	protected Context context;
-	protected Double latitude,longitude; 
+	protected Double latitude,longitude; 	
+	private static final int ONE_MINUTES = 1000 * 60 * 1;
+		
 	
 	// store the state
 	private int loc=88;
@@ -172,10 +175,6 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 				
 			}
 			
-			// get currentItem de page no zokusei wo set suru
-			//http://stackoverflow.com/questions/8117523/how-can-i-
-			//get-page-number-in-view-pager-for-android
-
 
 
 			@Override
@@ -183,9 +182,6 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-		
-		
-
 		
 	}
 
@@ -361,6 +357,8 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		Log.v("sociam", "NETWORK "+locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
 
 		
+		
+		
 		List<String> allProvider =  locationManager.getAllProviders();
         for(int i = 0 ; i < allProvider.size() ; i++){
             locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
@@ -376,8 +374,16 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 
 	// for location manager
 	public void onLocationChanged(Location location) {
-			latitude = location.getLatitude();
-			longitude = location.getLongitude();
+		if(currentBestLocation!=null){
+			if(isBetterLocationisBetterLocation(location, currentBestLocation))
+				currentBestLocation = location;
+			
+		}else{
+			currentBestLocation = location;
+		}
+			
+			latitude = currentBestLocation.getLatitude();
+			longitude = currentBestLocation.getLongitude();
 			
 			if(!crime.getLocationLatLng()){
 				crime.setLocationLatLon(true);
@@ -388,13 +394,10 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	}
 	
 	public void onProviderDisabled(String provider) {
-		// TODO Auto-generated method stub		
 	}
 	public void onProviderEnabled(String provider) {
-		// TODO Auto-generated method stub		
 	}
 	public void onStatusChanged(String provider, int status, Bundle extras) {
-		// TODO Auto-generated method stub		
 	}
 
 	
@@ -464,5 +467,60 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		return this.dapp;
 	}
 	
+	
+	/*
+	 * Location helper methods
+	 */
+	
+	  private boolean isBetterLocationisBetterLocation(Location mylocation, Location currentBestLocation) {
+		    if (currentBestLocation == null) {
+		        // A new location is always better than no location
+		        return true;
+		    }
+
+		    // Check whether the new location fix is newer or older
+		    long timeDelta = mylocation.getTime() - currentBestLocation.getTime();
+		    boolean isSignificantlyNewer = timeDelta > ONE_MINUTES;
+		    boolean isSignificantlyOlder = timeDelta < -ONE_MINUTES;
+		    boolean isNewer = timeDelta > 0;
+
+		    // If it's been more than two minutes since the current location, use the new location
+		    // because the user has likely moved
+		    if (isSignificantlyNewer) {
+		        return true;
+		    // If the new location is more than two minutes older, it must be worse
+		    } else if (isSignificantlyOlder) {
+		        return false;
+		    }
+
+		    // Check whether the new location fix is more or less accurate
+		    int accuracyDelta = (int) (mylocation.getAccuracy() - currentBestLocation.getAccuracy());
+		    boolean isLessAccurate = accuracyDelta > 0;
+		    boolean isMoreAccurate = accuracyDelta < 0;
+		    boolean isSignificantlyLessAccurate = accuracyDelta > 200;
+
+		    // Check if the old and new location are from the same provider
+		    boolean isFromSameProvider = isSameProvider(mylocation.getProvider(),
+		            currentBestLocation.getProvider());
+
+		    // Determine location quality using a combination of timeliness and accuracy
+		    if (isMoreAccurate) {
+		        return true;
+		    } else if (isNewer && !isLessAccurate) {
+		        return true;
+		    } else if (isNewer && !isSignificantlyLessAccurate && isFromSameProvider) {
+		        return true;
+		    }
+		    return false;
+		}
+
+		/** Checks whether two providers are the same */
+		private boolean isSameProvider(String provider1, String provider2) {
+		    if (provider1 == null) {
+		      return provider2 == null;
+		    }
+		    return provider1.equals(provider2);
+		}
+
 	
 }

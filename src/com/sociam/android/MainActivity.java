@@ -29,6 +29,8 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -145,7 +147,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
-    // set for p
+    // set for general 
 	sp = PreferenceManager.getDefaultSharedPreferences(this);		 
 	dapp = (DataApplication)this.getApplication();
 	if(sp.getBoolean("first_time", true)){
@@ -162,12 +164,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     setContentView(R.layout.activity_main); 
     // start location manager
     setMyLocationManager();
+  
     // obtain map data from the server
     getCrimesData();
     
     
     // compute distance userpoistion and crimes
-    getDistanceFromHere(getLocation(), crimes);
+    getDistanceFromHere(currentBestlocation, crimes);
     
     //map initialise
     setUpMapIfNeeded();
@@ -281,10 +284,11 @@ private void setbtn() {
 		
 		@Override
 		public void onClick(View v) {
+			setMyLocationManager();
 			Intent intent = new Intent();
 			intent.setClassName("com.sociam.android", "com.sociam.android.message.MessageFragmentActivity");
-			intent.putExtra("lat", latlng.latitude);
-			intent.putExtra("lon", latlng.longitude);
+			intent.putExtra("lat", currentBestlocation.getLatitude());
+			intent.putExtra("lon", currentBestlocation.getLongitude());
 			startActivity(intent);
 			
 		}
@@ -417,8 +421,14 @@ private void setbtn() {
   private void setMyLocationManager(){
 	  Log.v("sociam","Loading Location Mangaer......");
 	  //set up current location using LocationManager
-		locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
-        
+		
+	  locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
+      
+	  currentBestlocation = getLastLocationBest(
+				locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER),
+				locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+	  
+	  
 		List<String> allProvider =  locationManager.getAllProviders();
 		for(int i = 0 ; i < allProvider.size() ; i++){
             locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
@@ -556,7 +566,11 @@ private void setbtn() {
 		    	lat1 = currentBestlocation.getLatitude();
 		    	lon1 = currentBestlocation.getLongitude();
 		    }else{
-		    	Location lastknown = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		    	Location lastknown = getLastLocationBest(
+						locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER),
+						locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+		    			
+		    			
 		    	lat1 = lastknown.getLatitude();
 		    	lon1 = lastknown.getLongitude();
 		    }
@@ -578,8 +592,8 @@ private void setbtn() {
 	    try{
 	    	multipartEntity.addPart("type",new StringBody(Integer.toString(type)));
 	    	
-	    	multipartEntity.addPart("lat",new StringBody(Double.toString(lat1)));
-	    	multipartEntity.addPart("lon",new StringBody(Double.toString(lon1)));
+	    	multipartEntity.addPart("lat",new StringBody(Double.toString(currentBestlocation.getLatitude())));
+	    	multipartEntity.addPart("lon",new StringBody(Double.toString(currentBestlocation.getLongitude())));
 
 		    httpPost.setEntity(multipartEntity);
 		    response=httpClient.execute(httpPost, responseHandler);
@@ -846,25 +860,23 @@ private ArrayList<Crime> getCrimesData() {
 	@Override
 	public void onLocationChanged(Location location) {
 		
-		currentBestlocation = location;
+		if(isBetterLocationisBetterLocation(location, currentBestlocation))
+				currentBestlocation = location;
 		
-		// obtain the current position and move to the place
-		latlng = new LatLng(currentBestlocation.getLatitude(), currentBestlocation.getLongitude());
 		
-	
+		// obtain the current position and move to the place		
 		if(mapmode==0){ // initialisation - change view
-			change3Dview(latlng);
+			change3Dview(new LatLng(currentBestlocation.getLatitude(), currentBestlocation.getLongitude()));
 		}
 		
 		//Log.e("sociam","now we call onlocation changed");
+
 		if(oldlocation){
 			oldlocation=false;
 		    getDistanceFromHere(getLocation(), crimes);
 		    setDrawer();
-		    //Log.e("sociam","changed distance data");
 		}
 		
-		locationManager.removeUpdates(this);
 		
 	}
 	@Override
@@ -1399,7 +1411,19 @@ private ArrayList<Crime> getCrimesData() {
 		    }
 		    return provider1.equals(provider2);
 		}
+		
+		private Location getLastLocationBest(Location loc1, Location loc2){
+			if(isBetterLocationisBetterLocation(loc1, loc2)){
+				return loc1;
+			}else{
+				return loc2;
+			}
+		}
+		
+		
+		
 
-	
+		
+		
 	
 }

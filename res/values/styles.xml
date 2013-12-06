@@ -70,4 +70,9 @@
 				  
 		</style>
         
+       <style name="splashScreenTheme" parent="AppBaseTheme">
+    		    <item name="android:windowBackground">@drawable/splash</item>
+           
+       </style> 
+        
 </resources>
