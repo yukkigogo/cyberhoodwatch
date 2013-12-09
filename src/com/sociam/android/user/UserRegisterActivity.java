@@ -8,7 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 
-public class UserRegisterFragmentActivity extends FragmentActivity {
+public class UserRegisterActivity extends FragmentActivity {
 
 	public static final int USER_REG =1;
 	private ViewPager pager;

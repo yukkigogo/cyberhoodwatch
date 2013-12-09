@@ -13,7 +13,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.sociam.android.message.MessageFragmentActivity.MessageFragmentCallBack;
+import com.sociam.android.message.MessageActivity.MessageFragmentCallBack;
 
 import android.app.ProgressDialog;
 import android.content.Context;

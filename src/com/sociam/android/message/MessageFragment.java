@@ -56,7 +56,7 @@ public class MessageFragment extends Fragment{
 		view =inflater.inflate(R.layout.message_screen, container, false);
 		
 		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
-		um = ((MessageFragmentActivity) getActivity()).getUM();
+		um = ((MessageActivity) getActivity()).getUM();
 		
 		toggleSetup(view);
 		
@@ -71,11 +71,11 @@ public class MessageFragment extends Fragment{
 		location = (TextView) view.findViewById(R.id.msg_location);
 		location.setTypeface(robothin);
 		
-		double lat = ((MessageFragmentActivity) getActivity()).getLat(); 
-		double lon = ((MessageFragmentActivity) getActivity()).getLon();
+		double lat = ((MessageActivity) getActivity()).getLat(); 
+		double lon = ((MessageActivity) getActivity()).getLon();
 		
 		String loc = getAddress(lat, lon);
-		location.setText("@"+loc);
+		location.setText("@"+ loc);
 		
 		
 		final TextView tv = (TextView) view.findViewById(R.id.msg_count);
@@ -134,7 +134,7 @@ public class MessageFragment extends Fragment{
 						
 						
 						 if(isChecked){
-							String str = sp.getString("username","yukki");
+							String str = sp.getString("username",null);
 							
 							if(str!=null){
 								username.setText(str+" says...");
@@ -146,7 +146,7 @@ public class MessageFragment extends Fragment{
 									Log.v("sociam", "OPEN NEW REGISTER PAGE");
 									Intent intent = new Intent();
 									intent.setClassName("com.sociam.android", 
-											"com.sociam.android.user.UserRegisterFragmentActivity");
+											"com.sociam.android.user.UserRegisterActivity");
 									startActivity(intent);
 									
 							}

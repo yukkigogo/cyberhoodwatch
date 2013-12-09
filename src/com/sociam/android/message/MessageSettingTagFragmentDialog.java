@@ -40,13 +40,13 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		view = inflater.inflate(R.layout.user_tags_frag, null);		
-		msg = ((MessageFragmentActivity) getActivity()).getUM();
+		msg = ((MessageActivity) getActivity()).getUM();
 		//ScrollView scrollView = new ScrollView(getActivity());
 		//scrollView.addView(view);
 		
 		robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");		
 		btns = new HashMap<Tag, ToggleButton>();
-		tags = ((MessageFragmentActivity) getActivity()).getTags();
+		tags = ((MessageActivity) getActivity()).getTags();
 		setUpButton(tags);
 
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -68,12 +68,12 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 				//check the tag changed or not
 				for(Tag tag:tags){
 					if(tag.getMsgSetting()!=tag.getUserSetting()){
-						((MessageFragmentActivity) getActivity()).setIsTagChanged(true);
-						((MessageFragmentActivity) getActivity()).setTagchange(true);
+						((MessageActivity) getActivity()).setIsTagChanged(true);
+						((MessageActivity) getActivity()).setTagchange(true);
 
 						break;
 					}
-					((MessageFragmentActivity) getActivity()).setIsTagChanged(false);
+					((MessageActivity) getActivity()).setIsTagChanged(false);
 				}
 				
 
@@ -106,7 +106,7 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 	                    public void onClick(View v)
 	                    {
 	        				setDefult(tags, btns);
-	        				((MessageFragmentActivity) getActivity()).setTagchange(false);
+	        				((MessageActivity) getActivity()).setTagchange(false);
 	                    	Boolean wantToCloseDialog = false;
 	                        if(wantToCloseDialog)
 	                            dismiss();
@@ -248,7 +248,7 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 		tb.setLayoutParams(pane);
 		
 		//Log.v("sociam","tag change "+((MessageFragmentActivity) getActivity()).getIsTagChanged());
-		if(((MessageFragmentActivity) getActivity()).getIsTagChanged()){	
+		if(((MessageActivity) getActivity()).getIsTagChanged()){	
 			if(tag.getMsgSetting()){
 				tb.setChecked(true);
 				tb.setTextColor(Color.WHITE);

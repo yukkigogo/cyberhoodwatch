@@ -31,7 +31,7 @@ import android.widget.ToggleButton;
 
 
 // main activity for message
-public class MessageFragmentActivity extends FragmentActivity{
+public class MessageActivity extends FragmentActivity{
 	
 	
 	SharedPreferences sp; 

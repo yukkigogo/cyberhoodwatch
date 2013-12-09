@@ -55,7 +55,7 @@
         <activity android:name=".report.ReportActivity">
         </activity>
          
-        <activity android:name="com.sociam.android.message.MessageFragmentActivity"
+        <activity android:name="com.sociam.android.message.MessageActivity"
             android:theme="@style/LightThemeSelector"
             android:icon="@drawable/msg_orange"
             android:label="@string/msg_name"
@@ -63,9 +63,10 @@
         </activity>
         
 
-         <activity android:name="com.sociam.android.user.UserRegisterFragmentActivity"
+         <activity android:name="com.sociam.android.user.UserRegisterActivity"
             android:theme="@style/LightThemeSelector"
             android:label="@string/msg_name"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             >
         </activity>
         

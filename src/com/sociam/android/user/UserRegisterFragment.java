@@ -5,6 +5,7 @@ import com.sociam.android.R;
 import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -16,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -91,7 +93,8 @@ public class UserRegisterFragment extends Fragment{
 			}
 			
 		});
-				
+			
+
 		
 		return view;
 	}

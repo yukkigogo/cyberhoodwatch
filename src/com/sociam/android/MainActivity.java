@@ -286,7 +286,7 @@ private void setbtn() {
 		public void onClick(View v) {
 			setMyLocationManager();
 			Intent intent = new Intent();
-			intent.setClassName("com.sociam.android", "com.sociam.android.message.MessageFragmentActivity");
+			intent.setClassName("com.sociam.android", "com.sociam.android.message.MessageActivity");
 			intent.putExtra("lat", currentBestlocation.getLatitude());
 			intent.putExtra("lon", currentBestlocation.getLongitude());
 			startActivity(intent);
@@ -799,7 +799,7 @@ private ArrayList<Crime> getCrimesData() {
 			
 			
 		}catch(Exception e){
-			Log.e("sociam", e.getMessage());
+			Log.e("sociam", e.getMessage().toString());
 		}
 		
 		return msg_maker_hash;
