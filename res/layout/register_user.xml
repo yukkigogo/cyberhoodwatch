@@ -9,20 +9,21 @@ android:layout_height="fill_parent" >
     android:layout_height="match_parent"
     android:orientation="vertical" >
 	<!-- 1st row -->
-	<TextView 
+<!-- 	<TextView 
 	    android:id="@+id/reg_new_user_title"
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:text="User Registration"
 	    android:gravity="center"
 	    android:textAppearance="?android:attr/textAppearanceLarge"/>
-    
+ -->    
 	<!-- 2nd row -->
 	<LinearLayout 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 	android:layout_margin="20dp"   
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    >
 
     <TextView        
         android:id="@+id/reg_text1"
@@ -60,7 +61,14 @@ android:layout_height="fill_parent" >
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPassword" />
-
+   <TextView
+        android:id="@+id/pass_avaiable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    
+    
     <TextView
         android:id="@+id/reg_text3"
         android:layout_width="wrap_content"
@@ -114,10 +122,12 @@ android:layout_height="fill_parent" >
 	    >
     
 	<TextView 
+	    android:id="@+id/reg_user_next_tex"
 	    android:layout_width="wrap_content"
 	    android:layout_height="match_parent"
 	    android:text="NEXT"
 	    android:paddingRight="10dp"
+	    android:clickable="true"
 	    android:textAppearance="?android:attr/textAppearanceMedium"
 	    android:gravity="right|center_vertical"
 	    /> 

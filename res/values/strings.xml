@@ -15,7 +15,9 @@
     <string name="personalisation">personalisation</string>
     <string name ="user_setting">User Setting</string>
 	<string name ="msg_name"></string>
-        
+	<string name ="user_reg_name">Sign up?</string>
+	
+	        
     
     
     <color name="gray">#808080</color>

@@ -50,5 +50,12 @@ public class DataApplication extends Application {
 	}
 
 
+	public Typeface getTypefaceRoboRegItalic() {
+		Typeface robothin =  Typeface.createFromAsset(getAssets(), 
+				"Roboto-Italic.ttf");
+		
+		return robothin;
+	}
+
 	
 }

@@ -27,7 +27,6 @@ public class UserRegisterActivity extends FragmentActivity {
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 
 		setPagerView();
-		setFooter();
 		
 	}
 
@@ -42,9 +41,9 @@ public class UserRegisterActivity extends FragmentActivity {
 		
 	}
 
-
-	private void setFooter() {
-		
+	public ViewPager getPager(){
+		return this.pager;
 	}
+
 	
 }

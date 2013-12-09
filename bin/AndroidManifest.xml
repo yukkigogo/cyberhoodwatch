@@ -65,7 +65,7 @@
 
          <activity android:name="com.sociam.android.user.UserRegisterActivity"
             android:theme="@style/LightThemeSelector"
-            android:label="@string/msg_name"
+            android:label="@string/user_reg_name"
             android:windowSoftInputMode="stateHidden|adjustResize"
             >
         </activity>
