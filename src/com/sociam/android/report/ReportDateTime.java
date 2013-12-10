@@ -309,55 +309,7 @@ public class ReportDateTime extends Fragment {
 		}).show();
 	}
 	
-//	private class TimePickerFragment extends DialogFragment
-//							implements TimePickerDialog.OnTimeSetListener {
-//		
-//      @Override
-//      public Dialog onCreateDialog(Bundle savedInstanceState) {
-//          final Calendar c = Calendar.getInstance();
-//          int hour = c.get(Calendar.HOUR_OF_DAY);
-//          int minute = c.get(Calendar.MINUTE);
-//    	  
-//    	return new TimePickerDialog(getActivity(), this, hour, minute, 
-//    			DateFormat.is24HourFormat(getActivity()));
-//      }
-//        @Override
-//		public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//			// save to the val
-//			Log.e("sociam", hourOfDay+" : "+ minute);
-//			ihour = hourOfDay;
-//			imin = minute;
-//
-//			
-//		}
-//	}
-//
-//	private class DatePickerFragment extends DialogFragment
-//    							implements DatePickerDialog.OnDateSetListener {
-//	  
-//		public Dialog onCreateDialog(Bundle savedInstanceState) {
-//	        final Calendar d = Calendar.getInstance();
-//	        int year = d.get(Calendar.YEAR);
-//	        int month = d.get(Calendar.MONTH);
-//	        int day = d.get(Calendar.DAY_OF_MONTH);
-//
-//	        return new DatePickerDialog(getActivity(), this, year, month, day);
-//	    }
-//		
-//		@Override
-//		public void onDateSet(DatePicker view, int year, int monthOfYear,
-//				int dayOfMonth) {
-//			Log.e("sociam", year + " "+monthOfYear +" "+ dayOfMonth);
-//			iyear=year;
-//			imonth=monthOfYear;
-//			iday=dayOfMonth;
-//			
-//			Time t = new Time();
-//			t.set(00,imin,ihour,iday,imonth,iyear);
-//			currentCrime.setDate(t);
-//		}
-//		
-//	}
+
 
 	
 }

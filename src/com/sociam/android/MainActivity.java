@@ -691,7 +691,7 @@ private ArrayList<Crime> getCrimesData() {
 					crime.setisAddress(false);
 				}
 				
-				// need to be clean up here use Time object!
+				// use calender
 				
 				SimpleDateFormat  format = new SimpleDateFormat("\"yyyy-MM-dd HH:mm:ss\"");
 				try {
@@ -763,7 +763,20 @@ private ArrayList<Crime> getCrimesData() {
 				r_msg.setIdCode(Integer.parseInt(str[2]));
 				r_msg.setLat(Double.parseDouble(str[3]));
 				r_msg.setLng(Double.parseDouble(str[4]));
-				r_msg.setTime(new Time(str[5]));
+				
+				
+				SimpleDateFormat  format = new SimpleDateFormat("\"yyyy-MM-dd HH:mm:ss\"");
+				try {
+					Date date = format.parse(str[5]);
+					Calendar calender = Calendar.getInstance();
+					calender.setTimeInMillis(date.getTime());
+					r_msg.setTime(calender);
+
+					
+				} catch (Exception e) {
+					Log.e("sociam", "Date Message problem MainActivity:777");
+				}
+				
 				String msgtext = str[6].replaceAll("\"", "");
 				r_msg.setMsg(msgtext);
 				r_msg.setUpThumb(Integer.parseInt(str[8]));
@@ -911,6 +924,7 @@ private ArrayList<Crime> getCrimesData() {
 		
 		TextView tx_msg ;
 		TextView tx_user ;
+		TextView tx_time;
 		LinearLayout layout;
 		
 		
@@ -948,19 +962,29 @@ private ArrayList<Crime> getCrimesData() {
 				
 				maker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
 
-				layout = (LinearLayout) findViewById(R.id.message_screen);
+				layout = (LinearLayout) findViewById(R.id.message_screen_onmain);
 				layout.setBackgroundColor(R.color.half_black);
 				
 				tx_msg = (TextView) findViewById(R.id.msg_text);
 				tx_msg.setTypeface(dapp.getTypefaceRobothin());
 				tx_msg.setText(rm.getMsg());
 				
+				
 				tx_user = (TextView) findViewById(R.id.msg_username);
 				tx_user.setTypeface(dapp.getTypefaceRobothin());
-				tx_user.setText(rm.getUser()+ " says...");
+				if(rm.getIdCode()==1){
+					tx_user.setText("Anonymous says...");
+				}else{
+					tx_user.setText(rm.getUser()+ " says...");
+				}
 				
-				
+				SimpleDateFormat date_format = new SimpleDateFormat("HH:mm");
+				Calendar t = rm.getTime();
 
+				tx_time = (TextView) findViewById(R.id.msg_text_time);
+				tx_time.setTypeface(dapp.getTypefaceRobothin());				
+				tx_time.setText(date_format.format(t.getTime()));
+				
 				return null;
 
 			}

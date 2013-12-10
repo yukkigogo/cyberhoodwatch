@@ -39,7 +39,7 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		view = inflater.inflate(R.layout.user_tags_frag, null);		
+		view = inflater.inflate(R.layout.user_reg_tags_frag, null);		
 		msg = ((MessageActivity) getActivity()).getUM();
 		//ScrollView scrollView = new ScrollView(getActivity());
 		//scrollView.addView(view);

@@ -4,7 +4,7 @@
     android:layout_height="fill_parent" >
 
 <LinearLayout 
-  	android:id="@+id/user_tag_frag"
+          android:id="@+id/user_tag_frag"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -24,7 +24,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
     
     </LinearLayout>
-	
+        
     
     <LinearLayout
         android:id="@+id/user_tag_frag_southampton"

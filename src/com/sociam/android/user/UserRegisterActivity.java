@@ -1,12 +1,16 @@
 package com.sociam.android.user;
 
+import java.util.HashMap;
+
 import com.sociam.android.R;
+import com.sociam.android.Tag;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.widget.ToggleButton;
 
 public class UserRegisterActivity extends FragmentActivity {
 
@@ -15,6 +19,8 @@ public class UserRegisterActivity extends FragmentActivity {
 	private UserRegisterFragmentPagerAdapter adapter;
 	
 	private SharedPreferences sp; 
+    HashMap<Tag,ToggleButton> btns;
+
 	
 	
 	@Override
@@ -25,6 +31,7 @@ public class UserRegisterActivity extends FragmentActivity {
 		setContentView(R.layout.new_register_main);
 	
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
+        btns = new HashMap<Tag, ToggleButton>();
 
 		setPagerView();
 		
@@ -45,5 +52,7 @@ public class UserRegisterActivity extends FragmentActivity {
 		return this.pager;
 	}
 
-	
+	public HashMap<Tag, ToggleButton> getBtns(){
+		return this.btns;
+	}
 }

@@ -19,7 +19,7 @@
 	    
 	      
  	    <LinearLayout
- 	        android:id="@+id/message_screen"
+ 	        android:id="@+id/message_screen_onmain"
  	        android:layout_width="wrap_content"
  	        android:layout_height="wrap_content"
  	        android:gravity="top"
@@ -49,11 +49,21 @@
  	           android:layout_height="match_parent"
  	           android:layout_marginRight="10dip"
  	           android:layout_marginLeft="5dip"
- 	           android:layout_marginBottom="10dip"
+ 	         
  	           android:textAppearance="?android:attr/textAppearanceLarge"
  	           android:textColor="@color/white"
  	           /> 
- 	    </LinearLayout>
+ 	       <TextView 
+ 	           android:id="@+id/msg_text_time"
+ 	           android:layout_width="match_parent"
+ 	           android:layout_height="match_parent"
+			   android:gravity="right"
+ 	           android:paddingRight="5dp"
+ 	           android:layout_marginBottom="5dip"
+ 	           android:textAppearance="?android:attr/textAppearanceSmall"
+ 	           android:textColor="@color/white"
+ 	           /> 
+ 	       	    </LinearLayout>
 	    
 	    
 	    

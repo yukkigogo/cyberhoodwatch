@@ -132,19 +132,28 @@ public class UserRegisterFragment extends Fragment{
 		
 		
 		final EditText emailaddress = (EditText) view.findViewById(R.id.emailaddress);
+		
+		
 		final TextView emailike = (TextView) view.findViewById(R.id.emailike);
 		
-		final TextView reg_user_next_tex = (TextView) view.findViewById(R.id.reg_user_next_tex); 
-		setClickNGoNext(reg_user_next_tex);
 		ImageView reg_user_next = (ImageView) view.findViewById(R.id.reg_user_next);
-		setClickNGoNext(reg_user_next);
+		TextView reg_user_next_tex = (TextView) view.findViewById(R.id.reg_user_next_tex);
+		setGoNext(reg_user_next);
+		setGoNext(reg_user_next_tex);
+		
+		ImageView reg_user_cancel = (ImageView) view.findViewById(R.id.reg_user_cancel);
+		TextView reg_user_cancel_text = (TextView) view.findViewById(R.id.reg_user_cancel_tex);
+		setCancel(reg_user_cancel_text);
+		setCancel(reg_user_cancel);
 		
 		
 		return view;
 	}
 		
 	
-	private void setClickNGoNext(Object obj) {
+
+	private void setGoNext(Object obj){
+	
 		((View) obj).setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -152,9 +161,18 @@ public class UserRegisterFragment extends Fragment{
 				pager.setCurrentItem(pager.getCurrentItem()+1);
 			}
 		});
-		
 	}
-
+	
+	private void setCancel(Object obj){
+		((View) obj).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				((UserRegisterActivity) getActivity()).finish();
+			}
+		});
+	}
+	
 
 	private boolean checkPasswordOK(String str){
 		

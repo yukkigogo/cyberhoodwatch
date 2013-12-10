@@ -3,6 +3,8 @@ package com.sociam.android.message;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -44,7 +46,6 @@ public class MessageActivity extends FragmentActivity{
 	boolean isTagChanged = false;
 
 	ToggleButton tagsToggle; 
-
 	
 	
 	@Override
@@ -67,8 +68,11 @@ public class MessageActivity extends FragmentActivity{
 		
 		tagsToggle = (ToggleButton) findViewById(R.id.tags);
 		setToggle(tagsToggle);
+		
+		
 	}
 	
+
 	
 	private void setToggle(final ToggleButton toggle){
 		toggle.setOnClickListener(new OnClickListener() {
@@ -91,16 +95,6 @@ public class MessageActivity extends FragmentActivity{
 	
 	private ArrayList<Tag> setTagsForUser(ArrayList<Tag> tags){
 		
-		//String usertags = sp.getString("tags",null);
-		//		String usertags = "female-general:student-general:susu-southampton";
-//		tagMap = new HashMap<String, String>();
-//		
-//		if(usertags!=null){
-//			String[] tagWcat = usertags.split(":");
-//			for(String str:tagWcat){
-//				String[] ary=str.split("-");
-//				tagMap.put(ary[0], ary[1]);				
-//			}
 			
 		DataApplication dapp = (DataApplication)this.getApplication();
 		tagMap = dapp.getTagMap4User();
@@ -186,11 +180,11 @@ public class MessageActivity extends FragmentActivity{
 			});
 			String username,id_code;
 			if(um.getAnonymous()){ 
-				username="anonymous";
-				id_code="0";
+				username=getID();
+				id_code="1";
 			}else{ 
 				username = um.getUserName();
-				id_code="1";
+				id_code="0";
 			}
 			
 			String tagString = getTagString(tags);
@@ -239,6 +233,43 @@ public class MessageActivity extends FragmentActivity{
 		return tagString;
 	}
 
+	
+	
+	private String getID() {
+		// setup today's ID
+		Time t = new Time();
+		t.setToNow();
+		String user_id ="";
+		String  raw_user= sp.getString("uuid", null);
+				
+		if(raw_user !=null){		
+				user_id= raw_user+"-"+Integer.toString(t.monthDay)+"-"+Integer.toString(t.month)+"-"
+				+Integer.toString(t.year);
+		}else{
+			Log.e("sociam", "id error shows false");
+
+		}
+	
+		
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(user_id.getBytes());
+			byte[] digest = md.digest();
+			StringBuffer sb = new StringBuffer();
+			for (byte b : digest) {
+				sb.append(Integer.toHexString((int) (b & 0xff)));
+			}
+			user_id = sb.toString();
+			Log.w("sociam", "id after hash "+ user_id);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		}
+		
+		return user_id;
+		
+	}
+
+	
 
 	// helper funtion to pass the objects
 	public double getLat(){

@@ -10,7 +10,9 @@ import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
 import com.sociam.android.user.TagRegisterFragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -121,10 +123,6 @@ public class MessageFragment extends Fragment{
 	private void toggleSetup(View view){
 		
 		idcard = (ToggleButton) view.findViewById(R.id.user_card);
-	//	tags = (ToggleButton) view.findViewById(R.id.tags);
-	//	msgmap = (ToggleButton) view.findViewById(R.id.msgmap);
-		
-	
 		
 		idcard.setOnCheckedChangeListener(
 				new CompoundButton.OnCheckedChangeListener() {
@@ -142,12 +140,35 @@ public class MessageFragment extends Fragment{
 								um.setUserName(str);
 								
 							}else{
-								//open another activity to register users	
-									Log.v("sociam", "OPEN NEW REGISTER PAGE");
-									Intent intent = new Intent();
-									intent.setClassName("com.sociam.android", 
-											"com.sociam.android.user.UserRegisterActivity");
-									startActivity(intent);
+								AlertDialog.Builder alb = new AlertDialog.Builder(getActivity());
+								alb.setTitle("You Don't Have Username Yet");
+								alb.setMessage("Do you want to sing up?");
+								alb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										idcard.setChecked(false);
+										//open another activity to register users	
+										Intent intent = new Intent();
+										intent.setClassName("com.sociam.android", 
+												"com.sociam.android.user.UserRegisterActivity");
+										startActivity(intent);
+										
+										
+									}
+								});
+								alb.setNegativeButton("No", new DialogInterface.OnClickListener() {
+									
+									@Override
+									public void onClick(DialogInterface dialog, int which) {
+										idcard.setChecked(false);
+
+										
+									}
+								});
+								
+								AlertDialog alertDialog = alb.create();
+								alertDialog.show();
 									
 							}
 								

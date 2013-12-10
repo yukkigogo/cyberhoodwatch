@@ -1,6 +1,7 @@
 package com.sociam.android;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import android.text.format.Time;
 
@@ -12,7 +13,7 @@ public class RecieveMessage {
 	private int id_code;
 	//private boolean anonymous;
 	private double lat,lon;
-	private Time datetime;
+	private Calendar datetime;
 	private ArrayList<Tag> tags;
 	private int up_thumb;
 	private int down_thumb;
@@ -21,7 +22,7 @@ public class RecieveMessage {
 	
 	public RecieveMessage() {
 		tags = new ArrayList<Tag>();
-		datetime = new Time();
+
 		
 	}
 	
@@ -54,10 +55,10 @@ public class RecieveMessage {
 		return this.username;
 	}
 
-	public void setTime(Time t){
-		datetime=t;
+	public void setTime(Calendar cal){
+		datetime=cal;
 	}
-	public Time getTime(){
+	public Calendar getTime(){
 		return this.datetime;
 	}
 	
