@@ -39,10 +39,8 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 
 		LayoutInflater inflater = getActivity().getLayoutInflater();
-		view = inflater.inflate(R.layout.user_reg_tags_frag, null);		
+		view = inflater.inflate(R.layout.user_tags_frag, null);		
 		msg = ((MessageActivity) getActivity()).getUM();
-		//ScrollView scrollView = new ScrollView(getActivity());
-		//scrollView.addView(view);
 		
 		robothin = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");		
 		btns = new HashMap<Tag, ToggleButton>();
@@ -84,8 +82,6 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 			}
 		});
 		
-		//Log.e("sociam", "____________ how was? "+ ((MessageFragmentActivity) getActivity()).getIsTagChanged());
-
 		
 		return builder.create();
 	}

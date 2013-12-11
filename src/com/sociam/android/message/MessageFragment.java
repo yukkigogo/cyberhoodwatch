@@ -3,6 +3,8 @@ package com.sociam.android.message;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.sociam.android.R;
 import com.sociam.android.SendMessage;
@@ -119,6 +121,8 @@ public class MessageFragment extends Fragment{
 		
 		return view;
 	}
+	
+	
 	
 	private void toggleSetup(View view){
 		

@@ -3,12 +3,14 @@ package com.sociam.android;
 import java.util.HashMap;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 
 public class DataApplication extends Application {
 	
 	private HashMap<String, String> tagMap;
-	
+	SharedPreferences sp;
 	
 	
 
@@ -17,16 +19,15 @@ public class DataApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		
-		// set location
-		//setMyLocationManager();
+		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		
-		// make user 
-		String usertags = "female-general:student-general:susu-southampton";
-		setTagMap(usertags);	
+		if((sp.getString("username", null))!=null)
+		setTagMap(sp.getString("usertags", null));	
 		
 	}
 	
 	public void setTagMap(String usertags){
+		if(usertags!=null){
 		tagMap = new HashMap<String, String>();
 		
 		if(usertags!=null){
@@ -35,6 +36,7 @@ public class DataApplication extends Application {
 				String[] ary=str.split("-");
 				tagMap.put(ary[0], ary[1]);				
 			}
+		}
 		}
 	}
 		

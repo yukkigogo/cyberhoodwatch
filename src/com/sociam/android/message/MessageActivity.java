@@ -44,7 +44,8 @@ public class MessageActivity extends FragmentActivity{
 	ArrayList<Tag> tags ;
 	HashMap<String,String> tagMap; 
 	boolean isTagChanged = false;
-
+	boolean alreadyRegister;
+	
 	ToggleButton tagsToggle; 
 	
 	
@@ -63,8 +64,7 @@ public class MessageActivity extends FragmentActivity{
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		
-		tags = setTagsForUser(getTagsFromLocal());
+		if((sp.getString("username", null))!=null) tags = setTagsForUser(getTagsFromLocal());
 		
 		tagsToggle = (ToggleButton) findViewById(R.id.tags);
 		setToggle(tagsToggle);
@@ -107,9 +107,6 @@ public class MessageActivity extends FragmentActivity{
 				}		
 			}
 		}
-		
-//		}
-		
 		
 		return tags;
 	}

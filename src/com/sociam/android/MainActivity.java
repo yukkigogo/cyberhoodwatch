@@ -525,7 +525,7 @@ private void setbtn() {
 			
 				int diff = now.get(Calendar.HOUR_OF_DAY)-ctime.get(Calendar.HOUR_OF_DAY);
 				if(diff<5){
-					Log.e("sociam", Integer.toString(diff));
+					//Log.e("sociam", Integer.toString(diff));
 					amaker = mMap.addMarker(new MarkerOptions()
 					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 					.icon(BitmapDescriptorFactory.fromResource(R.drawable.incident_red))
@@ -601,7 +601,7 @@ private void setbtn() {
 	    }catch(Exception e){
 	    	Log.e("sociam",e.getMessage());
 	    }  
-	  Log.e("sociam", type+" "+response);
+	 // Log.e("sociam", type+" "+response);
 	  return response;
   }
   
@@ -658,7 +658,7 @@ private ArrayList<Crime> getCrimesData() {
 					down_thumb = Integer.parseInt(str[18]);
 				} catch (Exception e) {
 					// check the double can convert
-					Log.e("sociam","fail convert double/interger from csv" + e.getMessage());
+					Log.e("sociam","fail convert double/interger from csv");
 					
 				}
 				
@@ -752,22 +752,26 @@ private ArrayList<Crime> getCrimesData() {
 			
 			String currentLine;
 			while((currentLine=br.readLine())!=null){
-				Log.e("sociam","should be message line"+currentLine);
+				Log.e("sociam","should be message line \n"+currentLine);
 				
 				RecieveMessage r_msg = new RecieveMessage();
 				String str[] = currentLine.split(",");
 				// tag can be empty 
 				
 				r_msg.setID(Integer.parseInt(str[0]));
+
 				r_msg.setUser(str[1]);
 				r_msg.setIdCode(Integer.parseInt(str[2]));
+
 				r_msg.setLat(Double.parseDouble(str[3]));
+
 				r_msg.setLng(Double.parseDouble(str[4]));
 				
 				
 				SimpleDateFormat  format = new SimpleDateFormat("\"yyyy-MM-dd HH:mm:ss\"");
 				try {
 					Date date = format.parse(str[5]);
+
 					Calendar calender = Calendar.getInstance();
 					calender.setTimeInMillis(date.getTime());
 					r_msg.setTime(calender);
@@ -778,29 +782,39 @@ private ArrayList<Crime> getCrimesData() {
 				}
 				
 				String msgtext = str[6].replaceAll("\"", "");
+
 				r_msg.setMsg(msgtext);
 				r_msg.setUpThumb(Integer.parseInt(str[8]));
+
 				r_msg.setDownThumb(Integer.parseInt(str[9]));
 				
 				//tags 
 				String tagsString = str[7];
+
 				if(tagsString!=null){
 					String[] tags = tagsString.split(":");
+
 					for(String strs :tags){
+
 						String[] tagcate =strs.split("-");
+
 						Tag tag_m=null;
 						if(tagcate[1]==null){ 
+
 							tag_m	= new Tag(tagcate[0], "");
+							if(usertags!=null){
 							if(usertags.containsKey(tagcate[0]) &&
 									usertags.get(tagcate[0]).equals(""))
 									tag_m.setUserSetting(true);
-
+							}
 						}else{
+
 							tag_m = new Tag(tagcate[0],tagcate[1]);	
-							if(usertags.containsKey(tagcate[0]) &&
-									usertags.get(tagcate[0]).equals(tagcate[1]))
-									tag_m.setUserSetting(true);
-							
+							if(usertags!=null){
+								if(usertags.containsKey(tagcate[0]) &&
+										usertags.get(tagcate[0]).equals(tagcate[1]))
+										tag_m.setUserSetting(true);
+							}
 						}							
 						r_msg.addTag(tag_m);
 						Marker marker = getMsgMarker(r_msg);
@@ -812,7 +826,7 @@ private ArrayList<Crime> getCrimesData() {
 			
 			
 		}catch(Exception e){
-			Log.e("sociam", e.getMessage().toString());
+			Log.e("sociam", "Problem occurs MainActivity Line 815");
 		}
 		
 		return msg_maker_hash;

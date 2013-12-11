@@ -1,6 +1,7 @@
 package com.sociam.android.user;
 
 
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sociam.android.DataApplication;
@@ -70,6 +71,11 @@ public class UserRegisterFragment extends Fragment{
 			public void afterTextChanged(Editable s) {
 				
 				if(s.length()>0){
+					if((s.toString().indexOf(" ")>=0)){
+						tx_reg_ave.setTextColor(Color.RED);
+						tx_reg_ave.setText("You cannot use space!");
+					}else{
+					
 					UserAvaiableAsyncTask asyncTask = new UserAvaiableAsyncTask(new UserSetupFragmentCallBack() {
 						
 						@Override
@@ -94,7 +100,10 @@ public class UserRegisterFragment extends Fragment{
 					asyncTask.execute(username.getText().toString());
 				
 				}
-	
+				}else if(s.length()==0){
+					tx_reg_ave.setText("");
+				}
+
 			}
 			
 		});
@@ -112,7 +121,7 @@ public class UserRegisterFragment extends Fragment{
 			@Override
 			public void afterTextChanged(Editable s) {
 					if(s.length()>8){
-						if(checkPasswordOK(s.toString())){
+						if(checkPasswordOK(password1.getText().toString())){
 							pass_avaiable.setTextColor(Color.GREEN);
 							pass_avaiable.setText("password is OK!");							
 							
@@ -128,13 +137,80 @@ public class UserRegisterFragment extends Fragment{
 			}
 		});
 		final TextView pass_same = (TextView) view.findViewById(R.id.password_same);
+		pass_same.setTypeface(robothin);
 		final EditText password2 = (EditText) view.findViewById(R.id.password2);
-		
-		
-		final EditText emailaddress = (EditText) view.findViewById(R.id.emailaddress);
-		
+		password2.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {	
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(s.length()>0){
+					if(s.toString().equals(password1.getText().toString())){
+						pass_same.setTextColor(Color.GREEN);
+						pass_same.setText("OK!");
+					}else{
+						pass_same.setTextColor(Color.RED);
+						pass_same.setText("Enter the passwords do not match!");
+					}
+						
+				}
+			}
+		});
 		
 		final TextView emailike = (TextView) view.findViewById(R.id.emailike);
+		emailike.setTypeface(robothin);
+		final EditText emailaddress = (EditText) view.findViewById(R.id.emailaddress);
+		emailaddress.addTextChangedListener(new TextWatcher() {
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+			
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+			}
+			
+			@Override
+			public void afterTextChanged(Editable s) {
+				if(isValidEmail(s.toString())){
+					
+					EmailAvaiableAsyncTask emailAsync = new EmailAvaiableAsyncTask(new UserSetupFragmentCallBackEmail() {
+						
+						@Override
+						public void onTaskDone(int avaiable) {
+						 if(avaiable==1){
+                                 // okay
+                                 emailike.setTextColor(Color.GREEN);
+                                 emailike.setText("Avaiable Email address");
+                                 
+                         }else if(avaiable==0){
+                                 emailike.setTextColor(Color.RED);
+                                 emailike.setText("This email is already used");
+                         }else{
+                                emailike.setText("");
+                         }							
+						}
+					});
+					emailAsync.execute(s.toString());
+					
+				}else{
+					emailike.setTextColor(Color.RED);
+					emailike.setText("Invalid Email");
+				}
+			}
+		});
+		
+		
+		
 		
 		ImageView reg_user_next = (ImageView) view.findViewById(R.id.reg_user_next);
 		TextView reg_user_next_tex = (TextView) view.findViewById(R.id.reg_user_next_tex);
@@ -149,7 +225,18 @@ public class UserRegisterFragment extends Fragment{
 		
 		return view;
 	}
+	
+	
+	private boolean isValidEmail(String email){
+		final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
+				+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 		
+		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		Matcher matcher = pattern.matcher(email);
+		
+		return matcher.matches();
+	}
+
 	
 
 	private void setGoNext(Object obj){
@@ -190,5 +277,10 @@ public class UserRegisterFragment extends Fragment{
 		public void onTaskDone(int avaiable);
 	}
 
+	public interface UserSetupFragmentCallBackEmail{
+		public void onTaskDone(int avaiable);
+	}
+
+	
 	
 }

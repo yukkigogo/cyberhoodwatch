@@ -213,7 +213,6 @@ private ToggleButton setToggleButton(final Tag tag){
         tb.setText(text);
         tb.setLayoutParams(pane);
         
-        tb.setTextColor(Color.WHITE);
         
         tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                                 
@@ -228,9 +227,6 @@ private ToggleButton setToggleButton(final Tag tag){
                                                 tb.setTextColor(Color.BLACK);
                                                 tag.setUserSetting(false);
                                         }
-
-                                        
-                                        
                                 }
                         });
         
