@@ -133,7 +133,6 @@ public class TagRegisterFragment extends Fragment {
 							e.commit();
 							e.putInt("hero_point", 0);
 							e.commit();
-							
 						
 					}
 				});
