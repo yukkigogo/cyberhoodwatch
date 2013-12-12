@@ -42,12 +42,12 @@ public class MessageActivity extends FragmentActivity{
 	SendMessage um;
 	
 	ArrayList<Tag> tags ;
-	HashMap<String,String> tagMap; 
+//	HashMap<String,String> tagMap; 
 	boolean isTagChanged = false;
 	boolean alreadyRegister;
 	
 	ToggleButton tagsToggle; 
-	
+	DataApplication dapp;
 	
 	@Override
 	protected void onCreate(Bundle arg0) {
@@ -61,10 +61,13 @@ public class MessageActivity extends FragmentActivity{
 		setContentView(R.layout.message_main);
 				
 		sp = PreferenceManager.getDefaultSharedPreferences(this);		 
+		dapp = (DataApplication) getApplication();
 		
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		if((sp.getString("username", null))!=null) tags = setTagsForUser(getTagsFromLocal());
+
+		tags = dapp.getInitTags();
+//		if((sp.getString("username", null))!=null) tags = setTagsForUser(getTagsFromLocal());
 		
 		tagsToggle = (ToggleButton) findViewById(R.id.tags);
 		setToggle(tagsToggle);
@@ -93,49 +96,49 @@ public class MessageActivity extends FragmentActivity{
 	}
 
 	
-	private ArrayList<Tag> setTagsForUser(ArrayList<Tag> tags){
-		
-			
-		DataApplication dapp = (DataApplication)this.getApplication();
-		tagMap = dapp.getTagMap4User();
-		
-		for(Tag tag : tags){
-			if(tagMap.containsKey(tag.getName())){				
-				if(tag.getCategory().equals(tagMap.get(tag.getName()))){
-					tag.setUserSetting(true);
-					tag.setMsgSetting(true);
-				}		
-			}
-		}
-		
-		return tags;
-	}
+//	private ArrayList<Tag> setTagsForUser(ArrayList<Tag> tags){
+//		
+//			
+//		DataApplication dapp = (DataApplication)this.getApplication();
+//		tagMap = dapp.getTagMap4User();
+//		
+//		for(Tag tag : tags){
+//			if(tagMap.containsKey(tag.getName())){				
+//				if(tag.getCategory().equals(tagMap.get(tag.getName()))){
+//					tag.setUserSetting(true);
+//					tag.setMsgSetting(true);
+//				}		
+//			}
+//		}
+//		
+//		return tags;
+//	}
 	
-	private ArrayList<Tag> getTagsFromLocal(){
-		tags = new ArrayList<Tag>();
-		String FILENAME = "tag.csv";
-		
-		try {
-			FileInputStream in = openFileInput(FILENAME);
-			InputStreamReader ins = new InputStreamReader(in);
-			BufferedReader br = new BufferedReader(ins);
-			String currentLine;
-			
-			while((currentLine=br.readLine())!=null){
-				String str[] = currentLine.split(",");
-				String cate;
-				if(str[1]!=null) cate=str[1];
-				else cate="";
-				tags.add(new Tag(str[0],cate));
-			}
-
-			br.close();
-		} catch (Exception e) {
-			Log.e("sociam", e.getMessage());
-
-		}
-		return tags;
-	}
+//	private ArrayList<Tag> getTagsFromLocal(){
+//		tags = new ArrayList<Tag>();
+//		String FILENAME = "tag.csv";
+//		
+//		try {
+//			FileInputStream in = openFileInput(FILENAME);
+//			InputStreamReader ins = new InputStreamReader(in);
+//			BufferedReader br = new BufferedReader(ins);
+//			String currentLine;
+//			
+//			while((currentLine=br.readLine())!=null){
+//				String str[] = currentLine.split(",");
+//				String cate;
+//				if(str[1]!=null) cate=str[1];
+//				else cate="";
+//				tags.add(new Tag(str[0],cate));
+//			}
+//
+//			br.close();
+//		} catch (Exception e) {
+//			Log.e("sociam", e.getMessage());
+//
+//		}
+//		return tags;
+//	}
 	
 	
 	

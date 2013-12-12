@@ -13,9 +13,12 @@ import com.sociam.android.DataApplication;
 import com.sociam.android.R;
 import com.sociam.android.Tag;
 
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -27,9 +30,12 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import android.widget.LinearLayout.LayoutParams;
+
+//     String usertags = "female-general:student-general:susu-southampton";
 
 
 public class TagRegisterFragment extends Fragment {
@@ -37,21 +43,25 @@ public class TagRegisterFragment extends Fragment {
 	Typeface robothin;
 	View view;
 	DataApplication dapp;
-	HashMap<String, String> tagMap;
+//	HashMap<String, String> tagMap;
     HashMap<Tag,ToggleButton> btns;
 	private ViewPager pager;
-
+	SharedPreferences sp;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 	
+		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
+		
 		dapp = (DataApplication) ((UserRegisterActivity) getActivity()).getApplication();
-		btns = ((UserRegisterActivity) getActivity()).getBtns();
-		view = inflater.inflate(R.layout.user_reg_tags_frag, null);		
 		robothin = dapp.getTypefaceRobothin();		
 		
-		setUpButton(getTags(getTagsFromLocal()));
+		btns = ((UserRegisterActivity) getActivity()).getBtns();
+		view = inflater.inflate(R.layout.user_reg_tags_frag, null);		
+		
+		
+		setUpButton(dapp.getInitTags());
 
 		pager = ((UserRegisterActivity) getActivity()).getPager();
 
@@ -76,8 +86,100 @@ public class TagRegisterFragment extends Fragment {
 		setBackClick(backtitle);
 		ImageView backimg = (ImageView) view.findViewById(R.id.reg_tag_back);
 		setBackClick(backimg);
+		
+		TextView submittex = (TextView) view.findViewById(R.id.reg_tag_submit_tex);
+		setSubmit(submittex);
+		ImageView submitbtn = (ImageView) view.findViewById(R.id.reg_tag_submit);
+		setSubmit(submitbtn);
 	}
 
+	private void setSubmit(Object obj){
+		((View) obj).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				
+				if(allPramOk()){
+				SubmitUserRegisterAsyncTask asyncTask = new SubmitUserRegisterAsyncTask(
+						getActivity(), new TagRegisterFragmentCallBack() {
+					
+					@Override
+					public void onTaskDone(boolean submitok) {
+						if(submitok){
+							//finish registration activity and store to sharedpreference
+							setUserPreference(((UserRegisterActivity) getActivity()).username ,
+												getUserTagsString(dapp.getInitTags()),
+												((UserRegisterActivity) getActivity()).email);
+							
+							getActivity().finish();
+						}else{
+							//show dialog and stay activity 
+							Toast.makeText(getActivity(),"Registration failed can you submit again?", Toast.LENGTH_LONG).show();
+						
+						}
+							
+					}
+
+					private void setUserPreference(String username,
+							String userTagsString, String email) {
+							
+							Editor e = sp.edit();
+							
+							e.putString("username", username);
+							e.commit();
+							e.putString("usertag", userTagsString);
+							e.commit();
+							e.putString("email", email);
+							e.commit();
+							e.putInt("hero_point", 0);
+							e.commit();
+							
+						
+					}
+				});
+				
+					asyncTask.execute(
+							((UserRegisterActivity) getActivity()).username,
+							((UserRegisterActivity) getActivity()).password,
+							getUserTagsString(dapp.getInitTags()),
+							((UserRegisterActivity) getActivity()).email
+							);
+				}else{
+					Toast.makeText(getActivity(),"Please fill at least username and password", Toast.LENGTH_LONG).show();
+					
+				}
+				
+			}
+
+			private boolean allPramOk() {
+				if( ((UserRegisterActivity) getActivity()).username!=null &&
+						((UserRegisterActivity) getActivity()).password!=null
+						)
+					return true;
+				else return false;
+			}
+			
+			 
+			
+		});
+		
+	}
+	
+	
+	
+	
+	private String getUserTagsString(ArrayList<Tag> tags){
+		String reply = "";
+		for(Tag t :tags){
+			if(t.getUserSetting()) reply = reply + t.getName()+"-"+t.getCategory()+":"; 
+		}
+		
+		Log.v("sociam", "store the tag!!! "+reply);
+		
+		return reply;
+	}
+	
+	
 	private void setBackClick(Object obj){
 		((View) obj).setOnClickListener(new View.OnClickListener() {
 			
@@ -89,19 +191,19 @@ public class TagRegisterFragment extends Fragment {
 	}
 
 
-	private ArrayList<Tag> getTags(HashMap<String, String> tagmap){
-		ArrayList<Tag> tags = new ArrayList<Tag>();
-		
-		for(Entry<String, String> entry : tagmap.entrySet()) {			
-			tags.add(new Tag(entry.getKey(),entry.getValue()));
-		}		
-				
-				
-		return tags;
-	}
+//	private ArrayList<Tag> getTags(HashMap<String, String> tagmap){
+//		ArrayList<Tag> tags = new ArrayList<Tag>();
+//		
+//		for(Entry<String, String> entry : tagmap.entrySet()) {			
+//			tags.add(new Tag(entry.getKey(),entry.getValue()));
+//		}		
+//				
+//				
+//		return tags;
+//	}
 	
 
-    private void setUpButton(ArrayList<Tag> tags){
+    private ArrayList setUpButton(ArrayList<Tag> tags){
         Log.e("sociam", "Start reading!");
         
         LinearLayout l_gene = (LinearLayout) view.findViewById(R.id.reg_tag_general_layout);
@@ -177,92 +279,99 @@ public class TagRegisterFragment extends Fragment {
                                 row_s.addView(tb);
                                 count_s=text.length();
                                 count_row_s=0;
-                                
-                                
-                        
-                        }else{        
-                        //        Log.e("sociam", "soton row " + text);
-
-                                ToggleButton tb = setToggleButton(tag);
-                                row_s.addView(tb);
-                                ++count_row_s; 
-                                
-                        }
-                                
-                        
-                }                
-        }
-        
-        l_gene.addView(row_g);
-        l_soton.addView(row_s);
-
-}
-
-
-private ToggleButton setToggleButton(final Tag tag){
-        
-        String text = tag.getName();
-        LinearLayout.LayoutParams pane = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-        pane.leftMargin=10;
-        pane.topMargin=10;
-        final ToggleButton tb = new ToggleButton(getActivity());
-        tb.setTypeface(robothin);
-        tb.setBackgroundResource(R.drawable.tag_btn);
-        tb.setTextOff(text);
-        tb.setTextOn(text);
-        tb.setText(text);
-        tb.setLayoutParams(pane);
-        
-        
-        tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                
-                                @Override
-                                public void onCheckedChanged(CompoundButton buttonView, 
-                                                boolean isChecked) {
-                                        
-                                        if(isChecked){
-                                                tb.setTextColor(Color.WHITE);
-                                                tag.setUserSetting(true);
-                                        }else{
-                                                tb.setTextColor(Color.BLACK);
-                                                tag.setUserSetting(false);
-                                        }
-                                }
-                        });
-        
-        btns.put(tag,tb);
-        return tb;
-}
+	                                
+	                                
+	                        
+	                        }else{        
+	                        //        Log.e("sociam", "soton row " + text);
 	
-	
-
-private HashMap<String,String> getTagsFromLocal(){
-    HashMap<String, String> tags = new HashMap<String, String>();
-    String FILENAME = "tag.csv";
-    
-    try {
-            FileInputStream in = getActivity().openFileInput(FILENAME);
-            InputStreamReader ins = new InputStreamReader(in);
-            BufferedReader br = new BufferedReader(ins);
-            String currentLine;
-            
-            while((currentLine=br.readLine())!=null){
-                    String str[] = currentLine.split(",");
-                    String cate;
-                    if(str[1]!=null) cate=str[1];
-                    else cate="";
-                    tags.put(str[0], cate);
-            }
-
-            br.close();
-    } catch (Exception e) {
-            Log.e("sociam", e.getMessage());
-
+	                                ToggleButton tb = setToggleButton(tag);
+	                                row_s.addView(tb);
+	                                ++count_row_s; 
+	                                
+	                        }
+	                                
+	                        
+	                }                
+	        }
+	        
+	        l_gene.addView(row_g);
+	        l_soton.addView(row_s);
+	        
+	        
+	        return tags;
     }
-    
-    
-    return tags;
-}
+
+
+	private ToggleButton setToggleButton(final Tag tag){
+	        
+	        String text = tag.getName();
+	        LinearLayout.LayoutParams pane = new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
+	        pane.leftMargin=10;
+	        pane.topMargin=10;
+	        final ToggleButton tb = new ToggleButton(getActivity());
+	        tb.setTypeface(robothin);
+	        tb.setBackgroundResource(R.drawable.tag_btn);
+	        tb.setTextOff(text);
+	        tb.setTextOn(text);
+	        tb.setText(text);
+	        tb.setLayoutParams(pane);
+	        
+	        
+	        tb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+	                                
+	                                @Override
+	                                public void onCheckedChanged(CompoundButton buttonView, 
+	                                                boolean isChecked) {
+	                                        
+	                                        if(isChecked){
+	                                                tb.setTextColor(Color.WHITE);
+	                                                tag.setUserSetting(true);
+	                                        }else{
+	                                                tb.setTextColor(Color.BLACK);
+	                                                tag.setUserSetting(false);
+	                                        }
+	                                }
+	                        });
+	        
+	        btns.put(tag,tb);
+	        return tb;
+	}
+		
+		
 	
+//	private HashMap<String,String> getTagsFromLocal(){
+//	    HashMap<String, String> tags = new HashMap<String, String>();
+//	    String FILENAME = "tag.csv";
+//	    
+//	    try {
+//	            FileInputStream in = getActivity().openFileInput(FILENAME);
+//	            InputStreamReader ins = new InputStreamReader(in);
+//	            BufferedReader br = new BufferedReader(ins);
+//	            String currentLine;
+//	            
+//	            while((currentLine=br.readLine())!=null){
+//	                    String str[] = currentLine.split(",");
+//	                    String cate;
+//	                    if(str[1]!=null) cate=str[1];
+//	                    else cate="";
+//	                    tags.put(str[0], cate);
+//	            }
+//	
+//	            br.close();
+//	    } catch (Exception e) {
+//	            Log.e("sociam", e.getMessage());
+//	
+//	    }
+//	    
+//	    
+//	    return tags;
+//	}
+	
+	
+	public interface TagRegisterFragmentCallBack{
+        public void onTaskDone(boolean submitok);
+
+	}
 	
 }

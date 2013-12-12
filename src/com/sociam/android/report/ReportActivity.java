@@ -26,7 +26,6 @@ import android.preference.PreferenceManager;
 
 import com.sociam.android.Crime;
 import com.sociam.android.DataApplication;
-import com.sociam.android.Persons;
 import com.sociam.android.R;
 
 
@@ -48,7 +47,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	
 	// store crime data
 	private Crime crime;
-	private Persons suspects,victims;
+	//private Personal suspects,victims;
 	private MyFragmentStatePagerAdapter myAdapter;
 	ViewPager pager;
 	Button[] btns = new Button[9];
@@ -86,11 +85,11 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.report_main);
 		
-		suspects = new Persons();
-		victims = new Persons();
+//		suspects = new Personal();
+//		victims = new Personal();
 		crime = new Crime();
-		crime.setSuspects(suspects);
-		crime.setVictim(victims);
+//		crime.setSuspects(suspects);
+//		crime.setVictim(victims);
 		
 		sp = PreferenceManager.getDefaultSharedPreferences(this);;
 		  Log.w("sociam"," coommmooonnn !!  "+ sp.getString("uuid", "something problem with uuid"));

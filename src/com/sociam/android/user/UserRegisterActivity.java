@@ -21,6 +21,9 @@ public class UserRegisterActivity extends FragmentActivity {
 	private SharedPreferences sp; 
     HashMap<Tag,ToggleButton> btns;
 
+	String username=null;
+	String password=null;
+	String email="";
 	
 	
 	@Override

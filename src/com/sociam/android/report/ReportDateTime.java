@@ -3,23 +3,17 @@ package com.sociam.android.report;
 import java.util.Calendar;
 
 import com.sociam.android.Crime;
-import com.sociam.android.Persons;
 import com.sociam.android.R;
 
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
-import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.Dialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

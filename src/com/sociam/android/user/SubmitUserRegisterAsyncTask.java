@@ -9,7 +9,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.sociam.android.user.UserRegisterFragment.UserSetupFragmentCallBack;
+import com.sociam.android.user.TagRegisterFragment.TagRegisterFragmentCallBack;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -20,10 +20,10 @@ public class SubmitUserRegisterAsyncTask extends AsyncTask<String, Integer, Inte
 
 	Context context;
     ProgressDialog dialog;
-    UserSetupFragmentCallBack fc;
+    TagRegisterFragmentCallBack fc;
     boolean submitok;
     
-	public SubmitUserRegisterAsyncTask(Context con, UserSetupFragmentCallBack fc) {
+	public SubmitUserRegisterAsyncTask(Context con, TagRegisterFragmentCallBack fc) {
 		context=con;
 		this.fc=fc;
 	}
@@ -34,8 +34,11 @@ public class SubmitUserRegisterAsyncTask extends AsyncTask<String, Integer, Inte
 
 		try {
 			
-			String email = params[0];
-			
+				String username = params[0];
+				String password = params[1];
+				String tags = params[2];
+				String email =params[3];
+		
 			
 		      HttpClient httpClient = new DefaultHttpClient();
 		      HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/personels.php");
@@ -56,19 +59,17 @@ public class SubmitUserRegisterAsyncTask extends AsyncTask<String, Integer, Inte
 		      if(response!=null){
 		    	  Log.v("sociam",response);
 		    	  if(response.equals("ok")){
-		    		  
+		    		submitok=true;
 		    	  } else{
-		    		  
+		    		 submitok=false; 
 		    	  }
-		    	  
-		    		  
 		      }else{
-		    	  
+		    	  submitok=false;
 		      }
 		      
 			
 		} catch (Exception e) {
-			Log.e("sociam","email asynctask has problem EmailAvaialbeAsyncTask line 55");
+			Log.e("sociam","email asynctask has problem SubmitUserAvaialbeAsyncTask line 55");
 		}
 		
 		return null;
@@ -85,16 +86,16 @@ public class SubmitUserRegisterAsyncTask extends AsyncTask<String, Integer, Inte
 	@Override
 	protected void onPostExecute(Integer result) {
 		super.onPostExecute(result);
-		// if sucsess store ps 
+		// if sucsess store ps  and dismiss the dialog
 		if(submitok){
 			fc.onTaskDone(true);
 			
 		}else{
-		//else show dialog it fail then dismiss encourage submit
-		
-			
+		//else show dialog it fail then stay Register page encourage submit
 			fc.onTaskDone(false);
+			
 		}
 	}
 	
+		
 }

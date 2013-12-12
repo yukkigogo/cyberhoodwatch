@@ -2,6 +2,7 @@ package com.sociam.android;
 
 import java.util.Calendar;
 
+
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.format.Time;
@@ -30,11 +31,11 @@ public class Crime implements Comparable{
 	// suspects
 	private boolean uSeeSuspects;
 	
-	private Persons suspects;
+	//private Personal suspects;
 	
 	// victims 
 	private boolean uVictim;
-	private Persons victimes;
+	//private Personal victimes;
 	
 	
 	// location
@@ -108,9 +109,9 @@ public class Crime implements Comparable{
 	}
 	
 	// suspects
-	public void setSuspects(Persons sus){
-		this.suspects=sus;
-	}
+//	public void setSuspects(Personal sus){
+//		this.suspects=sus;
+//	}
 	
 	public void setUseeSuspects(boolean id){	
 		this.uSeeSuspects=id;
@@ -122,9 +123,9 @@ public class Crime implements Comparable{
 		this.uVictim=vic;
 	}
 	
-	public void setVictim(Persons vics){
-		this.victimes=vics;
-	}
+//	public void setVictim(Personal vics){
+//		this.victimes=vics;
+//	}
 	
 	// location
 	public void setLocationLatLon(boolean set){
@@ -238,9 +239,9 @@ public class Crime implements Comparable{
 	}
 	
 	// suspects
-	public Persons getSuspects(){
-		return this.suspects;
-	}
+//	public Personal getSuspects(){
+//		return this.suspects;
+//	}
 	
 	public boolean getUseeSuspects(){
 		return this.uSeeSuspects;
@@ -250,9 +251,9 @@ public class Crime implements Comparable{
 	public boolean getUVictim(){
 		return this.uVictim;
 	}
-	public Persons getVictim(){
-		return this.victimes;
-	}
+//	public Personal getVictim(){
+//		return this.victimes;
+//	}
 	
 
 	//location

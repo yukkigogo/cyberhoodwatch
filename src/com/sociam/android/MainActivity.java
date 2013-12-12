@@ -743,7 +743,7 @@ private ArrayList<Crime> getCrimesData() {
 		
 		String response = getData(1);
 		
-		HashMap<String,String> usertags = dapp.getTagMap4User();
+		//HashMap<String,String> usertags = dapp.ge;
 		
 		try{
 			
@@ -802,19 +802,9 @@ private ArrayList<Crime> getCrimesData() {
 						if(tagcate[1]==null){ 
 
 							tag_m	= new Tag(tagcate[0], "");
-							if(usertags!=null){
-							if(usertags.containsKey(tagcate[0]) &&
-									usertags.get(tagcate[0]).equals(""))
-									tag_m.setUserSetting(true);
-							}
 						}else{
 
-							tag_m = new Tag(tagcate[0],tagcate[1]);	
-							if(usertags!=null){
-								if(usertags.containsKey(tagcate[0]) &&
-										usertags.get(tagcate[0]).equals(tagcate[1]))
-										tag_m.setUserSetting(true);
-							}
+							tag_m = new Tag(tagcate[0],tagcate[1]);							
 						}							
 						r_msg.addTag(tag_m);
 						Marker marker = getMsgMarker(r_msg);

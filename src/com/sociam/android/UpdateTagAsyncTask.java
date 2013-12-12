@@ -18,6 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
@@ -28,19 +29,24 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 	int currentver;
 	SharedPreferences sp;
 	Context context;
+	DataApplication dapp;
+	int resnum=1;
 	
-	public UpdateTagAsyncTask(Context context) {
-		sp = PreferenceManager.getDefaultSharedPreferences(context);
+	public UpdateTagAsyncTask(Context con) {
+		sp = PreferenceManager.getDefaultSharedPreferences(con);
 		currentver = sp.getInt("tagver", 1);
-		this.context=context;
+		this.context=con;
+		dapp = (DataApplication) context.getApplicationContext();
 	}
 	
 	@Override
 	protected String doInBackground(String... params) {
 		// check the latest id and if it old update
-		Log.e("sociam", "UpdateTagAsyncTask execute on!");
+			//Log.e("sociam", "UpdateTagAsyncTask execute on!");
 
 		if(checkNeedUpdateTags(currentver)){
+			Log.e("sociam", "UpdateTagAsyncTask execute on! - reading from the server");
+
 			
 			HttpClient client = new DefaultHttpClient();
 		    HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/tagmanager.php");
@@ -68,13 +74,19 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 				fos.close();
 			
 			} catch (Exception e) {
-				Log.e("sociam", e.getMessage());
+				Log.e("sociam", "problem with UpdateTagAsyncTask line 76");
 			}
-			
-	
-
 		    
-		    // update version in source
+		    //call method to update DataApplication's tags
+		   if(dapp.setInitTags()){
+		    	
+			   // update the cvs file version
+		       Editor e = sp.edit();
+			   e.putInt("tagver", resnum);
+			   e.commit();
+			  }
+		    
+		    
 		}
 		
 		return null;
@@ -82,7 +94,7 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 
 	private boolean checkNeedUpdateTags(int current){
 		
-		int resnum=1;
+		
 		
 		HttpClient client = new DefaultHttpClient();
 	    HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/tagmanager.php");
@@ -103,9 +115,10 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 			e.printStackTrace();
 	   }	
 		
-	   
-	   if(current>=resnum) return false;
+	   Log.v("sociam", current +" and  " +resnum);
+	   if(current>=resnum) return false; 
 	   else return true;
+		   
 	}
 	
 }

@@ -68,7 +68,7 @@ public class UserRegisterFragment extends Fragment{
 					int after) {}
 			
 			@Override
-			public void afterTextChanged(Editable s) {
+			public void afterTextChanged(final Editable s) {
 				
 				if(s.length()>0){
 					if((s.toString().indexOf(" ")>=0)){
@@ -85,12 +85,16 @@ public class UserRegisterFragment extends Fragment{
 								// okay
 								tx_reg_ave.setTextColor(Color.GREEN);
 								tx_reg_ave.setText("Avaiable Username");
+								((UserRegisterActivity) getActivity()).username = s.toString();
 								
 							}else if(avaiable==0){
 								tx_reg_ave.setTextColor(Color.RED);
 								tx_reg_ave.setText("This username is already taken");
+								((UserRegisterActivity) getActivity()).username = null;
 							}else{
 								tx_reg_ave.setText("");
+								((UserRegisterActivity) getActivity()).username = null;
+
 							}
 
 							
@@ -102,6 +106,8 @@ public class UserRegisterFragment extends Fragment{
 				}
 				}else if(s.length()==0){
 					tx_reg_ave.setText("");
+					((UserRegisterActivity) getActivity()).username = null;
+
 				}
 
 			}
@@ -120,19 +126,12 @@ public class UserRegisterFragment extends Fragment{
 					int after) {}
 			@Override
 			public void afterTextChanged(Editable s) {
-					if(s.length()>8){
-						if(checkPasswordOK(password1.getText().toString())){
+					if(s.length()>5){
 							pass_avaiable.setTextColor(Color.GREEN);
 							pass_avaiable.setText("password is OK!");							
-							
-						}else{
-							pass_avaiable.setTextColor(Color.RED);
-							pass_avaiable.setText("password must contain numerals and alphabets");							
-						}
-						
 					}else{
 						pass_avaiable.setTextColor(Color.RED);
-						pass_avaiable.setText("password must be at least 8 characters and contain numerals and alphabets");
+						pass_avaiable.setText("password must be at least 6 characters");
 					}
 			}
 		});
@@ -156,9 +155,13 @@ public class UserRegisterFragment extends Fragment{
 					if(s.toString().equals(password1.getText().toString())){
 						pass_same.setTextColor(Color.GREEN);
 						pass_same.setText("OK!");
+						((UserRegisterActivity) getActivity()).password = s.toString();
+
 					}else{
 						pass_same.setTextColor(Color.RED);
 						pass_same.setText("Enter the passwords do not match!");
+						((UserRegisterActivity) getActivity()).password = null;
+
 					}
 						
 				}
@@ -180,7 +183,7 @@ public class UserRegisterFragment extends Fragment{
 			}
 			
 			@Override
-			public void afterTextChanged(Editable s) {
+			public void afterTextChanged(final Editable s) {
 				if(isValidEmail(s.toString())){
 					
 					EmailAvaiableAsyncTask emailAsync = new EmailAvaiableAsyncTask(new UserSetupFragmentCallBackEmail() {
@@ -191,12 +194,17 @@ public class UserRegisterFragment extends Fragment{
                                  // okay
                                  emailike.setTextColor(Color.GREEN);
                                  emailike.setText("Avaiable Email address");
+         						((UserRegisterActivity) getActivity()).email = s.toString();
+
                                  
                          }else if(avaiable==0){
                                  emailike.setTextColor(Color.RED);
                                  emailike.setText("This email is already used");
+          						((UserRegisterActivity) getActivity()).email = "";
+
                          }else{
                                 emailike.setText("");
+          						((UserRegisterActivity) getActivity()).email = "";
                          }							
 						}
 					});
@@ -205,6 +213,8 @@ public class UserRegisterFragment extends Fragment{
 				}else{
 					emailike.setTextColor(Color.RED);
 					emailike.setText("Invalid Email");
+					((UserRegisterActivity) getActivity()).email = "";
+
 				}
 			}
 		});
@@ -261,15 +271,7 @@ public class UserRegisterFragment extends Fragment{
 	}
 	
 
-	private boolean checkPasswordOK(String str){
-		
-		if(str.length()>7 && 
-				Pattern.compile("[0-9]").matcher(str).find() &&
-				Pattern.compile("[a-z,A-Z]").matcher(str).find())
-		return true;
-		
-		else return false;
-	}
+
 	
 	
 
