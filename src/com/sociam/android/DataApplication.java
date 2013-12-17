@@ -110,4 +110,11 @@ public class DataApplication extends Application {
 	}
 
 	
+	public Typeface getTypefaceRoboReg() {
+		Typeface robothin =  Typeface.createFromAsset(getAssets(), 
+				"Roboto-Regular.ttf");
+		
+		return robothin;
+	}
+	
 }

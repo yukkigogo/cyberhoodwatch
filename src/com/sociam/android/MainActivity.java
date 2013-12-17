@@ -17,6 +17,7 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import org.apache.http.client.HttpClient;
@@ -350,10 +351,12 @@ private void setbtn() {
 	  			break;	
 	  			
 	  		case R.id.menu_settings:
-	  			
-	  			getFragmentManager().beginTransaction()
-	  			.replace(R.id.main_map_fragment,new SettingsFragment())
-	  			.commit();
+
+	  			UserPreferenceDialog id = new UserPreferenceDialog();
+	  			id.show(getSupportFragmentManager(), "sociam");
+//	  			getFragmentManager().beginTransaction()
+//	  			.replace(R.id.main_map_fragment,new SettingsFragment())
+//	  			.commit();
 	  			
 	  			break;
 	  			
@@ -398,7 +401,11 @@ private void setbtn() {
 	  e.putInt("tagver", 1);
 	  e.commit();
 	  
-	  
+	  int icon =(new Random()).nextInt(5);
+	  e.putInt("icon", icon);
+	  e.commit();
+	  Log.e("sociam","my ICON!!  "+ icon);
+
   }
 
   
@@ -1321,6 +1328,9 @@ private ArrayList<Crime> getCrimesData() {
 	}
 
 
+
+
+	
 	
 	/*
 	 * helper class to contral Navigation Drawer
