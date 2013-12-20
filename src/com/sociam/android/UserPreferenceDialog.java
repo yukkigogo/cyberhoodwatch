@@ -48,7 +48,7 @@ public class UserPreferenceDialog extends DialogFragment {
 		hero.setTypeface(dapp.getTypefaceRobothin());
 		
 		TextView point = (TextView) view.findViewById(R.id.point);
-		point.setTypeface(dapp.getTypefaceRoboReg());
+		point.setTypeface(dapp.getTypefaceRoboBoldItalic());
 		
 		TextView point_title = (TextView) view.findViewById(R.id.point_txt);
 		point_title.setTypeface(dapp.getTypefaceRobothin());

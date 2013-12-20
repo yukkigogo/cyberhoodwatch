@@ -70,7 +70,7 @@ public class UserRegisterFragment extends Fragment{
 			@Override
 			public void afterTextChanged(final Editable s) {
 				
-				if(s.length()>0){
+				if(s.length()>0 && s.length()<16){
 					if((s.toString().indexOf(" ")>=0)){
 						tx_reg_ave.setTextColor(Color.RED);
 						tx_reg_ave.setText("You cannot use space!");
@@ -108,6 +108,10 @@ public class UserRegisterFragment extends Fragment{
 					tx_reg_ave.setText("");
 					((UserRegisterActivity) getActivity()).username = null;
 
+				}else{
+					((UserRegisterActivity) getActivity()).username = null;
+					tx_reg_ave.setTextColor(Color.RED);
+					tx_reg_ave.setText("This username is too long!");
 				}
 
 			}

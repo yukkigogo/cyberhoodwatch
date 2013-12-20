@@ -379,7 +379,9 @@ private void setbtn() {
 	  			}
 	  			break;
 	  		
-	  	
+	  		case R.id.menu_reload:
+	  			reloadData();
+	  			break;
 	  }
 	  	
 	
@@ -766,8 +768,10 @@ private ArrayList<Crime> getCrimesData() {
 				// tag can be empty 
 				
 				r_msg.setID(Integer.parseInt(str[0]));
+				
+				String u_name = str[1].replaceAll("\"", "");
 
-				r_msg.setUser(str[1]);
+				r_msg.setUser(u_name);
 				r_msg.setIdCode(Integer.parseInt(str[2]));
 
 				r_msg.setLat(Double.parseDouble(str[3]));
@@ -955,6 +959,7 @@ private ArrayList<Crime> getCrimesData() {
 				if(tx_msg!=null){
 					tx_msg.setText("");
 					tx_user.setText("");
+					tx_time.setText("");
 					layout.setBackgroundColor(Color.TRANSPARENT);
 				}
 				
@@ -986,6 +991,7 @@ private ArrayList<Crime> getCrimesData() {
 				if(rm.getIdCode()==1){
 					tx_user.setText("Anonymous says...");
 				}else{
+					
 					tx_user.setText(rm.getUser()+ " says...");
 				}
 				
@@ -1185,15 +1191,20 @@ private ArrayList<Crime> getCrimesData() {
 	public void reloadData(){
 	    // start location manager
 	    setMyLocationManager();
+	    
+	    mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                .getMap();
+	    setUpMap();
+	    
 	    // obtain map data from the server
-	    getCrimesData();
-	    // compute distance userpoistion and crimes
-	    getDistanceFromHere(getLocation(), crimes);
-	    //map initialise
-	    setUpMapIfNeeded();
-	    setbtn();
-	    //drawer instanceate
-	    setDrawer();
+//	    getCrimesData();
+//	    // compute distance userpoistion and crimes
+//	    getDistanceFromHere(getLocation(), crimes);
+//	    //map initialise
+//	    setUpMapIfNeeded();
+//	    setbtn();
+//	    //drawer instanceate
+//	    setDrawer();
 	}
 	
 	/*
