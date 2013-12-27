@@ -157,12 +157,15 @@ public class MessageActivity extends FragmentActivity{
 	
 		switch (item.getItemId()){
 		case android.R.id.home:
+			dapp.cleanTags();
 			finish();			
 			break;
 			
 		case R.id.msg_send:
 			
-			if(um.getMsg().length()>0){
+			
+			if(um.getMsg()!=null){
+			if(  um.getMsg().length()>0 ){
 				if(um.getMsg().length()<=140){
 					//	Log.e("sociam","show tag index num : "+ um.getTime().format2445());
 				
@@ -173,6 +176,7 @@ public class MessageActivity extends FragmentActivity{
 				
 				@Override
 				public void onTaskDone() {
+					dapp.cleanTags();
 					finish();
 					
 					
@@ -210,7 +214,9 @@ public class MessageActivity extends FragmentActivity{
 			}else{
 				Toast.makeText(this, "Please add your message..", Toast.LENGTH_LONG).show();
 			}
-			
+			}else{
+				Toast.makeText(this, "Please add your message..", Toast.LENGTH_LONG).show();
+			}
 			break;
 		
 		}	

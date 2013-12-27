@@ -339,33 +339,7 @@ public class TagRegisterFragment extends Fragment {
 		
 		
 	
-//	private HashMap<String,String> getTagsFromLocal(){
-//	    HashMap<String, String> tags = new HashMap<String, String>();
-//	    String FILENAME = "tag.csv";
-//	    
-//	    try {
-//	            FileInputStream in = getActivity().openFileInput(FILENAME);
-//	            InputStreamReader ins = new InputStreamReader(in);
-//	            BufferedReader br = new BufferedReader(ins);
-//	            String currentLine;
-//	            
-//	            while((currentLine=br.readLine())!=null){
-//	                    String str[] = currentLine.split(",");
-//	                    String cate;
-//	                    if(str[1]!=null) cate=str[1];
-//	                    else cate="";
-//	                    tags.put(str[0], cate);
-//	            }
-//	
-//	            br.close();
-//	    } catch (Exception e) {
-//	            Log.e("sociam", e.getMessage());
-//	
-//	    }
-//	    
-//	    
-//	    return tags;
-//	}
+
 	
 	
 	public interface TagRegisterFragmentCallBack{

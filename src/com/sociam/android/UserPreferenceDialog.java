@@ -1,20 +1,27 @@
 package com.sociam.android;
 
+import com.sociam.android.message.MessageSettingTagFragmentDialog;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserPreferenceDialog extends DialogFragment {
 
 		DataApplication dapp;
 		SharedPreferences sp;
+		MessageSettingTagFragmentDialog mstfd;
 		
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -58,6 +65,48 @@ public class UserPreferenceDialog extends DialogFragment {
 		
 		TextView email = (TextView) view.findViewById(R.id.prof_email);
 		email.setTypeface(dapp.getTypefaceRobothin());
+		
+		// Button interfaces
+		
+		Button tag = (Button) view.findViewById(R.id.prof_tag_button);	
+		tag.setTypeface(dapp.getTypefaceRobothin());
+		tag.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Log.e("sociam",sp.getString("usertag", "should be null"));
+				
+				if((sp.getString("usertag", "")).equals(null)){
+					UserPreferenceTagDialog dialog = new UserPreferenceTagDialog();
+					dialog.show(getActivity().getSupportFragmentManager(), "sociam");
+				}else{
+					
+				}	
+				
+			}
+		});
+		
+		Button edit = (Button) view.findViewById(R.id.prof_edit_btn);
+		edit.setTypeface(dapp.getTypefaceRobothin());
+		edit.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "connect web page for editting", Toast.LENGTH_SHORT);
+				
+			}
+		});
+		
+		Button close = (Button) view.findViewById(R.id.prof_close_button);
+		close.setTypeface(dapp.getTypefaceRobothin());
+		close.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				UserPreferenceDialog.this.getDialog().dismiss();
+			}
+		});
+		
 		
 	}
 

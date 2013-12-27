@@ -92,6 +92,12 @@ public class DataApplication extends Application {
           return list;
   }
 	
+	  public void cleanTags(){
+		  for(Tag t : initialTags){
+			  t.setMsgSetting(false);
+			  Log.v(t.getName()+" "+t.getUserSetting(),"sociam");
+		  }
+	  }
 	
 
 
@@ -123,5 +129,7 @@ public class DataApplication extends Application {
 		
 		return robothin;
 	}
+	
+	
 	
 }
