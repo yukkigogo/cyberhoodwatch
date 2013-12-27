@@ -6,7 +6,11 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Application;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
@@ -39,9 +43,9 @@ public class DataApplication extends Application {
 		initialTags = getTagsFromLocal();
 		
 		// is usertags is not null
-		if((sp.getString("usertags", null))!=null){
+		if((sp.getString("usertag", ""))!=""){
 			// add user parameter to each tags
-			setInitTags4User(initialTags, (sp.getString("usertags", null)));
+			setInitTags4User(initialTags, (sp.getString("usertag", null)));
 			
 		}
 		return true;
@@ -95,7 +99,7 @@ public class DataApplication extends Application {
 	  public void cleanTags(){
 		  for(Tag t : initialTags){
 			  t.setMsgSetting(false);
-			  Log.v(t.getName()+" "+t.getUserSetting(),"sociam");
+			  //Log.v(t.getName()+" "+t.getUserSetting(),"sociam");
 		  }
 	  }
 	
@@ -129,6 +133,8 @@ public class DataApplication extends Application {
 		
 		return robothin;
 	}
+	
+	
 	
 	
 	

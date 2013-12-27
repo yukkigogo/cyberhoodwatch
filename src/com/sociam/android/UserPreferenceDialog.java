@@ -47,15 +47,37 @@ public class UserPreferenceDialog extends DialogFragment {
 		
 		TextView user = (TextView) view.findViewById(R.id.prof_username);
 		user.setTypeface(dapp.getTypefaceRobothin());
+		user.setText(sp.getString("username", ""));
 		
 		TextView hero_title = (TextView) view.findViewById(R.id.prof_herostatus_txt);
 		hero_title.setTypeface(dapp.getTypefaceRobothin());
 		
+		Integer point_int = sp.getInt("hero_point", 0);
+		
 		TextView hero = (TextView) view.findViewById(R.id.prof_hero_status);
 		hero.setTypeface(dapp.getTypefaceRobothin());
+		/*
+		 * hero status 
+		 * 100+ cyberhood officer
+		 * 50+  cyberhood guardian
+		 * 30+  cyberhood watcher
+		 * >  cyberhood resident 
+		 */
+		
+		
+		if(point_int>99){
+			hero.setText("Cyberhood Officer");
+		} else if(point_int<=99 && point_int>=50){
+			hero.setText("CyberHood Gurdian");
+		} else if(point_int<50 && point_int>=30){
+			hero.setText("Cyberhood Watcher");
+		}else{
+			hero.setText("Cyberhood Resident");
+		}
 		
 		TextView point = (TextView) view.findViewById(R.id.point);
 		point.setTypeface(dapp.getTypefaceRoboBoldItalic());
+		point.setText(Integer.toString(point_int));
 		
 		TextView point_title = (TextView) view.findViewById(R.id.point_txt);
 		point_title.setTypeface(dapp.getTypefaceRobothin());
@@ -66,6 +88,13 @@ public class UserPreferenceDialog extends DialogFragment {
 		TextView email = (TextView) view.findViewById(R.id.prof_email);
 		email.setTypeface(dapp.getTypefaceRobothin());
 		
+		if((sp.getString("email", "")).equals("")){
+			email.setText("not registerd yet");
+		}else{
+			email.setText(sp.getString("email", ""));
+		}
+		
+		
 		// Button interfaces
 		
 		Button tag = (Button) view.findViewById(R.id.prof_tag_button);	
@@ -74,12 +103,12 @@ public class UserPreferenceDialog extends DialogFragment {
 			
 			@Override
 			public void onClick(View v) {
-				Log.e("sociam",sp.getString("usertag", "should be null"));
-				
-				if((sp.getString("usertag", "")).equals(null)){
+			
+				if((sp.getString("usertag", null)).equals("")){
+					Toast.makeText(getActivity(), "you did not set up tags yet", Toast.LENGTH_SHORT).show();
+				}else{
 					UserPreferenceTagDialog dialog = new UserPreferenceTagDialog();
 					dialog.show(getActivity().getSupportFragmentManager(), "sociam");
-				}else{
 					
 				}	
 				
@@ -92,7 +121,7 @@ public class UserPreferenceDialog extends DialogFragment {
 			
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "connect web page for editting", Toast.LENGTH_SHORT);
+				Toast.makeText(getActivity(), "connect web page for editting", Toast.LENGTH_SHORT).show();
 				
 			}
 		});

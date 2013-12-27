@@ -344,20 +344,46 @@ private void setbtn() {
 	  			consentFormDialog2.show(getSupportFragmentManager(), "sociam");
 	  			break;
 	  	
-	  		case R.id.action_personalisation:
-	  			// show the consent form
-	  			MyPreferenceShow myPreferenceShow = new MyPreferenceShow();
-	  			myPreferenceShow.show(getSupportFragmentManager(), "sociam");
-	  			break;	
+//	  		case R.id.action_personalisation:
+//	  			// show the consent form
+//	  			MyPreferenceShow myPreferenceShow = new MyPreferenceShow();
+//	  			myPreferenceShow.show(getSupportFragmentManager(), "sociam");
+//	  			break;	
 	  			
 	  		case R.id.menu_settings:
-
-	  			UserPreferenceDialog id = new UserPreferenceDialog();
-	  			id.show(getSupportFragmentManager(), "sociam");
-//	  			getFragmentManager().beginTransaction()
-//	  			.replace(R.id.main_map_fragment,new SettingsFragment())
-//	  			.commit();
 	  			
+	  			if(sp.getString("username", null)!=null){
+	  				UserPreferenceDialog id = new UserPreferenceDialog();
+	  				id.show(getSupportFragmentManager(), "sociam");
+	  			}else{
+	  				
+					AlertDialog.Builder alb = new AlertDialog.Builder(this);
+					alb.setTitle("You Don't Have Username Yet");
+					alb.setMessage("Do you want to sing up?");
+					alb.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							//open another activity to register users	
+							Intent intent = new Intent();
+							intent.setClassName("com.sociam.android", 
+									"com.sociam.android.user.UserRegisterActivity");
+							startActivity(intent);
+							
+							
+						}
+					});
+					alb.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+						}
+					});
+					
+					AlertDialog alertDialog = alb.create();
+					alertDialog.show();
+	  				
+	  			}
 	  			break;
 	  			
 	  		case R.id.menu_3d:
@@ -379,9 +405,9 @@ private void setbtn() {
 	  			}
 	  			break;
 	  		
-	  		case R.id.menu_reload:
-	  			reloadData();
-	  			break;
+//	  		case R.id.menu_reload:
+//	  			reloadData();
+//	  			break;
 	  }
 	  	
 	

@@ -151,7 +151,6 @@ public class MessageFragment extends Fragment{
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
-										idcard.setChecked(false);
 										//open another activity to register users	
 										Intent intent = new Intent();
 										intent.setClassName("com.sociam.android", 
@@ -165,7 +164,6 @@ public class MessageFragment extends Fragment{
 									
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
-										idcard.setChecked(false);
 
 										
 									}
@@ -174,9 +172,11 @@ public class MessageFragment extends Fragment{
 								AlertDialog alertDialog = alb.create();
 								alertDialog.show();
 									
+								idcard.setChecked(false);
 							}
 								
-						
+							
+
 						 }else{
 								username.setText("Anonymous says...");
 								um.setAnonymous(true);

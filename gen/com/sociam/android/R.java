@@ -280,7 +280,6 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action_consentform=0x7f0700aa;
-        public static final int action_personalisation=0x7f0700ab;
         public static final int action_settings=0x7f0700a9;
         public static final int btn0=0x7f070010;
         public static final int btn1=0x7f07000f;
@@ -338,15 +337,14 @@ containing a value of this type.
         public static final int map2=0x7f070071;
         public static final int map_maker_detail_listview=0x7f070027;
         public static final int map_marker_picture=0x7f070026;
-        public static final int menu_3d=0x7f0700ad;
-        public static final int menu_reload=0x7f0700ae;
-        public static final int menu_settings=0x7f0700ac;
+        public static final int menu_3d=0x7f0700ac;
+        public static final int menu_settings=0x7f0700ab;
         public static final int message_screen=0x7f070029;
         public static final int message_screen_onmain=0x7f070020;
         public static final int message_text=0x7f07002d;
         public static final int msg_count=0x7f07002c;
         public static final int msg_location=0x7f07002e;
-        public static final int msg_send=0x7f0700af;
+        public static final int msg_send=0x7f0700ad;
         public static final int msg_text=0x7f070022;
         public static final int msg_text_time=0x7f070023;
         public static final int msg_username=0x7f070021;

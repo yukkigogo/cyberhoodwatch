@@ -145,7 +145,6 @@ int drawable user_card_p 0x7f02005f
 int drawable user_card_press 0x7f020060
 int drawable white_phone 0x7f020061
 int id action_consentform 0x7f0700aa
-int id action_personalisation 0x7f0700ab
 int id action_settings 0x7f0700a9
 int id btn0 0x7f070010
 int id btn1 0x7f07000f
@@ -203,15 +202,14 @@ int id map 0x7f07001f
 int id map2 0x7f070071
 int id map_maker_detail_listview 0x7f070027
 int id map_marker_picture 0x7f070026
-int id menu_3d 0x7f0700ad
-int id menu_reload 0x7f0700ae
-int id menu_settings 0x7f0700ac
+int id menu_3d 0x7f0700ac
+int id menu_settings 0x7f0700ab
 int id message_screen 0x7f070029
 int id message_screen_onmain 0x7f070020
 int id message_text 0x7f07002d
 int id msg_count 0x7f07002c
 int id msg_location 0x7f07002e
-int id msg_send 0x7f0700af
+int id msg_send 0x7f0700ad
 int id msg_text 0x7f070022
 int id msg_text_time 0x7f070023
 int id msg_username 0x7f070021
