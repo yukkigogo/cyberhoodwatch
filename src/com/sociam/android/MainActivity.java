@@ -789,14 +789,24 @@ private ArrayList<Crime> getCrimesData() {
 			while((currentLine=br.readLine())!=null){
 				Log.e("sociam","should be message line \n"+currentLine);
 				
+				currentLine = currentLine.replaceAll("\"", "");
+
+				
 				RecieveMessage r_msg = new RecieveMessage();
 				String str[] = currentLine.split(",");
-				// tag can be empty 
-				
-				r_msg.setID(Integer.parseInt(str[0]));
-				
-				String u_name = str[1].replaceAll("\"", "");
 
+				// tag can be empty 
+				try {
+					r_msg.setID(Integer.parseInt(str[0]));						
+				} catch (Exception e) {
+					Log.e("sociam","integer point");
+
+				}
+				
+				
+
+				String u_name = str[1];
+				
 				r_msg.setUser(u_name);
 				r_msg.setIdCode(Integer.parseInt(str[2]));
 
@@ -805,8 +815,9 @@ private ArrayList<Crime> getCrimesData() {
 				r_msg.setLng(Double.parseDouble(str[4]));
 				
 				
-				SimpleDateFormat  format = new SimpleDateFormat("\"yyyy-MM-dd HH:mm:ss\"");
+				
 				try {
+					SimpleDateFormat  format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 					Date date = format.parse(str[5]);
 
 					Calendar calender = Calendar.getInstance();
@@ -822,13 +833,19 @@ private ArrayList<Crime> getCrimesData() {
 
 				r_msg.setMsg(msgtext);
 				r_msg.setUpThumb(Integer.parseInt(str[8]));
+				
 
 				r_msg.setDownThumb(Integer.parseInt(str[9]));
 				
 				//tags 
 				String tagsString = str[7];
-
-				if(tagsString!=null){
+				try{
+					Log.e("sociam", tagsString);
+				}catch(Exception e){
+					Log.e("sociam", "problem of tag");
+				}
+				
+				if(tagsString!=""){
 					String[] tags = tagsString.split(":");
 
 					for(String strs :tags){
