@@ -43,14 +43,14 @@ import com.sociam.android.R;
 @SuppressLint("NewApi")
 public class ReportActivity extends FragmentActivity implements LocationListener{
 	// PAGE_COUNT - 1
-	public static final int SUMMARY_FRAG_NUM = 8; 
+	public static final int SUMMARY_FRAG_NUM = 9; 
 	
 	// store crime data
 	private Crime crime;
 	//private Personal suspects,victims;
 	private MyFragmentStatePagerAdapter myAdapter;
 	ViewPager pager;
-	Button[] btns = new Button[9];
+	Button[] btns = new Button[10];
 	
 	SharedPreferences sp;
 	Time now;
@@ -91,8 +91,8 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 //		crime.setSuspects(suspects);
 //		crime.setVictim(victims);
 		
-		sp = PreferenceManager.getDefaultSharedPreferences(this);;
-		  Log.w("sociam"," coommmooonnn !!  "+ sp.getString("uuid", "something problem with uuid"));
+		sp = PreferenceManager.getDefaultSharedPreferences(this);
+		  Log.w("sociam"," IN REPORT PAGE - coommmooonnn !!  "+ sp.getString("uuid", "something problem with uuid"));
 		
 		dapp = (DataApplication) this.getApplication();
 
@@ -163,7 +163,9 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 						break;		
 				case 8:	setBtnInFooter(8);
 						break;		
-						
+				case 9:	setBtnInFooter(9);
+					break;		
+					
 				default : 
 					setBtnInFooter(6);
 					break;
@@ -227,6 +229,8 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		btns[6] = (Button) findViewById(R.id.btn6);
 		btns[7] = (Button) findViewById(R.id.btn7);		
 		btns[8] = (Button) findViewById(R.id.btn8);		
+		btns[9] = (Button) findViewById(R.id.btn9);		
+
 
 		setBtnInFooter(0);
 		

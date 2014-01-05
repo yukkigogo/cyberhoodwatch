@@ -9,7 +9,7 @@ import android.view.View;
 
 public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 	// don't forget to change report activity as well
-	final int PAGE_COUNT = 9;
+	final int PAGE_COUNT = 10;
 	
 	public MyFragmentStatePagerAdapter(FragmentManager fm) {
 		super(fm);
@@ -42,7 +42,9 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 			return new ReportDateTime();		
 		case 7:
 			return new ReportSeverity();
-		case 8:			
+		case 8: 
+			return new ReportAnonymous(); 
+		case 9:			
 			return new ReportSummary();		
 
 //		case 7 : //

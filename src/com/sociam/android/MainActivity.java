@@ -2,17 +2,11 @@ package com.sociam.android;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
-import java.nio.channels.AlreadyConnectedException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -168,7 +162,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   
     // obtain map data from the server
     getCrimesData();
-    
     
     // compute distance userpoistion and crimes
     getDistanceFromHere(currentBestlocation, crimes);
@@ -845,7 +838,7 @@ private ArrayList<Crime> getCrimesData() {
 					Log.e("sociam", "problem of tag");
 				}
 				
-				if(tagsString!=""){
+				if(tagsString.indexOf("-")>-1){
 					String[] tags = tagsString.split(":");
 
 					for(String strs :tags){
@@ -864,6 +857,9 @@ private ArrayList<Crime> getCrimesData() {
 						Marker marker = getMsgMarker(r_msg);
 						msg_maker_hash.put(marker, r_msg);
 					}
+				}else{
+					Marker marker = getMsgMarker(r_msg);
+					msg_maker_hash.put(marker, r_msg);
 				}
 				
 			}

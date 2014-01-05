@@ -28,15 +28,9 @@ public class Crime implements Comparable{
 	private String category_text;
 	private boolean cat1def;
 	
-	// suspects
-	private boolean uSeeSuspects;
 	
-	//private Personal suspects;
-	
-	// victims 
-	private boolean uVictim;
-	//private Personal victimes;
-	
+	//who is victim
+	private int whovictim=99;
 	
 	// location
 	private boolean location_latlon=false;	
@@ -108,24 +102,17 @@ public class Crime implements Comparable{
 		this.cat1def=val;
 	}
 	
-	// suspects
-//	public void setSuspects(Personal sus){
-//		this.suspects=sus;
-//	}
 	
-	public void setUseeSuspects(boolean id){	
-		this.uSeeSuspects=id;
-	}
 
 	
 	// victim	
-	public void setUvictim(boolean vic){
-		this.uVictim=vic;
+	public void setWhovictim(int vic){
+		this.whovictim=vic;
 	}
 	
-//	public void setVictim(Personal vics){
-//		this.victimes=vics;
-//	}
+	public int getWhovictim(){
+		return this.whovictim;
+	}
 	
 	// location
 	public void setLocationLatLon(boolean set){
@@ -238,22 +225,6 @@ public class Crime implements Comparable{
 		return this.cat1def;
 	}
 	
-	// suspects
-//	public Personal getSuspects(){
-//		return this.suspects;
-//	}
-	
-	public boolean getUseeSuspects(){
-		return this.uSeeSuspects;
-	}
-	
-	// victims
-	public boolean getUVictim(){
-		return this.uVictim;
-	}
-//	public Personal getVictim(){
-//		return this.victimes;
-//	}
 	
 
 	//location
