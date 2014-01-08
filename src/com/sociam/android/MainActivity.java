@@ -1137,6 +1137,27 @@ private ArrayList<Crime> getCrimesData() {
 				
 	}
 	
+	public boolean isMyCrimeReport(String crime_id){
+		Log.e("sociam",sp.getString("crime_id", ""));
+		String[] crimes = sp.getString("crime_id", "").split(",");
+		for(String str : crimes){
+			if(str.equals(crime_id)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean isAlreadyEvalCrime(String crime_id){
+		String[] crimes_eval = sp.getString("eval_crime", "").split(",");
+		for(String str : crimes_eval){
+			if(str.equals(crime_id)){
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public class DetailDialogFragment extends DialogFragment{
 		private int crime_num;
 		private Crime crime;
@@ -1172,10 +1193,20 @@ private ArrayList<Crime> getCrimesData() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					DetailDialogFragment.this.getDialog().dismiss();
-					// open evaluate dialog
-					EvaluateDialog ed = new EvaluateDialog(Integer.toString(crime.getCrimeID()));
-					ed.show(getSupportFragmentManager(),"sociam");
+					String crime_id = Integer.toString(crime.getCrimeID());
+					
+					Log.e("sociam","Wanna evaluate this --> "+crime_id);
+					
+					if(isAlreadyEvalCrime(crime_id)){
+						Toast.makeText(getActivity(), "You already evaluated this report", Toast.LENGTH_SHORT).show();
+					}else if(isMyCrimeReport(crime_id)){
+						Toast.makeText(getActivity(), "You cannot evaluate own reports", Toast.LENGTH_SHORT).show();
+					}else{
+						DetailDialogFragment.this.getDialog().dismiss();
+						// open evaluate dialog
+						EvaluateDialog ed = new EvaluateDialog(Integer.toString(crime.getCrimeID()));
+						ed.show(getSupportFragmentManager(),"sociam");
+					}
 				}
 			});
 			
@@ -1263,10 +1294,12 @@ private ArrayList<Crime> getCrimesData() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					// connect server to evaluate and closed and reload
-					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
-					evaluate.execute(crime_id,"1","0","crime");
-					((MainActivity) getActivity()).reloadData();
-
+					
+						EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
+						evaluate.execute(crime_id,"1","0","crime");
+						((MainActivity) getActivity()).reloadData();
+						
+					
 					EvaluateDialog.this.getDialog().dismiss();
 				}
 			});
@@ -1275,10 +1308,14 @@ private ArrayList<Crime> getCrimesData() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+					
+					
 					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
 					evaluate.execute(crime_id,"0","1","crime");
 					((MainActivity) getActivity()).reloadData();
 
+					
+					
 					EvaluateDialog.this.getDialog().dismiss();
 
 				}
