@@ -9,6 +9,13 @@ import android.text.format.Time;
 
 public class Crime implements Comparable{
 	
+	/* who is victim
+	 *  0: something happen to me
+	 *  1: I saw somthing
+	 *  2: I need help
+	 */
+	private int whovictim=99; 
+	
 	// IDs
 	private int crimeID; //hash()
 	private String userID;
@@ -29,8 +36,7 @@ public class Crime implements Comparable{
 	private boolean cat1def;
 	
 	
-	//who is victim
-	private int whovictim=99;
+
 	
 	// location
 	private boolean location_latlon=false;	

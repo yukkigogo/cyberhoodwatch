@@ -3,7 +3,7 @@
     android:id="@+id/layoutevidence"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/d_gray"
+    android:background="@color/black"
     android:orientation="vertical" >
 
 	<RelativeLayout
@@ -42,26 +42,28 @@
             android:src="@drawable/padding" />
 	  
 	  
-	  <Button 
+	  <ToggleButton 
 	      	android:id="@+id/evi_left"
 	    	android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"		
 		    android:layout_alignTop="@+id/padding"
             android:layout_toLeftOf="@+id/padding"
-			android:text="No"
+            android:textOn="No"
+            android:textOff="No"
 			android:paddingLeft="30dip"
 			android:gravity="left|center_vertical"		
 			android:textColor="@color/white"		
             android:background="@drawable/left_half_btn"
 	  />
 	   
-	  <Button 
+	  <ToggleButton 
 	      	android:id="@+id/evi_right"
 	    	android:layout_width="wrap_content"
 		    android:layout_height="wrap_content"		
 		    android:layout_alignTop="@+id/padding"
             android:layout_toRightOf="@+id/padding"
-			android:text="Yes"
+            android:textOn="Yes"
+            android:textOff="Yes"
 			android:paddingRight="30dip"
 			android:gravity="right|center_vertical"
 			android:textColor="@color/white"

@@ -37,6 +37,7 @@ import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
@@ -55,7 +56,7 @@ public class ReportEvidence extends Fragment {
 	ViewPager pager;
 
 	Button btnM,btnS;
-	Button btn1,btn2;
+	ToggleButton btn1,btn2;
 	Bitmap capturedImage;
 	public final String SAVE_DIR = "/CrimeTips/";
 	private String fileName;
@@ -115,36 +116,70 @@ public class ReportEvidence extends Fragment {
 		  setListenersInEvi(btnM, 0);
 		  setListenersInEvi(btnS, 99);
 		
-		btn1 = (Button) getActivity().findViewById(R.id.evi_right);
+		btn1 = (ToggleButton) getActivity().findViewById(R.id.evi_right);
 		btn1.setTypeface(dapp.getTypefaceRobothin());
-		btn2 = (Button) getActivity().findViewById(R.id.evi_left);
+		btn1.setOnCheckedChangeListener(new 
+				CompoundButton.OnCheckedChangeListener() {			
+			@Override
+			public void onCheckedChanged(
+					CompoundButton buttonView, boolean isChecked) {
+				if(isChecked){
+					Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+					startActivityForResult(intent,REQUEST_CAPTURE_IMAGE);
+				}else{
+					currentCrime.setPicOn(0);
+
+				}
+				
+			}
+		});
+		
+		btn2 = (ToggleButton) getActivity().findViewById(R.id.evi_left);
 		btn2.setTypeface(dapp.getTypefaceRobothin());
-		setListeners();		
+		btn2.setOnCheckedChangeListener(new
+				CompoundButton.OnCheckedChangeListener() {
+					
+					@Override
+					public void onCheckedChanged(
+							CompoundButton buttonView, boolean isChecked) {
+						if(isChecked){
+							pager =(ViewPager) getActivity().findViewById(R.id.pager);
+							pager.setCurrentItem(pager.getCurrentItem()+1);
+							currentCrime.setPicOn(0);
+
+						}else{
+							currentCrime.setPicOn(0);
+						}
+							
+						
+					}
+				});
+//		setListeners();		
 
 		
 	}
 	
-	protected void setListeners(){		
-		btn1.setOnClickListener(new OnClickListener(){
-			@Override
-			public void onClick(View v) {				
-				
-				// take picture get location 
-				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-				startActivityForResult(intent,REQUEST_CAPTURE_IMAGE);
-				
-			}
-		});
-		
-		btn2.setOnClickListener(new OnClickListener() {			
-			@Override
-			public void onClick(View v) {
-				pager =(ViewPager) getActivity().findViewById(R.id.pager);
-				pager.setCurrentItem(pager.getCurrentItem()+1);
-			}
-		});
-		
-	}
+//	protected void setListeners(){		
+//		btn1.setOnClickListener(new OnClickListener(){
+//			@Override
+//			public void onClick(View v) {				
+//				
+//				// take picture get location 
+//				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//				startActivityForResult(intent,REQUEST_CAPTURE_IMAGE);
+//				
+//			}
+//		});
+//		
+//		btn2.setOnClickListener(new OnClickListener() {			
+//			@Override
+//			public void onClick(View v) {
+//				pager =(ViewPager) getActivity().findViewById(R.id.pager);
+//				pager.setCurrentItem(pager.getCurrentItem()+1);
+//			}
+//		});
+//		
+//	}
 	
 	
 	private void setListenersInEvi(final Button btn, final int type){

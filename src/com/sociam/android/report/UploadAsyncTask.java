@@ -28,6 +28,7 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
+import android.widget.Toast;
 
 public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 
@@ -36,6 +37,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	String lat,lon;
 	SharedPreferences sp;
 	private FragmentCallBack fragmentcallback;
+	boolean postSuccess = true;
 	
 	  public UploadAsyncTask(Context context, FragmentCallBack frag){
 		    this.context = context;
@@ -114,12 +116,18 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		    	 Log.e("sociam",str[i]);
 		    	 Matcher m = p.matcher(str[i]);
 		    	 if(m.find()){
+		    		 
 		    		 String[] str2 = str[i].split(",");
 		    		 Log.e("sociam", "crime num "+ str2[1]);
-		    		 String crime_ids = sp.getString("crime_id", "");
-		    		 Editor e = sp.edit();
-		    		 e.putString("crime_id", crime_ids+","+str2[1]);
-		    		 e.commit();
+		    		 
+		    		 if(str2[1].equals("false")){
+		    			 postSuccess=false;
+		    		 }else{
+		    			 String crime_ids = sp.getString("crime_id", "");
+		    			 Editor e = sp.edit();
+		    			 e.putString("crime_id", crime_ids+","+str2[1]);
+		    			 e.commit();
+		    	 }
 		    	 }
 		     }
 		     
@@ -138,6 +146,9 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 	  protected void onPostExecute(Integer result) {
 	    if(dialog != null){
 	      dialog.dismiss();
+	      if(!postSuccess){
+	    	  Toast.makeText(context, "You cannot post multiple post anonymously in 2 mins", Toast.LENGTH_LONG).show();
+	      }
 	      fragmentcallback.onTaskDone();
 	    }
 	  }

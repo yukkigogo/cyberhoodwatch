@@ -33,9 +33,11 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 	ProgressDialog dialog;
 	Context context;
+	SharedPreferences sp;
 	
 	  public EvaluateAsyncTask(Context context){
 		    this.context = context;
+		    sp = PreferenceManager.getDefaultSharedPreferences(context);
 		}
 	  
 
@@ -47,7 +49,8 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      String crime_id = params[0];	      
 		      String up_thumb = params[1];
 		      String down_thumb = params[2];
-
+		      String crimeORmsg = params[3]; 
+		      
 		      
 		     for(int i=0;i<params.length;i++)		
 		    	  Log.e("sociam",i+" "+params[i]); 
@@ -60,15 +63,44 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      
 
 		      // other post		      
-		      multipartEntity.addPart("crime_id", new StringBody(crime_id));
-		      multipartEntity.addPart("up_thumb", new StringBody(up_thumb));
-		      multipartEntity.addPart("down_thumb", new StringBody(down_thumb));
+		      if(crimeORmsg.equals("crime")){  
+		    	  
+		    	  multipartEntity.addPart("type", new StringBody("0"));
+			      multipartEntity.addPart("crime_id", new StringBody(crime_id));
+			      multipartEntity.addPart("up_thumb", new StringBody(up_thumb));
+			      multipartEntity.addPart("down_thumb", new StringBody(down_thumb));
+			      
+			      httpPost.setEntity(multipartEntity);
+			      String response = httpClient.execute(httpPost, responseHandler);
+			     
+			      // store the evaluated data
+	    		 String past_eval_crime = sp.getString("eval_crime", "");
+	    		 Editor e = sp.edit();
+	    		 e.putString("eval_crime", past_eval_crime+","+crime_id);
+	    		 e.commit();
 		      
-		      httpPost.setEntity(multipartEntity);
-		      //
-		      String response = httpClient.execute(httpPost, responseHandler);
-		      Log.e("odebaki", response);
-		     
+		      }else{	 
+		    	  
+		    	  multipartEntity.addPart("type", new StringBody("1")); 
+
+			      multipartEntity.addPart("crime_id", new StringBody(crime_id));
+			      multipartEntity.addPart("up_thumb", new StringBody(up_thumb));
+			      multipartEntity.addPart("down_thumb", new StringBody(down_thumb));
+			      
+			      httpPost.setEntity(multipartEntity);
+			      String response = httpClient.execute(httpPost, responseHandler);
+			     
+			      // store the evaluated data
+	    		 String past_eval_crime = sp.getString("eval_msg", "");
+	    		 Editor e = sp.edit();
+	    		 e.putString("eval_msg", past_eval_crime+","+crime_id);
+	    		 e.commit();
+
+		    	  
+		      
+		      }
+		    		  
+
 		      
 		      
 		      

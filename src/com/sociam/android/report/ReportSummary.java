@@ -138,6 +138,7 @@ public class ReportSummary extends Fragment {
 									
 									@Override
 									public void onTaskDone() {
+										
 										getActivity().finish();
 										
 									}

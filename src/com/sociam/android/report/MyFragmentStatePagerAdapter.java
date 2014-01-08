@@ -17,10 +17,8 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public Fragment getItem(int i) {
-		// TODO Auto-generated method stub
 		switch(i){	
-		case 0: 
-			
+		case 0: 		
 			return new ReportEmargencyQuestion();
 
 		case 1: 

@@ -81,14 +81,13 @@ public class ReportAnonymous extends Fragment {
 			  layout.setBackgroundDrawable(currentCrime.getBitmapdrawable());
 		}		
 		
-		pager =(ViewPager) view.findViewById(R.id.pager);
+		pager =(ViewPager) getActivity().findViewById(R.id.pager);
 		((ReportActivity) getActivity()).setAdapter();
 
 	}
 
 	@Override
 	public void onStop() {
-		// TODO Auto-generated method stub
 		super.onStop();
 		//locationManager.removeUpdates(this);
 	}
@@ -114,6 +113,10 @@ public class ReportAnonymous extends Fragment {
 						if(isChecked){
 							btn2.setChecked(false);
 							currentCrime.setidcode(true);
+							((ReportActivity) getActivity()).setAdapter();
+
+							pager.setCurrentItem(pager.getCurrentItem()+1);
+
 						}else{
 							currentCrime.setidcode(true);
 						}
@@ -128,6 +131,10 @@ public class ReportAnonymous extends Fragment {
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked){
 					setUsernameReport();
+					((ReportActivity) getActivity()).setAdapter();
+
+					pager.setCurrentItem(pager.getCurrentItem()+1);
+
 				}else{
 					currentCrime.setidcode(true);
 				}

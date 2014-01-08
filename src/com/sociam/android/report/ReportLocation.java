@@ -57,7 +57,7 @@ public class ReportLocation extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.report_people2, container, false);
+		view = inflater.inflate(R.layout.report_location, container, false);
 		setBtns(view);
 		return view;
 	}

@@ -32,18 +32,18 @@ public class ReportHappenWho extends Fragment {
 																Bundle savedInstanceState) {
 	 
 		view = inflater.inflate(R.layout.report_victim_whois, container, false);
-		pager = (ViewPager) getActivity().findViewById(R.id.pager);
-		currentCrime = ((ReportActivity) getActivity()).getCrime();
-		dapp = ((ReportActivity) getActivity()).getDataApplication();
-		setBtns();
-
-		
 		return view;
 	}
 
 	@SuppressLint("NewApi")
 	public void onStart() {
 		super.onStart();
+		pager = (ViewPager) getActivity().findViewById(R.id.pager);
+		currentCrime = ((ReportActivity) getActivity()).getCrime();
+		dapp = ((ReportActivity) getActivity()).getDataApplication();
+		setBtns();
+		
+		
 	}
 
 	private void setBtns() {

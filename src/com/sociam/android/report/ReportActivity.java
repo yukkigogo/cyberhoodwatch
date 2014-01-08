@@ -60,7 +60,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	Time now;
 	
 	// ToggleButton for Category2 and cat
-	ToggleButton frag3btn2,frag3btn3,frag3btn4,frag3btn5;
+	ToggleButton frag3btn2, frag3btn3, frag3btn4, frag3btn5;
 	
 	
 	//for obtaining location
@@ -404,16 +404,33 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		ArrayList<String> details = new ArrayList<String>();
 		
 		// who is victim
+		if(crime.getWhovictim()!=99){ // user didn't skip the page
+			switch (crime.getWhovictim()) {
+			case 0: 
+				details.add("Something Happen to me");
+				break;
+			case 1: 
+				details.add("I Saw Somthing");
+				break;
+			case 2: 
+				details.add("I need help");
+				break;
+
+			default:
+				break;
+			}
+		}
 		
-		
-		
+		// picture
 		details.add("Picture : "+ (crime.getFilepath() !=null ? "Yes" : "No"));
+		
+		// category
 		details.add("Category : "+crime.getCategory());
 		if(crime.getisCategoryText()) 
 			details.add(crime.getCategoryText());			
 		
 		
-		
+		// Location
 		if(crime.getLocationLatLng()){
 			details.add("Location : Here");
 		}else if(crime.getIsAddress()){
@@ -421,7 +438,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		}
 
 		
-		
+		// date time?
 		if(crime.getIsNow() == true)
 			details.add("Time and Date : " +  "Now"); 
 		else { 
@@ -430,9 +447,11 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 			details.add("Time and Date : "+ str );
 		}
 		
+		
 		if(crime.getIsDateText())
 			details.add(crime.getDateText());
 		
+		// severity
 		String severity="Not Serious";
 		switch (crime.getSeverity()){
 		case 88 :
@@ -453,6 +472,13 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		details.add("How Serious? : " + severity);
 		
 		
+		// anonymous report?
+		if(crime.getIdCode()){
+			details.add("Anonymous Report");
+		}else{
+			String name = sp.getString("username", "Anonymous");
+			details.add("Report by "+name);
+		}
 		adapter.clear();
 		adapter.addAll(details);
 		

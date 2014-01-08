@@ -48,7 +48,7 @@ public class ReportDateTime extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.report_people1, container, false);
+		view = inflater.inflate(R.layout.report_datetime, container, false);
 		setBtns(view);
 		return view;
 	}

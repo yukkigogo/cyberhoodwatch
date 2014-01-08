@@ -1264,7 +1264,7 @@ private ArrayList<Crime> getCrimesData() {
 				public void onClick(DialogInterface dialog, int which) {
 					// connect server to evaluate and closed and reload
 					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
-					evaluate.execute(crime_id,"1","0");
+					evaluate.execute(crime_id,"1","0","crime");
 					((MainActivity) getActivity()).reloadData();
 
 					EvaluateDialog.this.getDialog().dismiss();
@@ -1276,7 +1276,7 @@ private ArrayList<Crime> getCrimesData() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
 					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
-					evaluate.execute(crime_id,"0","1");
+					evaluate.execute(crime_id,"0","1","crime");
 					((MainActivity) getActivity()).reloadData();
 
 					EvaluateDialog.this.getDialog().dismiss();
