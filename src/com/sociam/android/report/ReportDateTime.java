@@ -43,15 +43,12 @@ public class ReportDateTime extends Fragment {
 	String cat1;
 	boolean reVisit=false;
 	int ihour,imin,iyear,imonth,iday;
-	
+	View view;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.report_people1, container, false);
-		TextView tx = (TextView) view.findViewById(R.id.textview_people1); 
-
-		tx.setText("Date and Time?");
+		view = inflater.inflate(R.layout.report_people1, container, false);
 		setBtns(view);
 		return view;
 	}
@@ -75,31 +72,36 @@ public class ReportDateTime extends Fragment {
 
 
 	private void setBtns(View v) {
-	  btn1 = (Button) v.findViewById(R.id.people1_midBtn);
-	  btnS = (Button) v.findViewById(R.id.people1_goSummary);
-	  btnD = (Button) v.findViewById(R.id.people1_description);
-	  
-	  btn2 = (ToggleButton) v.findViewById(R.id.people1_Right);
-	  btn3 = (ToggleButton) v.findViewById(R.id.people1_Left);
 	
-	  btn2.setTextOff("Now");
-	  btn2.setTextOn("Now");
-	  btn2.setText("Now");
-	  btn3.setTextOn("Other");
-	  btn3.setTextOff("Other");
-	  btn3.setText("Other");
-	  
-	  
+		 TextView tx = (TextView) v.findViewById(R.id.textview_people1); 
+		 tx.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		 tx.setText("Date and Time?");
 	
-	  setListeners(btn1, 0);
-	  setListeners(btnS, 99);
-	  setListeners(btnD, 999);
-	  
-	  setToggleListeners(btn2,2);
-	  setToggleListeners(btn3,3);
-
-
-	  
+		  btn1 = (Button) v.findViewById(R.id.people1_midBtn);
+		  btn1.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  btnS = (Button) v.findViewById(R.id.people1_goSummary);
+		  btnS.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  btnD = (Button) v.findViewById(R.id.people1_description);
+		  btnD.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  
+		  btn2 = (ToggleButton) v.findViewById(R.id.people1_Right);
+		  btn2.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  btn3 = (ToggleButton) v.findViewById(R.id.people1_Left);
+		  btn3.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());	
+		
+		  btn2.setTextOff("Now");
+		  btn2.setTextOn("Now");
+		  btn2.setText("Now");
+		  btn3.setTextOn("Other");
+		  btn3.setTextOff("Other");
+		  btn3.setText("Other");
+		
+		  setListeners(btn1, 0);
+		  setListeners(btnS, 99);
+		  setListeners(btnD, 999);
+		  
+		  setToggleListeners(btn2,2);
+		  setToggleListeners(btn3,3);
 	}
 	
 	

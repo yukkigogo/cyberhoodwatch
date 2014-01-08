@@ -12,7 +12,7 @@ public class Crime implements Comparable{
 	// IDs
 	private int crimeID; //hash()
 	private String userID;
-	private boolean id_code=true; //true/1 = anonymous 
+	private boolean id_code=true; //true = anonymous 
 	
 	//picture or video
 	private int picOn=0; // 0 null, 1 picture, 2 video

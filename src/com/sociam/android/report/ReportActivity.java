@@ -9,8 +9,12 @@ import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.text.format.Time;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -61,21 +65,18 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	
 	//for obtaining location
 	protected LocationManager locationManager;
-	//protected LocationListener locationListener;
 	private Location currentBestLocation;
 	protected Context context;
 	protected Double latitude,longitude; 	
 	private static final int ONE_MINUTES = 1000 * 60 * 1;
-		
 	
 	// store the state
 	private int loc=88;
 	private int dnt=88;
 	private int sev=88;
 	
-	//
-	ArrayAdapter<String> adapter; 
-	
+	//ArrayAdapter<String> adapter; 
+	SummaryCustomAdapter adapter; 
 	DataApplication dapp;
 	
 	
@@ -85,11 +86,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.report_main);
 		
-//		suspects = new Personal();
-//		victims = new Personal();
 		crime = new Crime();
-//		crime.setSuspects(suspects);
-//		crime.setVictim(victims);
 		
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
 		  Log.w("sociam"," IN REPORT PAGE - coommmooonnn !!  "+ sp.getString("uuid", "something problem with uuid"));
@@ -109,8 +106,8 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		now.setToNow();
 		crime.setDate(now);
 
-		adapter = new  ArrayAdapter<String>(this,R.layout.list_row,R.id.list1);
-	
+		//adapter = new ArrayAdapter<String>(this, R.layout.list_row, R.id.list1);
+		adapter = new SummaryCustomAdapter(this,0);
 	}
 
 
@@ -231,10 +228,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		btns[8] = (Button) findViewById(R.id.btn8);		
 		btns[9] = (Button) findViewById(R.id.btn9);		
 
-
 		setBtnInFooter(0);
-		
-
 	}
 	
 	private void initFrag3Button(){
@@ -404,12 +398,12 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	}
 
 	
+	// create a list of summary page
 	public void setAdapter(){
-		
-		
 		
 		ArrayList<String> details = new ArrayList<String>();
 		
+		// who is victim
 		
 		
 		
@@ -438,7 +432,6 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		
 		if(crime.getIsDateText())
 			details.add(crime.getDateText());
-		
 		
 		String severity="Not Serious";
 		switch (crime.getSeverity()){
@@ -526,4 +519,27 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		}
 
 	
+		private class SummaryCustomAdapter extends ArrayAdapter<String>{
+
+			private LayoutInflater layoutInflater;
+			public SummaryCustomAdapter(Context context, int resource) {
+				super(context, resource);
+				layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			}
+			
+			@Override
+			public View getView(int position, View convertView, ViewGroup parent) {
+				
+				String str = getItem(position);
+				
+				if(convertView==null) convertView = layoutInflater.inflate(R.layout.list_row, null);
+				
+				TextView txt = (TextView) convertView.findViewById(R.id.list1);
+				txt.setTypeface(dapp.getTypefaceRobothin());
+				txt.setText(str);
+				return convertView;
+			}
+			
+		}
+		
 }

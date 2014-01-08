@@ -31,10 +31,13 @@ public class ReportCategory extends Fragment {
 	ToggleButton btn2,btn3,btn4, btn5;
 	Crime currentCrime;
 	boolean isChanged = false;
+	View view;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.report_category, container, false);
+		view = inflater.inflate(R.layout.report_category, container, false);
+		
+		return view;
 	}
 
 	@SuppressLint("NewApi")
@@ -60,14 +63,23 @@ public class ReportCategory extends Fragment {
 	}
 
 	private void setBtns() {
+		TextView title = (TextView) view.findViewById(R.id.textView1);
+		title.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btn1 = (Button) getActivity().findViewById(R.id.frag2midBtn);
+	  btn1.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btnS = (Button) getActivity().findViewById(R.id.frag2goSummary);
+	  btnS.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btnD = (Button) getActivity().findViewById(R.id.frag2description);
+	  btnD.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  
 	  btn2 = (ToggleButton) getActivity().findViewById(R.id.frag2RightBtmBtn);
+	  btn2.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btn3 = (ToggleButton) getActivity().findViewById(R.id.frag2LeftBtmBtn);
+	  btn3.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btn4 = (ToggleButton) getActivity().findViewById(R.id.frag2LeftTopBtn);
+	  btn4.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btn5 = (ToggleButton) getActivity().findViewById(R.id.frag2RightTopBtn);
+	  btn5.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  
 	  
 	  

@@ -43,6 +43,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -94,13 +95,18 @@ public class ReportAnonymous extends Fragment {
 
 	
 	protected void setBtns(){
+		TextView title = (TextView) view.findViewById(R.id.rep_anony_title);
+		title.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		  btnM = (Button) view.findViewById(R.id.rep_anony_midBtn);
+		  btnM.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		  btnS = (Button) view.findViewById(R.id.rep_anony_summary);
+		  btnS.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		  
 		  setListenersInEvi(btnM, 0);
 		  setListenersInEvi(btnS, 99);
 		
 		btn1 = (ToggleButton) view.findViewById(R.id.rep_anony_right);
+		btn1.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		btn1.setOnCheckedChangeListener(
 				new CompoundButton.OnCheckedChangeListener() {					
 					@Override
@@ -114,6 +120,7 @@ public class ReportAnonymous extends Fragment {
 					}
 				});
 		btn2 = (ToggleButton) getActivity().findViewById(R.id.rep_anony_left);
+		btn2.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		btn2.setOnCheckedChangeListener(
 				new CompoundButton.OnCheckedChangeListener() {
 			

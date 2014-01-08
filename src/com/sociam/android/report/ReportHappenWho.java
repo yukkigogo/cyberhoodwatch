@@ -56,16 +56,19 @@ public class ReportHappenWho extends Fragment {
 			btns[i].setTypeface(dapp.getTypefaceRobothin());
 			setToggleListeners(btns[i], i);
 		}
+		
 	}
 	
 	private void setToggleListeners(final ToggleButton btn,final int num){
-
+		
+		
 		btn.setOnCheckedChangeListener(
 				new CompoundButton.OnCheckedChangeListener() {
 					@Override
 					public void onCheckedChanged(CompoundButton buttonView, 
 							boolean isChecked) {
 						if(isChecked){
+							currentCrime.setWhovictim(num);
 							
 							for(int i=0; i<3;i++){
 								if(i!=num) btns[i].setChecked(false);

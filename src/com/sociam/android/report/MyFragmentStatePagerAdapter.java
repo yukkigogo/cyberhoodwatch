@@ -46,27 +46,12 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 			return new ReportAnonymous(); 
 		case 9:			
 			return new ReportSummary();		
-
-//		case 7 : //
-//			return new ReportLocation();
-//		case 8 : // dress colour
-//			return new ReportDateTime();
-//		case 9 : // detail other page	
-//			return new ReportSeveriality();
-//		case 10: 
-//			ReportSummary rp7 = new ReportSummary();
-//			return rp7;
 		
 		default:
 			return null;
 		}
 		
 	}
-
-//	public int getItemPosition(Object object) {
-//	    return POSITION_NONE;
-//	}
-	
 
 	@Override
 	public int getCount() {

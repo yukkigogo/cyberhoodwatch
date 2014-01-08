@@ -52,14 +52,12 @@ public class ReportLocation extends Fragment {
 	private GoogleMap mMap;
 	private Marker m;
 	LatLng latlng;
-	View viewformap;
+	View viewformap, view;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
 
-		View view = inflater.inflate(R.layout.report_people2, container, false);
-		TextView tx = (TextView) view.findViewById(R.id.textview_people2); 
-		tx.setText("Location?");
+		view = inflater.inflate(R.layout.report_people2, container, false);
 		setBtns(view);
 		return view;
 	}
@@ -86,14 +84,25 @@ public class ReportLocation extends Fragment {
 
 
 	private void setBtns(View v) {
+		TextView tx = (TextView) v.findViewById(R.id.textview_people2); 
+		tx.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		tx.setText("Location?");
+
 	  btn1 = (Button) v.findViewById(R.id.people2_midBtn);
+	  btn1.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btnS = (Button) v.findViewById(R.id.people2_goSummary);
+	  btnS.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btnD = (Button) v.findViewById(R.id.people2_description);
+	  btnD.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  
 	  btn2 = (ToggleButton) v.findViewById(R.id.people2_RightBtmBtn);
+	  btn2.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btn3 = (ToggleButton) v.findViewById(R.id.people2_LeftBtmBtn);
+	  btn3.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btn4 = (ToggleButton) v.findViewById(R.id.people2_LeftTopBtn);
+	  btn4.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	  btn5 = (ToggleButton) v.findViewById(R.id.people2_RightTopBtn);
+	  btn5.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 	
 	
 	  btn2.setTextOff("From Map");

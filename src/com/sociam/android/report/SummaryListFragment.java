@@ -1,7 +1,5 @@
 package com.sociam.android.report;
 
-
-
 import com.sociam.android.Crime;
 import com.sociam.android.R;
 
@@ -32,84 +30,18 @@ public class SummaryListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
-		currentCrime = ((ReportActivity) getActivity()).getCrime();
-		
-		//setAdapter();
-		
+		currentCrime = ((ReportActivity) getActivity()).getCrime();		
 		setListAdapter(((ReportActivity) getActivity()).getArrayAdapter());
-		//getActivity().getSupportFragmentManager().beginTransaction().add(this, "SummaryFrag").commit();
 
 	}
 
-
 	
-//	private void setAdapter(){
-//		
-//		ArrayList<String> details = new ArrayList<String>();
-//		
-//		
-//		details.add("Picture : "+ (currentCrime.getFilepath() !=null ? "Yes" : "No"));
-//		details.add("Category : "+currentCrime.getCategory());
-//		if(currentCrime.getisCategoryText()) 
-//			details.add(currentCrime.getCategoryText());			
-//		
-//		
-//		
-//		if(currentCrime.getLocationLatLng()){
-//			details.add("Location : Here");
-//		}else if(currentCrime.getIsAddress()){
-//			details.add("Location : "+currentCrime.getAddress());
-//		}
-//
-//		
-//		
-//		if(currentCrime.getIsNow() == true)
-//			details.add("Time and Date : " +  "Now"); 
-//		else { 
-//			Time t = currentCrime.getDate();
-//			String str =t.format("%d-%m-%Y %H:%M");
-//			details.add("Time and Date : "+ str );
-//		}
-//		
-//		if(currentCrime.getIsDateText())
-//			details.add(currentCrime.getDateText());
-//		
-//		
-//		String severity="Not Serious";
-//		switch (currentCrime.getSeverity()){
-//		case 88 :
-//			break;
-//		case 1 :
-//			break;
-//		case 2:
-//			severity = "Serious";
-//			break;
-//		case 3 :
-//			severity = "Very Serious";
-//			break;
-//		case 4:
-//			severity = "Extremely Serious";
-//			break;
-//			
-//		}		
-//		details.add("How Serious? : " + severity);
-//		
-//				
-//		adapter = new ArrayAdapter<String>(
-//			        getActivity(),R.layout.list_row,R.id.list1,details);
-//		
-//		setListAdapter(adapter);
-//		
-//	}
 
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		
 		Log.w("sociam","list clickkkkkk  "+ getListAdapter().getItem(position));
-		
-		
 		
 		switch (position) {
 		case 0:
@@ -127,9 +59,6 @@ public class SummaryListFragment extends ListFragment {
 		
 	}
 
-	
-	
-	
 
 	@SuppressLint("ValidFragment")
 	private class PictureAlertDialogFragment extends DialogFragment{

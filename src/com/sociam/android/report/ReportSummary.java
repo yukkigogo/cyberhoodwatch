@@ -6,6 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import com.google.android.gms.internal.cu;
 import com.sociam.android.Crime;
 import com.sociam.android.R;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -43,15 +44,9 @@ public class ReportSummary extends Fragment {
 		ViewGroup container, 
 		Bundle savedInstanceState) {
 		
-//		if(view != null){
-//			ViewGroup parGroup = (ViewGroup) view.getParent();
-//			if(parGroup !=null)
-//					parGroup.removeView(view);
-//		}
-//		
-//		try{
+
 		view = inflater.inflate(R.layout.report_summary, null);
-		//view = inflater.inflate(R.layout.report_summary, container, false);
+
 		
 			currentCrime = ((ReportActivity) getActivity()).getCrime();
 			//set up background				
@@ -121,8 +116,9 @@ public class ReportSummary extends Fragment {
 	private void setBtn(View view){
 		
 		btnSubmit = (Button) view.findViewById(R.id.smybtn);
+		btnSubmit.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		btnCancel = (Button) view.findViewById(R.id.smy_cancel);
-
+		btnCancel.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		
 		btnSubmit.setOnClickListener(new OnClickListener() {
 			

@@ -7,8 +7,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-
 import com.sociam.android.Crime;
+import com.sociam.android.DataApplication;
 import com.sociam.android.R;
 
 import android.location.Location;
@@ -21,11 +21,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.annotation.SuppressLint;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ContentResolver;
@@ -44,6 +42,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
@@ -55,22 +54,26 @@ public class ReportEvidence extends Fragment {
 	
 	ViewPager pager;
 
-	Button btn2,btnM,btnS;
-	Button btn1;
+	Button btnM,btnS;
+	Button btn1,btn2;
 	Bitmap capturedImage;
 	public final String SAVE_DIR = "/CrimeTips/";
 	private String fileName;
 	Location myCurrentLocation;
 	
-	
+	DataApplication dapp;
 	Crime currentCrime;
+	View view;
 	
 
 	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {		
-		return inflater.inflate(R.layout.report_evidence, container, false);
+		dapp = ((ReportActivity) getActivity()).getDataApplication();
+
+		view =inflater.inflate(R.layout.report_evidence, container, false);
+		return view;
 	}
 
 	@SuppressLint("NewApi")
@@ -102,14 +105,20 @@ public class ReportEvidence extends Fragment {
 
 	
 	protected void setBtns(){
+		TextView title = (TextView) view.findViewById(R.id.textView1);
+		title.setTypeface(dapp.getTypefaceRobothin());
 		  btnM = (Button) getActivity().findViewById(R.id.evidencemidBtn);
+		  btnM.setTypeface(dapp.getTypefaceRobothin());
 		  btnS = (Button) getActivity().findViewById(R.id.evidencegoSummary);
+		  btnS.setTypeface(dapp.getTypefaceRobothin());
 		  
 		  setListenersInEvi(btnM, 0);
 		  setListenersInEvi(btnS, 99);
 		
 		btn1 = (Button) getActivity().findViewById(R.id.evi_right);
+		btn1.setTypeface(dapp.getTypefaceRobothin());
 		btn2 = (Button) getActivity().findViewById(R.id.evi_left);
+		btn2.setTypeface(dapp.getTypefaceRobothin());
 		setListeners();		
 
 		

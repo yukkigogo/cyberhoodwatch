@@ -38,13 +38,12 @@ public class ReportSeverity extends Fragment {
 	String age_range=null;
 	AlertDialog alertDialog;
 	ArrayAdapter<String> adapter;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, 
 												Bundle savedInstanceState) {
 
 		View view = inflater.inflate(R.layout.report_severity, container, false);
-		TextView tx = (TextView) view.findViewById(R.id.textview_severity); 
-		tx.setText("How Serious the Incident?");
 		setBtns(view);
 		return view;
 	}
@@ -70,37 +69,48 @@ public class ReportSeverity extends Fragment {
 
 
 	private void setBtns(View v) {
-	  btn1 = (Button) v.findViewById(R.id.severity_midBtn);
-	  btnS = (Button) v.findViewById(R.id.severity_goSummary);
-	  
-	  btn2 = (ToggleButton) v.findViewById(R.id.severity_RightBtmBtn);
-	  btn3 = (ToggleButton) v.findViewById(R.id.severity_LeftBtmBtn);
-	  btn4 = (ToggleButton) v.findViewById(R.id.severity_LeftTopBtn);
-	  btn5 = (ToggleButton) v.findViewById(R.id.severity_RightTopBtn);
-	
-	
-	  btn2.setTextOff("Very");
-	  btn2.setTextOn("Very");
-	  btn2.setText("Very");
-	  btn3.setTextOn("Extremely");
-	  btn3.setTextOff("Extremely");
-	  btn3.setText("Extremely");
-	  btn4.setTextOn("Not");
-	  btn4.setTextOff("Not");
-	  btn4.setText("Not");
-	  btn5.setTextOff("Serious");
-	  btn5.setTextOn("Serious");
-	  btn5.setText("Serious");
-	  
-	  
-	  setListeners(btn1, 0);
-	  setListeners(btnS, 99);
+		
+		TextView tx = (TextView) v.findViewById(R.id.textview_severity); 
+		tx.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		tx.setText("How Serious the Incident?");
 
-	  
-	  setToggleListeners(btn2,2);
-	  setToggleListeners(btn3,3);
-	  setToggleListeners(btn4,4);
-	  setToggleListeners(btn5,5);
+		
+		  btn1 = (Button) v.findViewById(R.id.severity_midBtn);
+		  btn1.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  btnS = (Button) v.findViewById(R.id.severity_goSummary);
+		  btnS.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  
+		  btn2 = (ToggleButton) v.findViewById(R.id.severity_RightBtmBtn);
+		  btn2.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  btn3 = (ToggleButton) v.findViewById(R.id.severity_LeftBtmBtn);
+		  btn3.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  btn4 = (ToggleButton) v.findViewById(R.id.severity_LeftTopBtn);
+		  btn4.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		  btn5 = (ToggleButton) v.findViewById(R.id.severity_RightTopBtn);
+		  btn5.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
+		
+		  btn2.setTextOff("Very");
+		  btn2.setTextOn("Very");
+		  btn2.setText("Very");
+		  btn3.setTextOn("Extremely");
+		  btn3.setTextOff("Extremely");
+		  btn3.setText("Extremely");
+		  btn4.setTextOn("Not");
+		  btn4.setTextOff("Not");
+		  btn4.setText("Not");
+		  btn5.setTextOff("Serious");
+		  btn5.setTextOn("Serious");
+		  btn5.setText("Serious");
+		  
+		  
+		  setListeners(btn1, 0);
+		  setListeners(btnS, 99);
+	
+		  
+		  setToggleListeners(btn2,2);
+		  setToggleListeners(btn3,3);
+		  setToggleListeners(btn4,4);
+		  setToggleListeners(btn5,5);
 	  
 	}
 	
