@@ -3,7 +3,6 @@ package com.sociam.android;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.InputStreamReader;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -85,6 +84,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -993,13 +993,15 @@ private ArrayList<Crime> getCrimesData() {
 
 		@Override
 		public View getInfoWindow(Marker maker) {
+		
 			if(maker.getTitle()!=null){
 				
 				if(tx_msg!=null){
 					tx_msg.setText("");
 					tx_user.setText("");
 					tx_time.setText("");
-					layout.setBackgroundColor(Color.TRANSPARENT);
+					//layout.setBackgroundColor(Color.TRANSPARENT);
+					layout.setVisibility(View.INVISIBLE);
 				}
 				
 				render(maker,mWindow);
@@ -1011,36 +1013,14 @@ private ArrayList<Crime> getCrimesData() {
 				
 				
 				for(Marker marker : msg_maker_hash.keySet()){
-					if(marker!=maker)
+				if(marker!=maker)
 					marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n));
 				}
 				
 				maker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
+				setMsgMarker(rm);
+				layout.setVisibility(View.VISIBLE);
 
-				layout = (LinearLayout) findViewById(R.id.message_screen_onmain);
-				layout.setBackgroundColor(R.color.half_black);
-				
-				tx_msg = (TextView) findViewById(R.id.msg_text);
-				tx_msg.setTypeface(dapp.getTypefaceRobothin());
-				tx_msg.setText(rm.getMsg());
-				
-				
-				tx_user = (TextView) findViewById(R.id.msg_username);
-				tx_user.setTypeface(dapp.getTypefaceRobothin());
-				if(rm.getIdCode()==1){
-					tx_user.setText("Anonymous says...");
-				}else{
-					
-					tx_user.setText(rm.getUser()+ " says...");
-				}
-				
-				SimpleDateFormat date_format = new SimpleDateFormat("HH:mm");
-				Calendar t = rm.getTime();
-
-				tx_time = (TextView) findViewById(R.id.msg_text_time);
-				tx_time.setTypeface(dapp.getTypefaceRobothin());				
-				tx_time.setText(date_format.format(t.getTime()));
-				
 				return null;
 
 			}
@@ -1048,6 +1028,76 @@ private ArrayList<Crime> getCrimesData() {
 			}
 		
 		
+		private void setMsgMarker(RecieveMessage rm) {
+
+			layout = (LinearLayout) findViewById(R.id.message_screen_onmain);
+			layout.setBackgroundColor(R.color.half_black);
+			layout.setClickable(true);
+			
+			tx_msg = (TextView) findViewById(R.id.msg_text);
+			tx_msg.setTypeface(dapp.getTypefaceRobothin());
+			tx_msg.setText(rm.getMsg());
+			
+			
+			tx_user = (TextView) findViewById(R.id.msg_username);
+			tx_user.setTypeface(dapp.getTypefaceRobothin());
+			if(rm.getIdCode()==1){
+				tx_user.setText("Anonymous says...");
+			}else{
+				
+				tx_user.setText(rm.getUser()+ " says...");
+			}
+			
+			SimpleDateFormat date_format = new SimpleDateFormat("HH:mm");
+			Calendar t = rm.getTime();
+
+			tx_time = (TextView) findViewById(R.id.msg_text_time);
+			tx_time.setTypeface(dapp.getTypefaceRobothin());				
+			tx_time.setText(date_format.format(t.getTime()));
+			
+			ImageView msg_img_upthumb = (ImageView) findViewById(R.id.msg_img_upthumb);
+			msg_img_upthumb.setImageResource(R.drawable.thumb_up);
+			
+			TextView msg_num_upthumb = (TextView) findViewById(R.id.msg_num_upthumb);
+			msg_num_upthumb.setTypeface(dapp.getTypefaceRobothin());
+			msg_num_upthumb.setText(Integer.toString(rm.getUpThumb()));
+			
+			ImageView msg_img_downthumb = (ImageView) findViewById(R.id.msg_img_downthumb);
+			msg_img_downthumb.setImageResource(R.drawable.thumb_down);
+			
+			TextView msg_num_downthumb = (TextView) findViewById(R.id.msg_num_downthumb);
+			msg_num_downthumb.setTypeface(dapp.getTypefaceRobothin());
+			msg_num_downthumb.setText(Integer.toString(rm.getDonwThumb()));
+			
+			ImageView extend_arrow = (ImageView) findViewById(R.id.msg_downarrow);
+			extend_arrow.setImageResource(R.drawable.downarrows);
+			//extend_arrow.setClickable(true);
+			
+			
+			layout.setOnFocusChangeListener(new OnFocusChangeListener() {
+				
+				@Override
+				public void onFocusChange(View v, boolean hasFocus) {
+					layout.setBackgroundColor(Color.CYAN);
+				}
+			});
+			
+			
+			
+			layout.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					
+					Log.e("sociam","Clicked can you see it?");
+					MainMessageDetailFragmentDialog detailFragmentDialog = new MainMessageDetailFragmentDialog();
+					detailFragmentDialog.show(getSupportFragmentManager(), "sociam");
+					
+					
+				}
+			});
+			
+		}
+
 		private void render(Marker maker, View view) {
 			
 			TextView category = (TextView) view.findViewById(R.id.view_name);
@@ -1413,9 +1463,6 @@ private ArrayList<Crime> getCrimesData() {
 			return builder.create();
 		}
 	}
-
-
-
 
 	
 	

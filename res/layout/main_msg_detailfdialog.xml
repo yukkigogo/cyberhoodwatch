@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/half_gray"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+     
+     <TextView 
+         android:id="@+id/mmdfd_auther"
+         android:layout_width="0dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="8"
+         android:text="Anonymous Says..."
+         android:textAppearance="?android:attr/textAppearanceSmall" 
+         android:textColor="@color/white"/>
+     
+     <ImageView
+         android:id="@+id/mmdfd_closebtn"
+         android:layout_width="30dp"
+         android:layout_height="30dp"
+         android:layout_gravity="right"
+         android:paddingRight="5dp"
+         android:paddingTop="5dp"
+         android:src="@drawable/cancel1"/>
+     
+     </LinearLayout>
+    
+            <TextView
+	            android:id="@+id/mmdfd_message"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:textColor="@color/white"
+	            android:text="Large Text"
+	            android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+				    
+     <include layout="@layout/layout_thumb_datetime"  />       
+      
+     <include layout="@layout/main_msg_detailfd_bottom_btn"  />       
+     
+     
+     
+    <ListView
+        android:id="@+id/main_msg_detailfdialog_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+
+    
+</LinearLayout>
