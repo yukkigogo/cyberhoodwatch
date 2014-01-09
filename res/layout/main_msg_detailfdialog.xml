@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/half_gray"
+    android:background="@drawable/layout_main_msg_detail_stroke"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -40,11 +40,10 @@
 	            android:text="Large Text"
 	            android:textAppearance="?android:attr/textAppearanceLarge" />
     
-				    
-     <include layout="@layout/layout_thumb_datetime"  />       
+      <include layout="@layout/layout_thumb_datetime"  />       
       
      <include layout="@layout/main_msg_detailfd_bottom_btn"  />       
-     
+  
      
      
     <ListView

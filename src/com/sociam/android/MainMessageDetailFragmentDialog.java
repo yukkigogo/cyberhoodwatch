@@ -3,6 +3,9 @@ package com.sociam.android;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
@@ -15,18 +18,25 @@ public class MainMessageDetailFragmentDialog extends DialogFragment {
 	DataApplication dapp;
 	
 	public MainMessageDetailFragmentDialog() {
-		dapp = (DataApplication) getActivity().getApplication();
-		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());		 
+		super();
+		 setStyle(STYLE_NO_FRAME, R.style.AppTheme);
 	}
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		LayoutInflater inflater = getActivity().getLayoutInflater();
-		View view = inflater.inflate(R.layout.main_msg_detailfdialog, null);
+		dapp = (DataApplication) getActivity().getApplication();
+		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());		 
+
+		View view = getActivity().getLayoutInflater().inflate(R.layout.main_msg_detailfdialog, null);
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		setInterface(view);
+
+		builder.setView(view);		
 		
-		return builder.create();
+		
+		Dialog dialog = builder.create();
+		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		return dialog;
 	}
 
 	private void setInterface(View view) {
