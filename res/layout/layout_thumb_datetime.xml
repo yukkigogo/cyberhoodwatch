@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" 
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp">
+				          
+			      <ImageView 
+			         android:layout_width="wrap_content"
+			         android:layout_height="wrap_content"
+			         android:adjustViewBounds="true"
+			         android:paddingLeft="5dp"
+			         android:src="@drawable/thumb_up"           
+			         />   
+			            
+			     <TextView
+			        android:id="@+id/num_upthumb"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingLeft="5dp"       
+			        android:textColor="@android:color/white"
+			        />
+			
+			     <ImageView 
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:adjustViewBounds="true"
+			        android:paddingLeft="5dp"     
+			        android:src="@drawable/thumb_down"      
+				/>			     
+			    
+			     <TextView
+			        android:id="@+id/num_downthumb"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:paddingLeft="5dp"           
+			        android:textColor="@android:color/white"
+			        />
+			     
+			     
+	       <TextView 
+ 	           android:id="@+id/text_time"
+ 	           android:layout_width="wrap_content"
+ 	           android:layout_height="wrap_content"
+ 	           android:paddingRight="5dp"
+ 	           android:paddingLeft="10dp"
+ 	           android:textAppearance="?android:attr/textAppearanceSmall"
+ 	           android:textColor="@color/white"
+ 	           /> 
+			    
+
+</LinearLayout>

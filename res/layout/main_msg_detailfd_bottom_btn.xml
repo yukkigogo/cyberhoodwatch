@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+    
+    <TextView 
+        android:id="@+id/mmdf_replybtn"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+		android:gravity="center_horizontal"
+        android:text="Reply"
+        android:padding="3dp"
+        android:background="@drawable/main_msg_detailfdialog_bottom_btns"
+        android:clickable="true"
+        />    
+
+    <TextView 
+        android:id="@+id/mmdf_vote"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textColor="@color/white"
+        android:gravity="center_horizontal"
+        android:text="Vote"
+        android:padding="3dp"
+        android:background="@drawable/main_msg_detailfdialog_bottom_btns"
+        android:clickable="true"
+        />        
+    
+</LinearLayout>
