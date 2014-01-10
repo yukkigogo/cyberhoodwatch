@@ -2,8 +2,8 @@ package com.sociam.android.report;
 
 import java.util.Calendar;
 
-import com.sociam.android.Crime;
 import com.sociam.android.R;
+import com.sociam.android.model.Crime;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;

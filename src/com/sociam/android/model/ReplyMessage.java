@@ -1,29 +1,23 @@
-package com.sociam.android;
+package com.sociam.android.model;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.text.format.Time;
 
-public class RecieveMessage {
+public class ReplyMessage implements Comparable{
 
 	private int id;
+	private int parent_id;
 	private String message;	
 	private String username;
 	private int id_code;
-	//private boolean anonymous;
 	private double lat,lon;
 	private Calendar datetime;
-	private ArrayList<Tag> tags;
-	private int up_thumb;
-	private int down_thumb;
 
 	
 	
-	public RecieveMessage() {
-		tags = new ArrayList<Tag>();
-
-		
+	public ReplyMessage() {
 	}
 	
 	public void setID(int i){
@@ -31,6 +25,14 @@ public class RecieveMessage {
 	}
 	public int getID(){
 		return this.id;
+	}
+	
+	public void setParenetId(int i){
+		this.parent_id=i;
+	}
+	
+	public int getParentId(){
+		return this.parent_id;
 	}
 	
 	public void setIdCode(int i){
@@ -62,14 +64,6 @@ public class RecieveMessage {
 		return this.datetime;
 	}
 	
-//	public void setAnonymity(boolean b){
-//		this.anonymous=b;
-//	}
-//
-//	public boolean getAnonymity(){
-//		return this.anonymous;
-//	}
-	
 	public void setLat(double l){
 		this.lat=l;
 	}
@@ -83,23 +77,9 @@ public class RecieveMessage {
 		return this.lon;
 	}
 	
-	public void addTag(Tag t){
-		tags.add(t);
-	}
-	public ArrayList<Tag> getTagList(){
-		return this.tags;
+	@Override
+	public int compareTo(Object obj) {
+		return this.datetime.compareTo(((ReplyMessage) obj).getTime());
 	}
 	
-	public void setUpThumb(int i){
-		this.up_thumb=i;
-	}
-	public int getUpThumb(){
-		return this.up_thumb;
-	}
-	public void setDownThumb(int i){
-		this.down_thumb=i;
-	}
-	public int getDonwThumb(){
-		return this.down_thumb;
-	}
 }

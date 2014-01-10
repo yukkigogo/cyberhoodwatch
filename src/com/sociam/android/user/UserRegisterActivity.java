@@ -3,7 +3,7 @@ package com.sociam.android.user;
 import java.util.HashMap;
 
 import com.sociam.android.R;
-import com.sociam.android.Tag;
+import com.sociam.android.model.Tag;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;

@@ -9,8 +9,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.sociam.android.Crime;
 import com.sociam.android.R;
+import com.sociam.android.model.Crime;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;

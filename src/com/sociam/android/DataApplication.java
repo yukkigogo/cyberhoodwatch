@@ -6,6 +6,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import com.sociam.android.model.Tag;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Application;

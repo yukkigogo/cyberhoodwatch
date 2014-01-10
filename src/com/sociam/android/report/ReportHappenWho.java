@@ -1,20 +1,18 @@
 package com.sociam.android.report;
 
-import com.sociam.android.Crime;
 import com.sociam.android.DataApplication;
 import com.sociam.android.R;
+import com.sociam.android.model.Crime;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.annotation.SuppressLint;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-
 import android.widget.ToggleButton;
 
 

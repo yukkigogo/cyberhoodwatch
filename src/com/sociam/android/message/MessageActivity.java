@@ -10,9 +10,8 @@ import java.util.HashMap;
 
 import com.sociam.android.DataApplication;
 import com.sociam.android.R;
-import com.sociam.android.SendMessage;
-import com.sociam.android.Tag;
-
+import com.sociam.android.model.SendMessage;
+import com.sociam.android.model.Tag;
 
 import android.app.ActionBar;
 import android.content.SharedPreferences;
@@ -20,14 +19,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.text.format.Time;
-
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-
 import android.widget.Toast;
 import android.widget.ToggleButton;
 

@@ -1,4 +1,4 @@
-package com.sociam.android;
+package com.sociam.android.model;
 
 public class Tag {
 

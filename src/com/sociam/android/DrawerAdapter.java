@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.sociam.android.model.Crime;
 
 import android.content.Context;
 import android.drm.DrmStore.RightsStatus;

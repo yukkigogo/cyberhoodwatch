@@ -4,10 +4,9 @@ package com.sociam.android.message;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-
 import com.sociam.android.R;
-import com.sociam.android.SendMessage;
-import com.sociam.android.Tag;
+import com.sociam.android.model.SendMessage;
+import com.sociam.android.model.Tag;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

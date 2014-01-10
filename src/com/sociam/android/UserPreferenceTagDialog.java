@@ -1,6 +1,8 @@
 package com.sociam.android;
 
 
+import com.sociam.android.model.Tag;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;

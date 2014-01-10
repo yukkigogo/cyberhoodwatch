@@ -28,9 +28,9 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
-import com.sociam.android.Crime;
 import com.sociam.android.DataApplication;
 import com.sociam.android.R;
+import com.sociam.android.model.Crime;
 
 
 /*

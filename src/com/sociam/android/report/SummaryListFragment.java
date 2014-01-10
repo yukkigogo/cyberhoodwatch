@@ -1,7 +1,7 @@
 package com.sociam.android.report;
 
-import com.sociam.android.Crime;
 import com.sociam.android.R;
+import com.sociam.android.model.Crime;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;

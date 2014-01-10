@@ -7,9 +7,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.sociam.android.R;
-import com.sociam.android.SendMessage;
 import com.sociam.android.R.id;
 import com.sociam.android.R.layout;
+import com.sociam.android.model.SendMessage;
 import com.sociam.android.user.TagRegisterFragment;
 
 import android.app.AlertDialog;

@@ -1,4 +1,4 @@
-package com.sociam.android;
+package com.sociam.android.model;
 
 import java.util.Calendar;
 

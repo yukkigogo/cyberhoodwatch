@@ -37,6 +37,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.UiSettings;
+import com.sociam.android.model.Crime;
+import com.sociam.android.model.RecieveMessage;
+import com.sociam.android.model.Tag;
 import com.sociam.android.report.ReportActivity;
 
 import android.annotation.SuppressLint;
@@ -1028,7 +1031,7 @@ private ArrayList<Crime> getCrimesData() {
 			}
 		
 		
-		private void setMsgMarker(RecieveMessage rm) {
+		private void setMsgMarker(final RecieveMessage rm) {
 
 			layout = (LinearLayout) findViewById(R.id.message_screen_onmain);
 			layout.setBackgroundColor(R.color.half_black);
@@ -1089,7 +1092,7 @@ private ArrayList<Crime> getCrimesData() {
 				public void onClick(View v) {
 					
 					Log.e("sociam","Clicked can you see it?");
-					MainMessageDetailFragmentDialog detailFragmentDialog = new MainMessageDetailFragmentDialog();
+					MainMessageDetailFragmentDialog detailFragmentDialog = new MainMessageDetailFragmentDialog(rm);
 					detailFragmentDialog.show(getSupportFragmentManager(), "sociam");
 					
 					

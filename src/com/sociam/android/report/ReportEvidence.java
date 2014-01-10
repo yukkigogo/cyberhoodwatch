@@ -7,9 +7,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.sociam.android.Crime;
 import com.sociam.android.DataApplication;
 import com.sociam.android.R;
+import com.sociam.android.model.Crime;
 
 import android.location.Location;
 import android.location.LocationListener;

@@ -11,7 +11,7 @@ import java.util.Map.Entry;
 
 import com.sociam.android.DataApplication;
 import com.sociam.android.R;
-import com.sociam.android.Tag;
+import com.sociam.android.model.Tag;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -32,7 +32,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
 import android.widget.LinearLayout.LayoutParams;
 
 //     String usertags = "female-general:student-general:susu-southampton";

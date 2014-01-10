@@ -4,8 +4,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.google.android.gms.internal.cu;
-import com.sociam.android.Crime;
 import com.sociam.android.R;
+import com.sociam.android.model.Crime;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
