@@ -94,8 +94,6 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 
 	private boolean checkNeedUpdateTags(int current){
 		
-		
-		
 		HttpClient client = new DefaultHttpClient();
 	    HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/tagmanager.php");
 		

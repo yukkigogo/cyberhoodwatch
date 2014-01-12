@@ -22,6 +22,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.widget.Toast;
 
 public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 
@@ -29,6 +30,7 @@ public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 	MessageFragmentCallBack callback;
 	Context context;
 	SharedPreferences sp;
+	boolean postSuccess;
 	
 	public MessageUpAsyncTask(Context context,  MessageFragmentCallBack frag) {
 		this.context=context;
@@ -72,17 +74,24 @@ public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 			String[] str = response.split("\n");
 			
 			String match = "message_id";
-		     Pattern p = Pattern.compile(match);
+		    
+			Pattern p = Pattern.compile(match);
 		     for(int i=0;i<str.length;i++){
 		    	 //Log.e("sociam",str[i]);
 		    	 Matcher m = p.matcher(str[i]);
 		    	 if(m.find()){
 		    		 String[] str2 = str[i].split(",");
 		    		
+		    		 if(str2[1].equals("false")){
+		    			 postSuccess=false;
+
+		    		 }else{
+		    		 
 		    		 String past_msg = sp.getString("message_id", "");
 		    		 Editor e = sp.edit();
 		    		 e.putString("message_id", past_msg+","+str2[1]);
 		    		 e.commit();
+		    		 }
 		    	 }
 		     }
 
@@ -101,6 +110,8 @@ public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 	  protected void onPostExecute(Integer result) {
 	    if(dialog != null){
 	      dialog.dismiss();
+	      if(!postSuccess)
+	    	  Toast.makeText(context, "You cannot post multiple post anonymously in 2 mins", Toast.LENGTH_LONG).show();     
 	      callback.onTaskDone();
 	    }
 	  }

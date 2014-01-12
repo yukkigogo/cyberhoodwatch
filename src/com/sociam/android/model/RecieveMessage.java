@@ -17,13 +17,19 @@ public class RecieveMessage {
 	private ArrayList<Tag> tags;
 	private int up_thumb;
 	private int down_thumb;
-
+	private ArrayList<ReplyMessage> myreplys;
 	
 	
 	public RecieveMessage() {
 		tags = new ArrayList<Tag>();
-
-		
+		myreplys = new ArrayList<ReplyMessage>();
+	}
+	
+	public void setReplyMsg(ReplyMessage msg){
+		myreplys.add(msg);
+	}
+	public ArrayList<ReplyMessage> getReplyArrays(){
+		return this.myreplys;
 	}
 	
 	public void setID(int i){

@@ -79,7 +79,7 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 	    		 e.putString("eval_crime", past_eval_crime+","+crime_id);
 	    		 e.commit();
 		      
-		      }else{	 
+		      }else if(crimeORmsg.equals("message")){	 
 		    	  
 		    	  multipartEntity.addPart("type", new StringBody("1")); 
 
@@ -91,7 +91,8 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 			      String response = httpClient.execute(httpPost, responseHandler);
 			     
 			      // store the evaluated data
-	    		 String past_eval_crime = sp.getString("eval_msg", "");
+	    		 
+			      String past_eval_crime = sp.getString("eval_msg", "");
 	    		 Editor e = sp.edit();
 	    		 e.putString("eval_msg", past_eval_crime+","+crime_id);
 	    		 e.commit();

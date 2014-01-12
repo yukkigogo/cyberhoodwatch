@@ -39,6 +39,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.UiSettings;
 import com.sociam.android.model.Crime;
 import com.sociam.android.model.RecieveMessage;
+import com.sociam.android.model.ReplyMessage;
 import com.sociam.android.model.Tag;
 import com.sociam.android.report.ReportActivity;
 
@@ -117,7 +118,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 
 	// for messaging system
 	private HashMap<Marker, RecieveMessage> msg_maker_hash;
-	
+	private boolean isFinishSetupReplysArray; 
 	//Location
 	private static final int ONE_MINUTES = 1000 * 60 * 1;
 	private Location currentBestlocation;
@@ -512,6 +513,7 @@ private void setbtn() {
 	
 	  //setup message
 	  msg_maker_hash = getMessagesAndMarker();
+	  isFinishSetupReplysArray = setReplayMsgHashmap();
 	  
 	  //setup inforwindow
 	  mMap.setOnInfoWindowClickListener(this);
@@ -875,6 +877,78 @@ private ArrayList<Crime> getCrimesData() {
 		return msg_maker_hash;
 	  }
 
+   private boolean setReplayMsgHashmap(){
+	   final ArrayList<ReplyMessage> retunAry = new ArrayList<ReplyMessage>();
+	   setLatestLatLon();
+	   GetDataFromServerAsyncTask asyncTask = new GetDataFromServerAsyncTask(new GetDateFromCallback() {
+		
+		@Override
+		public void onTaskDone(String response) {
+			try {
+				BufferedReader br = new BufferedReader(
+						new InputStreamReader(
+								new ByteArrayInputStream(response.getBytes())));
+				String currentLine;
+				while((currentLine=br.readLine())!=null){
+					String str[] = currentLine.split(",");
+					ReplyMessage replymsg = new ReplyMessage();
+					replymsg.setID(Integer.parseInt(str[0]));
+					int parenet_id = Integer.parseInt(str[1]);
+					replymsg.setParenetId(parenet_id);
+					replymsg.setUser(str[2]);
+					if(str[3].equals("0")) replymsg.setIdCode(false); 
+					else replymsg.setIdCode(true);
+					
+					SimpleDateFormat  format = new SimpleDateFormat("\"yyyy-MM-dd HH:mm:ss\"");
+					try {
+						Date date = format.parse(str[6]);
+						Calendar cal = Calendar.getInstance();
+						cal.setTimeInMillis(date.getTime());
+						replymsg.setTime(cal);
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+						
+					replymsg.setMsg(str[7]);
+					
+					retunAry.add(replymsg);
+				}
+				
+				// set up each msg-reply
+				for(Marker key : msg_maker_hash.keySet()){
+					   RecieveMessage revm = msg_maker_hash.get(key);
+					   for(ReplyMessage msg : retunAry){
+						   if(msg.getParentId()==revm.getID()){
+							   revm.setReplyMsg(msg);
+						   }
+					   }
+				 }
+				
+				
+				
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			
+		}
+	});
+	   asyncTask.execute(
+			   "2",
+			   Double.toString(currentBestlocation.getLatitude()),
+			   Double.toString(currentBestlocation.getLongitude())
+			   );
+	   
+	   
+	   
+	   
+	   
+	   return true;
+   }
+  
+   public boolean isFinishReplyUpdate(){
+	   return this.isFinishSetupReplysArray;
+   }
+   
   private Marker getMsgMarker(RecieveMessage rm){
 	  	Marker marker = mMap.addMarker(new MarkerOptions()
 		.position(new LatLng(rm.getLat(), rm.getLng()))
@@ -1596,7 +1670,9 @@ private ArrayList<Crime> getCrimesData() {
 		}
 		
 		
-		
+		public interface GetDateFromCallback{
+			public void onTaskDone(String response);
+		}
 
 		
 		

@@ -13,7 +13,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.sociam.android.MainMessageDetailFragmentDialog.ReplyMessageFragmentCallback;
+import com.sociam.android.MainMsgDetailFragmentReplyDialog.ReplyMessageFragmentCallback;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -47,7 +47,10 @@ public class ReplyMessageAsyncTask extends AsyncTask<String, Integer, Integer> {
 		String lat=params[3];
 		String lon=params[4];
 		String date_time=params[5];
-		String message=params[6];
+		String message=params[6].replaceAll("\n", "");
+		
+		
+		//Log.e("sociam", parent_id + " " + user_id+ " " +user_id_code+ " " +lat+ " " +lon+ " " +date_time+ " " +message );
 
 		HttpClient client = new DefaultHttpClient();
 		HttpPost hpost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/replyupandroid.php");
@@ -66,7 +69,7 @@ public class ReplyMessageAsyncTask extends AsyncTask<String, Integer, Integer> {
 			
 			hpost.setEntity(multipartEntity);
 			String response = client.execute(hpost, responseHandler);
-			Log.e("sociam", response);
+			//Log.e("sociam", response);
 			
 			String[] str = response.split("\n");
 			
@@ -79,7 +82,7 @@ public class ReplyMessageAsyncTask extends AsyncTask<String, Integer, Integer> {
 		    		 String[] str2 = str[i].split(",");
 		    		
 		    		 String past_msg = sp.getString("rep_message_id", "");
-		    		 Log.v("sociam","current msg ids : " + past_msg);
+		    		 //Log.v("sociam","current msg ids : " + past_msg);
 		    		 Editor e = sp.edit();
 		    		 e.putString("rep_message_id", past_msg+","+str2[1]);
 		    		 e.commit();

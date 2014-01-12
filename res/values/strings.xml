@@ -28,7 +28,7 @@
     <color name="half_black">#CC000000 </color>    
     <color name="half_gray">#CC505050 </color>   
     <color name="half_more_gray">#AA505050 </color>   
-    
+    <color name="trans_gray">#80505050</color>  
     
     <color name="half_blue_s">#CC34d7fb </color>
     <color name="half_blue_e">#CC0097bb </color>

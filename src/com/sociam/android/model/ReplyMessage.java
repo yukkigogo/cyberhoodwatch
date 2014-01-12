@@ -11,10 +11,9 @@ public class ReplyMessage implements Comparable{
 	private int parent_id;
 	private String message;	
 	private String username;
-	private int id_code;
+	private boolean id_code=true;
 	private double lat,lon;
 	private Calendar datetime;
-
 	
 	
 	public ReplyMessage() {
@@ -35,10 +34,10 @@ public class ReplyMessage implements Comparable{
 		return this.parent_id;
 	}
 	
-	public void setIdCode(int i){
+	public void setIdCode(boolean i){
 		this.id_code=i;
 	}
-	public int getIdCode(){
+	public boolean getIdCode(){
 		return this.id_code;
 	}
 	public void setMsg(String str){

@@ -3,6 +3,8 @@ package com.sociam.android;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -16,6 +18,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
+import android.text.format.Time;
 import android.util.Log;
 
 public class DataApplication extends Application {
@@ -106,6 +109,38 @@ public class DataApplication extends Application {
 	  }
 	
 
+	  //create hashID
+      public String getAnonymousID() {
+          // setup today's ID
+          Time t = new Time();
+          t.setToNow();
+          String user_id = sp.getString("uuid", "false")
+                          +"-"+Integer.toString(t.monthDay)+"-"+Integer.toString(t.month)+"-"
+                          +Integer.toString(t.year);
+  
+  
+          Log.w("sociam", "id before hash "+ user_id);
+          
+          try {
+                  MessageDigest md = MessageDigest.getInstance("MD5");
+                  md.update(user_id.getBytes());
+                  byte[] digest = md.digest();
+                  StringBuffer sb = new StringBuffer();
+                  for (byte b : digest) {
+                          sb.append(Integer.toHexString((int) (b & 0xff)));
+                  }
+                  user_id = sb.toString();
+                  Log.w("sociam", "id after hash "+ user_id);
+          } catch (NoSuchAlgorithmException e) {
+                  // TODO Auto-generated catch block
+                  e.printStackTrace();
+          }
+          
+          return user_id;
+  }
+	  
+	  
+	  
 
 	public Typeface getTypefaceRobothin() {
 		Typeface robothin =  Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
