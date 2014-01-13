@@ -26,6 +26,7 @@ public class GetDataFromServerAsyncTask extends AsyncTask<String, String, String
 	
 	@Override
 	protected String doInBackground(String... params) {
+		
 		response = null;
 	  	HttpClient httpClient = new DefaultHttpClient();
 	  	HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/androidcsv.php");

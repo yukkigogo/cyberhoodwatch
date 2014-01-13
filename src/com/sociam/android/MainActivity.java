@@ -174,9 +174,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     setUpMapIfNeeded();
     setbtn();
     
-    // obtain message data
-    //msg = getMessages();
-    
     
     //drawer instanceate
     setDrawer();
@@ -307,6 +304,7 @@ private void setbtn() {
 		super.onRestart();
 		reloadData();
 		setUpMapIfNeeded();
+		
   }
   
   
@@ -507,7 +505,11 @@ private void setbtn() {
 	  settings.setCompassEnabled(true);
 	  settings.setZoomControlsEnabled(false);
 	
-
+	  //update heropoint
+	  if(sp.contains("username")){
+	  	UserHeropointAsyncTask asyncTask = new UserHeropointAsyncTask(this);
+	  	asyncTask.execute(sp.getString("username", null));
+	  }
 	  // set up the map. 	 
 	  plotCrime();
 	
@@ -937,11 +939,7 @@ private ArrayList<Crime> getCrimesData() {
 			   Double.toString(currentBestlocation.getLatitude()),
 			   Double.toString(currentBestlocation.getLongitude())
 			   );
-	   
-	   
-	   
-	   
-	   
+
 	   return true;
    }
   
@@ -1674,7 +1672,7 @@ private ArrayList<Crime> getCrimesData() {
 			public void onTaskDone(String response);
 		}
 
-		
+
 		
 	
 }

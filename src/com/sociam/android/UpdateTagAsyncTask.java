@@ -41,9 +41,9 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 	
 	@Override
 	protected String doInBackground(String... params) {
-		// check the latest id and if it old update
-			//Log.e("sociam", "UpdateTagAsyncTask execute on!");
-
+			
+		
+		// check the latest id and if it old update		
 		if(checkNeedUpdateTags(currentver)){
 			Log.e("sociam", "UpdateTagAsyncTask execute on! - reading from the server");
 

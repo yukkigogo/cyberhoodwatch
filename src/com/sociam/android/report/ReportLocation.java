@@ -111,8 +111,8 @@ public class ReportLocation extends Fragment {
 	  btn3.setTextOn("Input Address");
 	  btn3.setTextOff("Input Address");
 	  btn3.setText("Input Address");
-	  btn4.setTextOn("UnKnown");
-	  btn4.setTextOff("UnKnown");
+	  btn4.setTextOn("Unknown");
+	  btn4.setTextOff("Unknown");
 	  btn4.setText("UnKnonw");
 	  btn5.setTextOff("Here");
 	  btn5.setTextOn("Here");
