@@ -94,7 +94,7 @@ android:layout_height="fill_parent" >
         android:id="@+id/reg_text4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email address"
+        android:text="Email address (Optional)"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <EditText

@@ -89,7 +89,7 @@ public class UserPreferenceDialog extends DialogFragment {
 		email.setTypeface(dapp.getTypefaceRobothin());
 		
 		if((sp.getString("email", "")).equals("")){
-			email.setText("not registerd yet");
+			email.setText("not registered yet");
 		}else{
 			email.setText(sp.getString("email", ""));
 		}
@@ -115,19 +115,18 @@ public class UserPreferenceDialog extends DialogFragment {
 			}
 		});
 		
-		Button edit = (Button) view.findViewById(R.id.prof_edit_btn);
-		edit.setTypeface(dapp.getTypefaceRobothin());
-		edit.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getActivity(), "connect web page for editting", Toast.LENGTH_SHORT).show();
-				
-			}
-		});
+//		Button edit = (Button) view.findViewById(R.id.prof_edit_btn);
+//		edit.setTypeface(dapp.getTypefaceRobothin());
+//		edit.setOnClickListener(new OnClickListener() {
+//			
+//			@Override
+//			public void onClick(View v) {
+//				Toast.makeText(getActivity(), "connect web page for editting", Toast.LENGTH_SHORT).show();
+//				
+//			}
+//		});
 		
-		Button close = (Button) view.findViewById(R.id.prof_close_button);
-		close.setTypeface(dapp.getTypefaceRobothin());
+		ImageView close = (ImageView) view.findViewById(R.id.pref_close_btn);
 		close.setOnClickListener(new OnClickListener() {
 			
 			@Override

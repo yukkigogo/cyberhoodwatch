@@ -68,6 +68,7 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      String is_date_text = params[13];
 		      String date_text  = params[14];
 		      String severity = params[15];
+		      String happenwho = params[16];
  
 		
 		      
@@ -101,24 +102,25 @@ public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      multipartEntity.addPart("is_date_text", new StringBody(is_date_text));
 		      multipartEntity.addPart("date_text", new StringBody(date_text));
 		      multipartEntity.addPart("severity", new StringBody(severity));
-
+		      multipartEntity.addPart("happenwho", new StringBody(happenwho));
+		      
 		      
 		      
 		      httpPost.setEntity(multipartEntity);
 		      //
 		      String response = httpClient.execute(httpPost, responseHandler);
-		      //Log.e("odebaki", response);
+		      Log.v("odebaki", "response of crimephp"+response);
 		      String[] str = response.split("\n");
 		    
 		     String match = "crimeid";
 		     Pattern p = Pattern.compile(match);
 		     for(int i=0;i<str.length;i++){
-		    	 Log.e("sociam",str[i]);
+		    	 //Log.e("sociam",str[i]);
 		    	 Matcher m = p.matcher(str[i]);
 		    	 if(m.find()){
 		    		 
 		    		 String[] str2 = str[i].split(",");
-		    		 Log.e("sociam", "crime num "+ str2[1]);
+		    		 //Log.e("sociam", "crime num "+ str2[1]);
 		    		 
 		    		 if(str2[1].equals("false")){
 		    			 postSuccess=false;

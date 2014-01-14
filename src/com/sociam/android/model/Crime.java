@@ -10,11 +10,11 @@ import android.text.format.Time;
 public class Crime implements Comparable{
 	
 	/* who is victim
-	 *  0: something happen to me
-	 *  1: I saw somthing
-	 *  2: I need help
+	 *  tome : something happen to me
+	 *  saw : I saw somthing
+	 *  help : I need help
 	 */
-	private int whovictim=99; 
+	private String happenwho="NULL"; 
 	
 	// IDs
 	private int crimeID; //hash()
@@ -112,12 +112,12 @@ public class Crime implements Comparable{
 
 	
 	// victim	
-	public void setWhovictim(int vic){
-		this.whovictim=vic;
+	public void setHappenwho(String vic){
+		this.happenwho=vic;
 	}
 	
-	public int getWhovictim(){
-		return this.whovictim;
+	public String getHappenwho(){
+		return this.happenwho;
 	}
 	
 	// location

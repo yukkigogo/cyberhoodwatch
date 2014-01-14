@@ -5,17 +5,33 @@
     android:orientation="vertical" 
     android:background="@color/d_gray">
 
+   <LinearLayout 
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal">
     <TextView
         android:id="@+id/prof_title"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="9"
         android:padding="10dip"
         android:text="Your Profile"
         android:gravity="center"
         android:textColor="@color/white"
         android:textAppearance="?android:attr/textAppearanceLarge" />
     
-         
+     <ImageView
+         android:id="@+id/pref_close_btn"
+         android:layout_weight="0.5"
+         android:layout_width="30dp"
+         android:layout_height="30dp"
+         android:layout_gravity="right"
+         android:paddingTop="5dp"
+         android:clickable="true"
+         android:src="@drawable/cancel1"/> 
+    
+     </LinearLayout>
+     
      <LinearLayout 
  
         android:layout_width="fill_parent"
@@ -124,6 +140,7 @@
             android:id="@+id/prof_email"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
             android:textColor="@color/white"
             android:text="yukkigogo@yukki.jp"
             android:gravity="center"
@@ -131,7 +148,7 @@
         
     </LinearLayout>
     
-     <LinearLayout 
+<!--      <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -154,6 +171,6 @@
              android:text="Close" />
          
     </LinearLayout>
-    
+ -->    
     
 </LinearLayout>

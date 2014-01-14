@@ -404,23 +404,15 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		ArrayList<String> details = new ArrayList<String>();
 		
 		// who is victim
-		if(crime.getWhovictim()!=99){ // user didn't skip the page
-			switch (crime.getWhovictim()) {
-			case 0: 
+		if(crime.getHappenwho()!="NULL"){ // user didn't skip the page
+			if (crime.getHappenwho().equals("tome")) {
 				details.add("Something Happen to me");
-				break;
-			case 1: 
+			}else if(crime.getHappenwho().equals("saw")){
 				details.add("I Saw Somthing");
-				break;
-			case 2: 
+			}else if(crime.getHappenwho().equals("help")){
 				details.add("I need help");
-				break;
-
-			default:
-				break;
 			}
 		}
-		
 		// picture
 		details.add("Picture : "+ (crime.getFilepath() !=null ? "Yes" : "No"));
 		

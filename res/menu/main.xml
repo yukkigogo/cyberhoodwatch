@@ -23,13 +23,13 @@
         android:id="@+id/menu_settings"
         android:showAsAction="always"
         android:title="Setting"
-        android:icon="@android:drawable/ic_menu_preferences"/>
+        android:icon="@drawable/menu_user"/>
 
       <!-- 3D menu button on the action bar  -->
      <item
         android:id="@+id/menu_3d"
 		android:showAsAction="always"
-		android:icon="@android:drawable/ic_menu_mapmode"/>	     
+		android:icon="@drawable/menu_view"/>	     
      <!-- Reload button -->
 <!--        <item
           android:id="@+id/menu_reload"

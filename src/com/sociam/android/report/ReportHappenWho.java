@@ -66,7 +66,18 @@ public class ReportHappenWho extends Fragment {
 					public void onCheckedChanged(CompoundButton buttonView, 
 							boolean isChecked) {
 						if(isChecked){
-							currentCrime.setWhovictim(num);
+							switch (num) {
+							case 0:
+								currentCrime.setHappenwho("tome");
+								break;
+							case 1:
+								currentCrime.setHappenwho("saw");
+							break;
+							case 2 :
+								currentCrime.setHappenwho("help");
+							default:	
+								break;
+							}
 							
 							for(int i=0; i<3;i++){
 								if(i!=num) btns[i].setChecked(false);
@@ -77,7 +88,7 @@ public class ReportHappenWho extends Fragment {
 							else
 								pager.setCurrentItem(pager.getCurrentItem()+2);
 						}else if(!isChecked){
-							
+							currentCrime.setHappenwho("NULL");
 						}
 							
 						

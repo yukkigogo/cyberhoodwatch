@@ -36,7 +36,7 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-
+		setRetainInstance(true);
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		view = inflater.inflate(R.layout.user_tags_frag, null);		
 		msg = ((MessageActivity) getActivity()).getUM();
@@ -84,6 +84,14 @@ public class MessageSettingTagFragmentDialog extends DialogFragment {
 		
 		return builder.create();
 	}
+	
+	@Override
+	public void onDestroyView() {
+	  if (getDialog() != null && getRetainInstance())
+	    getDialog().setOnDismissListener(null);
+	  super.onDestroyView();
+	}
+
 	
 	
 	@Override

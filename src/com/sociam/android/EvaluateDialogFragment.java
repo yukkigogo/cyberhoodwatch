@@ -19,6 +19,7 @@ public class EvaluateDialogFragment extends DialogFragment {
     
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+    	setRetainInstance(true);
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Vote this!");
 
@@ -63,5 +64,13 @@ public class EvaluateDialogFragment extends DialogFragment {
                                 
         return builder.create();
     }
+    
+    @Override
+	public void onDestroyView() {
+	  if (getDialog() != null && getRetainInstance())
+	    getDialog().setOnDismissListener(null);
+	  super.onDestroyView();
+	}
+
     
 }

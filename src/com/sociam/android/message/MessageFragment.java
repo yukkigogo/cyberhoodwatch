@@ -204,7 +204,7 @@ public class MessageFragment extends Fragment{
 		}
 		
 		if(addresses.get(0).getSubLocality()!=null)
-			address = addresses.get(0).getSubLocality() + addresses.get(0).getLocality();
+			address = addresses.get(0).getSubLocality() + " "+addresses.get(0).getLocality();
 		else
 			address = addresses.get(0).getLocality();
 				

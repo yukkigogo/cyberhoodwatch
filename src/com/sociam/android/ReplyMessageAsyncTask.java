@@ -72,11 +72,11 @@ public class ReplyMessageAsyncTask extends AsyncTask<String, Integer, Integer> {
 			//Log.e("sociam", response);
 			
 			String[] str = response.split("\n");
-			
+			Log.e("sociam","reply response" + response);
 			String match = "rep_message_id";
 		     Pattern p = Pattern.compile(match);
 		     for(int i=0;i<str.length;i++){
-		    	 //Log.e("sociam",str[i]);
+		    	 
 		    	 Matcher m = p.matcher(str[i]);
 		    	 if(m.find()){
 		    		 String[] str2 = str[i].split(",");

@@ -30,7 +30,7 @@ public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 	MessageFragmentCallBack callback;
 	Context context;
 	SharedPreferences sp;
-	boolean postSuccess;
+	boolean postSuccess=true;
 	
 	public MessageUpAsyncTask(Context context,  MessageFragmentCallBack frag) {
 		this.context=context;
@@ -69,7 +69,7 @@ public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 			
 			hpost.setEntity(multipartEntity);
 			String response = client.execute(hpost, responseHandler);
-			Log.e("sociam", response);
+			Log.v("sociam", "message response "+response);
 			
 			String[] str = response.split("\n");
 			
@@ -77,7 +77,7 @@ public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 		    
 			Pattern p = Pattern.compile(match);
 		     for(int i=0;i<str.length;i++){
-		    	 //Log.e("sociam",str[i]);
+		    	// Log.e("sociam",str[i]);
 		    	 Matcher m = p.matcher(str[i]);
 		    	 if(m.find()){
 		    		 String[] str2 = str[i].split(",");

@@ -47,6 +47,7 @@ public class MainMsgDetailFragmentReplyDialog extends DialogFragment{
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		setRetainInstance(true);
 		dapp = (DataApplication) getActivity().getApplication();
 		sp = PreferenceManager.getDefaultSharedPreferences(getActivity());	
 		
@@ -68,6 +69,14 @@ public class MainMsgDetailFragmentReplyDialog extends DialogFragment{
 		return builder.create();
 	}
 
+	@Override
+	public void onDestroyView() {
+	  if (getDialog() != null && getRetainInstance())
+	    getDialog().setOnDismissListener(null);
+	  super.onDestroyView();
+	}
+
+	
 	private void setInterface(View view) {
 
 		
@@ -169,6 +178,7 @@ public class MainMsgDetailFragmentReplyDialog extends DialogFragment{
 							@Override
 							public void onTaskDone() {
 								MainMsgDetailFragmentReplyDialog.this.getDialog().dismiss();
+								((MainActivity) getActivity()).reloadData();
 							}
 						} );
 			asyncTask.execute(

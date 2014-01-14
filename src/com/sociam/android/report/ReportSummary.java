@@ -4,6 +4,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import com.google.android.gms.internal.cu;
+import com.sociam.android.DataApplication;
 import com.sociam.android.R;
 import com.sociam.android.model.Crime;
 
@@ -19,6 +20,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -37,6 +39,8 @@ public class ReportSummary extends Fragment {
 	Button btnSubmit,btnCancel;
 	String user_id;
 	static View view;
+	DataApplication dapp;
+	SharedPreferences sp;
 	@SuppressLint("NewApi")
 	@Override
 	public View onCreateView(
@@ -47,7 +51,8 @@ public class ReportSummary extends Fragment {
 
 		view = inflater.inflate(R.layout.report_summary, null);
 
-		
+			dapp = (DataApplication) getActivity().getApplication();
+			sp = PreferenceManager.getDefaultSharedPreferences(getActivity());
 			currentCrime = ((ReportActivity) getActivity()).getCrime();
 			//set up background				
 			if(currentCrime.getPicON()==1){
@@ -120,6 +125,8 @@ public class ReportSummary extends Fragment {
 		btnCancel = (Button) view.findViewById(R.id.smy_cancel);
 		btnCancel.setTypeface(((ReportActivity) getActivity()).dapp.getTypefaceRobothin());
 		
+		
+		
 		btnSubmit.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -146,7 +153,7 @@ public class ReportSummary extends Fragment {
 						
 						upload.execute(
 										currentCrime.getFilepath()==null ? "" : currentCrime.getFilepath(),
-										user_id,
+										currentCrime.getIdCode() ? dapp.getAnonymousID() : sp.getString("username", dapp.getAnonymousID()),
 										currentCrime.getIdCode() ==true ? "1" : "0",
 										currentCrime.getFilepath() !=null ? "1" : "0",
 										currentCrime.getCategory(),
@@ -160,8 +167,9 @@ public class ReportSummary extends Fragment {
 										currentCrime.getDate().format2445(),		
 										currentCrime.getIsDateText()==true ? "1" : "0",
 										currentCrime.getIsDateText()==true ? currentCrime.getDateText() : "",
-										currentCrime.getSeverity()==88 ? "1": Integer.toString(currentCrime.getSeverity())							
-										);
+										currentCrime.getSeverity()==88 ? "1": Integer.toString(currentCrime.getSeverity()),
+										currentCrime.getHappenwho()		
+								);
 					
 						
 					}
