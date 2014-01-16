@@ -12,6 +12,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.UUID;
 
 import org.apache.http.client.HttpClient;
@@ -39,6 +41,7 @@ import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.UiSettings;
 import com.sociam.android.model.Crime;
+import com.sociam.android.model.MsgMarker;
 import com.sociam.android.model.RecieveMessage;
 import com.sociam.android.model.ReplyMessage;
 import com.sociam.android.model.Tag;
@@ -65,8 +68,10 @@ import android.location.LocationProvider;
 import android.media.audiofx.BassBoost.Settings;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Process;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
@@ -99,6 +104,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
@@ -108,20 +114,23 @@ import android.widget.LinearLayout.LayoutParams;
 public class MainActivity extends FragmentActivity implements LocationListener,
 												OnInfoWindowClickListener{
   
-	private GoogleMap mMap;
+	 GoogleMap mMap;
 	protected Context context;
 	private SharedPreferences sp; 
 	private DataApplication dapp;
-
+	boolean msg_window_visible=false;
+	Timer timer;
+	myTimerTask timerTask;
 	
 	// Crime data
 	private ArrayList<Crime> crimes;
 	private ArrayList<Crime> sortedCrimesDis;
 	private ArrayList<Marker> markers;
 	private HashMap<Integer,Marker> mapMarkers;
+	ArrayList<MsgMarker> aryMsgs ;
 
 	// for messaging system
-	private HashMap<Marker, RecieveMessage> msg_maker_hash;
+	//private HashMap<Marker, RecieveMessage> msg_maker_hash;
 	private boolean isFinishSetupReplysArray; 
 	//Location
 	private static final int ONE_MINUTES = 1000 * 60 * 1;
@@ -153,6 +162,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     // set for general 
 	sp = PreferenceManager.getDefaultSharedPreferences(this);		 
 	dapp = (DataApplication)this.getApplication();
+
 	if(sp.getBoolean("first_time", true)){
 		// first time
 		setUpOnlyOnce();
@@ -184,12 +194,68 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     
     //update the tags
      updateTags();
+     
+     //update auto function
+     timer = new Timer();
+     myTimerTask mTask = new myTimerTask(this);
+     timer.schedule(mTask, 10000, 120000);
     }
   }
-  
+	@Override
+	protected void onResume() {
+		super.onResume();
+		//myTimer.scheduleAtFixedRate(myTimerTask, 0, 60000);
+		
+	}	
+	
+	@Override
+	protected void onRestart() {
+			super.onRestart();
+	}
+	
+	@Override
+	protected void onStart() {
+		super.onStart();
+	
+	}
 
+	public void onStop() {
+		super.onStop();
+		locationManager.removeUpdates(this);
+	
+	}
+	
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
 
-private void updateTags() {
+	@Override
+	protected void onDestroy() {
+		// TODO Auto-generated method stub
+		super.onDestroy();
+
+	}
+	
+
+	/*
+	 * helper function to reload the data from the server
+	 */
+	public void reloadData(){
+		Log.e("sociam", "every 10 sec - go inside!!");
+			Log.e("sociam", "every 10 sec");
+	    mMap.clear();	
+	    getCrimesData();
+	    getDistanceFromHere(currentBestlocation, crimes);
+	    setUpMap();
+	    setbtn();
+	    updateTags();
+		
+	}
+	
+
+	
+	private void updateTags() {
 	  UpdateTagAsyncTask task = new UpdateTagAsyncTask(this);
 	  task.execute("sociam");
 	
@@ -294,22 +360,7 @@ private void setbtn() {
 	});
   }
 
-  	@Override
-	protected void onResume() {
-		super.onResume();
-	   
-
-  }
-  
-  	
-  	
-  @Override
-  protected void onRestart() {
-		super.onRestart();
-		reloadData();
-		setUpMapIfNeeded();
-		
-  }
+ 
   
   
   public boolean onCreateOptionsMenu(Menu menu) {
@@ -343,11 +394,31 @@ private void setbtn() {
 	  			consentFormDialog2.show(getSupportFragmentManager(), "sociam");
 	  			break;
 	  	
-//	  		case R.id.action_personalisation:
-//	  			// show the consent form
-//	  			MyPreferenceShow myPreferenceShow = new MyPreferenceShow();
-//	  			myPreferenceShow.show(getSupportFragmentManager(), "sociam");
-//	  			break;	
+	  		case R.id.action_gotofeedback:
+	  			// show the consent form
+	  			AlertDialog.Builder alb1 = new AlertDialog.Builder(this);
+	  			alb1.setTitle("Notification");
+	  			alb1.setMessage("Go to feedback page?");
+	  			alb1.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Intent intent = new Intent(Intent.ACTION_VIEW, 
+						Uri.parse("https://docs.google.com/forms/d/1D4Ol0Jx9eIpvlqwxZ6GSN6XHYVTMhbxzibmNLRwyUDQ/viewform"));
+						startActivity(intent);
+					}
+				});
+	  			alb1.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+					}
+				});
+	  			
+	  			AlertDialog albc = alb1.create();
+	  			albc.show();
+	  			
+	  			break;	
 	  			
 	  		case R.id.menu_settings:
 	  			
@@ -518,32 +589,16 @@ private void setbtn() {
 	  plotCrime();
 	
 	  //setup message
-	  msg_maker_hash = getMessagesAndMarker();
+	  getMessagesAndMarker();
 	  isFinishSetupReplysArray = setReplayMsgHashmap();
 	  
 	  //setup inforwindow
 	  mMap.setOnInfoWindowClickListener(this);
 	  mMap.setInfoWindowAdapter(new CustomInfoAdapter());
-		  
+	  
+	  
   }
  
-	  
-
-	 
-
-	@Override
-	protected void onStart() {
-		super.onStart();	
-	}
-
-	public void onStop() {
-		super.onStop();
-		locationManager.removeUpdates(this);
-	}
-	 
-  
-	
-
 
 
 
@@ -554,38 +609,34 @@ private void setbtn() {
 	Marker amaker = null;
 	for(int i=0;i<crimes.size();i++){
 		
-		Calendar now = Calendar.getInstance();
+		Calendar now_5 = Calendar.getInstance();
+		now_5.add(Calendar.HOUR, -5);
+		Calendar now_24 = Calendar.getInstance();
+		now_24.add(Calendar.DAY_OF_MONTH, -1);
 		Calendar ctime = crimes.get(i).getCal();
 		
-		if(crimes.get(i).getLocationLatLng()){					
-			if(now.get(Calendar.YEAR)==ctime.get(Calendar.YEAR) && 
-			now.get(Calendar.MONTH)==ctime.get(Calendar.MONTH) &&
-			now.get(Calendar.DATE)==ctime.get(Calendar.DATE) ){
-			
-				int diff = now.get(Calendar.HOUR_OF_DAY)-ctime.get(Calendar.HOUR_OF_DAY);
-				if(diff<5){
-					//Log.e("sociam", Integer.toString(diff));
+		if(crimes.get(i).getLocationLatLng()){
+				
+				if(ctime.compareTo(now_5)>0){	
 					amaker = mMap.addMarker(new MarkerOptions()
 					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 					.icon(BitmapDescriptorFactory.fromResource(R.drawable.incident_red))
 					.title(Integer.toString(i))
 					.snippet(crimes.get(i).getFilepath()));		
-				}else{
+				}else if(ctime.compareTo(now_24) > 0){
 					amaker = mMap.addMarker(new MarkerOptions()
 					.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 					.title(Integer.toString(i))
 					.icon(BitmapDescriptorFactory.fromResource(R.drawable.incident_yellow))
 					.snippet(crimes.get(i).getFilepath()));		
-				}	
-				
-			}else{
+				} else{	
 				amaker = mMap.addMarker(new MarkerOptions()
 				.position(new LatLng(crimes.get(i).getLat(), crimes.get(i).getLon()))
 				.title(Integer.toString(i))
 				.icon(BitmapDescriptorFactory.fromResource(R.drawable.incident_blue))
 				.snippet(crimes.get(i).getFilepath()));		
-				
-			}
+				}
+			
 			
 			
 			mapMarkers.put(crimes.get(i).getCrimeID(), amaker);
@@ -783,13 +834,12 @@ private ArrayList<Crime> getCrimesData() {
 	
 	
 
-  private HashMap<Marker,RecieveMessage> getMessagesAndMarker() {
-		//ArrayList<RecieveMessage> ary = new ArrayList<RecieveMessage>();
-		HashMap<Marker,RecieveMessage> msg_maker_hash = new HashMap<Marker, RecieveMessage>();
+  private void getMessagesAndMarker() {
+	   aryMsgs = new ArrayList<MsgMarker>();
+		//HashMap<Marker,RecieveMessage> msg_maker_hash = new HashMap<Marker, RecieveMessage>();
 		
 		String response = getData(1);
 		
-		//HashMap<String,String> usertags = dapp.ge;
 		
 		try{
 			
@@ -797,6 +847,7 @@ private ArrayList<Crime> getCrimesData() {
 					new ByteArrayInputStream(response.getBytes())));
 			
 			String currentLine;
+			int i =0;
 			while((currentLine=br.readLine())!=null){
 				//Log.e("sociam","should be message line \n"+currentLine);
 				
@@ -813,8 +864,6 @@ private ArrayList<Crime> getCrimesData() {
 					Log.e("sociam","integer point");
 
 				}
-				
-				
 
 				String u_name = str[1];
 				
@@ -872,12 +921,18 @@ private ArrayList<Crime> getCrimesData() {
 							tag_m = new Tag(tagcate[0],tagcate[1]);							
 						}							
 						r_msg.addTag(tag_m);
-						Marker marker = getMsgMarker(r_msg);
-						msg_maker_hash.put(marker, r_msg);
+						
+						//Marker marker = getMsgMarker(r_msg, i);
+						//msg_maker_hash.put(marker, r_msg);
+						aryMsgs.add(getMsgMarker(r_msg, i));						
+						i++;
+						
 					}
 				}else{
-					Marker marker = getMsgMarker(r_msg);
-					msg_maker_hash.put(marker, r_msg);
+					//Marker marker = getMsgMarker(r_msg, i );
+					//msg_maker_hash.put(marker, r_msg);
+					aryMsgs.add(getMsgMarker(r_msg, i));		
+					i++;
 				}
 				
 			}
@@ -887,7 +942,7 @@ private ArrayList<Crime> getCrimesData() {
 			Log.e("sociam", "Problem occurs MainActivity Line 815");
 		}
 		
-		return msg_maker_hash;
+		
 	  }
 
    private boolean setReplayMsgHashmap(){
@@ -928,8 +983,8 @@ private ArrayList<Crime> getCrimesData() {
 				}
 				
 				// set up each msg-reply
-				for(Marker key : msg_maker_hash.keySet()){
-					   RecieveMessage revm = msg_maker_hash.get(key);
+				for(MsgMarker m : aryMsgs){
+					   RecieveMessage revm = m.getRecieveMessage();
 					   for(ReplyMessage msg : retunAry){
 						   if(msg.getParentId()==revm.getID()){
 							   revm.setReplyMsg(msg);
@@ -958,12 +1013,16 @@ private ArrayList<Crime> getCrimesData() {
 	   return this.isFinishSetupReplysArray;
    }
    
-  private Marker getMsgMarker(RecieveMessage rm){
+  private MsgMarker getMsgMarker(RecieveMessage rm, int i){
 	  	Marker marker = mMap.addMarker(new MarkerOptions()
 		.position(new LatLng(rm.getLat(), rm.getLng()))
+		.snippet(Integer.toString(i))
 		.icon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n)));		
 	  	
-	  	return marker;
+	  	MsgMarker msgmarker = new MsgMarker(marker, rm, i);
+	  	
+	  	
+	  	return msgmarker;
   }
 
 
@@ -1070,6 +1129,7 @@ private ArrayList<Crime> getCrimesData() {
 		
 		public CustomInfoAdapter() {
 			mWindow = getLayoutInflater().inflate(R.layout.info_window, null);
+		
 		}
 		
 		@Override
@@ -1078,9 +1138,9 @@ private ArrayList<Crime> getCrimesData() {
 		}
 
 		@Override
-		public View getInfoWindow(Marker maker) {
-		
-			if(maker.getTitle()!=null){
+		public View getInfoWindow(Marker mk) {
+			mWindow = getLayoutInflater().inflate(R.layout.info_window, null);
+			if(mk.getTitle()!=null){
 				
 				if(tx_msg!=null){
 					tx_msg.setText("");
@@ -1090,23 +1150,40 @@ private ArrayList<Crime> getCrimesData() {
 					layout.setVisibility(View.INVISIBLE);
 				}
 				
-				render(maker,mWindow);
+				render(mk,mWindow);
 				
 				return mWindow;
 				
 			}else{
-				RecieveMessage rm = msg_maker_hash.get(maker);
 				
-				
-				for(Marker marker : msg_maker_hash.keySet()){
-				if(marker!=maker)
-					marker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n));
+				mk.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
+
+				int index = Integer.parseInt(mk.getSnippet());
+				for(MsgMarker m : aryMsgs){
+					if(m.getIndex()!=index){
+						mk.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n));
+					}else{
+						setMsgMarker(m.getRecieveMessage(), mk);												
+					}
 				}
 				
-				maker.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
-				setMsgMarker(rm);
 				layout.setVisibility(View.VISIBLE);
+				msg_window_visible=true;
+				
+			
+				
+				
+//					for(Marker key : msg_maker_hash.keySet()){
+//						RecieveMessage rm = msg_maker_hash.get(key);
+//						if(rm==null)
+//							Log.e("sociam", "recievemessage is nullT.T");
+//						else
+//							Log.e("sociam", "recive msg is not null" + rm.getMsg());
+//						
+//					}
+//					if(msg_maker_hash.get(marker)==null) Log.e("sociam", "because you cannot trust marker object!");
 
+				
 				return null;
 
 			}
@@ -1114,15 +1191,16 @@ private ArrayList<Crime> getCrimesData() {
 			}
 		
 		
-		private void setMsgMarker(final RecieveMessage rm) {
+		private void setMsgMarker(final RecieveMessage rm, Marker mk) {
 
+			
 			layout = (LinearLayout) findViewById(R.id.message_screen_onmain);
 			layout.setBackgroundColor(R.color.half_black);
 			layout.setClickable(true);
 			
 			tx_msg = (TextView) findViewById(R.id.msg_text);
 			tx_msg.setTypeface(dapp.getTypefaceRobothin());
-			tx_msg.setText(rm.getMsg());
+			tx_msg.setText(rm.getMsg());		
 			
 			
 			tx_user = (TextView) findViewById(R.id.msg_username);
@@ -1182,6 +1260,8 @@ private ArrayList<Crime> getCrimesData() {
 					
 					
 				}
+				
+				
 			});
 			
 		}
@@ -1419,7 +1499,7 @@ private ArrayList<Crime> getCrimesData() {
 	                     Toast.makeText(getActivity(), "You cannot evaluate own reports", Toast.LENGTH_SHORT).show();
 	             }else{
 	            	 EvaluateDialogFragment dialog = new EvaluateDialogFragment
-	            			 (Integer.toString(crime.getCrimeID()), 1);
+	            			 (Integer.toString(crime.getCrimeID()), 0);
 	            	 dialog.show(getActivity().getSupportFragmentManager(), "sociam");
 	             }
 					
@@ -1464,41 +1544,6 @@ private ArrayList<Crime> getCrimesData() {
 	
 	
 	
-	
-//	public class InfoWindowDialogFragment extends DialogFragment{
-//		private int crimenum;
-//		public InfoWindowDialogFragment(int num) {
-//			this.crimenum=num;
-//		}
-//		
-//		@Override
-//		public Dialog onCreateDialog(Bundle savedInstanceState) {
-//			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//			builder.setTitle("Do you want to see more detail?")
-//					.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//						
-//						@Override
-//						public void onClick(DialogInterface dialog, int which) {
-//							//open another dialog
-//							DetailDialogFragment ddf = new DetailDialogFragment(crimenum);
-//							ddf.show(getSupportFragmentManager(), "sociam");
-//							InfoWindowDialogFragment.this.getDialog().dismiss();
-//						}
-//					})
-//					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//						
-//						@Override
-//						public void onClick(DialogInterface dialog, int which) {
-//							//do nothing
-//							InfoWindowDialogFragment.this.getDialog().dismiss();
-//						}
-//					});
-//			
-//			return builder.create();
-//		}
-//				
-//	}
-	
 	public boolean isMyCrimeReport(String crime_id){
 		Log.e("sociam",sp.getString("crime_id", ""));
 		String[] crimes = sp.getString("crime_id", "").split(",");
@@ -1520,129 +1565,8 @@ private ArrayList<Crime> getCrimesData() {
 		return false;
 	}
 	
-//	public class DetailDialogFragment extends DialogFragment{
-//		private int crime_num;
-//		private Crime crime;
-//		public DetailDialogFragment(int num) {
-//			this.crime_num=num;
-//			crime = crimes.get(crime_num);
-//		}
-//		
-//		@Override
-//		public Dialog onCreateDialog(Bundle savedInstanceState) {
-//			setRetainInstance(true);
-//			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//			View view = getActivity().getLayoutInflater().inflate(R.layout.map_marker_detail_dialog, null);
-//			
-//			ImageView imv = (ImageView) view.findViewById(R.id.map_marker_picture);
-//			imv.setImageBitmap(Downloader.getImageFromURL(crime.getFilepath()));
-//			
-//			ArrayList<String> details = getDetails(crime);
-//			ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), 
-//					android.R.layout.simple_expandable_list_item_1,details);
-//			ListView listview = (ListView) view.findViewById(R.id.map_maker_detail_listview);
-//			listview.setAdapter(adapter);
-//			
-//			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-//				@Override
-//				public void onClick(DialogInterface dialog, int which) {
-//
-//					DetailDialogFragment.this.getDialog().dismiss();
-//					
-//				}
-//			});
-//			
-//			builder.setPositiveButton("Evaluate", new DialogInterface.OnClickListener() {
-//				
-//				@Override
-//				public void onClick(DialogInterface dialog, int which) {
-//					String crime_id = Integer.toString(crime.getCrimeID());
-//					
-//					Log.e("sociam","Wanna evaluate this --> "+crime_id);
-//					
-//					if(isAlreadyEvalCrime(crime_id)){
-//						Toast.makeText(getActivity(), "You already evaluated this report", Toast.LENGTH_SHORT).show();
-//					}else if(isMyCrimeReport(crime_id)){
-//						Toast.makeText(getActivity(), "You cannot evaluate own reports", Toast.LENGTH_SHORT).show();
-//					}else{
-//						DetailDialogFragment.this.getDialog().dismiss();
-//						// open evaluate dialog
-//						EvaluateDialog ed = new EvaluateDialog(Integer.toString(crime.getCrimeID()));
-//						ed.show(getSupportFragmentManager(),"sociam");
-//					}
-//				}
-//			});
-//			
-//			builder.setView(view);
-//			
-//			return builder.create();
-//		}
-//
-//	
-//
-//		
-//		private ArrayList<String> getDetails(Crime crime) {
-//			
-//			ArrayList<String> str = new ArrayList<String>();
-//			 str.add(crime.getCategory());
-//			 if(crime.getisCategoryText()) str.add(crime.getCategoryText());
-//			 if(crime.getIsAddress()) str.add("Address : "+crime.getAddress());
-//			 
-//			 	Calendar cal = crime.getCal();
-//				SimpleDateFormat date_format = new SimpleDateFormat("d MMM");
-//				SimpleDateFormat time_format = new SimpleDateFormat("HH:mm");
-//			 
-//			 str.add(date_format.format(cal.getTime()) +" "+ time_format.format(cal.getTime()));
-//			 //str.add("Time : "+ time_format.format(cal.getTime()));
-//			 if(crime.getIsAddress()) str.add(crime.getDateText());
-//			 
-//			 switch (crime.getSeverity()){
-//			 case 1: 
-//				 str.add("Not Serious");
-//				 break;
-//			 case 2:
-//				 str.add("Serious");
-//				 break;
-//			 case 3:
-//				 str.add("Very Serious");
-//				 break;
-//			 case 4:
-//				 str.add("Extremely Serious");				 
-//			default :
-//				break;
-//			 }
-//			 
-//			 //TODO  change nice interface later
-//			 str.add("Up votes: "+crime.getUpThumbs());
-//			 str.add("Down votes : "+crime.getDownThumb());
-//			
-//			return str;
-//		}
-//		
-//	}
 	
-	/*
-	 * helper function to reload the data from the server
-	 */
-	public void reloadData(){
-	    // start location manager
-	    setMyLocationManager();
-	    
-	    mMap = ((SupportMapFragment) 
-	    		getSupportFragmentManager().findFragmentById(R.id.map))
-                .getMap();
-	    setUpMap();
-	    
-	    // obtain map data from the server
-//	    getCrimesData();
-//	    // compute distance userpoistion and crimes
-//	    getDistanceFromHere(getLocation(), crimes);
-//	    //map initialise
-//	    setUpMapIfNeeded();
-//	    setbtn();
-//	    //drawer instanceate
-//	    setDrawer();
-	}
+	
 	
 	/*
 	 * helper class to show evaluate dialog
@@ -1791,12 +1715,38 @@ private ArrayList<Crime> getCrimesData() {
 		}
 	}
 
+	/*
+	 * helper class for auto update every 3 min 
+	 */
+	private class myTimerTask extends TimerTask{
+		private Handler handler;
+		private Context context;
+		
+		public myTimerTask(Context con) {
+			handler = new Handler();
+			this.context = con;
+		}
+		
+		@Override
+		public void run() {
+			handler.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					((MainActivity) context).reloadData();
+				}
+			});
+		}
+		
+		
+	}
+	
+	
 	
 	
 	/*
 	 * helper class to contral Navigation Drawer
 	 */
-
 	private class DrawerItemClickListener implements ListView.OnItemClickListener{
 
 		@Override

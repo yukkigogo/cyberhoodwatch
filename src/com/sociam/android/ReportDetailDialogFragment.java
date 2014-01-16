@@ -24,6 +24,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.sociam.android.model.Crime;
 
+// don't user this class now
 @SuppressLint({ "ValidFragment", "CutPasteId" })
 public class ReportDetailDialogFragment extends DialogFragment {
 
@@ -38,18 +39,18 @@ public class ReportDetailDialogFragment extends DialogFragment {
 		dapp = (DataApplication) con.getApplicationContext();
 	}
 	
-	@Override
-	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		setRetainInstance(true);
-		AlertDialog.Builder builder = new AlertDialog.Builder(con);
-		View view = getActivity().getLayoutInflater().inflate(R.layout.main_report_detail, null);
-		
-		view = setDetails(crime, view);
-		
-		builder.setView(view);		
-		return builder.create();
-	}
-
+//	@Override
+//	public Dialog onCreateDialog(Bundle savedInstanceState) {
+//		setRetainInstance(true);
+//		AlertDialog.Builder builder = new AlertDialog.Builder(con);
+//		View view = getActivity().getLayoutInflater().inflate(R.layout.main_report_detail, null);
+//		
+//		view = setDetails(crime, view);
+//		
+//		builder.setView(view);		
+//		return builder.create();
+//	}
+//
 
 
 	

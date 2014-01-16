@@ -50,10 +50,11 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 		      String up_thumb = params[1];
 		      String down_thumb = params[2];
 		      String crimeORmsg = params[3]; 
+		      String lat = params[4];
+		      String lng = params[5];
+		      String user_id = params[6];
 		      
-		      
-		     for(int i=0;i<params.length;i++)		
-		    	  Log.e("sociam",i+" "+params[i]); 
+		     //for(int i=0;i<params.length;i++) Log.e("sociam",i+" "+params[i]); 
 		      
 		      HttpClient httpClient = new DefaultHttpClient();
 		      HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/evalandroid.php");
@@ -69,10 +70,14 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 			      multipartEntity.addPart("crime_id", new StringBody(crime_id));
 			      multipartEntity.addPart("up_thumb", new StringBody(up_thumb));
 			      multipartEntity.addPart("down_thumb", new StringBody(down_thumb));
+			      multipartEntity.addPart("lat", new StringBody(lat));
+			      multipartEntity.addPart("lon", new StringBody(lng));
+			      multipartEntity.addPart("username", new StringBody(user_id));
+
 			      
 			      httpPost.setEntity(multipartEntity);
 			      String response = httpClient.execute(httpPost, responseHandler);
-			     
+			     Log.v("sociam", response);
 			      // store the evaluated data
 	    		 String past_eval_crime = sp.getString("eval_crime", "");
 	    		 Editor e = sp.edit();
@@ -86,6 +91,9 @@ public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 			      multipartEntity.addPart("crime_id", new StringBody(crime_id));
 			      multipartEntity.addPart("up_thumb", new StringBody(up_thumb));
 			      multipartEntity.addPart("down_thumb", new StringBody(down_thumb));
+			      multipartEntity.addPart("lat", new StringBody(lat));
+			      multipartEntity.addPart("lon", new StringBody(lng));
+			      multipartEntity.addPart("username", new StringBody(user_id));
 			      
 			      httpPost.setEntity(multipartEntity);
 			      String response = httpClient.execute(httpPost, responseHandler);

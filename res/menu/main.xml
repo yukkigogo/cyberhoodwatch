@@ -12,12 +12,11 @@
         android:showAsAction="never"
         android:title="@string/action_consentform"/>
     
-<!--       <item
-        android:id="@+id/action_personalisation"
+ <item
+        android:id="@+id/action_gotofeedback"
         android:orderInCategory="100"
         android:showAsAction="never"
-        android:title="@string/personalisation"/>
- -->     
+        android:title="Go Feedback Page"/>
 
       <item
         android:id="@+id/menu_settings"

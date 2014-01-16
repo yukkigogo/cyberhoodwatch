@@ -54,6 +54,8 @@ public class GetDataFromServerAsyncTask extends AsyncTask<String, String, String
 
 	}
 	
+	
+	
 	@Override
 	protected void onPostExecute(String result) {
 		super.onPostExecute(result);
