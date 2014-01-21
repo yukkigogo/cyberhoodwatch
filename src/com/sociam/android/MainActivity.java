@@ -114,7 +114,7 @@ import android.widget.LinearLayout.LayoutParams;
 public class MainActivity extends FragmentActivity implements LocationListener,
 												OnInfoWindowClickListener{
   
-	 GoogleMap mMap;
+	GoogleMap mMap;
 	protected Context context;
 	private SharedPreferences sp; 
 	private DataApplication dapp;
@@ -515,6 +515,8 @@ private void setbtn() {
           // Try to obtain the map from the SupportMapFragment.
           mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                   .getMap();
+          
+          
           // Check if we were successful in obtaining the map.
           if (mMap != null) {
               setUpMap();
@@ -1156,40 +1158,27 @@ private ArrayList<Crime> getCrimesData() {
 				
 			}else{
 				
-				mk.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
-
+				
 				int index = Integer.parseInt(mk.getSnippet());
-				for(MsgMarker m : aryMsgs){
-					if(m.getIndex()!=index){
-						mk.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n));
+				for(MsgMarker mMsg : aryMsgs){
+					if(mMsg.getIndex()!=index){
+						mMsg.getMarker().setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n));
 					}else{
-						setMsgMarker(m.getRecieveMessage(), mk);												
+						setMsgMarker(mMsg.getRecieveMessage(), mk);												
 					}
 				}
-				
+				mk.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
+
 				layout.setVisibility(View.VISIBLE);
 				msg_window_visible=true;
-				
-			
-				
-				
-//					for(Marker key : msg_maker_hash.keySet()){
-//						RecieveMessage rm = msg_maker_hash.get(key);
-//						if(rm==null)
-//							Log.e("sociam", "recievemessage is nullT.T");
-//						else
-//							Log.e("sociam", "recive msg is not null" + rm.getMsg());
-//						
-//					}
-//					if(msg_maker_hash.get(marker)==null) Log.e("sociam", "because you cannot trust marker object!");
-
-				
 				return null;
 
 			}
 
 			}
 		
+		
+	 
 		
 		private void setMsgMarker(final RecieveMessage rm, Marker mk) {
 
@@ -1773,6 +1762,7 @@ private ArrayList<Crime> getCrimesData() {
 		
 	}
 
+	
 	
 	public Location getLocation(){
 		if(currentBestlocation!=null){

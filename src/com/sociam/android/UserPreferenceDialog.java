@@ -68,7 +68,7 @@ public class UserPreferenceDialog extends DialogFragment {
 		if(point_int>99){
 			hero.setText("Cyberhood Officer");
 		} else if(point_int<=99 && point_int>=50){
-			hero.setText("CyberHood Gurdian");
+			hero.setText("CyberHood Gurdian Angels");
 		} else if(point_int<50 && point_int>=30){
 			hero.setText("Cyberhood Watcher");
 		}else{
