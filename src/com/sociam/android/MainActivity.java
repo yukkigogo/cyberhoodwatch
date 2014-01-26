@@ -163,6 +163,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	sp = PreferenceManager.getDefaultSharedPreferences(this);		 
 	dapp = (DataApplication)this.getApplication();
 
+	
 	if(sp.getBoolean("first_time", true)){
 		// first time
 		setUpOnlyOnce();
@@ -177,7 +178,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     setContentView(R.layout.activity_main); 
     // start location manager
     setMyLocationManager();
-  
+   
+    if((!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) && 
+	(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))   ){
+     	showLocationPrompt();
+    }else{
+   
+    
     // obtain map data from the server
     getCrimesData();
     
@@ -186,6 +193,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     
     //map initialise
     setUpMapIfNeeded();
+    
+    
+    
     setbtn();
     
     
@@ -200,7 +210,13 @@ public class MainActivity extends FragmentActivity implements LocationListener,
      myTimerTask mTask = new myTimerTask(this);
      timer.schedule(mTask, 10000, 120000);
     }
+    
+    
+    }
+  
+  
   }
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -242,8 +258,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	 * helper function to reload the data from the server
 	 */
 	public void reloadData(){
-		Log.e("sociam", "every 10 sec - go inside!!");
-			Log.e("sociam", "every 10 sec");
+		
 	    mMap.clear();	
 	    getCrimesData();
 	    getDistanceFromHere(currentBestlocation, crimes);
@@ -319,8 +334,10 @@ private void setDrawer() {
   protected void onPostCreate(Bundle savedInstanceState) {
       super.onPostCreate(savedInstanceState);
       // Sync the toggle state after onRestoreInstanceState has occurred.
-      mDrawerToggle.syncState();
-   }
+      if(mDrawerToggle!=null){
+    	  mDrawerToggle.syncState();
+  	}
+  }
   
   
   @Override
@@ -404,7 +421,7 @@ private void setbtn() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						Intent intent = new Intent(Intent.ACTION_VIEW, 
-						Uri.parse("https://docs.google.com/forms/d/1D4Ol0Jx9eIpvlqwxZ6GSN6XHYVTMhbxzibmNLRwyUDQ/viewform"));
+						Uri.parse("http://bit.ly/cyberhood_feedback_mobile"));
 						startActivity(intent);
 					}
 				});
@@ -527,51 +544,40 @@ private void setbtn() {
 
   private void setMyLocationManager(){
 	  Log.v("sociam","Loading Location Mangaer......");
-	  //set up current location using LocationManager
-		
+	  
+	  //set up current location using LocationManager		
 	  locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
       
-	  currentBestlocation = getLastLocationBest(
-				locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER),
-				locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+      currentBestlocation = getLastLocationBest(
+                            locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER),
+                            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
 	  
+	  List<String> allProvider =  locationManager.getAllProviders();
+  	  for(int i = 0 ; i < allProvider.size() ; i++){
+  		  locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
+  	  }
+     
+	
+  }
+  
+  	
+  private void showLocationPrompt(){
 	  
-		List<String> allProvider =  locationManager.getAllProviders();
-		for(int i = 0 ; i < allProvider.size() ; i++){
-            locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
-        }
-		
-
-			 
-		//check either network/gps is abalialbe 
-        if((!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) && 
-        		(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))){
-        
-         	
-        	new AlertDialog.Builder(this)
-        	.setIcon(android.R.drawable.ic_dialog_info)
-        	.setTitle("Warning")
-        	.setMessage("Please enable location access")
-        	.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+    	new AlertDialog.Builder(this)
+    	.setIcon(android.R.drawable.ic_dialog_info)
+    	.setTitle("Warning")
+    	.setMessage("Please enable location access")
+    	.setPositiveButton("OK", new DialogInterface.OnClickListener() {
 				
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
+					
 					startActivity(new Intent(
 					android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-				}
-			})
-			.setNegativeButton("No", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
 					finish();
 				}
 			}).show();
-        	
-        }
-
   }
-  
   
   
   
@@ -653,7 +659,7 @@ private void setbtn() {
 
 
   private void setLatestLatLon(){
-		    	
+	  
 		    if(currentBestlocation!=null){	
 		    	lat1 = currentBestlocation.getLatitude();
 		    	lon1 = currentBestlocation.getLongitude();
@@ -668,6 +674,9 @@ private void setbtn() {
 		    }
 		  		    
   }
+  
+  
+  
   
   
   private String getData(int type){
@@ -691,7 +700,7 @@ private void setbtn() {
 		    response=httpClient.execute(httpPost, responseHandler);
 		    
 	    }catch(Exception e){
-	    	Log.e("sociam",e.getMessage());
+	    	Log.e("sociam","problem line 694");
 	    }  
 	 // Log.e("sociam", type+" "+response);
 	  return response;
