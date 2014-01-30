@@ -118,7 +118,6 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	protected Context context;
 	private SharedPreferences sp; 
 	private DataApplication dapp;
-	boolean msg_window_visible=false;
 	Timer timer;
 	myTimerTask timerTask;
 	
@@ -176,14 +175,15 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     if(checkInternet()){
     
     setContentView(R.layout.activity_main); 
+   
+    
     // start location manager
     setMyLocationManager();
-   
+    
     if((!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) && 
-	(!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))   ){
-     	showLocationPrompt();
-    }else{
-   
+            (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))   ){
+                 showLocationPrompt();
+        }else{
     
     // obtain map data from the server
     getCrimesData();
@@ -193,11 +193,7 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     
     //map initialise
     setUpMapIfNeeded();
-    
-    
-    
-    setbtn();
-    
+    setbtn();    
     
     //drawer instanceate
     setDrawer();
@@ -209,11 +205,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
      timer = new Timer();
      myTimerTask mTask = new myTimerTask(this);
      timer.schedule(mTask, 10000, 120000);
-    }
-    
     
     }
-  
+    }
   
   }
 
@@ -276,9 +270,8 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	
   }
 
-
-
-private void setDrawer() {
+	
+	private void setDrawer() {
 	  
 	  mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 	  mListView = (ListView) findViewById(R.id.list_drawer);
@@ -556,8 +549,8 @@ private void setbtn() {
   	  for(int i = 0 ; i < allProvider.size() ; i++){
   		  locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
   	  }
-     
-	
+  	  
+  	  
   }
   
   	
@@ -1140,7 +1133,6 @@ private ArrayList<Crime> getCrimesData() {
 		
 		public CustomInfoAdapter() {
 			mWindow = getLayoutInflater().inflate(R.layout.info_window, null);
-		
 		}
 		
 		@Override
@@ -1179,7 +1171,6 @@ private ArrayList<Crime> getCrimesData() {
 				mk.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_p));
 
 				layout.setVisibility(View.VISIBLE);
-				msg_window_visible=true;
 				return null;
 
 			}
@@ -1189,7 +1180,7 @@ private ArrayList<Crime> getCrimesData() {
 		
 	 
 		
-		private void setMsgMarker(final RecieveMessage rm, Marker mk) {
+		private void setMsgMarker(final RecieveMessage rm, final Marker mk) {
 
 			
 			layout = (LinearLayout) findViewById(R.id.message_screen_onmain);
@@ -1253,6 +1244,8 @@ private ArrayList<Crime> getCrimesData() {
 				public void onClick(View v) {
 					
 					//Log.e("sociam","Clicked can you see it?");
+					layout.setVisibility(View.INVISIBLE);
+					mk.setIcon(BitmapDescriptorFactory.fromResource(R.drawable.msg_n));
 					MainMessageDetailFragmentDialog detailFragmentDialog = new MainMessageDetailFragmentDialog(rm);
 					detailFragmentDialog.show(getSupportFragmentManager(), "sociam");
 					
@@ -1264,6 +1257,10 @@ private ArrayList<Crime> getCrimesData() {
 			
 		}
 
+		public void closeMsg(){
+			layout.setVisibility(View.INVISIBLE);
+		}
+		
 		private void render(Marker maker, View view) {
 			
 			TextView auther = (TextView) view.findViewById(R.id.view_name);
@@ -1312,9 +1309,11 @@ private ArrayList<Crime> getCrimesData() {
 
 		}
 		
-		
 	}
 	
+	public void closeMsgWindow(){
+		
+	}
 	
 	@Override
 	public void onInfoWindowClick(Marker marker) {
@@ -1761,9 +1760,7 @@ private ArrayList<Crime> getCrimesData() {
 			
 			LatLng latlng = new LatLng(crime.getLat(), crime.getLon());
 			CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(latlng, 15);
-			
-			
-			
+		
 			mMap.animateCamera(cameraUpdate);
 		}
 		

@@ -78,9 +78,9 @@ public class MessageFragment extends Fragment{
 		double lat = ((MessageActivity) getActivity()).getLat(); 
 		double lon = ((MessageActivity) getActivity()).getLon();
 		
-		String loc = getAddress(lat, lon);
+     	String loc = getAddress(lat, lon);
 		location.setText("@"+ loc);
-		
+			
 		
 		final TextView tv = (TextView) view.findViewById(R.id.msg_count);
 		tv.setTypeface(robothin);
@@ -156,8 +156,7 @@ public class MessageFragment extends Fragment{
 										intent.setClassName("com.sociam.android", 
 												"com.sociam.android.user.UserRegisterActivity");
 										startActivity(intent);
-										
-										
+																				
 									}
 								});
 								alb.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -174,8 +173,6 @@ public class MessageFragment extends Fragment{
 									
 								idcard.setChecked(false);
 							}
-								
-							
 
 						 }else{
 								username.setText("Anonymous says...");
@@ -192,22 +189,26 @@ public class MessageFragment extends Fragment{
 
 	
 	public String getAddress(double lat, double lon){
-		String address=null;
 		
+		String address="";
+		Log.e("sociam",lat + " "+ lon);
 		Geocoder geocorder;
 		List<Address> addresses = null;
 		geocorder = new Geocoder(getActivity(), Locale.getDefault());
+		
+		
 		try {
 			addresses = geocorder.getFromLocation(lat, lon, 1);
 		} catch (IOException e) {
-			e.printStackTrace();
+			Log.e("sociam","cannot get address");
 		}
 		
-		if(addresses.get(0).getSubLocality()!=null)
-			address = addresses.get(0).getSubLocality() + " "+addresses.get(0).getLocality();
-		else
-			address = addresses.get(0).getLocality();
-				
+		if(addresses!=null){
+			if(addresses.get(0).getSubLocality()!=null)
+				address = addresses.get(0).getSubLocality() + " "+addresses.get(0).getLocality();
+			else
+				address = addresses.get(0).getLocality();
+		}
 		
 		return address;
 	}
