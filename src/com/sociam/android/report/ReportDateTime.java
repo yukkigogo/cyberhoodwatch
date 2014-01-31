@@ -30,8 +30,12 @@ import android.view.View.OnClickListener;
 import android.app.TimePickerDialog;
 import android.app.DatePickerDialog;
 
-
-
+/**
+ * This class asks the user to select when the incident happen. 
+ * The user chose not now the time picker will open.
+ * @author yukki
+ *@version 1
+ */
 @SuppressLint("ValidFragment")
 public class ReportDateTime extends Fragment {
 	

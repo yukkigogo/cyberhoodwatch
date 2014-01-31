@@ -16,7 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+/**
+ * This class (extending DialogFregment) is used to show Tag for UserSetting
+ * <p>
+ * This class is called by UserPreferenceDialog class
+ * 
+ * @author yukki
+ *@version 1
+ */
 public class UserPreferenceTagDialog extends DialogFragment{
 
 	DataApplication dapp;

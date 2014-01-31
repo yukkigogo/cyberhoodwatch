@@ -17,6 +17,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * This class (extending DialogFragment) is to show user setting. 
+ * 
+ * @author yukki
+ * @version 1
+ */
 public class UserPreferenceDialog extends DialogFragment {
 
 		DataApplication dapp;

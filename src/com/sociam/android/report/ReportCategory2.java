@@ -22,7 +22,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
 
-
+/**
+ * This is second category page. The page buttons are changed depend on the first category page.
+ * 
+ * @author yukki
+ *@version 1
+ */
 @SuppressLint("NewApi")
 public class ReportCategory2 extends Fragment {
 	
@@ -57,6 +62,9 @@ public class ReportCategory2 extends Fragment {
 		setBtns();
 	}
 	
+	/**
+	 * Set to default 
+	 */
 	public void setall(){
 		setBtns();
 	}

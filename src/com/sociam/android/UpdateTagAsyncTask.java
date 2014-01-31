@@ -23,7 +23,13 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.provider.OpenableColumns;
 import android.util.Log;
-
+/**
+ * This class (extending AsyncTask) update local tag file which stored as csv file from the server.  
+ * 
+ *
+ * @author yukki
+ *
+ */
 public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 
 	int currentver;
@@ -45,8 +51,7 @@ public class UpdateTagAsyncTask extends AsyncTask<String, Integer, String>{
 		
 		// check the latest id and if it old update		
 		if(checkNeedUpdateTags(currentver)){
-			Log.e("sociam", "UpdateTagAsyncTask execute on! - reading from the server");
-
+			
 			
 			HttpClient client = new DefaultHttpClient();
 		    HttpPost httpPost = new HttpPost("http://sociamvm-yi1g09.ecs.soton.ac.uk/tagmanager.php");

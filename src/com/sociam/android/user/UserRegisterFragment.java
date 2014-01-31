@@ -27,7 +27,11 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+/**
+ * The class (fragment) is first page for sign up the page. 
+ * @author yukki
+ *@version 1
+ */
 public class UserRegisterFragment extends Fragment{
 	
 	SharedPreferences sp;

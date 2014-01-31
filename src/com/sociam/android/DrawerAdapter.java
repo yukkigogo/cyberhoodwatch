@@ -18,7 +18,12 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+/**
+ * This is custom ArrayAdapter for Navigation Drawer.
+ * 
+ * @author yukki
+ *@version 1
+ */
 public class DrawerAdapter extends ArrayAdapter<Crime>{
 
 	private LayoutInflater mLayoutInflater;

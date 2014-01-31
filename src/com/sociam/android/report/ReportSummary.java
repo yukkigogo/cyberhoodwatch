@@ -31,7 +31,13 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
+/**
+ * This class is to show the summary of the incident. 
+ * It has submit button asd cancel button. 
+ * After submit button, the UploadAsyncTask will upload the incident. 
+ * @author yukki
+ * @version 1
+ */
 public class ReportSummary extends Fragment {
 	
 	ListView lv;

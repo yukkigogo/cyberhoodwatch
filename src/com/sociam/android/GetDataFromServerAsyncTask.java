@@ -13,7 +13,11 @@ import com.sociam.android.MainActivity.GetDateFromCallback;
 
 import android.os.AsyncTask;
 import android.util.Log;
-
+/**
+ * This async task class is to obtain crime/message data as a csv file from the server.
+ * @author yukki
+ *@version 1
+ */
 public class GetDataFromServerAsyncTask extends AsyncTask<String, String, String>{
 
 	

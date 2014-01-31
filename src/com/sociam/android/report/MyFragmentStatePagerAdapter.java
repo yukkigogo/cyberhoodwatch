@@ -6,11 +6,21 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.view.View;
 
 
-
+/**
+ * This class is control the sliding function in the report page.
+ * 
+ * @see android.support.v4.app.FragmentStatePagerAdapter
+ * @author yukki
+ * @version 1
+ */
 public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 	// don't forget to change report activity as well
+	/**
+	 * number of page
+	 */
 	final int PAGE_COUNT = 10;
 	
+
 	public MyFragmentStatePagerAdapter(FragmentManager fm) {
 		super(fm);
 	}
@@ -20,20 +30,14 @@ public class MyFragmentStatePagerAdapter extends FragmentStatePagerAdapter {
 		switch(i){	
 		case 0: 		
 			return new ReportEmargencyQuestion();
-
 		case 1: 
-
 			return new ReportHappenWho();
-
 		case 2: 
-			ReportEvidence rp1 = new ReportEvidence();
-			return rp1;
+			return new ReportEvidence();
 		case 3: 
-			ReportCategory rp2 = new ReportCategory();
-			return rp2;
+			return new ReportCategory();
 		case 4: 
-			ReportCategory2 rp3 = new ReportCategory2();
-			return rp3;		
+			return new ReportCategory2();
 		case 5:
 			return new ReportLocation();
 		case 6:

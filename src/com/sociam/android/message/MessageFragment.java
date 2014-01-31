@@ -37,7 +37,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-
+/**
+ *  This class (fragment) is the main page of composing a message. 
+ * @author yukki
+ *
+ */
 public class MessageFragment extends Fragment{
 	
 	private int count=0; 

@@ -9,6 +9,13 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 
+/**
+ * The class extending Dialogfragment is used to show a evaluate dialog screen. 
+ * 
+ *@see android.support.v4.app.DialogFragment
+ *@author yukki
+ *@version 1
+ */
 @SuppressLint("ValidFragment")
 public class EvaluateDialogFragment extends DialogFragment {
 

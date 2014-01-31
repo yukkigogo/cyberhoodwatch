@@ -15,6 +15,12 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 
+/**
+ * This class (extending AsyncTask) is used for obtaining hero point of the user from the server. 
+ * 
+ * @author yukki
+ * @version 1
+ */
 public class UserHeropointAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 	int heropoint;

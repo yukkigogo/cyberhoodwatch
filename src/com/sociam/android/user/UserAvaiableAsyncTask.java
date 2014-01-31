@@ -12,7 +12,13 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import com.sociam.android.user.UserRegisterFragment.UserSetupFragmentCallBack;
 
 import android.os.AsyncTask;
-
+/**
+ * This class (Async Task) is to check whether the username is available or not.
+ * If someone already registered the username, the return the false.  
+ * @author yukki
+ * @version 1
+ *
+ */
 public class UserAvaiableAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 	private UserSetupFragmentCallBack fuscbk;

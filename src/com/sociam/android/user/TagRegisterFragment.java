@@ -34,9 +34,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.LinearLayout.LayoutParams;
 
-//     String usertags = "female-general:student-general:susu-southampton";
-
-
+/**
+ * This class is used for secound page for sing up page. The user can select the tags from this page
+ * 
+ * @author yukki
+ *@version 1
+ */
 public class TagRegisterFragment extends Fragment {
 	
 	Typeface robothin;
@@ -189,16 +192,6 @@ public class TagRegisterFragment extends Fragment {
 	}
 
 
-//	private ArrayList<Tag> getTags(HashMap<String, String> tagmap){
-//		ArrayList<Tag> tags = new ArrayList<Tag>();
-//		
-//		for(Entry<String, String> entry : tagmap.entrySet()) {			
-//			tags.add(new Tag(entry.getKey(),entry.getValue()));
-//		}		
-//				
-//				
-//		return tags;
-//	}
 	
 
     private ArrayList setUpButton(ArrayList<Tag> tags){

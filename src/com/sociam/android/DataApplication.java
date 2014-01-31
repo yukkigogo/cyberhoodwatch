@@ -37,6 +37,8 @@ public class DataApplication extends Application {
 	
 	/**
 	 * Initial set up for application. 
+	 * <p>
+	 * Set up SharePreference and initial tag list
 	 */
 	@Override
 	public void onCreate() {

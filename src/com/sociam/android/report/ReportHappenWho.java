@@ -15,7 +15,12 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.ToggleButton;
 
-
+/**
+ * This class is to ask the user whether the user is victim or witness, or he/she needs help. 
+ * 
+ * @author yukki
+ *@version 1
+ */
 public class ReportHappenWho extends Fragment {
 	
 	ViewPager pager;

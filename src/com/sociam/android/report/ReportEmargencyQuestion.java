@@ -25,7 +25,12 @@ import android.view.View.OnClickListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
-
+/**
+ * This class is first page of report page. It ask the user if the incident is emergency or not.
+ * 
+ * @author yukki
+ *@version 1
+ */
 public class ReportEmargencyQuestion extends Fragment {
 	
 	ViewPager pager;

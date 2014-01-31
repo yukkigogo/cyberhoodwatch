@@ -22,7 +22,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
 
-
+/**
+ * This class show the first category page. The categories are 'Anti-Social-Behaviour', 'Theft','Violent' and 'Other'
+ * This category affect second category page.
+ * @author yukki
+ *
+ */
 public class ReportCategory extends Fragment {
 	
 	ViewPager pager;

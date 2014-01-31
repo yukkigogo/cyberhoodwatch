@@ -13,7 +13,11 @@ import com.sociam.android.user.UserRegisterFragment.UserSetupFragmentCallBackEma
 
 import android.os.AsyncTask;
 import android.util.Log;
-
+/**
+ * This class (Async task) ask the server whether the email address is already registerd or not. 
+ * @author yukki
+ *@version 1
+ */
 public class EmailAvaiableAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 	private UserSetupFragmentCallBackEmail fuscbk;

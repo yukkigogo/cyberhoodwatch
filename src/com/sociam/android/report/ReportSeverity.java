@@ -23,10 +23,12 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
 
-
+/**
+ * This class (fragment)  is to ask the severity of the incident.  
+ * @author yukki
+ *
+ */
 public class ReportSeverity extends Fragment {
-	
-	
 	
 	ViewPager pager;
 	boolean sbtn5, sbtn2, sbtn3, sbtn4;

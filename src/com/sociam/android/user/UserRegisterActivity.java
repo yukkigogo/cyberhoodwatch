@@ -12,6 +12,12 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.widget.ToggleButton;
 
+/**
+ * This class (activity) controls all the other fragments and PagerAdapter.
+ * This activity manages user sign up. 
+ * @author yukki
+ *
+ */
 public class UserRegisterActivity extends FragmentActivity {
 
 	public static final int USER_REG =1;

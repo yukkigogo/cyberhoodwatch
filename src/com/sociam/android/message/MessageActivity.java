@@ -27,11 +27,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-
+/**
+ * This is the main activity for sending a message.
+ * 
+ * @author yukki
+ *
+ */
 
 // main activity for message
 public class MessageActivity extends FragmentActivity{
-	
 	
 	SharedPreferences sp; 
 	
@@ -46,6 +50,9 @@ public class MessageActivity extends FragmentActivity{
 	ToggleButton tagsToggle; 
 	DataApplication dapp;
 	
+	/**
+	 * Method is excuted when the user click the add message button.
+	 */
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
@@ -73,7 +80,10 @@ public class MessageActivity extends FragmentActivity{
 	}
 	
 
-	
+	/**
+	 * Set the id and tag buttons.
+	 * @param toggle
+	 */
 	private void setToggle(final ToggleButton toggle){
 		toggle.setOnClickListener(new OnClickListener() {
 			
@@ -88,6 +98,11 @@ public class MessageActivity extends FragmentActivity{
 		});
 	}
 	
+	/**
+	 * Helper function is used by MessgeFragment. 
+	 * Change the tag toggle button ON
+	 * @param checked 'true' : ON, 'false' : OFF 
+	 */
 	public void setTagchange(boolean checked){
 		tagsToggle.setChecked(checked);
 	}
@@ -97,7 +112,9 @@ public class MessageActivity extends FragmentActivity{
 	
 	
 	
-	
+	/**
+	 * Set menu layout in the screen 
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -106,6 +123,9 @@ public class MessageActivity extends FragmentActivity{
 		return true;
 	}
 
+	/**
+	 * Method control the menu in action ber
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	
@@ -231,31 +251,58 @@ public class MessageActivity extends FragmentActivity{
 
 	
 
-	// helper funtion to pass the objects
+	/**
+	 * Return user location - latitude
+	 * @return latitude
+	 */
 	public double getLat(){
 		return this.lat;
 	}
+	/**
+	 * Return user location - longitude
+	 * @return longitude
+	 */
 	public double getLon(){
 		return this.lon;
 	}
 	
+	/**
+	 * Return SendMessage Object
+	 * @return SendMessage 
+	 */
 	public SendMessage getUM(){
 		return this.um;
 	}
 
+	/**
+	 * Return a list of all tags which contains user input. 
+	 * @return a list of tags
+	 */
 	public ArrayList<Tag> getTags(){
 		return this.tags;
 	}
 
-
+	/**
+	 * Set if the user changed tag setting from default
+	 * @param b 'true' if changed
+	 */
 	public void setIsTagChanged(boolean b){
 		this.isTagChanged=b;
 	}
+	/**
+	 * Return whether the user changed the tag setting.
+	 * @return 'true' : if the user changed the tag setting
+	 */
 	public boolean getIsTagChanged(){
 		return this.isTagChanged;
 	}
 	
 	
+	/**
+	 * callback Interface from UpAsyncTask
+	 * @author yukki
+	 *
+	 */
 	public interface MessageFragmentCallBack{
 		public void onTaskDone();
 	}

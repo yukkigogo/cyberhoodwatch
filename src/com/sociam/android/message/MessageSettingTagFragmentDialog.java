@@ -24,7 +24,11 @@ import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.ToggleButton;
-
+/**
+ * This class (extending DialogFragment) is to show a dialog which the user set up the tags. 
+ * @author yukki
+ *
+ */
 public class MessageSettingTagFragmentDialog extends DialogFragment {
 	
 	Typeface robothin;

@@ -31,6 +31,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+/**
+ * This class is to show a dialog screen of replying a message.   
+ * @author yukki
+ *
+ */
 @SuppressLint("ValidFragment")
 public class MainMsgDetailFragmentReplyDialog extends DialogFragment{
 	

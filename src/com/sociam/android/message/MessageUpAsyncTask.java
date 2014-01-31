@@ -23,7 +23,12 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
 import android.widget.Toast;
-
+/**
+ * This class is used for create async task object which is upload a message from user device to the server. 
+ * 
+ * @author yukki
+ *@see android.os.AsyncTask
+ */
 public class MessageUpAsyncTask extends AsyncTask<String, Integer, Integer> {
 
 	ProgressDialog dialog;

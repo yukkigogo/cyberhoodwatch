@@ -28,7 +28,12 @@ import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
-
+/**
+ * This class used for updating user vote. 
+ * @author yukki
+ * @version 1
+ *
+ */
 public class EvaluateAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 	ProgressDialog dialog;

@@ -47,9 +47,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-// This class for first report page
+/**
+ * This class is to encourage the user to take picture as an evidence. 
+ * If the user is victim, this page is skipped. 
+ * @author yukki
+ *
+ */
 public class ReportEvidence extends Fragment {
-
+	/** request code */
 	static final int REQUEST_CAPTURE_IMAGE = 100;
 	
 	
@@ -154,32 +159,12 @@ public class ReportEvidence extends Fragment {
 						
 					}
 				});
-//		setListeners();		
+
 
 		
 	}
 	
-//	protected void setListeners(){		
-//		btn1.setOnClickListener(new OnClickListener(){
-//			@Override
-//			public void onClick(View v) {				
-//				
-//				// take picture get location 
-//				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//				startActivityForResult(intent,REQUEST_CAPTURE_IMAGE);
-//				
-//			}
-//		});
-//		
-//		btn2.setOnClickListener(new OnClickListener() {			
-//			@Override
-//			public void onClick(View v) {
-//				pager =(ViewPager) getActivity().findViewById(R.id.pager);
-//				pager.setCurrentItem(pager.getCurrentItem()+1);
-//			}
-//		});
-//		
-//	}
+
 	
 	
 	private void setListenersInEvi(final Button btn, final int type){
@@ -210,7 +195,9 @@ public class ReportEvidence extends Fragment {
 	}
 	
 	
-	
+	/**
+	 * Method after the picture was taken. The picture is converted to bitmap.
+	 */
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if(REQUEST_CAPTURE_IMAGE == requestCode && resultCode == Activity.RESULT_OK ){
 			
@@ -233,7 +220,12 @@ public class ReportEvidence extends Fragment {
 	
 	
 
-	
+	/**
+	 * Helper function for onAcvitityResult(). It saves picture in local folder and store the crime object 
+	 * 
+	 * @param saveImage
+	 * @throws IOException
+	 */
 	public void saveBitmap(Bitmap saveImage) throws IOException{
 		
 	

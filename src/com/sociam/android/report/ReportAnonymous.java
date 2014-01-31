@@ -47,6 +47,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+/**
+ * The class (fragment) asks the user wants to be anonymous or not. 
+ * @author yukki
+ *@version 1
+ */
 // This class for first report page
 public class ReportAnonymous extends Fragment {
 

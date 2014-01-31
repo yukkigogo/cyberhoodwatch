@@ -18,7 +18,6 @@ import java.util.UUID;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
@@ -26,8 +25,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
+
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap.InfoWindowAdapter;
@@ -45,50 +43,34 @@ import com.sociam.android.model.MsgMarker;
 import com.sociam.android.model.RecieveMessage;
 import com.sociam.android.model.ReplyMessage;
 import com.sociam.android.model.Tag;
-import com.sociam.android.report.ReportActivity;
 
 import android.annotation.SuppressLint;
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Configuration;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.location.LocationProvider;
-import android.media.audiofx.BassBoost.Settings;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Process;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.provider.AlarmClock;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v4.widget.SlidingPaneLayout;
-import android.text.Layout;
 import android.text.format.Time;
-import android.text.style.BulletSpan;
 import android.util.Log;
 import android.util.TypedValue;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -96,42 +78,52 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnFocusChangeListener;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.LinearLayout.LayoutParams;
 
 // this class for the start page. 
+
+/**
+ * Main class for the application.
+ * 
+ * <p>
+ * This application has 4 activities in total and MeinActivity(this class) is main activity of the application.
+ * This class (activity) is firstly executed when a user open the application.  
+ * The map will be loaded via Android google map API. Other data will be download from the server. 
+ * 
+ * @version 1.0
+ * @author yukki
+ */
 @SuppressLint("ValidFragment")
 public class MainActivity extends FragmentActivity implements LocationListener,
 												OnInfoWindowClickListener{
-  
 	GoogleMap mMap;
 	protected Context context;
 	private SharedPreferences sp; 
 	private DataApplication dapp;
+
+	// Used reload data
 	Timer timer;
 	myTimerTask timerTask;
 	
-	// Crime data
+	// Lists for crime, mssage and reply data 
 	private ArrayList<Crime> crimes;
 	private ArrayList<Crime> sortedCrimesDis;
-	private ArrayList<Marker> markers;
+	//private ArrayList<Marker> markers;
 	private HashMap<Integer,Marker> mapMarkers;
 	ArrayList<MsgMarker> aryMsgs ;
 
-	// for messaging system
-	//private HashMap<Marker, RecieveMessage> msg_maker_hash;
+	// Asynctask of reply messages 
 	private boolean isFinishSetupReplysArray; 
-	//Location
+	
+	// For Location access 
 	private static final int ONE_MINUTES = 1000 * 60 * 1;
 	private Location currentBestlocation;
 	protected LocationManager locationManager;
@@ -143,22 +135,36 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	private double lon1;
 
 	
-	//drawer
+	// For Navigation Drawer 
 	private DrawerLayout mDrawerLayout;
 	private ListView mListView;
 	private ActionBarDrawerToggle mDrawerToggle;
 	
-	// right now
+	/**
+	 *  Get Calendar instance current time
+	 */
 	public static final Calendar rightNow = Calendar.getInstance();
-	
-	
 
-	
+	/**
+	 * Initial setup for the main map page 
+	 * <p>
+	 * 
+	 *  In the beginning, it instanciates SharedPreference and Application Object.
+	 *  SharedPreference store the personal user data such as username, tag information.
+	 *  ApplicationObject is used for several activities. 
+	 * Then, it checks the app is opened first time. If it is first time, it will create user uniq id which will used for creating anonymous ID.
+	 * <br> 
+	 *  After initial setting is finished, this method checks availabilities of device internet and location manager.
+	 *  If Internet and location manager are working, it downloads crime and message data from the server
+	 *  and plots markers of crimes and message data.  
+	 *  
+	 *  @see android.support.v4.app.FragmentActivity#onCreate(android.os.Bundle)
+	 */
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     
-    // set for general 
+    // setup SharedPreference and Application objects
 	sp = PreferenceManager.getDefaultSharedPreferences(this);		 
 	dapp = (DataApplication)this.getApplication();
 
@@ -172,14 +178,14 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   
 	 }
 
-    if(checkInternet()){
-    
+    if(checkInternet()){  
     setContentView(R.layout.activity_main); 
    
     
     // start location manager
     setMyLocationManager();
     
+    // Whether the location manager is available. If not, it shows the pop up setup screen.
     if((!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) && 
             (!locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER))   ){
                  showLocationPrompt();
@@ -229,6 +235,12 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	
 	}
 
+	/**
+	 *  Method that will read once this activity is not visible.
+	 *  <p>
+	 *  Once the activity is not visible, the location manager will stop 
+	 *  since it cost battery power. 
+	 */
 	public void onStop() {
 		super.onStop();
 		locationManager.removeUpdates(this);
@@ -248,8 +260,11 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	}
 	
 
-	/*
-	 * helper function to reload the data from the server
+	/**
+	 * Method that reloads markers' data from server
+	 * <p>
+	 * Method that manage to reload data from the server. It clear all the markers 
+	 * on the map, then obtain new data from the server.
 	 */
 	public void reloadData(){
 		
@@ -258,19 +273,30 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	    getDistanceFromHere(currentBestlocation, crimes);
 	    setUpMap();
 	    setbtn();
-	    updateTags();
+	    //updateTags();
 		
 	}
 	
 
-	
+	/**
+	 * Helper function for update tags from the server (UpdateTagAnyscTask class)
+	 * <p>
+	 * Tags are centralised in the DB. This method invokes the async task(Thread) 
+	 * which will update the local tag.csv file from the DB.
+	 */
 	private void updateTags() {
 	  UpdateTagAsyncTask task = new UpdateTagAsyncTask(this);
 	  task.execute("sociam");
 	
   }
 
-	
+	/**
+	 * Setting Navigation Drawer
+	 * <p>
+	 * Method that sets up the navigation drawer.
+	 * The navigation drawer contains the list of incidents 
+	 * in order of near distance from the user's location 
+	 */
 	private void setDrawer() {
 	  
 	  mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -283,14 +309,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
 	  Collections.sort(sortedCrimesDis);
 	  DrawerAdapter mAdapter = new DrawerAdapter(this,0, sortedCrimesDis,dapp);
 	  
-	 
-	  
-	  
 	  mListView.setAdapter(mAdapter);
   
-	  mListView.setOnItemClickListener(new DrawerItemClickListener());
-	  
-   
+	  mListView.setOnItemClickListener(new DrawerItemClickListener());   
   
       mDrawerToggle = new ActionBarDrawerToggle(this, 
     		  									mDrawerLayout, 
@@ -298,20 +319,14 @@ public class MainActivity extends FragmentActivity implements LocationListener,
     		  									R.string.open_drawer,
     		  									R.string.close_drawer){
     	  
-    	  @Override
-    	public void onDrawerClosed(View drawerView) {    		  
-    		  //super.onDrawerClosed(drawerView);
-    	}
+    	@Override
+    	public void onDrawerClosed(View drawerView) { }
     	  
     	@Override
-    	public void onDrawerOpened(View drawerView) {   										
-   			//super.onDrawerOpened(drawerView);
-    												}
-    	  
+    	public void onDrawerOpened(View drawerView) {  }
     	  
       };
-  
-      
+ 
       mDrawerLayout.setDrawerListener(mDrawerToggle);
   
       getActionBar().setDisplayHomeAsUpEnabled(true);
@@ -319,10 +334,11 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   }
 
 
-  /*
-   * Helper function for nativation drawer
-   */
-
+ /**
+  * It called after onStart(). It contains Sync the toggle state after 
+  * onRestoreInstanceState has occurred.
+  * 
+  */
   @Override
   protected void onPostCreate(Bundle savedInstanceState) {
       super.onPostCreate(savedInstanceState);
@@ -332,7 +348,9 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   	}
   }
   
-  
+  /**
+   * Pass any configuration change to the drawer toggles
+   */
   @Override
   public void onConfigurationChanged(Configuration newConfig) {
       super.onConfigurationChanged(newConfig);
@@ -341,8 +359,10 @@ public class MainActivity extends FragmentActivity implements LocationListener,
   }
   
   
-  
-private void setbtn() {
+  /*
+   * Method that sets up buttons which located in the bottom of the map  
+   */
+  private void setbtn() {
 	  ImageButton ibtn = (ImageButton) findViewById(R.id.report_incident);
 	  ibtn.setOnClickListener(new OnClickListener() {	
 		@Override
@@ -352,10 +372,10 @@ private void setbtn() {
   			startActivity(intent);
 			
 		}
-	});
+	  	});
 	  
-	 ImageButton msgBtn = (ImageButton) findViewById(R.id.report_msg);
-	 msgBtn.setOnClickListener(new OnClickListener() {
+	  ImageButton msgBtn = (ImageButton) findViewById(R.id.report_msg);
+	  msgBtn.setOnClickListener(new OnClickListener() {
 		
 		@Override
 		public void onClick(View v) {
@@ -372,7 +392,13 @@ private void setbtn() {
 
  
   
-  
+  /**
+   * Set up the menu contents. 
+   * <p>
+   * Method that instantiates Menu object and set layout.
+   * 
+   * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+   */
   public boolean onCreateOptionsMenu(Menu menu) {
   	MenuInflater inflater = getMenuInflater();
   	inflater.inflate(R.menu.main, menu);
@@ -380,21 +406,23 @@ private void setbtn() {
   	return true;
   }
   
-  
+  /**
+   * Set up each menu functions. 
+   *
+   * @see android.app.Activity#onOptionsItemSelected(android.view.MenuItem)
+   */
   @Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-
 	  	
 	  if (mDrawerToggle.onOptionsItemSelected(item)) {
          
 		  return true;
         }
 	  
-	  
 	  switch(item.getItemId()){
 	  		case R.id.action_settings :
 	  			// show the participant information 
-	  			ConsentFormDialog consentFormDialog = new ConsentFormDialog();
+	  			ParticipantInfoDialog consentFormDialog = new ParticipantInfoDialog();
 	  			consentFormDialog.show(getSupportFragmentManager(), "sociam");
 	  			break;
 	  			
@@ -485,16 +513,15 @@ private void setbtn() {
 	  			}
 	  			break;
 	  		
-//	  		case R.id.menu_reload:
-//	  			reloadData();
-//	  			break;
 	  }
 	  	
 	
 	  	
 	  	return super.onOptionsItemSelected(item);
 	}
-  
+  /*
+   * this method is read only once when first time app is open.
+   */
   private void setUpOnlyOnce(){
 	  Editor e = sp.edit();
 	  e.putBoolean("first_time", false);
@@ -518,64 +545,34 @@ private void setbtn() {
 
   
   
-  
+  /*
+   * Helper function for setUpMap()
+   */
   private void setUpMapIfNeeded() {
       // Do a null check to confirm that we have not already instantiated the map.  
       if (mMap == null) {
           // Try to obtain the map from the SupportMapFragment.
           mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
                   .getMap();
-          
-          
           // Check if we were successful in obtaining the map.
           if (mMap != null) {
               setUpMap();
           }
       }
   }
-
-
-  private void setMyLocationManager(){
-	  Log.v("sociam","Loading Location Mangaer......");
-	  
-	  //set up current location using LocationManager		
-	  locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
-      
-      currentBestlocation = getLastLocationBest(
-                            locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER),
-                            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
-	  
-	  List<String> allProvider =  locationManager.getAllProviders();
-  	  for(int i = 0 ; i < allProvider.size() ; i++){
-  		  locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
-  	  }
-  	  
-  	  
-  }
-  
-  	
-  private void showLocationPrompt(){
-	  
-    	new AlertDialog.Builder(this)
-    	.setIcon(android.R.drawable.ic_dialog_info)
-    	.setTitle("Warning")
-    	.setMessage("Please enable location access")
-    	.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					
-					startActivity(new Intent(
-					android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-					finish();
-				}
-			}).show();
-  }
-  
-  
-  
+  /*
+   * Method that sets initial setting on the map.
+   * 
+   * 1.initial setting for map 
+   * 2.update hero point
+   * 3.plot crime markers on the map
+   * 4.obtain messages from server and plot on the map
+   * 5.setup infowindows  
+   *  
+   */
   private void setUpMap() {
 	  
+	  // initial setting for map
 	  mMap.setMyLocationEnabled(true);
 	  UiSettings settings = mMap.getUiSettings();
 	  settings.setCompassEnabled(true);
@@ -600,11 +597,61 @@ private void setbtn() {
 	  
   }
  
-
-
-
-  private void plotCrime() {
-	// 
+  /**
+   * Method that invokes loading 'LocationManager' 
+   * <p>
+   * The location strategy is a bit tricky in android. 
+   * This methods tries to use accurate position as much as possible
+   * 1. set up current location using LocationManager
+   * 2.just in case, if current location is not available to get latest best location. 
+   * 3.invokes listeners from GPS and Network
+   */
+  public void setMyLocationManager(){
+	  Log.v("sociam","Loading Location Mangaer......");
+	  
+	  //set up current location using LocationManager		
+	  locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE); 
+     
+	  // just in case,, if current location is not available to get latest best location. 
+      currentBestlocation = getLastLocationBest(
+                            locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER),
+                            locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER));
+	  
+      // invokes listeners from GPS and Network
+	  List<String> allProvider =  locationManager.getAllProviders();
+  	  for(int i = 0 ; i < allProvider.size() ; i++){
+  		  locationManager.requestLocationUpdates(allProvider.get(i), 0, 0,(LocationListener) this);
+  	  }
+  	  
+  	  
+  }
+  
+  /*
+   * Helper function to show the pop up screen to prompt Location access ON	
+   */
+  private void showLocationPrompt(){
+	  
+    	new AlertDialog.Builder(this)
+    	.setIcon(android.R.drawable.ic_dialog_info)
+    	.setTitle("Warning")
+    	.setMessage("Please enable location access")
+    	.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+				
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					
+					startActivity(new Intent(
+					android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+					finish();
+				}
+			}).show();
+  }
+ 
+  /*
+   * Helper function to plot the crime marker on the map 
+   * called onCreate()
+   */
+   private void plotCrime() {
 	//markers = new ArrayList<Marker>();
 	mapMarkers = new HashMap<Integer, Marker>();
 	Marker amaker = null;
@@ -650,7 +697,10 @@ private void setbtn() {
 	  
   }
 
-
+  /*
+  *  Helper function for setMyLocationManager()
+  *  It sets up latest location 
+  */
   private void setLatestLatLon(){
 	  
 		    if(currentBestlocation!=null){	
@@ -671,8 +721,13 @@ private void setbtn() {
   
   
   
-  
-  private String getData(int type){
+/**
+ *  Method that gets data from the server. 
+ *  
+ * @param type Potential values are 0:crime 1:messages 2:replymessages
+ * @return String the response which contains sequence of data from the server.  
+ */
+  public String getData(int type){
 	  	
 	  	String response = null;
 	  	HttpClient httpClient = new DefaultHttpClient();
@@ -702,9 +757,12 @@ private void setbtn() {
   
   
   
-
+  /*
+   * Helper function for reloadData() and onCreate()
+   * It processed a String of crime data from server into the list
+   */
   @SuppressLint("SimpleDateFormat")
-private ArrayList<Crime> getCrimesData() {
+  private ArrayList<Crime> getCrimesData() {
 	  	
 	  	String response1 = getData(0);
 	      
@@ -837,9 +895,15 @@ private ArrayList<Crime> getCrimesData() {
   }
 	
 	
-
+  /*
+   * Helper function for setMap()
+   * Obtains message data from the DB as A string.
+   * The string is processed to be Tag and Msg object then store a list 
+   * which is hold by MainActivity
+   */
   private void getMessagesAndMarker() {
-	   aryMsgs = new ArrayList<MsgMarker>();
+	   
+	  aryMsgs = new ArrayList<MsgMarker>();
 		//HashMap<Marker,RecieveMessage> msg_maker_hash = new HashMap<Marker, RecieveMessage>();
 		
 		String response = getData(1);
@@ -1012,7 +1076,10 @@ private ArrayList<Crime> getCrimesData() {
 
 	   return true;
    }
-  
+  /**
+   *  Return whether the async task to get reply messages is finished or not 
+   * @return 'ture' if the task is finished 'false' the task is still processing.
+   */
    public boolean isFinishReplyUpdate(){
 	   return this.isFinishSetupReplysArray;
    }
@@ -1073,6 +1140,9 @@ private ArrayList<Crime> getCrimesData() {
 	/*
 	 * Location Listener implementations 
 	 */
+	 /**
+	  * Method when the location listener hear the location is changed from the device (GPS or Network).
+	  */
 	@Override
 	public void onLocationChanged(Location location) {
 		
@@ -1105,7 +1175,10 @@ private ArrayList<Crime> getCrimesData() {
 	/*
 	 * change 3d view
 	 */
-	
+	/**
+	 * Method to change the view of the map
+	 * @param latlngs the centre of geo location of the map on the screen
+	 */
 	public void change3Dview(LatLng latlngs){
 		CameraPosition cameraPosition = new CameraPosition.Builder()
 			.tilt(60)
@@ -1118,7 +1191,7 @@ private ArrayList<Crime> getCrimesData() {
 	}
 
 	/*
-	 * InfoWindow Customise
+	 * The class for InfoWindow Customise
 	 */
 	@SuppressLint("ResourceAsColor")
 	private class CustomInfoAdapter implements InfoWindowAdapter{
@@ -1311,9 +1384,7 @@ private ArrayList<Crime> getCrimesData() {
 		
 	}
 	
-	public void closeMsgWindow(){
-		
-	}
+	
 	
 	@Override
 	public void onInfoWindowClick(Marker marker) {
@@ -1330,18 +1401,28 @@ private ArrayList<Crime> getCrimesData() {
 			
 	}
 
-	
+	/**
+	 * The class extends Dialogfragment is used to show a dialog which is the detail of a crime. 
+	 * 
+	 *  @see android.support.v4.app.DialogFragment
+	 * @author yukki
+	 *@version 1
+	 */
 	public class MainReportDetailDialogFragment extends DialogFragment {
 
 		Crime crime;
-//		SharedPreferences sp;
-//		DataApplication dapp;
+
+		/**
+		 * Constructor take argument as crime obj to be shown in the detail screen.
+		 * @param crime crime object 
+		 */
 		public MainReportDetailDialogFragment(Crime crime) {
 			this.crime = crime;
-//			sp = PreferenceManager.getDefaultSharedPreferences(con);		 
-//			dapp = (DataApplication) con.getApplicationContext();
 		}
 		
+		/**
+		 * setup main screen 
+		 */
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			setRetainInstance(true);
@@ -1377,7 +1458,7 @@ private ArrayList<Crime> getCrimesData() {
 			
 			if(crime.getPicON()==1){
 	            ImageView imv = (ImageView) view.findViewById(R.id.mrd_picture);
-	            imv.setImageBitmap(Downloader.getImageFromURL(crime.getFilepath()));
+	            imv.setImageBitmap(ImageDownloader.getImageFromURL(crime.getFilepath()));
 
 			}
 			// adding the elements dynamically
@@ -1507,6 +1588,9 @@ private ArrayList<Crime> getCrimesData() {
 			return view;
 		}
 
+		/**
+		 * when the dialog is closed. 
+		 */
 		@Override
 		public void onDestroyView() {
 		  if (getDialog() != null && getRetainInstance())
@@ -1514,33 +1598,48 @@ private ArrayList<Crime> getCrimesData() {
 		  super.onDestroyView();
 		}
 		
-		public boolean isMyCrimeReport(String crime_id){
-			Log.e("sociam",sp.getString("crime_id", ""));
-			String[] crimes = sp.getString("crime_id", "").split(",");
-			for(String str : crimes){
-				if(str.equals(crime_id)) {
-					return true;
-				}
-			}
-			return false;
-		}
-		
-		public boolean isAlreadyEvalCrime(String crime_id){
-			String[] crimes_eval = sp.getString("eval_crime", "").split(",");
-			for(String str : crimes_eval){
-				if(str.equals(crime_id)){
-					return true;
-				}
-			}
-			return false;
-		}
+//		/**
+//		 * Helper function for onCreateDialog(), check the user reports this particular crime or not. 
+//		 * @param crime_id number of crime id
+//		 * @return 'true' if the crime is reported by the user 
+//		 */
+//		public boolean isMyCrimeReport(String crime_id){
+//			Log.e("sociam",sp.getString("crime_id", ""));
+//			String[] crimes = sp.getString("crime_id", "").split(",");
+//			for(String str : crimes){
+//				if(str.equals(crime_id)) {
+//					return true;
+//				}
+//			}
+//			return false;
+//		}
+//		
+//		/**
+//		 * Helper function for onCreateDialog(), it check the user already evaluate this crime or not. 
+//		 * 
+//		 * @param crime_id number of crime id
+//		 * @return 'true' the user already evaluated the crime. 
+//		 */
+//		public boolean isAlreadyEvalCrime(String crime_id){
+//			String[] crimes_eval = sp.getString("eval_crime", "").split(",");
+//			for(String str : crimes_eval){
+//				if(str.equals(crime_id)){
+//					return true;
+//				}
+//			}
+//			return false;
+//		}
 		
 	}
 
 	
 	
 	
-	
+	/**
+	 * Helper function for onCreateDialog(), check the user reports this particular crime or not. 
+	 * @param crime_id number of crime id
+	 * @return 'true' if the crime is reported by the user 
+	 */
 	public boolean isMyCrimeReport(String crime_id){
 		Log.e("sociam",sp.getString("crime_id", ""));
 		String[] crimes = sp.getString("crime_id", "").split(",");
@@ -1552,6 +1651,12 @@ private ArrayList<Crime> getCrimesData() {
 		return false;
 	}
 	
+	/**
+	 * Helper function for onCreateDialog(), it check the user already evaluate this crime or not. 
+	 * 
+	 * @param crime_id number of crime id
+	 * @return 'true' the user already evaluated the crime. 
+	 */
 	public boolean isAlreadyEvalCrime(String crime_id){
 		String[] crimes_eval = sp.getString("eval_crime", "").split(",");
 		for(String str : crimes_eval){
@@ -1565,79 +1670,83 @@ private ArrayList<Crime> getCrimesData() {
 	
 	
 	
-	/*
-	 * helper class to show evaluate dialog
-	 * plan deprecated 
-	 */
-	public class EvaluateDialog extends DialogFragment{
-		private String crime_id;
-		public EvaluateDialog(String id) {
-			this.crime_id=id;
-		}
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			setRetainInstance(true);
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			builder.setTitle("Evaluate the Incident");
-			builder.setNegativeButton("Up Vote", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// connect server to evaluate and closed and reload
-					
-						EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
-						evaluate.execute(crime_id,"1","0","crime");
-						((MainActivity) getActivity()).reloadData();
-						
-					
-					EvaluateDialog.this.getDialog().dismiss();
-				}
-			});
-			
-			builder.setNeutralButton("Down Vote", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					
-					
-					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
-					evaluate.execute(crime_id,"0","1","crime");
-					((MainActivity) getActivity()).reloadData();
-
-					
-					
-					EvaluateDialog.this.getDialog().dismiss();
-
-				}
-			});
-			
-			builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-				
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					// do nothing
-					EvaluateDialog.this.getDialog().dismiss();
-					
-				}
-			});
-						
-			return builder.create();
-		}
-		
-		@Override
-		public void onDestroyView() {
-		  if (getDialog() != null && getRetainInstance())
-		    getDialog().setOnDismissListener(null);
-		  super.onDestroyView();
-		}
-
-		
-	}
+//	public class EvaluateDialog extends DialogFragment{
+//		private String crime_id;
+//		
+//		
+//		public EvaluateDialog(String id) {
+//			this.crime_id=id;
+//		}
+//		@Override
+//		public Dialog onCreateDialog(Bundle savedInstanceState) {
+//			setRetainInstance(true);
+//			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//			builder.setTitle("Evaluate the Incident");
+//			builder.setNegativeButton("Up Vote", new DialogInterface.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					// connect server to evaluate and closed and reload
+//					
+//						EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
+//						evaluate.execute(crime_id,"1","0","crime");
+//						((MainActivity) getActivity()).reloadData();
+//						
+//					
+//					EvaluateDialog.this.getDialog().dismiss();
+//				}
+//			});
+//			
+//			builder.setNeutralButton("Down Vote", new DialogInterface.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					
+//					
+//					EvaluateAsyncTask evaluate = new EvaluateAsyncTask(getActivity());
+//					evaluate.execute(crime_id,"0","1","crime");
+//					((MainActivity) getActivity()).reloadData();
+//
+//					
+//					
+//					EvaluateDialog.this.getDialog().dismiss();
+//
+//				}
+//			});
+//			
+//			builder.setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					// do nothing
+//					EvaluateDialog.this.getDialog().dismiss();
+//					
+//				}
+//			});
+//						
+//			return builder.create();
+//		}
+//		
+//		@Override
+//		public void onDestroyView() {
+//		  if (getDialog() != null && getRetainInstance())
+//		    getDialog().setOnDismissListener(null);
+//		  super.onDestroyView();
+//		}
+//
+//		
+//	}
 	
+
 	/*
 	 * helper class to show the perticepent information
 	 */
-	public class ConsentFormDialog extends DialogFragment{		
+	/**
+	 * The class extending Dialogfragment is used to show the participant information. 
+	 * @author yukki
+	 *@version 1
+	 */
+	public class ParticipantInfoDialog extends DialogFragment{		
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -1649,7 +1758,7 @@ private ArrayList<Crime> getCrimesData() {
 			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					ConsentFormDialog.this.getDialog().dismiss();
+					ParticipantInfoDialog.this.getDialog().dismiss();
 					
 				}
 			});
@@ -1660,6 +1769,12 @@ private ArrayList<Crime> getCrimesData() {
 	
 	/*
 	 * helper class to show consent form
+	 */
+	/**
+	 * This class extending DialogFragment is to show concent from. 
+	 * 
+	 * @author yukki
+	 *@version 1
 	 */
 	public class ConsentFormDialog2 extends DialogFragment{		
 		@Override
@@ -1683,34 +1798,34 @@ private ArrayList<Crime> getCrimesData() {
 	}
 
 	
-	public class MyPreferenceShow extends DialogFragment{		
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			LayoutInflater inflater = getActivity().getLayoutInflater();
-			View view = inflater.inflate(R.layout.my_preference, null);
-			
-			TextView id = (TextView) view.findViewById(R.id.mypre_textView2);
-			id.setText(sp.getString("uuid", "something problem with uuid"));
-			
-			TextView crime_id = (TextView) view.findViewById(R.id.mypre_textView4);
-			crime_id.setText(sp.getString("crime_id", "something wrong with crime_id"));
-
-			
-			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-			
-			builder.setTitle("My Preference");
-			builder.setView(view);
-			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-				@Override
-				public void onClick(DialogInterface dialog, int which) {
-					MyPreferenceShow.this.getDialog().dismiss();
-					
-				}
-			});
-			
-			return builder.create();
-		}
-	}
+//	public class MyPreferenceShow extends DialogFragment{		
+//		@Override
+//		public Dialog onCreateDialog(Bundle savedInstanceState) {
+//			LayoutInflater inflater = getActivity().getLayoutInflater();
+//			View view = inflater.inflate(R.layout.my_preference, null);
+//			
+//			TextView id = (TextView) view.findViewById(R.id.mypre_textView2);
+//			id.setText(sp.getString("uuid", "something problem with uuid"));
+//			
+//			TextView crime_id = (TextView) view.findViewById(R.id.mypre_textView4);
+//			crime_id.setText(sp.getString("crime_id", "something wrong with crime_id"));
+//
+//			
+//			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//			
+//			builder.setTitle("My Preference");
+//			builder.setView(view);
+//			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					MyPreferenceShow.this.getDialog().dismiss();
+//					
+//				}
+//			});
+//			
+//			return builder.create();
+//		}
+//	}
 
 	/*
 	 * helper class for auto update every 3 min 
@@ -1742,7 +1857,7 @@ private ArrayList<Crime> getCrimesData() {
 	
 	
 	/*
-	 * helper class to contral Navigation Drawer
+	 * helper class to control Navigation Drawer
 	 */
 	private class DrawerItemClickListener implements ListView.OnItemClickListener{
 
@@ -1769,7 +1884,10 @@ private ArrayList<Crime> getCrimesData() {
 	}
 
 	
-	
+	/**
+	 * Return the current best location
+	 * @return the best location
+	 */
 	public Location getLocation(){
 		if(currentBestlocation!=null){
 //			Log.w("sociam","location is new");
@@ -1782,7 +1900,13 @@ private ArrayList<Crime> getCrimesData() {
 		return this.currentBestlocation;
 	}
 	
-	
+	/**
+	 * Helper function for onCreate(). It compute distance between current position of user and each crime. 
+	 * This list will be used for navigation drawer.
+	 * 
+	 * @param userloc the user location 
+	 * @param crimelist a list of crime 
+	 */
 	public void getDistanceFromHere(Location userloc, ArrayList<Crime> crimelist){
 		
 		// add distance to each crime obj
@@ -1866,6 +1990,9 @@ private ArrayList<Crime> getCrimesData() {
 		}
 		
 		
+		/**
+		 * This interface is used for call back function from async task
+		 */
 		public interface GetDateFromCallback{
 			public void onTaskDone(String response);
 		}

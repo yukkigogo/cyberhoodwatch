@@ -29,7 +29,12 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.Toast;
-
+/**
+ * This class (async task) updates a new incident to the server. 
+ *  
+ * @author yukki
+ *@version 1
+ */
 public class UploadAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 	ProgressDialog dialog;

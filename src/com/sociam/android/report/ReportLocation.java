@@ -33,7 +33,12 @@ import android.widget.ToggleButton;
 import android.view.View.OnClickListener;
 
 
-
+/**
+ * This class show the location options. The user is able to select where the incident hapend.
+ * The potential valuse are here, input address, unknown and the place can be choice from map. 
+ * @author yukki
+ *@version 1
+ */
 public class ReportLocation extends Fragment {
 	
 	
@@ -193,13 +198,6 @@ public class ReportLocation extends Fragment {
 								btn4.setChecked(false);
 								btn5.setChecked(false);
 								
-								//Toast.makeText(getActivity(), "Sorry - Haven't Implemented it yet!",
-								//		Toast.LENGTH_LONG).show();
-								
-								//open the map with dialog and get lat lon
-								//MapDialogFragment mdf = new MapDialogFragment();
-								//mdf.show(getFragmentManager(), "sociam");
-								
 							
 								
 								viewformap = View.inflate(getActivity(), R.layout.report_location_map_select, null);
@@ -297,37 +295,6 @@ public class ReportLocation extends Fragment {
 								d.show();
 								
 								
-//								.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-//									@Override
-//									public void onClick(DialogInterface dialog, int which) {		
-//										// do nothing
-//										if(m!=null) m.remove();
-//										
-//										Fragment f = (Fragment) getFragmentManager().findFragmentById(R.id.map2);
-//										if(f != null)
-//												getFragmentManager().beginTransaction().remove(f).commit();
-//										
-//									}
-//								})
-//								.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//									
-//									@Override
-//									public void onClick(DialogInterface dialog, int which) {
-//										
-//										if(m!=null){
-//										
-//										
-//										currentCrime.setLat(latlng.latitude);
-//										currentCrime.setLon(latlng.longitude);
-//										
-//										Fragment f = (Fragment) getFragmentManager().findFragmentById(R.id.map2);
-//										if(f != null)
-//												getFragmentManager().beginTransaction().remove(f).commit();
-//										
-//										}
-//									}
-//								})
-//								.show();
 								((ReportActivity) getActivity()).setAdapter();
 
 
@@ -382,7 +349,6 @@ public class ReportLocation extends Fragment {
 							setLocation();
 							
 							
-							//Log.v("sociam", "hwo is btn5??  " + btn5.isChecked());
 						}
 						
 					}
@@ -432,47 +398,6 @@ public class ReportLocation extends Fragment {
 		}).show();
 	}
 	
-	/*
-	 * helper class to show map
-	 */
-//	@SuppressLint("ValidFragment")
-//	public class MapDialogFragment extends DialogFragment{
-//		@Override
-//		public Dialog onCreateDialog(Bundle savedInstanceState) {
-//			LayoutInflater mLayoutInflater = getActivity().getLayoutInflater();
-//			View view = mLayoutInflater.inflate(R.layout.report_location_map_select, null);
-//			
-//			SupportMapFragment fragment = new SupportMapFragment();
-//			FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
-//			transaction.add(R.layout.report_location_map_select, fragment).commit();
-//			
-//			AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//			
-//			builder.setTitle("Select the Plece from the map");
-//			builder.setView(view);
-//			builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-//				
-//				@Override
-//				public void onClick(DialogInterface dialog, int which) {
-//					MapDialogFragment.this.getDialog().dismiss();
-//				}
-//			});
-//		return builder.create();
-//	}			
-//		@Override
-//		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//				Bundle savedInstanceState) {
-//			
-//			View view = inflater.inflate(R.layout.report_location_map_select, container,false);
-//
-//			SupportMapFragment fragment = new SupportMapFragment();
-//			FragmentTransaction transaction = getParentFragment().getFragmentManager().beginTransaction();
-//			transaction.add(R.id.map2, fragment).commit();
-//			
-//
-//			return view;
-//		}		
-//	}
 	
 	
 }

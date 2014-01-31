@@ -15,7 +15,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
+/**
+ * This class (async task) is used for registering a new username. 
+ * 
+ * @author yukki
+ *
+ */
 public class SubmitUserRegisterAsyncTask extends AsyncTask<String, Integer, Integer>{
 
 	Context context;

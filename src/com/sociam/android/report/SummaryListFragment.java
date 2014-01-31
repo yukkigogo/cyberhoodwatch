@@ -21,7 +21,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-
+/**
+ * Custom ListFragment. It will used SummaryListfragment. 
+ * This class makes the list of the sumarry page.
+ * @author yukki
+ *@version 1
+ */
 public class SummaryListFragment extends ListFragment {
 	
 	Crime currentCrime;

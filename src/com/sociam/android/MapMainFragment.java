@@ -5,7 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
+/**
+ * This class set up map view in main screen. 
+ * 
+ * @author yukki
+ *
+ */
 public class MapMainFragment extends Fragment {
 
 	@Override

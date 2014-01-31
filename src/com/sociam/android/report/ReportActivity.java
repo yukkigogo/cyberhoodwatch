@@ -31,7 +31,19 @@ import android.preference.PreferenceManager;
 import com.sociam.android.DataApplication;
 import com.sociam.android.R;
 import com.sociam.android.model.Crime;
-
+/**
+ * This class is the main activity for reporting an incident. 
+ * <p>
+ * Report page uses slide pages which is implemented by pager adapter. 
+ * MyFragmentStatePargerAdapter controls the sliding pages. 
+ * <p>
+ * When the class called, a Crime object was created in order to store user input. 
+ * The class also starts location listner in order to get the user's location.
+ * 
+ * @see android.support.v4.app.FragmentStatePagerAdapter
+ * @author yukki
+ *
+ */
 
 /*
  * when you add another fragment
@@ -46,7 +58,11 @@ import com.sociam.android.model.Crime;
  */
 @SuppressLint("NewApi")
 public class ReportActivity extends FragmentActivity implements LocationListener{
+	
 	// PAGE_COUNT - 1
+	/**
+	 * total number of sliding page minus 1. 
+	 */
 	public static final int SUMMARY_FRAG_NUM = 9; 
 	
 	// store crime data
@@ -68,6 +84,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	private Location currentBestLocation;
 	protected Context context;
 	protected Double latitude,longitude; 	
+	/** one min use for location setting */
 	private static final int ONE_MINUTES = 1000 * 60 * 1;
 	
 	// store the state
@@ -89,7 +106,6 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		crime = new Crime();
 		
 		sp = PreferenceManager.getDefaultSharedPreferences(this);
-		  Log.w("sociam"," IN REPORT PAGE - coommmooonnn !!  "+ sp.getString("uuid", "something problem with uuid"));
 		
 		dapp = (DataApplication) this.getApplication();
 
@@ -239,45 +255,113 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		frag3btn5 = (ToggleButton) findViewById(R.id.frag3LeftTopBtn);	
 	}
 	
+	/**
+	 * Return crime object
+	 * @return crime obj
+	 */
 	public Crime getCrime(){
 		return this.crime;
 	}
 	
-	public MyFragmentStatePagerAdapter getMyfm(){
-		return this.myAdapter;
-	}
+//	public MyFragmentStatePagerAdapter getMyfm(){
+//		return this.myAdapter;
+//	}
 	
+	/**
+	 * Return user location - latitude
+	 * @return latitude 
+	 */
 	public double getLat(){
 		return this.latitude;
 	}
+	
+	/**
+	 * Return user location - longitude
+	 * @return longitude
+	 */
 	public double getLng(){
 		return this.longitude;
 	}
+	
+	/** 
+	 * Used by ReportLocation.class only
+	 * Return number of button in ReportLocation 
+	 * @return num of button
+	 * @see com.sociam.android.report.ReportLocation
+	 */
+	public int getLoc(){ return this.loc; }
+	
+	/**
+	 * Used by  ReportLocation.class only
+	 * @param i number of input
+	 * @see com.sociam.android.report.ReportLocation
+	 */
+	public void setLoc(int i){ this.loc=i; }
+	
+	/**
+	 * Return this application's SharedPreference object
+	 * @return SharedPreference
+	 */
 	public SharedPreferences getSP(){
 		return this.sp;
 	}
+	
+	/**
+	 * Return Time object which is already setting current time and date
+	 * @return current time and date
+	 */
 	public Time getNow(){
 		return this.now;
 	}
-	
+	/**
+	 * Return MyFragmenetStateAdapter 
+	 * <p>
+	 * MyFragmenentStateAdapter controls sliding (fragment) pages.
+	 * @see android.support.v4.app.FragmentStatePagerAdapter
+	 * @return custom FragmentStatePagerAdapter
+	 */
 	public MyFragmentStatePagerAdapter getMyfragmentStatePagerAdapter(){
 		return this.myAdapter;
 	}
-	public int getLoc(){ return this.loc; }
-	public void setLoc(int i){ this.loc=i; }
+	
+	
+	/**
+	 * Used by ReportDateTime.java only
+	 * Return  num of toggle button
+	 * @return num of toggle button
+	 */
 	public int getDnT(){ return this.dnt; }
+	/**
+	 * Used by ReportDateTime.java only
+	 * Set num of toggle button
+	 * @param i num of toggle button 
+	 */	
 	public void setDnT(int i){ this.dnt=i; }	
+	
+	/**
+	 * Used by ReportSeverity.java only
+	 * Return num of toggle button
+	 * @return num of toggle button
+	 */
 	public int getSev(){ return this.sev; }
+	/**
+	 * Used by ReportSeverity.java only
+	 * Set num of toggle button
+	 * @param i num of toggle button. 
+	 */
 	public void setSev(int i){ this.sev=i; }
 	
+	/**
+	 * Return custom arrayadapter which is used for SummaryListFragments.java
+	 *
+	 * @return ArrayAdapter<String> crime context
+	 */
 	public ArrayAdapter<String> getArrayAdapter(){
 		return this.adapter;
 	}
 
-	
+	// the text of button set dynamically
 	private void setTexts(){
-		
-		  // the text of button set dynamically
 		  if(crime.getCategoryCode()==1){
 			  frag3btn2.setText("Damage");
 			  frag3btn2.setTextOn("Damage");
@@ -338,6 +422,7 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		  }
 	}
 	
+	// category page2 button off
 	private void allFrag3Off(){
 		frag3btn2.setChecked(false);
 		frag3btn3.setChecked(false);
@@ -345,16 +430,15 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		frag3btn5.setChecked(false);
 	}
 	
-	
-	public void getLocation(){
-		
+	/**
+	 * Start Location Manager 
+	 */
+	public void getLocation(){		
 		// obtain location
 		locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		Log.v("sociam", "GPS "+locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER));
 		Log.v("sociam", "NETWORK "+locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER));
 
-		
-		
 		
 		List<String> allProvider =  locationManager.getAllProviders();
         for(int i = 0 ; i < allProvider.size() ; i++){
@@ -370,6 +454,9 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 	
 
 	// for location manager
+	/**
+	 * get best location
+	 */
 	public void onLocationChanged(Location location) {
 		if(currentBestLocation!=null){
 			if(isBetterLocationisBetterLocation(location, currentBestLocation))
@@ -390,15 +477,17 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 			//Log.v("sociam", "Lat "+latitude + "   Lon "+longitude);
 	}
 	
-	public void onProviderDisabled(String provider) {
-	}
-	public void onProviderEnabled(String provider) {
-	}
-	public void onStatusChanged(String provider, int status, Bundle extras) {
-	}
+	public void onProviderDisabled(String provider) {}
+	public void onProviderEnabled(String provider) {}
+	public void onStatusChanged(String provider, int status, Bundle extras) {}
 
 	
-	// create a list of summary page
+	/**
+	 * Set a list of summary page
+	 * <p>
+	 * The properties of the crime obj is converted to a String
+	 * then store arrayadapter
+	 */
 	public void setAdapter(){
 		
 		ArrayList<String> details = new ArrayList<String>();
@@ -477,6 +566,10 @@ public class ReportActivity extends FragmentActivity implements LocationListener
 		
 	}
 	
+	/**
+	 * Return the Application object
+	 * @return Application object
+	 */
 	public DataApplication getDataApplication(){
 		return this.dapp;
 	}

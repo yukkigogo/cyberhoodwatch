@@ -22,7 +22,11 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.util.Log;
-
+/**
+ * This class is used for creating async task to update a reply message to the server.
+ * @author yukki
+ *
+ */
 public class ReplyMessageAsyncTask extends AsyncTask<String, Integer, Integer> {
 
 	ProgressDialog dialog;
@@ -30,6 +34,11 @@ public class ReplyMessageAsyncTask extends AsyncTask<String, Integer, Integer> {
 	Context context;
 	SharedPreferences sp;
 	
+	/**
+	 * Constructor 
+	 * @param context MainActivity
+	 * @param frag used for callback function in MainActivity
+	 */
 	public ReplyMessageAsyncTask(Context context,  ReplyMessageFragmentCallback frag) {
 		this.context=context;
 		sp = PreferenceManager.getDefaultSharedPreferences(context);

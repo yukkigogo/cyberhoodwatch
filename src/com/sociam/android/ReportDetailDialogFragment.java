@@ -74,7 +74,7 @@ public class ReportDetailDialogFragment extends DialogFragment {
 		
 		if(crime.getPicON()==1){
             ImageView imv = (ImageView) view.findViewById(R.id.mrd_picture);
-            imv.setImageBitmap(Downloader.getImageFromURL(crime.getFilepath()));
+            imv.setImageBitmap(ImageDownloader.getImageFromURL(crime.getFilepath()));
 
 		}
 		// adding the elements dynamically
